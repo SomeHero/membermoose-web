@@ -1,0 +1,96 @@
+/**
+ *
+ * Apply your custom CSS here
+ *
+*/
+
+html {
+	font-size: 18px;
+}
+
+body {
+	font-family: Arimo, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 1.618;
+}
+
+/* PAGE TITLES */
+.page-title .panel-options {
+  float: right;
+}
+
+.page-title .btn-group {
+  float: right;
+  margin-right: 30px;
+  position: relative;
+  top: 5px;
+}
+
+
+/* MEMBERS TABLE */
+.members-table tbody tr td.action-links a+a {
+  margin-top: 0;
+}
+
+.members-table tbody tr td.action-links a, .members-table tbody tr td.action-links form, .members-table tbody tr td.action-links form div {
+  height: 35px;
+  overflow: hidden;
+}
+
+.members-table .btn.btn-icon.money {
+  padding-bottom: 4px;
+  margin-right: 10px;
+}
+
+.sidebar-menu .logo-env .settings-icon {
+  top: 17px;
+}
+
+.settings-pane-open .sidebar-menu .sidebar-menu-inner .logo-env .settings-icon {
+  box-shadow: 0 0 0 10px #27292a,0 -10px 0 10px #27292a,0 -40px 0 10px #27292a,0 -30px 0 10px #27292a;
+}
+
+
+/* WIDGETS */
+.subscribers-widget.xe-widget.xe-progress-counter.xe-progress-counter-pink {
+  color: #333;
+  padding-bottom: 15px;
+  margin: 0;
+  background: transparent;
+}
+
+.subscribers-widget.xe-widget.xe-progress-counter .xe-progress .xe-progress-fill {
+    background: #68b828;
+}
+
+/* PAGES */
+body[class*='devise'].new, body[class*='devise'].create {
+  background: #2c2e2f;
+  color: #fff;
+  padding: 0;
+}
+.login-page .login-form a, .reset-password a {
+  color: #979898;
+}
+
+/* BREADCRUMBS */
+.row.breadcrumbs {
+  margin: -30px -30px 0;
+}
+
+/* AUTH/SESSION PAGES */
+.devise-links a {
+  margin-right: 15px;
+}
+
+.login-footer {
+  margin-top: 30px;
+}
+
+.breadcrumb {
+  margin: -30px -30px 30px;
+  padding: 20px 30px;
+}
+
+.row {
+  overflow-x: auto;
+}
