@@ -1,5 +1,5 @@
 ActiveAdmin.register Plan do
-  permit_params :name, :description, :amount, :billing_cycle, :billing_interval, :trial_period_days, :terms_and_conditions
+  permit_params :account, :name, :description, :amount, :billing_cycle, :billing_interval, :trial_period_days, :terms_and_conditions
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
