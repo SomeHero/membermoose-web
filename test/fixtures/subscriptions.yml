@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  account_id: 
+  plan_id: 
+  account_payment_method_id: 
+  status: MyString
+
+two:
+  account_id: 
+  plan_id: 
+  account_payment_method_id: 
+  status: MyString
