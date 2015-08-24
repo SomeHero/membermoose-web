@@ -35,6 +35,7 @@ module API
       end
 
       mount API::V1::Plans
+      mount API::V1::Funnel
     end
   end
 end

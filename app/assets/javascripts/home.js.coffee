@@ -83,7 +83,7 @@ ready = ->
       #     'company': $('input#company_name').val()
       $.ajax
         type: 'POST'
-        url: '/get_started/' + $('form .active').data('action')
+        url: '/api/v1/funnel/step' + completedSection
         data: data
         dataType: 'JSON'
         async: true
