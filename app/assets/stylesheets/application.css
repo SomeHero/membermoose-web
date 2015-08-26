@@ -10,6 +10,15 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
+ *= require dashboard.css
+ *= require home.css
  *= require_self
+ *= require frameworks/app-theme/fonts/linecons/css/linecons.css
+  *= require frameworks/app-theme/fonts/fontawesome/css/font-awesome.css
+  *= require frameworks/app-theme/bootstrap.css
+  *= require frameworks/app-theme/xenon-core.css
+  *= require frameworks/app-theme/xenon-forms.css
+  *= require frameworks/app-theme/xenon-components.css
+  *= require frameworks/app-theme/xenon-skins.css
+  *= require frameworks/app-theme/custom.css
  */
