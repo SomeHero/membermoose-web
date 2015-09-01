@@ -1,0 +1,136 @@
+// Place all the styles related to the dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// Place all the styles related to the Plans controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+//colors
+$white: #fff;
+$concrete: #f2f2f2;
+$background-color: #edf0f5;
+$border-color: #e5e7eb;
+$subnav-link-color: #6a6c6f;
+
+body {
+  font-family: "Raleway", Arial, sans-serif;
+	padding-top: 51px;
+  background-color: $background-color;
+  .navbar {
+    background-color: #ffffff;
+    border-bottom: solid 1px $border-color;
+  }
+  .navbar-header {
+    background-color: #f7f9fa;
+    border-right: solid 1px $border-color;
+    padding-left: 40px;
+  }
+  .container-fluid {
+    padding-left: 0px;
+  }
+  a.navbar-brand {
+    font-size: 16px;
+    font-weight: 700;
+    color: #34495e;
+    text-transform: uppercase;
+  }
+  #top-nav {
+    margin-right: 38px;
+    li a {
+      font-size: 18px;
+      font-weight: 700;
+      color: $border-color;
+    }
+  }
+}
+.text-center {
+	padding-top: 20px;
+}
+.col-xs-12 {
+	background-color: $white;
+}
+#sidebar {
+  position:fixed;
+  width: 200px;
+  z-index: 1000;
+  left: 0;
+  top: 51px;
+  background-color: #ffffff;
+	height: 100%;
+  padding-left: 0px;
+	padding-right: 0px;
+  h4.user-name {
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 25px;
+  }
+  h5.company-name {
+    font-size: 9px;
+    font-weight: 400;
+    margin-top: 6px;
+  }
+  h6.mm-stats {
+    font-size: 10px;
+    font-weight: medium;
+    margin-top: 20px;
+    margin-bottom: 46px;
+  }
+  ul {
+    margin-left: 0px;
+    padding-left: 0px;
+  	li {
+      font-weight: 700;
+      font-size: 10px;
+      background-color: #f7f9fa;
+  		border: 0 $border-color solid;
+  		border-bottom-width: 1px;
+      a {
+        color: $subnav-link-color;
+      }
+  	}
+  }
+}
+#content-wrapper {
+  .content-title {
+    background-color: #f7f9fa;
+    height: 95px;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 20px;
+    padding-left: 25px;
+    padding-top: 25px;
+    font-size: 28px;
+    color: #6a6c6f;
+    font-weight: bold;
+  }
+}
+@media screen and(max-width: 767px) {
+	.row-offcanvas {
+		position: relative;
+		//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+		transition: all 0.25s ease-out;
+	}
+	.row-offcanvas-right {
+		.sidebar-offcanvas {
+			right: -41.6%;
+		}
+		&.active {
+			right: 41.6%;
+		}
+	}
+	.row-offcanvas-left {
+		.sidebar-offcanvas {
+			left: -41.6%;
+		}
+		&.active {
+			left: 41.6%;
+		}
+	}
+	.sidebar-offcanvas {
+		position: absolute;
+		top: 0;
+		width: 41.6%;
+	}
+	#sidebar {
+		padding-top: 0;
+	}
+}

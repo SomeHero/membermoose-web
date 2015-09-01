@@ -1,0 +1,41 @@
+%form#get-started{:action => "", :method => "POST"}
+  #error-message.alert.alert-danger{:role => "alert", :style => "display: none;"} Sorry, it looks like something went wrong! Please try again.
+  %section.personal-name.active{"data-action" => "personal", "data-id" => "1"}
+    %header
+      %h1 What is your name?
+    .group
+      %label{:for => "personal_name"} Your Name
+      %input#personal_name{:autofocus => "", :name => "personal_name", :placeholder => "Moose Anderson", :required => "", :type => "text"}/
+    %footer
+      %button.continue
+        Company Name
+        %i.fa-arrow-right  
+  %section.company-name{"data-action" => "company", "data-id" => "2"}
+    %header
+      %h1 What is the name of your company?
+    .group
+      %label{:for => "company_name"} Company Name
+      %input#company_name{:name => "company_name", :placeholder => "Mooses 'R' Us", :type => "text"}/
+      / <a href="#">Haven't come up with a name yet?</a>
+    %footer
+      %button.previous
+        %i.fa-arrow-left  
+        Your Name
+        %button.continue
+          Email & Password
+          %i.fa-arrow-right  
+  %section.email-and-password{"data-action" => "account", "data-id" => "3"}
+    %header
+      %h1 What do you want your login details to be?
+    .multi-group
+      %label{:for => "email"} Email
+      %input#email{:name => "email", :placeholder => "email", :type => "email"}/
+      %label{:for => "password"} Password
+      %input#password{:name => "password", :placeholder => "password", :type => "text"}/
+    %footer
+      %button.previous
+        %i.fa-arrow-left  
+        Company Name
+        %button.continue
+          Complete Registration
+          %i.fa-arrow-right  

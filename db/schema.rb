@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824021146) do
+ActiveRecord::Schema.define(version: 20150824034056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,14 +139,14 @@ ActiveRecord::Schema.define(version: 20150824021146) do
   create_table "subscriptions", force: true do |t|
     t.integer  "account_id"
     t.integer  "plan_id"
-    t.integer  "account_payment_method_id"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_payment_processor_id"
   end
 
   add_index "subscriptions", ["account_id"], name: "index_subscriptions_on_account_id", using: :btree
-  add_index "subscriptions", ["account_payment_method_id"], name: "index_subscriptions_on_account_payment_method_id", using: :btree
+  add_index "subscriptions", ["account_payment_processor_id"], name: "index_subscriptions_on_account_payment_processor_id", using: :btree
   add_index "subscriptions", ["plan_id"], name: "index_subscriptions_on_plan_id", using: :btree
 
   create_table "users", force: true do |t|

@@ -9,7 +9,14 @@ gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
 gem 'font-awesome-rails', '~> 4.1.0.0'
+gem 'haml'
+gem 'bootstrap_form'
+gem "pry", "~> 0.9"
+gem "pry-nav", "~> 0.2"
+gem 'pry-rails'
+gem 'pry-remote'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

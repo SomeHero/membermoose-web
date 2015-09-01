@@ -14,8 +14,8 @@
 //= require jquery_ujs
 //= require jquery.validate
 //= require jquery.validate.additional-methods
-//= require_tree .
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require remodal
 //= require_directory .
 //= require_directory ./xenon
+//= require_tree .

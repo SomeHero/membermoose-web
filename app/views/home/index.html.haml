@@ -1,0 +1,94 @@
+.homepage
+  / Header
+  %header{:role => "banner"}
+    %nav{:role => "primary"}
+      %a.login{:href => "/users/sign_in"} Login
+      %a.logo{:href => "/"}= image_tag "logo-white.png"
+    .pitch
+      %h1 Get paid automatically
+      %h2
+        Stop chasing invoices.
+        %br>/
+        Start Getting paid.
+        %br>/
+        No code required.
+      .calls-to-action
+        %a.signup-button{"data-remodal-target" => "modal", :href => "#modal"} Get Started for Free
+  / Overview
+  %section.overview
+    %h1 Healthy cash flow in just a click
+    / left-column
+    .left-column
+      .grow
+        %span.title Grow your business
+        %p Get paid automatically. Your time is valuable, so stop chasing invoices. Convert your one-time customers into reliable income with recurring payments and watch your bank account grow.
+      .save-time
+        %span.title Save time
+        %p Give your customers control of their own plans so you can focus on building your business. MemberMoose lets your customers manage their own account so they can access invoices, update their payment information, and upgrade or downgrade plans between cycles.
+    / right-column
+    .right-column
+      /
+        BUG:
+        greedy fontawesome selector affects 'paid-faster'
+        \...changing to fster for the time being
+      .paid-fster
+        %span.title Get paid faster
+        %p Give your customers multiple payment options. Request payments via text, email, or through embedded payment forms on your site. The more options you give your customers to pay, the faster you'll get paid!
+      .hassle-free
+        %span.title Enjoy hassle-free transactions
+        %p Take control of your transactions. Issue refunds, put memberships on hold, cancel payments, and send emails to your customers with ease. Managing transactions is easy and fun with MemberMoose.
+  / How it Works
+  %section.how-it-works
+    .wrapper
+      %h1 How it works
+      .block
+        %span.title Easy setup
+        %p Log in, make a payment plan, and request money from customers in minutes without leaving your MemberMoose dashboard.
+      .block
+        %span.title No code required
+        %p Not a programmer, but you want to take recurring payments?  Don't worry, MemberMoose is easy to use and requires no technical knowledge.
+      .block
+        %span.title Quick and simple reports
+        %p Need to know how much money you are making?  Get a quick snapshot of your business with simple reprts so you can learn more about your customers.
+  / Get Started
+  %section.get-started
+    .left-column
+      / features
+      .features
+        %h2 Features
+        %ul
+          %li Unlimited customers
+          %li Unlimited recurring subscriptions
+          %li Unlimited invoices
+          %li Unlimited emails
+          %li Branded payment forms
+          %li Excellent customer support
+          %li Easy to use dashboard
+    .right-column
+      / start your trial
+      .start-your-trial
+        %h2 Start your 30 Day Free Trial
+        %ul
+          %li $29.95/mo + transaction fees
+          %li Credit Card Processing with Stripe
+          %li 2.9% + 30¢ / transaction
+        %img{:alt => "Cards we support (visa, mastercard, discover, amex)", :src => asset_path('cards.png')}/
+        %a.signup-button{"data-remodal-target" => "modal", :href => "#modal"} Sign Up Now
+  / Footer
+  %footer.page-footer
+    %span.title Say hello!
+    .social
+      %a.facebook{:href => "http://facebook.com/membermoose", :target => "_blank"}
+        %i.fa-facebook  
+      %a.twitter{:href => "http://twitter.com/membermoose", :target => "_blank"}
+        %i.fa-twitter  
+      %a.mail{:href => "http://membermoose.weebly.com/help.html", :target => "_blank"}
+        %i.fa-envelope  
+    %span.copyright
+      ©#{Time.now.year} All Rights Reserved. MemberMoose® is a registered trademark.
+  / Funnel Modal
+  %main.remodal-bg
+    .remodal{"data-remodal-id" => "modal"}
+      .moose-dialog
+        = image_tag("logo.png", { class: "logo" })
+      = render :partial => "shared/funnel"
