@@ -19,7 +19,7 @@ class AccountController < DashboardController
   end
 
   def permitted_params
-    params.require(:user).permit(:email, :account_attributes =>[:first_name, :last_name, :company_name])
+    params.require(:user).permit(:email, :account_attributes =>[:first_name, :last_name, :company_name, :logo])
   end
 
 end

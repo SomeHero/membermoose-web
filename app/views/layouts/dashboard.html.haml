@@ -32,7 +32,7 @@
       %div.row.row-offcanvas.row-offcanvas-left
         %div#sidebar.col-sm-3.col-md-2.sidebar-offcanvas{"role" => "navigation"}
           #profile-block.text-center
-            %img{:src => asset_path('rva_logo.png')}/
+            = image_tag current_user.account.logo.url
             %h4.user-name
               = current_user.account.first_name + " " + current_user.account.last_name
             %h5.company-name
