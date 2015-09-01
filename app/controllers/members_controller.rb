@@ -1,15 +1,11 @@
-class MembersController < ApplicationController
+class MembersController < DashboardController
   layout 'dashboard'
 
   def index
 
   end
 
-  def new
-
-  end
-
-  def create
+  def edit
 
   end
 

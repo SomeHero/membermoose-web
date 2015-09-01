@@ -1,4 +1,4 @@
-class SubscriptionsController < ApplicationController
+class SubscriptionsController < DashboardController
   layout 'dashboard'
 
   def index

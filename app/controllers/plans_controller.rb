@@ -1,6 +1,6 @@
-class PlansController < ApplicationController
+class PlansController < DashboardController
   layout 'dashboard'
-  
+
   def index
 
   end
@@ -10,6 +10,10 @@ class PlansController < ApplicationController
   end
 
   def create
+
+  end
+
+  def edit
 
   end
 
