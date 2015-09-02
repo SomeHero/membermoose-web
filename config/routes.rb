@@ -11,11 +11,14 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
-  resources :plans
-  resources :members
-  resources :subscriptions
-  resources :payments
-  resources :account
+
+  resource :dashboard do
+    resources :plans, :controller => "dashboard/plans"
+    resources :members, :controller => "dashboard/members"
+    resources :subscriptions, :controller => "dashboard/subscriptions"
+    resources :payments, :controller => "dashboard/payments"
+    resources :account, :controller => "dashboard/account"
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

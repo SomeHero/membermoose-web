@@ -1,10 +1,13 @@
-class AccountController < DashboardController
+class Dashboard::AccountController < DashboardController
   layout 'dashboard'
 
   def show
       user = current_user
 
-      render json: user.to_json
+      respond_to do |format|
+        format.html
+        format.json { render json: user.to_json }
+      end
   end
 
   def update

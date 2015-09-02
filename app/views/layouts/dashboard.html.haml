@@ -6,6 +6,7 @@
     = javascript_include_tag 'dashboard/application'
     = csrf_meta_tags
     %link{:href => "https://fonts.googleapis.com/css?family=Raleway:400,500,700", :rel => "stylesheet", :type => "text/css"}/
+    %base{"href"=>"/dashboard"}
   %body{"ng-app"=>"dashboardApp"}
     %nav.navbar.navba.navbar-fixed-top{:role => "navigation"}
       .container-fluid
@@ -42,22 +43,22 @@
               Your Moose Pack
           %ul.nav.nav-sidebar
             %li
-              %a{"href"=>"/launch_list"}
+              %a{"href"=>"/dashboard/launch_list"}
                 LAUNCH LIST
             %li
-              %a{"href"=>"/plans"}
+              %a{"href"=>"/dashboard/plans"}
                 PLANS
             %li
-              %a{"href"=>"/members"}
+              %a{"href"=>"/dashboard/members"}
                 MEMBERS
             %li
-              %a{"href"=>"/subscriptions"}
+              %a{"href"=>"/dashboard/subscriptions"}
                 SUBSCRIPTIONS
             %li
-              %a
+              %a{"href"=>"/dashboard/payments"}
                 PAYMENTS
             %li
-              = link_to "ACCOUNT", edit_account_url(:id => current_user.id)
+              = link_to "ACCOUNT", edit_dashboard_account_url(:id => current_user.id)
         %div.col-sm-9.col-md-10.col-sm-offset-3.col-md-offset-2
           %div#content
             = yield

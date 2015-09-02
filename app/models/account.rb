@@ -1,7 +1,10 @@
 class Account < ActiveRecord::Base
   belongs_to :user
   has_one :address
+  has_many :plans
+  has_many :members, :through => :subscriptions, class_name: "User", foreign_key: "account_id"
   has_many :account_payment_processors
+  has_many :payments
   has_attached_file :logo
 
   validates_attachment :logo, content_type: { content_type: /\Aimage\/.*\Z/ }
