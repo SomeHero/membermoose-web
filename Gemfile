@@ -44,6 +44,10 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'grape'
 gem 'paperclip', '~> 4.2.1'
 gem 'aws-sdk', '< 2.0'
+gem 'bower-rails'
+gem 'angular-rails-templates'
+gem 'angularjs-rails-resource', '~> 2.0.0'
+gem 'angular_rails_csrf'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,0 +1,24 @@
+%form{"name"=>"","ng-submit"=>"updateUser(user)"}
+  .form-group
+    %label{:for=>"firstName"}
+      First Name
+    %input#firstName.form-control.input-lg{:type=>"text",:name=>"user[account_attributes[first_name]]",:placeholder=>"First Name","ng-model"=>"user.account.firstName" }
+  .form-group
+    %label{:for=>"lastName"}
+      Last Name
+    %input#lastName.form-control.input-lg{:type=>"text",:name=>"user[account_attributes[last_name]]",:placeholder=>"Last Name","ng-model"=>"user.account.lastName" }
+  .form-group
+    %label{:for=>"companyName"}
+      Company Name
+    %input#companyName.form-control.input-lg{:type=>"text",:name=>"user[account_attributes[company_name]]",:placeholder=>"Company Name","ng-model"=>"user.account.companyName" }
+  .form-group
+    %label{:for=>"email"}
+      Email Address
+    %input#email.form-control.input-lg{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
+  .form-group
+    %label{:for=>"logo"}
+      Logo
+    %input#email.form-control.input-lg{:type=>"file",:name=>"user[account_attributes[logo]]" }
+
+  %button.btn.btn-primary{:type=>"submit"}
+    Submit

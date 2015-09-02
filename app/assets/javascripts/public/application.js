@@ -16,6 +16,9 @@
 //= require jquery.validate.additional-methods
 //= require bootstrap-sprockets
 //= require remodal
-//= require_directory .
-//= require_directory ./xenon
-//= require_tree .
+//= require_directory ../xenon
+//= require angular
+//= require angular-animate
+//= require angular-ui-router
+//= require angular-rails-templates
+//= require_tree ../../templates

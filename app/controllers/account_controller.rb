@@ -1,8 +1,10 @@
 class AccountController < DashboardController
   layout 'dashboard'
 
-  def edit
+  def show
+      user = current_user
 
+      render json: user.to_json
   end
 
   def update
@@ -12,7 +14,7 @@ class AccountController < DashboardController
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: account.errors, status: :unprocessable_entity }
+        format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
     end
 
