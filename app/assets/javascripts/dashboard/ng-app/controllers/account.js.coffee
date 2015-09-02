@@ -1,4 +1,4 @@
-angular.module('dashboardApp').controller 'AccountController', [
+@AccountController = angular.module('dashboardApp').controller 'AccountController', [
   '$scope'
   'Account'
   '$window'
@@ -14,3 +14,5 @@ angular.module('dashboardApp').controller 'AccountController', [
 
     return
 ]
+
+AccountController.$inject = ['$scope', 'Account', 'window']

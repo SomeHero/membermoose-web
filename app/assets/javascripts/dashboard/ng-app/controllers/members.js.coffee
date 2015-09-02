@@ -1,4 +1,4 @@
-angular.module('dashboardApp').controller 'MembersController', [
+@MemberController = angular.module('dashboardApp').controller 'MembersController', [
   '$scope'
   'Member'
   '$window'
@@ -8,3 +8,5 @@ angular.module('dashboardApp').controller 'MembersController', [
 
       return
 ]
+
+MemberController.$inject = ['$scope', 'Member', 'window']

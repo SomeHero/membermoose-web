@@ -1,10 +1,12 @@
-angular.module('dashboardApp').controller 'PaymentsController', [
+@PaymentController = angular.module('dashboardApp').controller 'PaymentsController', [
   '$scope'
-  'Plan'
+  'Payment'
   '$window'
   ($scope, Payments, window) ->
-    Plan.get().then (payments) ->
+    Payment.get().then (payments) ->
       $scope.payments = payments
 
       return
 ]
+
+PaymentController.$inject = ['$scope', 'Payment', 'window']

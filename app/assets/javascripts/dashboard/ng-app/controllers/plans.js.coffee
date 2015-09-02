@@ -1,4 +1,4 @@
-angular.module('dashboardApp').controller 'PlansController', [
+@PlansController = angular.module('dashboardApp').controller 'PlansController', [
   '$scope'
   'Plan'
   '$window'
@@ -8,3 +8,5 @@ angular.module('dashboardApp').controller 'PlansController', [
 
       return
 ]
+
+PlansController.$inject = ['$scope', 'Plan', 'window']
