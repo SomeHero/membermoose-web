@@ -10,11 +10,26 @@ $concrete: #f2f2f2;
 $background-color: #edf0f5;
 $border-color: #e5e7eb;
 $subnav-link-color: #6a6c6f;
+$table-header-color: #6a6c6f;
+$table-data-color: #98a2b6;
 
+html, body {
+    height: 100%;
+}
+.fill-height {
+    min-height: 100%;
+    height:auto !important; /* cross-browser */
+    height: 100%; /* cross-browser */
+}
 body {
   font-family: "Raleway", Arial, sans-serif;
 	padding-top: 51px;
   background-color: $background-color;
+  label {
+    font-size: 16px;
+    font-color: #6a6c6f;
+    font-weight: 700;
+  }
   .navbar {
     background-color: #ffffff;
     border-bottom: solid 1px $border-color;
@@ -28,10 +43,9 @@ body {
     padding-left: 0px;
   }
   a.navbar-brand {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: #34495e;
-    text-transform: uppercase;
   }
   #top-nav {
     margin-right: 38px;
@@ -39,6 +53,40 @@ body {
       font-size: 18px;
       font-weight: 700;
       color: $border-color;
+    }
+  }
+  .table {
+    font-family: 'Lato', sans-serif;
+    thead {
+      tr {
+        th {
+          line-height: 50px;
+          vertical-align: middle;
+          color: $table-header-color;
+          background-color: $white;
+          border-bottom: solid 1px $border-color;
+          font-size: 12px;
+          font-weight: 700;
+          text-align: left;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td.select-item {
+          width: 60px;
+          text-align: center;
+        }
+        td {
+          line-height: 50px;
+          vertical-align: middle;
+          color: $table-data-color;
+          background-color: $white;
+          border-bottom: solid 1px $border-color;
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
     }
   }
 }
@@ -77,6 +125,9 @@ body {
   ul {
     margin-left: 0px;
     padding-left: 0px;
+    li.top-nav-item {
+      border-top-width: 1px;
+    }
   	li {
       font-weight: 700;
       font-size: 10px;
@@ -97,10 +148,34 @@ body {
     margin-right: -15px;
     margin-bottom: 20px;
     padding-left: 25px;
-    padding-top: 25px;
-    font-size: 28px;
-    color: #6a6c6f;
-    font-weight: bold;
+    padding-top: 15px;
+    font-family: 'Lato', sans-serif;
+    h4 {
+      font-size: 28px;
+      color: #6a6c6f;
+      font-weight: 700;
+      margin-bottom: 0px;
+    }
+    h6 {
+      font-size: 12px;
+      color: #6a6c6f;
+      font-weight: 200;
+    }
+  }
+}
+.edit-bar {
+  width: 265px;
+  position: fixed;
+  right: 0px;
+  top: 52px;
+  bottom: 0px;
+  overflow: scroll;
+  background-color: $white;
+  border-left: solid 1px $border-color;
+  .edit-controls {
+    margin: 12px 15px 60px 0px;
+    font-size: 18px;
+    color: #34495e;
   }
 }
 @media screen and(max-width: 767px) {

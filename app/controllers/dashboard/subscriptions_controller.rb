@@ -2,7 +2,7 @@ class Dashboard::SubscriptionsController < DashboardController
   layout 'dashboard'
 
   def index
-    @subscriptions = current_user.subscriptions
+    @subscriptions = current_user.account.subscriptions
 
     respond_to do |format|
       format.html

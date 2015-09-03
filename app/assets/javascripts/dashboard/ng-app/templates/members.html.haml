@@ -1,4 +1,57 @@
 %header.content-title
-  MEMBERS
-%p
-  Welcome Members
+  %h4
+    MEMBERS
+  %h6
+    All of the people who love what you do.
+%table.table{"ng-table"=>""}
+  %tr{"ng-repeat"=>"member in members"}
+    %td.select-item
+      %input{:type=>"checkbox", "ng-click"=>"selectMember($event, member)"}
+    %td{"data-title"=>"'First Name'"}
+      {{member.firstName}}
+    %td{"data-title"=>"'Last Name'"}
+      {{member.lastName}}
+    %td{"data-title"=>"'Email'"}
+      {{member.user.email}}
+    %td{"data-title"=>"'Member Since'"}
+      December 12, 2012
+    %td{"data-title"=>"'Plans'"}
+      Lone Wolf
+    %td{"data-title"=>"'Status'"}
+      Active
+.edit-bar{"ng-show"=>"showEditBar()"}
+  .edit-controls
+    %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
+      %li
+        %a{:title=>"Plan Menu"}
+          %i.fa.fa-cog{"ng-click"=>"openMenu()"}
+      %li
+        %a{:title=>"Close"}
+          %i.fa.fa-times{"ng-click"=>"closeEditBar()" }
+  .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
+    %form{"name"=>"","ng-submit"=>"updatePlan(plan)"}
+      .form-group
+        %label{:for=>"firstName"}
+          First Name
+        %input#firstName.form-control.input{:type=>"text",:name=>"account[first_name]",:placeholder=>"First Name","ng-model"=>"member.account.first_name"}
+      .form-group
+        %label{:for=>"lastName"}
+          Last Name
+        %input#lastName.form-control.input{:type=>"text",:name=>"account[last_name]",:placeholder=>"Last Name","ng-model"=>"member.account.last_name"}
+      .form-group
+        %label{:for=>"emailAddress"}
+          Email Address
+        %input#emailAddress.form-control.input{:type=>"text",:name=>"account[user[email]]",:placeholder=>"Email Address","ng-model"=>"member.account.user.email"}
+      .form-group
+        %label{:for=>"plans"}
+          Plans
+        %p#plans
+          Lone Wolf
+      .form-group
+        %label{:for=>"billingHistory"}
+          Billing History
+      .form-group
+        %label{:for=>"planTermsAndConditions"}
+          Next Billing Date:
+      %button.btn.btn-primary{:type=>"submit"}
+        Update Member

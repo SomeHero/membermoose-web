@@ -1,3 +1,26 @@
 // Place all the styles related to the Plans controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$selected-plan-border-color: #55acee;
+.plan {
+  background-color: white;
+  width: 240px;
+  height: 180px;
+  text-align: center;
+  padding: 20px 20px;
+  list-style-type: none;
+  font-family: 'Raleway';
+  color: #55acee;
+  h2.plan-name {
+    font-size: 16px;
+    margin-bottom: 0px;
+  }
+  h3.plan-amount {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+}
+.plan.selected {
+  border: solid 1px $selected-plan-border-color;
+}

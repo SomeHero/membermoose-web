@@ -3,10 +3,21 @@
   'Subscription'
   '$window'
   ($scope, Subscription, window) ->
+    $scope.subscription = null
+
     Subscription.get().then (subscriptions) ->
       $scope.subscriptions = subscriptions
-      
-      return
+
+    $scope.selectSubscription = (event, subscription) ->
+      $scope.subscription = subscription
+
+    $scope.showEditBar = () ->
+      return $scope.subscription != null
+
+    $scope.closeEditBar = () ->
+      $scope.subscription = null
+
+    return
 ]
 
-SubscriptionController.$inject = ['$scope', 'Subscription', 'window']
+SubscriptionsController.$inject = ['$scope', 'Subscription', 'window']

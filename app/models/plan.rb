@@ -2,6 +2,7 @@ class Plan < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   belongs_to :account
+  has_many :subscriptions
 
   def as_json(options={})
   {
@@ -17,5 +18,5 @@ class Plan < ActiveRecord::Base
     :updated_at	=> self.updated_at
   }
   end
-  
+
 end

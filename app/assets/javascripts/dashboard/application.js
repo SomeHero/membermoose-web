@@ -22,4 +22,5 @@
 //= require angularjs/rails/resource
 //= require angular-ui-bootstrap
 //= require angular-ui-bootstrap-tpls
+//= require ng-table
 //= require_tree .

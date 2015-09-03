@@ -1,4 +1,65 @@
 %header.content-title
-  PLANS
-%p
-  Welcome Plans
+  %h4
+    PLANS
+  %h6
+    Your recurring subsciption plans your members subscribe to.
+%div{:style=>"margin: 40px 0px;"}
+  .container-fluid
+    .row
+      .col-md-3
+        .plan{"ng-click"=>"createPlan()", :style=>"position: relative;"}
+          .plan-image{:style=>"height:70px;"}
+            .overlay
+              %div.view-project
+                %a{"ng-href"=>"/plans/{{plan.id}}"}
+          .plan-info
+            %h2.plan-name
+              Create Plan
+      .col-md-3{"ng-repeat"=>"plan in plans"}
+        .plan{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
+          .plan-image{:style=>"height:70px;"}
+            .overlay
+              %div.view-project
+                %a{"ng-href"=>"/plans/{{plan.id}}"}
+          .plan-info
+            %h2.plan-name
+              {{plan.name}}
+            %h3.plan-amount
+              {{plan.amount | currency }}
+.edit-bar{"ng-show"=>"showEditBar()"}
+  .edit-controls
+    %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
+      %li
+        %a{:title=>"Plan Menu"}
+          %i.fa.fa-cog{"ng-click"=>"openMenu()"}
+      %li
+        %a{:title=>"Close"}
+          %i.fa.fa-times{"ng-click"=>"closeEditBar()" }
+  .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
+    %form{"name"=>"","ng-submit"=>"updatePlan(plan)"}
+      .form-group
+        %label{:for=>"planName"}
+          Plan Name
+        %input#planName.form-control.input{:type=>"text",:name=>"plan[name]",:placeholder=>"Plan Name","ng-model"=>"plan.name"}
+      .form-group
+        %label{:for=>"planDescription"}
+          Plan Description
+        %textarea#planDescription.form-control.input{:rows=>"5",:name=>"plan[description]",:placeholder=>"Description","ng-model"=>"plan.description"}
+      .form-group
+        %label{:for=>"planAmount"}
+          Amount
+        %input#planDescription.form-control.input{:type=>"text",:name=>"plan[amount]",:placeholder=>"Amount","ng-model"=>"plan.amount"}
+      .form-group
+        %label{:for=>"planBillingCycle"}
+          Billing Cycle
+        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[billing_cycle]",:placeholder=>"Billing Cycle","ng-model"=>"plan.billingCycle"}
+      .form-group
+        %label{:for=>"planBillingCycle"}
+          Free Trial Period
+        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[trial_period_days]",:placeholder=>"Free Trial Period","ng-model"=>"plan.trialPeriodDays"}
+      .form-group
+        %label{:for=>"planTermsAndConditions"}
+          Terms and Conditions
+        %textarea#planTermsAndConditions.form-control{:rows=>"8", :name=>"plan[terms_and_conditions]",:placeholder=>"Terms and Conditions","ng-model"=>"plan.termsAndConditions"}
+      %button.btn.btn-primary{:type=>"submit"}
+        Submit

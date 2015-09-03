@@ -21,6 +21,50 @@
     %label{:for=>"logo"}
       Logo
     %input#email.form-control.input-lg{:type=>"file",:name=>"user[account_attributes[logo]]" }
-
   %button.btn.btn-primary{:type=>"submit"}
     Submit
+.edit-bar{"ng-show"=>"showEditBar()"}
+  .edit-controls
+    %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
+      %li
+        %a{:title=>"Plan Menu"}
+          %i.fa.fa-cog{"ng-click"=>"openMenu()"}
+      %li
+        %a{:title=>"Close"}
+          %i.fa.fa-times{"ng-click"=>"closeEditBar()" }
+  .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
+    %h4
+      Subscription Details
+    %h6
+      Member Since: 7/13/2014
+    %p.label
+      Subscriber Name:
+    %p.data
+      James Rhodes
+    %p.label
+      Subscriber Email:
+    %p.data
+      james@somehero.com
+    %p.label
+      Plan Name:
+    %p.data
+      Lone Wolf
+    %p.label
+      Subscription Start Date
+    %p.data
+      August 14, 2014
+    %p.label
+      Subscription End Date
+    %p.data
+      --
+    %p.label
+      Billing History
+    %p.data
+    %p.label
+      Next Billing Date
+    %p.data
+      September 14, 2015
+    %p.label
+      Subscription status
+    %p.data
+      Active

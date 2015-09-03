@@ -45,6 +45,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    angular-ng-table-rails (0.5.4.1)
     angular-rails-templates (0.2.0)
       railties (>= 3.1)
       sprockets (~> 2)
@@ -259,6 +260,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  angular-ng-table-rails
   angular-rails-templates
   angular-ui-bootstrap-rails
   angular_rails_csrf

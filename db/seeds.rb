@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-#AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 
 mm_user = User.create!({
   :email => 'admin@membermoose.com',
@@ -26,6 +26,26 @@ baby_moose = Plan.create!({
     :billing_cycle => "Monthly",
     :billing_interval => "1",
     :trail_period_days => 0,
+    :terms_and_conditions => "Be cool"
+})
+big_moose = Plan.create!({
+    :account => mm_account,
+    :name => "StartUp Moose",
+    :description => "Unlimited plans up to 100 subscribers per plan",
+    :amount => "9.99",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trail_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
+baby_moose = Plan.create!({
+    :account => mm_account,
+    :name => "Top Moose",
+    :description => "Unlimited plans, unlimited subscribers",
+    :amount => "29.99",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trail_period_days => 30,
     :terms_and_conditions => "Be cool"
 })
 payment_processor = PaymentProcessor.create!({

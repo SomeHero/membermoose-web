@@ -3,7 +3,8 @@ var app = angular.module('dashboardApp', [
         'ui.router',
         'templates',
         'rails',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ngTable'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider

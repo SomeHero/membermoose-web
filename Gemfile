@@ -49,6 +49,7 @@ gem 'angular-rails-templates'
 gem 'angularjs-rails-resource', '~> 2.0.0'
 gem 'angular_rails_csrf'
 gem 'angular-ui-bootstrap-rails'
+gem 'angular-ng-table-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
