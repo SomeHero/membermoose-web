@@ -8,30 +8,29 @@
       <%= link_to(root_path) do %>
         <%= image_tag('logo-black.png', width: "300", style:"margin-bottom: 20px;") %>
       <% end %>
-
-      <form accept-charset="UTF-8" action="/users/sign_in" class="login-form" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="9LVNtaq7eUAlK8ACItt3cvxJPfgxx+56nNQBuDam3QM="></div>
+      <%= form_for(resource, :as => resource_name, :html => { :class => 'login-form'}, :url => session_path(resource_name)) do |f| %>
         <div class="form-group">
-          <input autofocus="autofocus" class="form-control input-dark input-lg" id="user_email" name="user[email]" placeholder="you@example.com" type="email" value="">
+          <% f.label :email, class: 'control-label' %>
+          <%= f.email_field :email, { placeholder: 'you@example.com', :autofocus => true, :class => 'form-control input-dark input-lg' } %>
         </div>
 
         <div class="form-group">
-          <input class="form-control input-dark input-lg" id="user_password" name="user[password]" type="password" placeholder="password">
+          <% f.label :password, class: 'control-label' %>
+          <%= f.password_field :password, {  :class => 'form-control input-dark input-lg' } %>
         </div>
 
+        <% if devise_mapping.rememberable? -%>
           <div class="form-group text-left">
-            <input name="user[remember_me]" type="hidden" value="0"><input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1"> <label for="user_remember_me" style="color: #979898; font-weight: 400;">Remember me</label>
+            <%= f.check_box :remember_me %> <%= f.label :remember_me, :style => 'color: #979898; font-weight: 400;' %>
           </div>
+        <% end -%>
 
         <div class="form-group">
-          <input class="btn btn-success  btn-block" name="commit" type="submit" value="Login">
+          <%= f.submit "Login", class: 'btn btn-success  btn-block text-left' %>
         </div>
 
-        <div class="login-footer"><div class="devise-links">
-
-          <%= render "devise/shared/links" %>
-
-</div>
-</div>
-</form>    </div>
+        <div class="login-footer"><%= render "devise/shared/links" %></div>
+      <% end %>
+    </div>
   </div>
 </div>
