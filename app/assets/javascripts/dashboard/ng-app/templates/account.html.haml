@@ -1,70 +1,64 @@
 %header.content-title
-  ACCOUNT
-%form{"name"=>"","ng-submit"=>"updateUser(user)"}
-  .form-group
-    %label{:for=>"firstName"}
-      First Name
-    %input#firstName.form-control.input-lg{:type=>"text",:name=>"user[account_attributes[first_name]]",:placeholder=>"First Name","ng-model"=>"user.account.firstName" }
-  .form-group
-    %label{:for=>"lastName"}
-      Last Name
-    %input#lastName.form-control.input-lg{:type=>"text",:name=>"user[account_attributes[last_name]]",:placeholder=>"Last Name","ng-model"=>"user.account.lastName" }
-  .form-group
-    %label{:for=>"companyName"}
-      Company Name
-    %input#companyName.form-control.input-lg{:type=>"text",:name=>"user[account_attributes[company_name]]",:placeholder=>"Company Name","ng-model"=>"user.account.companyName" }
-  .form-group
-    %label{:for=>"email"}
-      Email Address
-    %input#email.form-control.input-lg{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
-  .form-group
-    %label{:for=>"logo"}
-      Logo
-    %input#email.form-control.input-lg{:type=>"file",:name=>"user[account_attributes[logo]]" }
-  %button.btn.btn-primary{:type=>"submit"}
-    Submit
-.edit-bar{"ng-show"=>"showEditBar()"}
-  .edit-controls
-    %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
-      %li
-        %a{:title=>"Plan Menu"}
-          %i.fa.fa-cog{"ng-click"=>"openMenu()"}
-      %li
-        %a{:title=>"Close"}
-          %i.fa.fa-times{"ng-click"=>"closeEditBar()" }
-  .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
-    %h4
-      Subscription Details
-    %h6
-      Member Since: 7/13/2014
-    %p.label
-      Subscriber Name:
-    %p.data
-      James Rhodes
-    %p.label
-      Subscriber Email:
-    %p.data
-      james@somehero.com
-    %p.label
-      Plan Name:
-    %p.data
-      Lone Wolf
-    %p.label
-      Subscription Start Date
-    %p.data
-      August 14, 2014
-    %p.label
-      Subscription End Date
-    %p.data
-      --
-    %p.label
-      Billing History
-    %p.data
-    %p.label
-      Next Billing Date
-    %p.data
-      September 14, 2015
-    %p.label
-      Subscription status
-    %p.data
-      Active
+  %h4
+    ACCOUNT
+  %h6
+    Update personal information, your logo, and change your plan.
+.container-fluid
+  .row
+    .col-md-9
+      %form{"name"=>"","ng-submit"=>"updateUser(user)"}
+        .form-group
+          %label{:for=>"firstName"}
+            First Name
+          %input#firstName.form-control{:type=>"text",:name=>"user[account_attributes[first_name]]",:placeholder=>"First Name","ng-model"=>"user.account.firstName" }
+        .form-group
+          %label{:for=>"lastName"}
+            Last Name
+          %input#lastName.form-control{:type=>"text",:name=>"user[account_attributes[last_name]]",:placeholder=>"Last Name","ng-model"=>"user.account.lastName" }
+        .form-group
+          %label{:for=>"companyName"}
+            Company Name
+          %input#companyName.form-control{:type=>"text",:name=>"user[account_attributes[company_name]]",:placeholder=>"Company Name","ng-model"=>"user.account.companyName" }
+        .form-group
+          %label{:for=>"email"}
+            Email Address
+          %input#email.form-control{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
+        .form-group
+          %label{:for=>"logo"}
+            Logo
+          %input#email.form-control{:type=>"file",:name=>"user[account_attributes[logo]]" }
+        %button.btn.btn-primary{:type=>"submit"}
+          Submit
+      .edit-bar{"ng-show"=>"showEditBar()"}
+        .edit-controls
+          %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
+            %li
+              %a{:title=>"Plan Menu"}
+                %i.fa.fa-cog{"ng-click"=>"openMenu()"}
+        .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
+          %h4
+            Account Details
+          %h6
+            Member Since: 7/13/2014
+          #current-plan-wrapper
+            #current-plan
+              .subscription-cost.text-center
+                $0/month
+              .subscription-description
+                You are currently subscribed to the Baby Moose Plan
+              %ul.subscription-details
+                %li
+                  forever free
+                %li
+                  unlimited plans
+                %li
+                  up to 5 subscribers
+          #upgrade-plan-wrapper
+            %button.btn.btn-primary{:type=>"submit"}
+              Upgrade Plan
+          %p.label
+            Next Billing Date:
+          %p.data
+            9/14/2015
+          %p.label
+            Billing History:

@@ -12,6 +12,8 @@ $border-color: #e5e7eb;
 $subnav-link-color: #6a6c6f;
 $table-header-color: #6a6c6f;
 $table-data-color: #98a2b6;
+$label-color: #34495e;
+$button-color: #1abc9c;
 
 html, body {
     height: 100%;
@@ -25,10 +27,23 @@ body {
   font-family: "Raleway", Arial, sans-serif;
 	padding-top: 51px;
   background-color: $background-color;
-  label {
-    font-size: 16px;
-    font-color: #6a6c6f;
-    font-weight: 700;
+  label, .label {
+    font-family: "Lato", Arial, sans-serif;
+    font-size: 14px;
+    color: $label-color;
+    font-weight: 400;
+  }
+  .form-control {
+    color: #34495e;
+    border: 1px solid #d5d9de;
+    font-family: "Lato", Arial, sans-serif;
+    font-weight: 200;
+  }
+  .btn-primary {
+    background-color: $button-color;
+    border-width: 0px;
+    height: 40px;
+    font-family: "Lato", Arial, sans-serif;
   }
   .navbar {
     background-color: #ffffff;
@@ -160,6 +175,7 @@ body {
       font-size: 12px;
       color: #6a6c6f;
       font-weight: 200;
+      margin-top: 4px;
     }
   }
 }
@@ -176,6 +192,12 @@ body {
     margin: 12px 15px 60px 0px;
     font-size: 18px;
     color: #34495e;
+  }
+  .label {
+    padding-left: 0px;
+  }
+  .btn-primary {
+    width: 100%;
   }
 }
 @media screen and(max-width: 767px) {
