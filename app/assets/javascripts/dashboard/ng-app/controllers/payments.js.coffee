@@ -2,9 +2,9 @@
   '$scope'
   'Payment'
   '$window'
-  ($scope, Payments, window) ->
+  ($scope, Payment, window) ->
     $scope.payment = null
-    
+
     Payment.get().then (payments) ->
       $scope.payments = payments
 

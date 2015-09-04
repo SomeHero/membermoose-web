@@ -3,7 +3,7 @@
     MEMBERS
   %h6
     All of the people who love what you do.
-%table.table{"ng-table"=>""}
+%table.table{"ng-table"=>"", "ng-hide"=>"members.length == 0"}
   %tr{"ng-repeat"=>"member in members"}
     %td.select-item
       %input{:type=>"checkbox", "ng-click"=>"selectMember($event, member)"}
