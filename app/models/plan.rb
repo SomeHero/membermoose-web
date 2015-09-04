@@ -4,6 +4,8 @@ class Plan < ActiveRecord::Base
   belongs_to :account
   has_many :subscriptions
 
+  has_attached_file :photo
+
   def as_json(options={})
   {
     :id => self.id,

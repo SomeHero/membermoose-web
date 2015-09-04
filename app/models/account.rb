@@ -7,6 +7,7 @@ class Account < ActiveRecord::Base
   has_many :account_payment_processors
   has_many :payments
   has_attached_file :logo
+  has_attached_file :photo
 
   validates_attachment :logo, content_type: { content_type: /\Aimage\/.*\Z/ }
 
