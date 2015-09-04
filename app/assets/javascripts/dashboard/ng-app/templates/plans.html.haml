@@ -5,17 +5,30 @@
     Your recurring subsciption plans your members subscribe to.
 %div{:style=>"margin: 40px 0px;"}
   .container-fluid
-    .row
+    .row{:style=>"margin-bottom: 20px;"}
       .col-md-3
         .plan{"ng-click"=>"createPlan()", :style=>"position: relative;"}
+          .plan-image
+            .overlay
+              .view-project{:style=>"height: 100px; line-height: 100px; margin-top: 10px;"}
+                %a{"ng-href"=>"/plans/{{plan.id}}"}
+                  %i.fa.fa-plus{:style=>"font-size: 72px; line-height: 100px;"}
+          .plan-info
+            %h2.plan-name{:style=>"margin-top: 0px;"}
+              Create Plan
+      .col-md-3{"ng-repeat"=>"plan in plans_first_row"}
+        .plan{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
           .plan-image{:style=>"height:70px;"}
             .overlay
               %div.view-project
                 %a{"ng-href"=>"/plans/{{plan.id}}"}
           .plan-info
             %h2.plan-name
-              Create Plan
-      .col-md-3{"ng-repeat"=>"plan in plans"}
+              {{plan.name}}
+            %h3.plan-amount
+              {{plan.amount | currency }}
+    .row{"ng-repeat"=>"row in rows", :style=>"margin-bottom: 20px;"}
+      .col-md-3{"ng-repeat"=>"plan in row"}
         .plan{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
           .plan-image{:style=>"height:70px;"}
             .overlay
@@ -36,23 +49,35 @@
         %a{:title=>"Close"}
           %i.fa.fa-times{"ng-click"=>"closeEditBar()" }
   .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
-    %form{"name"=>"","ng-submit"=>"updatePlan(plan)"}
+    %form{"name"=>"plansForm","ng-submit"=>"updatePlan(plan)", "novalidate"=>""}
       .form-group
         %label{:for=>"planName"}
           Plan Name
-        %input#planName.form-control.input{:type=>"text",:name=>"plan[name]",:placeholder=>"Plan Name","ng-model"=>"plan.name"}
+        %input#planName.form-control.input{:type=>"text",:name=>"plan[name]",:placeholder=>"Plan Name","ng-model"=>"plan.name", "required"=>""}
+        %span{"ng-show" => "plansForm['plan[name]'].$dirty && plansForm['plan[name]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "plansForm['plan[name]'].$error.required"}
+            Plan name is required.
       .form-group
         %label{:for=>"planDescription"}
           Plan Description
-        %textarea#planDescription.form-control.input{:rows=>"5",:name=>"plan[description]",:placeholder=>"Description","ng-model"=>"plan.description"}
+        %textarea#planDescription.form-control.input{:rows=>"5",:name=>"plan[description]",:placeholder=>"Description","ng-model"=>"plan.description", "required"=>""}
+        %span{"ng-show" => "plansForm['plan[description]'].$dirty && plansForm['plan[description]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "plansForm['plan[description]'].$error.required"}
+            Plan description is required.
       .form-group
         %label{:for=>"planAmount"}
           Amount
-        %input#planDescription.form-control.input{:type=>"text",:name=>"plan[amount]",:placeholder=>"Amount","ng-model"=>"plan.amount"}
+        %input#planAmount.form-control.input{:type=>"text",:name=>"plan[amount]",:placeholder=>"Amount","ng-model"=>"plan.amount", "required"=>""}
+        %span{"ng-show" => "plansForm['plan[amount]'].$dirty && plansForm['plan[amount]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "plansForm['plan[amount]'].$error.required"}
+            Amount is required.  If this is a free plan, you must enter $0.
       .form-group
         %label{:for=>"planBillingCycle"}
           Billing Cycle
-        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[billing_cycle]",:placeholder=>"Billing Cycle","ng-model"=>"plan.billingCycle"}
+        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[billing_cycle]",:placeholder=>"Billing Cycle","ng-model"=>"plan.billingCycle", "required"=>""}
+        %span{"ng-show" => "plansForm['plan[billing_cycle]'].$dirty && plansForm['plan[billing_cycle]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "plansForm['plan[billing_cycle]'].$error.required"}
+            Billing Cycle is required.
       .form-group
         %label{:for=>"planBillingCycle"}
           Free Trial Period

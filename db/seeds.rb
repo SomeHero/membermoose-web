@@ -48,6 +48,46 @@ baby_moose = Plan.create!({
     :trail_period_days => 30,
     :terms_and_conditions => "Be cool"
 })
+mama_moose = Plan.create!({
+    :account => mm_account,
+    :name => "Mama Moose",
+    :description => "Unlimited plans, unlimited subscribers but only if you're a mama moose",
+    :amount => "19.99",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trail_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
+papa_moose = Plan.create!({
+    :account => mm_account,
+    :name => "Papa Moose",
+    :description => "Unlimited plans, unlimited subscribers but only if you're a papa moose",
+    :amount => "299.99",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trail_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
+enterprise_moose = Plan.create!({
+    :account => mm_account,
+    :name => "Enterprise Moose",
+    :description => "Unlimited plans, unlimited subscribers for enterprise",
+    :amount => "1000.99",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trail_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
+special_moose = Plan.create!({
+    :account => mm_account,
+    :name => "Special Moose",
+    :description => "Unlimited plans, unlimited subscribers for specials",
+    :amount => "0.99",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trail_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
 payment_processor = PaymentProcessor.create!({
   :name => "Stripe",
   :active => true

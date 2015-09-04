@@ -81,7 +81,7 @@ var app = angular.module('dashboardApp', [
     }]);
     angular.module('dashboardApp').factory('Payment', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
-            url: '/dashboard/payment_processors',
+            url: '/dashboard/payments',
             name: 'payment'
         });
     }]);
