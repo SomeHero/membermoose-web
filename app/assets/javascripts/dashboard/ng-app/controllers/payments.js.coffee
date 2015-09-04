@@ -4,15 +4,22 @@
   '$window'
   ($scope, Payment, window) ->
     $scope.payment = null
+    $scope.payments = []
 
     Payment.get().then (payments) ->
       $scope.payments = payments
 
+    $scope.selectPayment = (event, payment) ->
+      if $scope.payment == payment
+        $scope.payment = null
+      else
+        $scope.payment = payment
+
     $scope.showEditBar = () ->
-      return true
+      return $scope.payment != null
 
     $scope.closeEditBar = () ->
-      return false
+      $scope.subscription = null
 
     return
 ]

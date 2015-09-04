@@ -3,8 +3,8 @@
     PAYMENTS
   %h6
     Money In. Money Out
-%table.table{"ng-table"=>""}
-  %tr{"ng-repeat"=>"transaction in transactions"}
+%table.table{"ng-table"=>"", "ng-hide"=>"payments.length == 0"}
+  %tr{"ng-repeat"=>"payment in payments"}
     %td.select-item
       %input{:type=>"checkbox", "ng-click"=>"selectPayment($event, payment)"}
     %td{"data-title"=>"'Transaction Date'"}
@@ -24,6 +24,10 @@
       Visa 1110
     %td{"data-title"=>"'Status'"}
       Active
+.no-results{"ng-show"=>"payments.length == 0"}
+  %img{:alt => "You have no subscribers", :src => asset_path('dead-moose.png')}/
+  %p
+    You have not received any payments yet!
 .edit-bar{"ng-show"=>"showEditBar()"}
   .edit-controls
     %ul.list-inline.pull-right{:style=>"list-style-type: none;"}

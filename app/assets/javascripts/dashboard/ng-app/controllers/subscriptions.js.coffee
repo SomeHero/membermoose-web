@@ -4,12 +4,16 @@
   '$window'
   ($scope, Subscription, window) ->
     $scope.subscription = null
+    $scope.subscriptions = []
 
     Subscription.get().then (subscriptions) ->
       $scope.subscriptions = subscriptions
 
     $scope.selectSubscription = (event, subscription) ->
-      $scope.subscription = subscription
+      if $scope.subscription == subscription
+        $scope.subscription = null
+      else
+        $scope.subscription = subscription
 
     $scope.showEditBar = () ->
       return $scope.subscription != null

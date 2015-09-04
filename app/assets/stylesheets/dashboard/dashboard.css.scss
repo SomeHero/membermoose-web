@@ -70,6 +70,31 @@ body {
       color: $border-color;
     }
   }
+  .no-results {
+    margin-top: 20px;
+    text-align: center;
+    p {
+      margin-top: 20px;
+      position: absolute;
+      top: 50%;
+      left: 25%;
+      text-align: center;
+      width: 50%;
+      height: 40px;
+      background-color: white;
+      border-radius: 8px;
+      opacity: 0.8;
+      filter: alpha(opacity=60);
+      vertical-align: middle;
+      line-height: 40px;
+      color: #000000;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    img {
+      width: 50%;
+    }
+  }
   .table {
     font-family: 'Lato', sans-serif;
     thead {

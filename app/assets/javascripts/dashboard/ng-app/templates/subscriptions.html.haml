@@ -3,7 +3,7 @@
     SUBSCRIPTIONS
   %h6
     All of the people who love what you do.
-%table.table{"ng-table"=>""}
+%table.table{"ng-table"=>"", "ng-hide"=>"subscriptions.length == 0"}
   %tr{"ng-repeat"=>"subscription in subscriptions"}
     %td.select-item
       %input{:type=>"checkbox", "ng-click"=>"selectSubscription($event, subscription)"}
@@ -21,6 +21,10 @@
       $100.00
     %td{"data-title"=>"'Status'"}
       {{subscription.status}}
+.no-results{"ng-show"=>"subscriptions.length == 0"}
+  %img{:alt => "You have no subscribers", :src => asset_path('dead-moose.png')}/
+  %p
+    No one has subscribed to any of your plans!
 .edit-bar{"ng-show"=>"showEditBar()"}
   .edit-controls
     %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
