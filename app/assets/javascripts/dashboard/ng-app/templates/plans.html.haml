@@ -43,8 +43,8 @@
   .edit-controls
     %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
       %li
-        %a{:title=>"Plan Menu"}
-          %i.fa.fa-cog{"ng-click"=>"openMenu()"}
+        %a{:title=>"Plan Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/plans.html'"}
+          %i.fa.fa-cog
       %li
         %a{:title=>"Close"}
           %i.fa.fa-times{"ng-click"=>"closeEditBar()" }
@@ -53,38 +53,38 @@
       .form-group
         %label{:for=>"planName"}
           Plan Name
-        %input#planName.form-control.input{:type=>"text",:name=>"plan[name]",:placeholder=>"Plan Name","ng-model"=>"plan.name", "required"=>""}
+        %input#planName.form-control.input{:type=>"text",:name=>"plan[name]",:placeholder=>"Plan Name","ng-model"=>"plan.name", "ng-model-options"=>"{updateOn: 'submit'}", "required"=>""}
         %span{"ng-show" => "plansForm['plan[name]'].$dirty && plansForm['plan[name]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "plansForm['plan[name]'].$error.required"}
             Plan name is required.
       .form-group
         %label{:for=>"planDescription"}
           Plan Description
-        %textarea#planDescription.form-control.input{:rows=>"5",:name=>"plan[description]",:placeholder=>"Description","ng-model"=>"plan.description", "required"=>""}
+        %textarea#planDescription.form-control.input{:rows=>"5",:name=>"plan[description]",:placeholder=>"Description","ng-model"=>"plan.description", "ng-model-options"=>"{updateOn: 'submit'}", "required"=>""}
         %span{"ng-show" => "plansForm['plan[description]'].$dirty && plansForm['plan[description]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "plansForm['plan[description]'].$error.required"}
             Plan description is required.
       .form-group
         %label{:for=>"planAmount"}
           Amount
-        %input#planAmount.form-control.input{:type=>"text",:name=>"plan[amount]",:placeholder=>"Amount","ng-model"=>"plan.amount", "required"=>""}
+        %input#planAmount.form-control.input{:type=>"text",:name=>"plan[amount]",:placeholder=>"Amount","ng-model"=>"plan.amount", "ng-model-options"=>"{updateOn: 'submit'}", "required"=>""}
         %span{"ng-show" => "plansForm['plan[amount]'].$dirty && plansForm['plan[amount]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "plansForm['plan[amount]'].$error.required"}
             Amount is required.  If this is a free plan, you must enter $0.
       .form-group
         %label{:for=>"planBillingCycle"}
           Billing Cycle
-        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[billing_cycle]",:placeholder=>"Billing Cycle","ng-model"=>"plan.billingCycle", "required"=>""}
+        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[billing_cycle]",:placeholder=>"Billing Cycle","ng-model"=>"plan.billingCycle", "ng-model-options"=>"{updateOn: 'submit'}", "required"=>""}
         %span{"ng-show" => "plansForm['plan[billing_cycle]'].$dirty && plansForm['plan[billing_cycle]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "plansForm['plan[billing_cycle]'].$error.required"}
             Billing Cycle is required.
       .form-group
         %label{:for=>"planBillingCycle"}
           Free Trial Period
-        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[trial_period_days]",:placeholder=>"Free Trial Period","ng-model"=>"plan.trialPeriodDays"}
+        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[trial_period_days]",:placeholder=>"Free Trial Period","ng-model"=>"plan.trialPeriodDays", "ng-model-options"=>"{updateOn: 'submit'}"}
       .form-group
         %label{:for=>"planTermsAndConditions"}
           Terms and Conditions
-        %textarea#planTermsAndConditions.form-control{:rows=>"8", :name=>"plan[terms_and_conditions]",:placeholder=>"Terms and Conditions","ng-model"=>"plan.termsAndConditions"}
+        %textarea#planTermsAndConditions.form-control{:rows=>"8", :name=>"plan[terms_and_conditions]",:placeholder=>"Terms and Conditions","ng-model"=>"plan.termsAndConditions", "ng-model-options"=>"{updateOn: 'submit'}"}
       %button.btn.btn-primary{:type=>"submit"}
         Submit

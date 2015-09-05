@@ -32,7 +32,7 @@
   .edit-controls
     %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
       %li
-        %a{:title=>"Plan Menu"}
+        %a{:title=>"Plan Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/payments.html'"}
           %i.fa.fa-cog{"ng-click"=>"openMenu()"}
       %li
         %a{:title=>"Close"}

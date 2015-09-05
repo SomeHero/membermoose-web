@@ -32,8 +32,8 @@
       .edit-bar{"ng-show"=>"showEditBar()"}
         .edit-controls
           %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
-            %li
-              %a{:title=>"Plan Menu"}
+            %li{"style"=>"margin-right: 28px"}
+              %a{:title=>"Plan Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/account.html'"}
                 %i.fa.fa-cog{"ng-click"=>"openMenu()"}
         .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
           %h4

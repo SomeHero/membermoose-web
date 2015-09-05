@@ -27,35 +27,39 @@
   .edit-controls
     %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
       %li
-        %a{:title=>"Plan Menu"}
+        %a{:title=>"Plan Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/members.html'"}
           %i.fa.fa-cog{"ng-click"=>"openMenu()"}
       %li
         %a{:title=>"Close"}
           %i.fa.fa-times{"ng-click"=>"closeEditBar()" }
   .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
+    %h4
+      Member Details
+    %h6
+      {{member.firstName}} {{member.lastName}}
     %form{"name"=>"","ng-submit"=>"updatePlan(plan)"}
       .form-group
         %label{:for=>"firstName"}
           First Name
-        %input#firstName.form-control.input{:type=>"text",:name=>"account[first_name]",:placeholder=>"First Name","ng-model"=>"member.account.first_name"}
+        %input#firstName.form-control.input{:type=>"text",:name=>"account[first_name]",:placeholder=>"First Name","ng-model"=>"member.firstName", "ng-model-options"=>"{updateOn: 'submit'}"}
       .form-group
         %label{:for=>"lastName"}
           Last Name
-        %input#lastName.form-control.input{:type=>"text",:name=>"account[last_name]",:placeholder=>"Last Name","ng-model"=>"member.account.last_name"}
+        %input#lastName.form-control.input{:type=>"text",:name=>"account[last_name]",:placeholder=>"Last Name","ng-model"=>"member.account.lastName"}
       .form-group
         %label{:for=>"emailAddress"}
           Email Address
-        %input#emailAddress.form-control.input{:type=>"text",:name=>"account[user[email]]",:placeholder=>"Email Address","ng-model"=>"member.account.user.email"}
-      .form-group
-        %label{:for=>"plans"}
-          Plans
-        %p#plans
-          Lone Wolf
-      .form-group
-        %label{:for=>"billingHistory"}
-          Billing History
-      .form-group
-        %label{:for=>"planTermsAndConditions"}
-          Next Billing Date:
+        %input#emailAddress.form-control.input{:type=>"text",:name=>"account[user[email]]",:placeholder=>"Email Address","ng-model"=>"member.user.email"}
       %button.btn.btn-primary{:type=>"submit"}
         Update Member
+    %div{:style=>"margin-top: 10px;"}
+      %p.label
+        Plans
+      %p.data
+        Lone Wolf
+      %p.label
+        Billing History:
+      %p.data
+      %p.label
+        Next Billing Date:
+      %p.data

@@ -29,7 +29,7 @@
   .edit-controls
     %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
       %li
-        %a{:title=>"Plan Menu"}
+        %a{:title=>"Subscription Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/subscriptions.html'"}
           %i.fa.fa-cog{"ng-click"=>"openMenu()"}
       %li
         %a{:title=>"Close"}
@@ -38,23 +38,23 @@
     %h4
       Subscription Details
     %h6
-      Member Since: 7/13/2014
+      Member Since: {{subscription.subscriber.createdAt | date:'mediumDate'}}
     %p.label
       Subscriber Name:
     %p.data
-      James Rhodes
+      {{subscription.subscriber.firstName}} {{subscription.subscriber.lastName}}
     %p.label
       Subscriber Email:
     %p.data
-      james@somehero.com
+      {{subscription.subscriber.user.email}}
     %p.label
       Plan Name:
     %p.data
-      Lone Wolf
+      {{subscription.plan.name}}
     %p.label
       Subscription Start Date
     %p.data
-      August 14, 2014
+      {{subscription.subscriber.createdAt | date:'mediumDate'}}
     %p.label
       Subscription End Date
     %p.data
@@ -69,4 +69,4 @@
     %p.label
       Subscription status
     %p.data
-      Active
+      {{subscription.status}}
