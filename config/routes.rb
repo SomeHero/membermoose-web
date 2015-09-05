@@ -20,6 +20,11 @@ Rails.application.routes.draw do
     resources :account, :controller => "dashboard/account"
   end
 
+  resource :bulls do
+    resources :plans, :controller => "bulls/plans"
+    resources :subscriptions, :controller => "bulls/subscriptions"
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

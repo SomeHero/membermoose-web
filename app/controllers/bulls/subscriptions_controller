@@ -1,0 +1,8 @@
+class Bulls::SubscriptionsController < DashboardController
+  layout 'bulls'
+
+  def new
+    @bull = current_user
+    @plans = current_user.account.plans
+  end
+end

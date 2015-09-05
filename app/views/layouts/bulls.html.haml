@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %title Member Moose
+    = stylesheet_link_tag    'application-bulls', media: 'all'
+    = javascript_include_tag 'bulls/application'
+    = csrf_meta_tags
+    %link{:href => "https://fonts.googleapis.com/css?family=Raleway:400,500,700", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "https://www.google.com/fonts#UsePlace:use/Collection:Lato:400,700,300,100", :rel => "stylesheet", :type => "text/css"}/
+    %base{"href"=>"/bulls"}
+  %body{"ng-app"=>"bullsApp"}
+    %header.text-center{:style => "background: #{@dominant_color}"}
+      - if @bull.account.logo
+        = image_tag @bull.account.logo.url
+      %h1
+        = @bull.account.company_name
+    = yield
+    %footer.text-center
+      .powered-by Powered by
+      = link_to image_tag('logo-black.png', width: "300", alt: "MemberMoose"), root_path
