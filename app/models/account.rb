@@ -11,6 +11,12 @@ class Account < ActiveRecord::Base
 
   validates_attachment :logo, content_type: { content_type: /\Aimage\/.*\Z/ }
 
+  DISALLOWED_SUBDOMAINS = %w(admin www app signup sign-up sign_up administration)
+  SUBDOMAIN_MIN_LENGTH = 3
+  SUBDOMAIN_MAX_LENGTH = 20
+
+  #validates :subdomain, :length => (SUBDOMAIN_MIN_LENGTH..SUBDOMAIN_MAX_LENGTH), :format => { :with => /^[\w-]+$/ }, :presence   => true, :uniqueness => true, :exclusion => { :in => DISALLOWED_SUBDOMAINS }
+
   def as_json(options={})
   {
     :id => self.id,

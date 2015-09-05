@@ -2,8 +2,10 @@ class Bulls::PlansController < DashboardController
   layout 'bulls'
 
   def index
-    @bull = current_user
-    @plans = current_user.account.plans
+    account = Account.where(:subdomain => request.subdomain).first
+
+    @bull = account.user
+    @plans = account.plans
 
     respond_to do |format|
       format.html

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+  get "/" => "bulls/plans#index", as: "plans", :constraints => { :subdomain => /.+/ }
+
   root 'home#index'
 
   resource :dashboard do

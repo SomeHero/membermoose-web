@@ -8,13 +8,13 @@ var app = angular.module('bullsApp', [
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider
         .state('plans', {
-            url: '/bulls/plans',
+            url: '/',
             templateUrl: 'bulls/ng-app/templates/plans.html',
             controller: 'PlansController'
         })
 
         // default fall back route
-        $urlRouterProvider.otherwise('/plans');
+        $urlRouterProvider.otherwise('/');
 
         // enable HTML5 Mode for SEO
         $locationProvider.html5Mode(true);
