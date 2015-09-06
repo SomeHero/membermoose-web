@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://code.stripe.com'
 
 group :production do
   gem 'rails_12factor'
@@ -50,6 +51,7 @@ gem 'angularjs-rails-resource', '~> 2.0.0'
 gem 'angular_rails_csrf'
 gem 'angular-ui-bootstrap-rails'
 gem 'angular-ng-table-rails'
+gem 'stripe', '~> 1.20.4'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
