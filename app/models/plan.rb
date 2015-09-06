@@ -16,7 +16,7 @@ class Plan < ActiveRecord::Base
     :amount => self.amount,
     :billing_cycle => self.billing_cycle,
     :billing_interval => self.billing_interval,
-    :trial_period_days => self.trail_period_days,
+    :trial_period_days => self.trial_period_days,
     :terms_and_conditions => self.terms_and_conditions,
     :public => self.public,
     :created_at => self.created_at,

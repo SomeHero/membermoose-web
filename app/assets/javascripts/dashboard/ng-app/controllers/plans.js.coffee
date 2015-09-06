@@ -11,7 +11,12 @@
     $scope.row_plans = []
 
     $scope.plans_per_row = 4
-
+    $scope.billing_cycles = [
+      'day',
+      'week',
+      'month',
+      'year'
+    ];
     Plan.get().then (plans) ->
       $scope.plans = plans
 

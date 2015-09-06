@@ -6,7 +6,7 @@ one:
   amount: 9.99
   billing_cycle: MyString
   billing_interval: MyString
-  trail_period_days: 1
+  trial_period_days: 1
   terms_and_conditions: MyText
 
 two:
@@ -15,5 +15,5 @@ two:
   amount: 9.99
   billing_cycle: MyString
   billing_interval: MyString
-  trail_period_days: 1
+  trial_period_days: 1
   terms_and_conditions: MyText

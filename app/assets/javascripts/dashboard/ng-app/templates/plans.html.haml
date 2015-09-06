@@ -74,14 +74,18 @@
       .form-group
         %label{:for=>"planBillingCycle"}
           Billing Cycle
-        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[billing_cycle]",:placeholder=>"Billing Cycle","ng-model"=>"plan.billingCycle", "ng-model-options"=>"{updateOn: 'submit'}", "required"=>""}
+        %select.form-control{"ng-model"=>"plan.billingCycle", "ng-options"=>"billing_cycle for billing_cycle in billing_cycles"}
         %span{"ng-show" => "plansForm['plan[billing_cycle]'].$dirty && plansForm['plan[billing_cycle]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "plansForm['plan[billing_cycle]'].$error.required"}
             Billing Cycle is required.
       .form-group
-        %label{:for=>"planBillingCycle"}
+        %label{:for=>"planBillingInterval"}
+          Billing Interval
+        %input#planBillingInterval.form-control.input{:type=>"text",:name=>"plan[billing_interval]",:placeholder=>"Billing Interval","ng-model"=>"plan.billingInterval", "ng-model-options"=>"{updateOn: 'submit'}"}
+      .form-group
+        %label{:for=>"planFreeTrialPeriod"}
           Free Trial Period
-        %input#planBillingCycle.form-control.input{:type=>"text",:name=>"plan[trial_period_days]",:placeholder=>"Free Trial Period","ng-model"=>"plan.trialPeriodDays", "ng-model-options"=>"{updateOn: 'submit'}"}
+        %input#planFreeTrialPeriod.form-control.input{:type=>"text",:name=>"plan[trial_period_days]",:placeholder=>"Free Trial Period","ng-model"=>"plan.trialPeriodDays", "ng-model-options"=>"{updateOn: 'submit'}"}
       .form-group
         %label{:for=>"planTermsAndConditions"}
           Terms and Conditions

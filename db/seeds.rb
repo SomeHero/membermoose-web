@@ -25,7 +25,7 @@ baby_moose = Plan.create!({
     :amount => 0,
     :billing_cycle => "Monthly",
     :billing_interval => "1",
-    :trail_period_days => 0,
+    :trial_period_days => 0,
     :terms_and_conditions => "Be cool"
 })
 big_moose = Plan.create!({
@@ -35,7 +35,7 @@ big_moose = Plan.create!({
     :amount => "9.99",
     :billing_cycle => "Monthly",
     :billing_interval => "1",
-    :trail_period_days => 30,
+    :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
 })
 baby_moose = Plan.create!({
@@ -45,7 +45,7 @@ baby_moose = Plan.create!({
     :amount => "29.99",
     :billing_cycle => "Monthly",
     :billing_interval => "1",
-    :trail_period_days => 30,
+    :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
 })
 mama_moose = Plan.create!({
@@ -55,7 +55,7 @@ mama_moose = Plan.create!({
     :amount => "19.99",
     :billing_cycle => "Monthly",
     :billing_interval => "1",
-    :trail_period_days => 30,
+    :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
 })
 papa_moose = Plan.create!({
@@ -65,7 +65,7 @@ papa_moose = Plan.create!({
     :amount => "299.99",
     :billing_cycle => "Monthly",
     :billing_interval => "1",
-    :trail_period_days => 30,
+    :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
 })
 enterprise_moose = Plan.create!({
@@ -75,7 +75,7 @@ enterprise_moose = Plan.create!({
     :amount => "1000.99",
     :billing_cycle => "Monthly",
     :billing_interval => "1",
-    :trail_period_days => 30,
+    :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
 })
 special_moose = Plan.create!({
@@ -85,7 +85,7 @@ special_moose = Plan.create!({
     :amount => "0.99",
     :billing_cycle => "Monthly",
     :billing_interval => "1",
-    :trail_period_days => 30,
+    :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
 })
 payment_processor = PaymentProcessor.create!({
