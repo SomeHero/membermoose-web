@@ -86,5 +86,10 @@
         %label{:for=>"planTermsAndConditions"}
           Terms and Conditions
         %textarea#planTermsAndConditions.form-control{:rows=>"8", :name=>"plan[terms_and_conditions]",:placeholder=>"Terms and Conditions","ng-model"=>"plan.termsAndConditions", "ng-model-options"=>"{updateOn: 'submit'}"}
+      .form-group
+        %label{:for=>"public"}
+          Show on Web Page
+        %div
+          %switch#public.green{"name"=>"public", "ng-model"=>"plan.public", "ng-model-options"=>"{updateOn: 'submit'}"}}
       %button.btn.btn-primary{:type=>"submit"}
         Submit

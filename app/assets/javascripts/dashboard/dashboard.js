@@ -4,7 +4,8 @@ var app = angular.module('dashboardApp', [
         'templates',
         'rails',
         'ui.bootstrap',
-        'ngTable'
+        'ngTable',
+        'uiSwitch'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider

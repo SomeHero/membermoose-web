@@ -6,6 +6,8 @@ class Plan < ActiveRecord::Base
 
   has_attached_file :photo
 
+  scope :public_plans, -> { where(public: true) }
+
   def as_json(options={})
   {
     :id => self.id,
@@ -16,6 +18,7 @@ class Plan < ActiveRecord::Base
     :billing_interval => self.billing_interval,
     :trial_period_days => self.trail_period_days,
     :terms_and_conditions => self.terms_and_conditions,
+    :public => self.public,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }

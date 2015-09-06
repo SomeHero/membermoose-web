@@ -5,7 +5,7 @@ class Bulls::PlansController < DashboardController
     account = Account.where(:subdomain => request.subdomain).first
 
     @bull = account.user
-    @plans = account.plans
+    @plans = account.plans.public_plans
 
     respond_to do |format|
       format.html
