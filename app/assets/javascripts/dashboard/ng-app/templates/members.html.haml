@@ -60,6 +60,15 @@
       %p.label
         Billing History:
       %p.data
+        %table.table
+          %tr{"ng-repeat"=>"payment in billing_history"}
+            %td
+              {{payment.payment_date}}
+            %td
+              {{payment.amount | currency}}
+            %td
+              {{payment.status}}
       %p.label
         Next Billing Date:
       %p.data
+        September 14, 2015

@@ -6,6 +6,14 @@
     $scope.member = null
     $scope.members = []
 
+    $scope.billing_history =  [
+      {payment_date:'8/1/2015', amount: 100, status: 'Paid'},
+      {payment_date:'7/1/2015', amount: 100, status: 'Paid'},
+      {payment_date:'6/1/2015', amount: 100, status: 'Paid'},
+      {payment_date:'5/1/2015', amount: 100, status: 'Paid'},
+      {payment_date:'4/1/2015', amount: 100, status: 'Paid'},
+      {payment_date:'3/1/2015', amount: 100, status: 'Paid'},
+    ];
     Member.get().then (members) ->
       $scope.members = members
 
