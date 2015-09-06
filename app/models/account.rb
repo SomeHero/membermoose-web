@@ -11,7 +11,7 @@ class Account < ActiveRecord::Base
 
   validates_attachment :logo, content_type: { content_type: /\Aimage\/.*\Z/ }
 
-  DISALLOWED_SUBDOMAINS = %w(admin www app signup sign-up sign_up administration)
+  DISALLOWED_SUBDOMAINS = %w(admin www app signup sign-up sign_up administration membermoose-ng)
   SUBDOMAIN_MIN_LENGTH = 3
   SUBDOMAIN_MAX_LENGTH = 20
 
