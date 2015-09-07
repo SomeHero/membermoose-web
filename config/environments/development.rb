@@ -46,7 +46,7 @@ Rails.application.configure do
   router = UserNotification::UserNotificationRouter.instance()
 
   #router.add_notifier(UserNotification::Channel::TEXT, UserNotification::NexmoSmsUserNotifier.new)
-  #router.add_notifier(UserNotification::Channel::EMAIL, UserNotification::ElasticEmailEmailUserNotifier.new)
+  router.add_notifier(UserNotification::Channel::EMAIL, UserNotification::ElasticEmailEmailUserNotifier.new)
   #router.add_notifier(UserNotification::Channel::APP, UserNotification::AppUserNotifier.new)
 
   router.enable_notifications({
