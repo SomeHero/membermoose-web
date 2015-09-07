@@ -84,5 +84,23 @@ Rails.application.configure do
         secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
+  ###########################################################################################################
+  # User notifications
+  #
+  require 'user_notification.rb'
+  require 'elastic_email_email_user_notifier.rb'
+  #require 'nexmo_sms_user_notifier.rb'
 
+  router = UserNotification::UserNotificationRouter.instance()
+
+  #router.add_notifier(UserNotification::Channel::TEXT, UserNotification::NexmoSmsUserNotifier.new)
+  router.add_notifier(UserNotification::Channel::EMAIL, UserNotification::ElasticEmailEmailUserNotifier.new)
+  #router.add_notifier(UserNotification::Channel::APP, UserNotification::AppUserNotifier.new)
+
+  router.enable_notifications({
+    UserNotification::Notification::USER_WELCOME => true,
+    UserNotification::Notification::SOMEONE_SUBSCRIBED => true,
+    UserNotification::Notification::SOMEONE_UNSUBSCRIBED => true,
+    UserNotification::Notification::UNSUBSCRIBE_LINK => true,
+  })
 end

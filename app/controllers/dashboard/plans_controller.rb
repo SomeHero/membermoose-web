@@ -37,7 +37,7 @@ class Dashboard::PlansController < DashboardController
   end
 
   def permitted_params
-    params.require(:plan).permit(:id, :name, :description, :amount, :billing_cycle, :billing_interval, :free_trial_period, :terms_and_conditions, :public)
+    params.require(:plan).permit(:id, :name, :description, :amount, :billing_cycle, :billing_interval, :trial_period_days, :terms_and_conditions, :public)
   end
 
 end
