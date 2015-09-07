@@ -28,7 +28,7 @@ module UserNotification
 
         merge_fields = params_hash[:merge_fields]
 
-        result = ElasticEmailApi.send_email(user.email_address, subject, template_name, from_address, from_name, merge_fields)
+        result = ElasticEmailApi.send_email(user.email, subject, template_name, from_address, from_name, merge_fields)
       else
         raise "I don't know how to handle notifications of type '#{notification_type}'!"
       end

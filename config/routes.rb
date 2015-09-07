@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   constraints(Subdomain) do
     get "/" => "bulls/plans#index", as: "plans", :constraints => { :subdomain => /.+/ }
   end
-  
+
   root 'home#index'
 
   resource :dashboard do
