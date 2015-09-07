@@ -34,10 +34,10 @@ class UserSignupWorker
       "merge_logo_url" => "http://localhost:3000",
       "merge_plan_name" =>  "Baby Moose",
       "merge_bull_email" => "members@membermoose.com",
-      "manage_account_url" => "http://localhost:3000",
-      "create_plan_url" => "http://localhost:3000",
-      "plan_amount" => "$100.00",
-      "billing_interval" => "Monthly"
+      "merge_manage_account_url" => "http://localhost:3000",
+      "merge_create_plan_url" => "http://localhost:3000",
+      "merge_plan_amount" => "$100.00",
+      "merge_billing_interval" => "Monthly"
     })
 
   end
