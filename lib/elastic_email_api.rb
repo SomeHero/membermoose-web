@@ -1,8 +1,8 @@
 require 'net/http'
 require 'uri'
 
-USERNAME = 'c21a64b4-d891-44e4-890d-27f7902d3bab'
-API_KEY = 'c21a64b4-d891-44e4-890d-27f7902d3bab'
+USERNAME = '8d2a63d3-afe0-47d1-84e8-54453b11eee3'
+API_KEY = '8d2a63d3-afe0-47d1-84e8-54453b11eee3'
 API_URI = URI.parse( 'http://api.elasticemail.com/mailer/send' )
 SUCCESS_MATCH_PATTERN = '^[0-9|a-f]{8}-[0-9|a-f]{4}-[0-9|a-f]{4}-[0-9|a-f]{4}-[0-9|a-f]{12}$'
 ERROR_MATCH_PATTERN = '^Error:'
