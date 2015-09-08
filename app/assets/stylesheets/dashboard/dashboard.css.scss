@@ -228,6 +228,17 @@ body {
     }
   }
 }
+.animate-show {
+  right: 0px;
+}
+.edit-bar.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+.edit-bar.ng-hide {
+  right: -265px;
+  display: block !important;
+}
+
 .edit-bar {
   width: 265px;
   position: fixed;
@@ -313,5 +324,17 @@ body {
 	}
   .edit-bar {
     width: 100%;
+  }
+  .animate-show {
+    left: 0px;
+    right: auto;
+  }
+  .edit-bar.ng-hide-add, .animate-show.ng-hide-remove {
+    transition: all linear 0.5s;
+  }
+  .edit-bar.ng-hide {
+    left: 100%;
+    right: auto;
+    display: block !important;
   }
 }

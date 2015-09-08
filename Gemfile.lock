@@ -55,6 +55,8 @@ GEM
     angular_rails_csrf (1.0.4)
       rails (>= 3, < 5)
     angularjs-rails-resource (2.0.0)
+    animate-rails (1.0.8)
+      rails
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (5.0.1.20140414130214)
@@ -323,6 +325,7 @@ DEPENDENCIES
   angular-ui-bootstrap-rails
   angular_rails_csrf
   angularjs-rails-resource (~> 2.0.0)
+  animate-rails
   autoprefixer-rails
   aws-sdk (< 2.0)
   bootstrap-sass
