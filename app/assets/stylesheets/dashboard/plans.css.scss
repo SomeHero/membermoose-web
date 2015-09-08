@@ -4,10 +4,9 @@
 $selected-plan-border-color: #55acee;
 .plan {
   background-color: white;
-  width: 240px;
-  height: 180px;
+  min-height: 180px;
   text-align: center;
-  padding: 20px 20px;
+  margin: 20px 0px;
   list-style-type: none;
   font-family: 'Raleway';
   color: #55acee;

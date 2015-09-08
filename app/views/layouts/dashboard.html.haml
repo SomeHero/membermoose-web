@@ -11,28 +11,29 @@
   %body{"ng-app"=>"dashboardApp", "ng-controller"=>"DashboardController"}
     %nav.navbar.navba.navbar-fixed-top{:role => "navigation"}
       .container-fluid
-        .row
+        .row-fluid{:style=>"margin-right: -15px;"}
           .navbar-header.col-sm-3.col-md-2
+            %a.navbar-brand MemberMoose
             %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
               %span.sr-only Toggle navigation
               %span.icon-bar
               %span.icon-bar
               %span.icon-bar
-            %a.navbar-brand MemberMoose
-          .navbar-collapse.collapse
-            %ul#top-nav.nav.navbar-nav.navbar-right
-              %li
-                %a{:href=>"#"}
-                  = fa_icon "bell-o"
-              %li
-                %a{:href=>"#"}
-                  = fa_icon "envelope-o"
-              %li
-                = link_to destroy_user_session_path, :method => 'delete' do
-                  = fa_icon "sign-out"
+          .col-sm-9.col-md-10
+            .navbar-collapse.collapse
+              %ul#top-nav.nav.navbar-nav.navbar-right
+                %li
+                  %a{:href=>"#"}
+                    = fa_icon "bell-o"
+                %li
+                  %a{:href=>"#"}
+                    = fa_icon "envelope-o"
+                %li
+                  = link_to destroy_user_session_path, :method => 'delete' do
+                    = fa_icon "sign-out"
     #content-wrapper.container-fluid.fill-height
-      %div.row.row-offcanvas.row-offcanvas-left
-        %div#sidebar.col-sm-3.col-md-2.sidebar-offcanvas{"role" => "navigation"}
+      .row-fluid.row-offcanvas.row-offcanvas-left
+        #sidebar.col-sm-3.col-md-2.sidebar-offcanvas{"role" => "navigation"}
           #profile-block.text-center
             %img{"ng-src"=>"user.account.logo.url", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo"}
             %h4.user-name
@@ -67,6 +68,5 @@
               = link_to edit_dashboard_account_url(:id => current_user.id) do
                 %i.linecons-note
                 ACCOUNT
-        %div.col-sm-9.col-md-10.col-sm-offset-3.col-md-offset-2
-          %div#content
-            = yield
+        #content.col-sm-9.col-md-10
+          = yield

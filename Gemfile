@@ -56,6 +56,7 @@ gem 'redis'
 gem "resque"
 gem 'slack-notifier', '~> 0.6.1'
 gem 'omniauth-stripe-connect'
+gem 'jasny_bootstrap_extension_rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

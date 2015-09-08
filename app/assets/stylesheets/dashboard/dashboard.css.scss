@@ -16,17 +16,17 @@ $label-color: #34495e;
 $button-color: #1abc9c;
 
 html, body {
-    height: 100%;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
-.fill-height {
-    min-height: 100%;
-    height:auto !important; /* cross-browser */
-    height: 100%; /* cross-browser */
+.container-fluid, .row-fluid {
+  height: inherit;
 }
 body {
   font-family: "Raleway", Arial, sans-serif;
 	padding-top: 51px;
-  background-color: $background-color;
+  background-color: $white;
   label, .label {
     font-family: "Lato", Arial, sans-serif;
     font-size: 14px;
@@ -48,6 +48,13 @@ body {
   .navbar {
     background-color: #ffffff;
     border-bottom: solid 1px $border-color;
+    .navbar-toggle .icon-bar {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: #cccccc;
+      border-radius: 1px;
+    }
   }
   .navbar-header {
     background-color: #f7f9fa;
@@ -137,15 +144,9 @@ body {
 	background-color: $white;
 }
 #sidebar {
-  position:fixed;
-  width: 200px;
-  z-index: 1000;
-  left: 0;
-  top: 51px;
-  background-color: #ffffff;
-	height: 100%;
-  padding-left: 0px;
+  background-color: $white;
 	padding-right: 0px;
+  padding-left: 0px;
   [class^="linecons-"], [class*=" linecons-"] {
     font-size: 14px;
   }
@@ -196,7 +197,14 @@ body {
     }
   }
 }
+#content {
+  background-color: $background-color;
+  border-left: solid 1px $border-color;
+  min-height: 100%;
+  height: 100%;
+}
 #content-wrapper {
+  margin-right: -15px;
   .content-title {
     background-color: #f7f9fa;
     height: 95px;
@@ -268,7 +276,7 @@ body {
   }
 }
 @media screen and(max-width: 767px) {
-	.row-offcanvas {
+  .row-offcanvas {
 		position: relative;
 		//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
 		transition: all 0.25s ease-out;
@@ -297,4 +305,7 @@ body {
 	#sidebar {
 		padding-top: 0;
 	}
+  .edit-bar {
+    width: 100%;
+  }
 }

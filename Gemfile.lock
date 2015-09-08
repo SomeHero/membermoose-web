@@ -141,6 +141,7 @@ GEM
       has_scope (~> 0.6.0.rc)
       railties (>= 3.2, < 5)
       responders
+    jasny_bootstrap_extension_rails (0.0.1)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -332,6 +333,7 @@ DEPENDENCIES
   font-awesome-rails (~> 4.1.0.0)
   grape
   haml
+  jasny_bootstrap_extension_rails
   jbuilder (~> 2.0)
   jquery-rails
   jquery-validation-rails
