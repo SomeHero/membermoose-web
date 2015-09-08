@@ -9,7 +9,7 @@ class Plan < ActiveRecord::Base
   scope :public_plans, -> { where(public: true) }
 
   before_save :populate_guid
-  validates_uniqueness_of :guid
+  validates_uniqueness_of :guid, :allow_blank => true, :allow_nil => true
 
   def as_json(options={})
   {

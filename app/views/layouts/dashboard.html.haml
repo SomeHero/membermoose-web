@@ -45,18 +45,23 @@
           %ul.nav.nav-sidebar
             %li.top-nav-item{"ng-class"=>"setMenuItemSelected('/dashboard/launch_list')"}
               %a{"href"=>"/dashboard/launch_list"}
+                %i.linecons-paper-plane
                 LAUNCH LIST
             %li{"ng-class"=>"setMenuItemSelected('/dashboard/plans')"}
               %a{"href"=>"/dashboard/plans"}
+                %i.linecons-heart
                 PLANS
             %li{"ng-class"=>"setMenuItemSelected('/dashboard/members')"}
               %a{"href"=>"/dashboard/members"}
+                %i.linecons-user
                 MEMBERS
             %li{"ng-class"=>"setMenuItemSelected('/dashboard/subscriptions')"}
               %a{"href"=>"/dashboard/subscriptions"}
+                %i.linecons-star
                 SUBSCRIPTIONS
             %li{"ng-class"=>"setMenuItemSelected('/dashboard/payments')"}
               %a{"href"=>"/dashboard/payments"}
+                %i.linecons-money
                 PAYMENTS
             %li{"ng-class"=>"setMenuItemSelected('/dashboard/accounts')"}
               = link_to "ACCOUNT", edit_dashboard_account_url(:id => current_user.id)

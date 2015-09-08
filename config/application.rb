@@ -11,6 +11,7 @@ module MmooseNg
     config.autoload_paths << Rails.root.join('lib')
     #config.autoload_paths << Rails.root.join('lib/exceptions')
     config.autoload_paths << Rails.root.join('app/workers')
+    config.autoload_paths << Rails.root.join('app/services')
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

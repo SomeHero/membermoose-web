@@ -146,6 +146,9 @@ body {
 	height: 100%;
   padding-left: 0px;
 	padding-right: 0px;
+  [class^="linecons-"], [class*=" linecons-"] {
+    font-size: 14px;
+  }
   h4.user-name {
     font-size: 12px;
     font-weight: 700;

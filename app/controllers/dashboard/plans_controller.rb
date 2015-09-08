@@ -25,12 +25,12 @@ class Dashboard::PlansController < DashboardController
   def update
     plan = current_user.account.plans.find(permitted_params[:id])
 
-    @user = current_user
-    begin
-      Resque.enqueue(UserSignupWorker, @user.id)
-    rescue
-      puts "Error #{$!}"
-    end
+    # @user = current_user
+    # begin
+    #   Resque.enqueue(UserSignupWorker, @user.id)
+    # rescue
+    #   puts "Error #{$!}"
+    # end
 
     respond_to do |format|
       if plan.update(permitted_params)
