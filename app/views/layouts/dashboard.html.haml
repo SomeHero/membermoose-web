@@ -64,7 +64,9 @@
                 %i.linecons-money
                 PAYMENTS
             %li{"ng-class"=>"setMenuItemSelected('/dashboard/accounts')"}
-              = link_to "ACCOUNT", edit_dashboard_account_url(:id => current_user.id)
+              = link_to edit_dashboard_account_url(:id => current_user.id) do
+                %i.linecons-note
+                ACCOUNT
         %div.col-sm-9.col-md-10.col-sm-offset-3.col-md-offset-2
           %div#content
             = yield
