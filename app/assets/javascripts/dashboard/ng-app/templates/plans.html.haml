@@ -49,6 +49,10 @@
         %a{:title=>"Close"}
           %i.fa.fa-times{"ng-click"=>"closeEditBar()" }
   .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
+    %h4
+      Plan Details
+    %h6
+      {{plan.name}} ({{plan.guid}})
     %form{"name"=>"plansForm","ng-submit"=>"updatePlan(plan)", "novalidate"=>""}
       .form-group
         %label{:for=>"planName"}

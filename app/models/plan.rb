@@ -14,6 +14,7 @@ class Plan < ActiveRecord::Base
   def as_json(options={})
   {
     :id => self.id,
+    :guid => self.guid,
     :name => self.name,
     :description => self.description,
     :amount => self.amount,

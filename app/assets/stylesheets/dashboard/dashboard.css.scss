@@ -237,6 +237,12 @@ body {
   overflow: scroll;
   background-color: $white;
   border-left: solid 1px $border-color;
+  h4 {
+    margin-bottom: 0px;
+  }
+  h6 {
+    margin-top: 0px;
+  }
   .popover {
     width: 200px;
     left:40px !important;

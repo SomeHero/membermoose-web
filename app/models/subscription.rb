@@ -9,6 +9,7 @@ class Subscription < ActiveRecord::Base
   def as_json(options={})
   {
     :id => self.id,
+    :guid => self.guid,
     :plan => self.plan,
     :subscriber => self.account,
     :status => self.status,
