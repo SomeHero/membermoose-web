@@ -229,6 +229,9 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.8)
       sprockets-rails (~> 2.0)
+    rails-angular-motion (0.4.2)
+      rails-angularjs (>= 1.3)
+    rails-angularjs (1.4.3)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -348,6 +351,7 @@ DEPENDENCIES
   pry-rails
   pry-remote
   rails (= 4.1.8)
+  rails-angular-motion
   rails_12factor
   redis
   resque

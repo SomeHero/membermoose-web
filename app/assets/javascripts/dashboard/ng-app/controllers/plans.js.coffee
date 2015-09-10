@@ -9,6 +9,7 @@
     $scope.plans_first_row = []
     $scope.rows = []
     $scope.row_plans = []
+    $scope.edit_panel_open = false
 
     $scope.plans_per_row = 4
     $scope.billing_cycles = [
@@ -25,24 +26,36 @@
     $scope.editPlan = (plan) ->
       console.log("edit plan")
 
-      $scope.plan = plan
+      $scope.edit_panel_open = true
+      $scope.plan = angular.copy(plan)
 
       $scope.plans_per_row = 3
       sortPlans()
 
-
     $scope.createPlan = () ->
       console.log("create plan")
 
-    $scope.updatePlan = (plan) ->
-      plan.update().then (plan) ->
-        console.log("plan updated")
+    $scope.updatePlan = (plan, form) ->
+      if form.$valid
+        plan.update().then(
+          (updated_plan) ->
+            angular.forEach($scope.plans, (value,index) =>
+              if value.id == updated_plan.id
+                $scope.plans[index] = updated_plan
+            )
+            $scope.closeEditBar()
+            
+            console.log("plan updated")
+          (http)  ->
+            console.log("error updating plan")
+            errors = http.data
+        )
 
     $scope.showEditBar = () ->
-      return $scope.plan != null
+      $scope.edit_panel_open = true
 
     $scope.closeEditBar = () ->
-      $scope.plan = null
+      $scope.edit_panel_open = false
 
       $scope.plans_per_row = 4
       sortPlans()

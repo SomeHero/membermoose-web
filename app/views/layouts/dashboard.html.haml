@@ -45,7 +45,7 @@
               Your Moose Pack
           %ul.nav.nav-sidebar
             %li.top-nav-item{"ng-class"=>"setMenuItemSelected('/dashboard/launch_list')"}
-              %a{"href"=>"/dashboard/launch_list"}
+              %a.am-fade-and-scale{"ng-click"=>"openLaunchList()","data-animation"=>"am-fade-and-scale", "data-placement"=>"center","bs-modal"=>"modal"}
                 %i.linecons-paper-plane
                 LAUNCH LIST
             %li{"ng-class"=>"setMenuItemSelected('/dashboard/plans')"}

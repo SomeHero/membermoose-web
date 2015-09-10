@@ -10,12 +10,33 @@ class Dashboard::PlansController < DashboardController
     end
   end
 
+  def show
+    @plan = current_user.account.plans.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @plan.to_json }
+    end
+  end
+
   def new
 
   end
 
   def create
+    binding.pry
+    @plan = Plan.new(permitted_params)
+    @plan.account = current_user.account
 
+    respond_to do |format|
+      if @plan.save
+        format.html  { render action: 'new' }
+        format.json { render :json => @plan.to_json }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: current_user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def edit
@@ -35,7 +56,7 @@ class Dashboard::PlansController < DashboardController
     respond_to do |format|
       if plan.update(permitted_params)
         format.html  { render action: 'edit' }
-        format.json { head :no_content }
+        format.json { render :json => plan.to_json }
       else
         format.html { render action: 'edit' }
         format.json { render json: current_user.errors, status: :unprocessable_entity }
