@@ -7,11 +7,12 @@
   ($scope, Account, Plan, window, $modal) ->
     $scope.user = null
     $scope.plans = []
-    $scope.plans_first_row = []
-    $scope.rows = []
-    $scope.row_plans = []
 
-    $scope.plans_per_row = 4
+    $scope.show_success_message = false
+    $scope.success_message = ""
+
+    $scope.show_error_message = false
+    $scope.error_message = ""
 
     Account.get(1).then (user) ->
       console.log "get account"
@@ -34,25 +35,11 @@
       if url == window.location.pathname
         return "selected"
 
-    sortPlans = () ->
-      $scope.plans_first_row = []
-      $scope.rows = []
-      $scope.row_plans = []
+    $scope.close_success_message = () ->
+      $scope.show_success_message = false
 
-      angular.forEach($scope.plans, (value,index) =>
-        if(index < $scope.plans_per_row - 1)
-          $scope.plans_first_row.push($scope.plans[index])
-        else
-          if(index + 1 > $scope.plans_per_row && ((index + 1) %% $scope.plans_per_row) == 0)
-            $scope.rows.push($scope.row_plans)
-            $scope.row_plans = []
-
-          $scope.row_plans.push($scope.plans[index])
-
-          if (index) >= $scope.plans.length - 1
-            $scope.rows.push($scope.row_plans)
-            $scope.row_plans = []
-      )
+    $scope.close_error_message = () ->
+      $scope.show_error_message = false
 
     return
 ]

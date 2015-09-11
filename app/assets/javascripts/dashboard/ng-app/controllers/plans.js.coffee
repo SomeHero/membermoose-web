@@ -30,6 +30,8 @@
       $scope.plan = angular.copy(plan)
 
       $scope.plans_per_row = 3
+      $scope.$parent.show_success_message = false
+
       sortPlans()
 
     $scope.createPlan = () ->
@@ -44,11 +46,17 @@
                 $scope.plans[index] = updated_plan
             )
             $scope.closeEditBar()
-            
+
+            $scope.$parent.success_message = "Your plan, " + plan.name + ", was successfully updated."
+            $scope.$parent.show_success_message = true
+
             console.log("plan updated")
           (http)  ->
             console.log("error updating plan")
             errors = http.data
+
+            $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
+            $scope.$parent.show_error_message = true
         )
 
     $scope.showEditBar = () ->

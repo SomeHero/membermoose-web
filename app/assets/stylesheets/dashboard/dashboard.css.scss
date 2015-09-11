@@ -228,7 +228,7 @@ body {
     }
   }
 }
-.animate-show {
+.edit-bar.animate-show {
   right: 0px;
 }
 .edit-bar.ng-hide-add, .animate-show.ng-hide-remove {
@@ -325,7 +325,7 @@ body {
   .edit-bar {
     width: 100%;
   }
-  .animate-show {
+  .edit-bar.animate-show {
     left: 0px;
     right: auto;
   }
@@ -337,4 +337,23 @@ body {
     right: auto;
     display: block !important;
   }
+}
+.success-message, .error-message {
+    width: 80%;
+    position: fixed;
+    top: 0px;
+    left: 10%;
+    border-radius: 10px;
+    z-index: 10000;
+}
+.success-message.animate-show, .error-message.animate-show {
+  top: 0px;
+  bottom: auto;
+}
+.success-message.ng-hide-add, .success-message.animate-show.ng-hide-remove, .error-message.ng-hide-add, .error-message.animate-show.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+.success-message.ng-hide, .error-message.ng-hide {
+  top: -60px;
+  display: block !important;
 }

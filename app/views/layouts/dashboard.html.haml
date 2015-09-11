@@ -9,6 +9,14 @@
     %link{:href => "https://www.google.com/fonts#UsePlace:use/Collection:Lato:400,700,300,100", :rel => "stylesheet", :type => "text/css"}/
     %base{"href"=>"/dashboard"}
   %body{"ng-app"=>"dashboardApp", "ng-controller"=>"DashboardController"}
+    .success-message.animate-show.alert.alert-success{"role"=>"alert", "ng-show"=>"show_success_message"}
+      %a.close{"ng-click"=>"close_success_message()", "aria-label"=>"close"}
+        &times;
+      {{success_message}}
+    .error-message.animate-show.alert.alert-danger{"role"=>"alert", "ng-show"=>"show_error_message"}
+      %a.close{"ng-click"=>"close_error_message()", "aria-label"=>"close"}
+        &times;
+      {{error_message}}
     %nav.navbar.navba.navbar-fixed-top{:role => "navigation"}
       .container-fluid
         .row-fluid{:style=>"margin-right: -15px;"}
