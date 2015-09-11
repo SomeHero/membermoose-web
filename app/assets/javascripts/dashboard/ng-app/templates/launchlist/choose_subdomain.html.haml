@@ -1,0 +1,14 @@
+%h4
+  Choose Your Sub-Domain
+%p
+  Customize your subdomain
+%form{"name"=>"accountForm", "novalidate"=>""}
+  .form-group
+    %label{:for=>"subdomain"}
+      Subdomain
+    %input#subdomain.form-control.input{:type=>"text",:name=>"account[subdomain]",:placeholder=>"http://my-plans.membermoose.com","ng-model"=>"user.account.subdomain", "required"=>""}
+    %span{"ng-show" => "accountForm['account[subdomain]'].$dirty && accountForm['account[subdomain]'].$invalid", :style => "color:red"}
+      %span{"ng-show" => "accountForm['account[subdomain]'].$error.required"}
+        Subdomain is required.
+  %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateSubdomainClicked(user, accountForm)"}
+    Submit

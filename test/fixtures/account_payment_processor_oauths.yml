@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  account_id: 
+  payment_processor_id: 
+  raw_response: MyText
+  oauth_user_id: MyString
+  name: MyString
+  email: MyString
+  token: MyString
+  refresh_token: MyString
+
+two:
+  account_id: 
+  payment_processor_id: 
+  raw_response: MyText
+  oauth_user_id: MyString
+  name: MyString
+  email: MyString
+  token: MyString
+  refresh_token: MyString

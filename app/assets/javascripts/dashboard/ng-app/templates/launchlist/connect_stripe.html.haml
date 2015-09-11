@@ -1,0 +1,7 @@
+%h4
+  Connect Your Stripe Account
+%a.stripe-connect{"ng-click"=>"stripe_connect()"}
+  %span
+    Connect With Stripe
+%div
+  You're connected as {{user.account.paymentProcessors[0].name}} ({{user.account.paymentProcessors[0].email}})

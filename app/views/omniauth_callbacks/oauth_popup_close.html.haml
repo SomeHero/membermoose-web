@@ -1,0 +1,9 @@
+!!!
+%html
+  %body
+    %p Close this window to continue
+    :javascript
+      try {
+        window.opener.$windowScope.handlePopupAuthentication('#{@payment_processor.to_json.html_safe}', #{@account_payment_processor_oauth.to_json.html_safe});
+      } catch(err) {}
+      window.close();
