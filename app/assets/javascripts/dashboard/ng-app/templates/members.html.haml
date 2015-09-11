@@ -23,7 +23,7 @@
   %img{:alt => "Cards we support (visa, mastercard, discover, amex)", :src => asset_path('dead-moose.png')}/
   %p
     You don't have any members yet!
-.edit-bar.animate-show{"ng-show"=>"showEditBar()"}
+.edit-bar.animate-show{"ng-show"=>"edit_panel_open"}
   .edit-controls
     %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
       %li
@@ -37,20 +37,20 @@
       Member Details
     %h6
       {{member.firstName}} {{member.lastName}} ({{member.guid}})
-    %form{"name"=>"","ng-submit"=>"updatePlan(plan)"}
+    %form{"name"=>"memberForm","ng-submit"=>"updatePlan(plan)"}
       .form-group
         %label{:for=>"firstName"}
           First Name
-        %input#firstName.form-control.input{:type=>"text",:name=>"account[first_name]",:placeholder=>"First Name","ng-model"=>"member.firstName", "ng-model-options"=>"{updateOn: 'submit'}"}
+        %input#firstName.form-control.input{:type=>"text",:name=>"member[first_name]",:placeholder=>"First Name","ng-model"=>"member.firstName"}
       .form-group
         %label{:for=>"lastName"}
           Last Name
-        %input#lastName.form-control.input{:type=>"text",:name=>"account[last_name]",:placeholder=>"Last Name","ng-model"=>"member.account.lastName"}
+        %input#lastName.form-control.input{:type=>"text",:name=>"member[last_name]",:placeholder=>"Last Name","ng-model"=>"member.lastName"}
       .form-group
         %label{:for=>"emailAddress"}
           Email Address
-        %input#emailAddress.form-control.input{:type=>"text",:name=>"account[user[email]]",:placeholder=>"Email Address","ng-model"=>"member.user.email"}
-      %button.btn.btn-primary{:type=>"submit"}
+        %input#emailAddress.form-control.input{:type=>"text",:name=>"member[user[email]]",:placeholder=>"Email Address","ng-model"=>"member.user.email"}
+      %button.btn.btn-primary{:type=>"submit",  "ng-click"=>"updateMember(member, memberForm)"}
         Update Member
     %div{:style=>"margin-top: 10px;"}
       %p.label

@@ -9,6 +9,8 @@ class Account < ActiveRecord::Base
   has_attached_file :logo
   has_attached_file :photo
 
+  accepts_nested_attributes_for :user, :update_only => true
+
   validates_attachment :logo, content_type: { content_type: /\Aimage\/.*\Z/ }
 
   DISALLOWED_SUBDOMAINS = %w(admin www app signup sign-up sign_up administration membermoose-ng)

@@ -21,8 +21,6 @@
     Plan.get().then (plans) ->
       $scope.plans = plans
 
-      sortPlans()
-
     $scope.openLaunchList = () ->
       modalInstance = $modal.open(
         animation: true

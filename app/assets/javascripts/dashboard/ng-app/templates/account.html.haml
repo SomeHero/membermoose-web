@@ -6,7 +6,7 @@
 .container-fluid
   .row
     .col-md-9
-      %form{"name"=>"","ng-submit"=>"updateUser(user)"}
+      %form{"name"=>"accountForm"}
         .form-group
           %label{:for=>"firstName"}
             First Name
@@ -27,9 +27,9 @@
           %label{:for=>"logo"}
             Logo
           %input#email.form-control{:type=>"file",:name=>"user[account_attributes[logo]]" }
-        %button.btn.btn-primary{:type=>"submit"}
+        %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateAccount(user, accountForm)"}
           Submit
-      .edit-bar{"ng-show"=>"showEditBar()"}
+      .edit-bar
         .edit-controls
           %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
             %li{"style"=>"margin-right: 28px"}

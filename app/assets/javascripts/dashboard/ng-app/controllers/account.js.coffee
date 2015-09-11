@@ -3,19 +3,24 @@
   'Account'
   '$window'
   ($scope, Account, window) ->
-    $scope.user = null
 
-    Account.get(1).then (user) ->
-      console.log "get account"
-      $scope.user = user
-
-    $scope.showEditBar = () ->
-      return $scope.user != null
-
-    $scope.updateUser = (user) ->
+    $scope.updateAccount = (user, form) ->
       console.log "updating user"
 
-      $scope.user.update()
+      if form.$valid
+        user.update().then(
+          (updated_user) ->
+            $scope.$parent.success_message = "Your account was successfully updated."
+            $scope.$parent.show_success_message = true
+
+            console.log("account updated")
+          (http)  ->
+            console.log("error updating account")
+            errors = http.data
+
+            $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
+            $scope.$parent.show_error_message = true
+        )
 
     return
 ]

@@ -49,6 +49,11 @@ var app = angular.module('dashboardApp', [
           this.nestedAttribute('account', 'account');
       });
     });
+    angular.module('dashboardApp').factory('MemberSerializer', function (railsSerializer) {
+      return railsSerializer(function () {
+          this.nestedAttribute('user', 'user');
+      });
+    });
     angular.module('dashboardApp').factory('Account', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
             url: '/dashboard/account',
@@ -65,19 +70,14 @@ var app = angular.module('dashboardApp', [
     angular.module('dashboardApp').factory('Member', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
             url: '/dashboard/members',
-            name: 'member'
+            name: 'member',
+            serializer: 'MemberSerializer'
         });
     }]);
     angular.module('dashboardApp').factory('Subscription', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
             url: '/dashboard/subscriptions',
             name: 'subscription'
-        });
-    }]);
-    angular.module('dashboardApp').factory('Member', ['railsResourceFactory', function (railsResourceFactory) {
-        return railsResourceFactory({
-            url: '/dashboard/members',
-            name: 'member'
         });
     }]);
     angular.module('dashboardApp').factory('Payment', ['railsResourceFactory', function (railsResourceFactory) {
