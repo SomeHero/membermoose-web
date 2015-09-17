@@ -2,6 +2,8 @@ module API
   module V1
     class Base < Grape::API
 
+      helpers Devise::Controllers::SignInOut
+
       rescue_from :all do |e|
 
         Rails.logger.error "API ERROR #{e.to_s}"
@@ -32,6 +34,14 @@ module API
         def session
           env[Rack::Session::Abstract::ENV_SESSION_KEY]
         end
+        def warden
+          env['warden']
+        end
+
+        def current_user
+          warden.user || @user
+        end
+
       end
 
       mount API::V1::Plans

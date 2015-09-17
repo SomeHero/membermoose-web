@@ -1,4 +1,5 @@
 require 'securerandom'
+require 'devise'
 
 module API
   module V1
@@ -77,6 +78,8 @@ module API
           user.email = params["email"]
           user.password = params["password"]
           user.save!
+
+          sign_in :user, user
 
           account
         end
