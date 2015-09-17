@@ -24,7 +24,6 @@ class Dashboard::PlansController < DashboardController
   end
 
   def create
-    binding.pry
     @plan = Plan.new(permitted_params)
     @plan.account = current_user.account
 

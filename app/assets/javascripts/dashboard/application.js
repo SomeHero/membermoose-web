@@ -22,5 +22,6 @@
 //= require angularjs/rails/resource
 //= require angular-ui-bootstrap
 //= require angular-ui-bootstrap-tpls
+//= require angularjs-file-upload
 //= require ng-table
 //= require_tree .

@@ -4,7 +4,11 @@
   '$window'
   'Account'
   'user'
-  ($scope, Plan, $window, Account, user) ->
+  'FileUploader'
+  ($scope, Plan, window, Account, user, FileUploader) ->
+    window.scope = $scope
+
+    csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     template_urls = [
       "dashboard/ng-app/templates/launchlist/upload_logo.html",
@@ -19,12 +23,20 @@
     $scope.user = user
     $scope.content_template_url = template_urls[template_index]
     $scope.active_step = 1
+    $scope.uploader = new FileUploader({
+      url: '/dashboard/account/upload_logo'
+      headers : {
+        'X-CSRF-TOKEN': csrf_token
+      }
+    })
 
     $scope.isActiveStep = (step) ->
       if step == $scope.active_step
         return "active-step"
 
     $scope.uploadLogoClicked = () ->
+      $scope.uploader.uploadAll()
+
       $scope.active_step = 1
 
       template_index = 0
@@ -106,4 +118,4 @@
     return
 ]
 
-LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', 'user']
+LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', 'user', 'FileUploader']

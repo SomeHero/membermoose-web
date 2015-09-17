@@ -43,7 +43,7 @@
       .row-fluid.row-offcanvas.row-offcanvas-left
         #sidebar.col-sm-3.col-md-2.sidebar-offcanvas{"role" => "navigation"}
           #profile-block.text-center
-            %img{"ng-src"=>"user.account.logo.url", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo"}
+            %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo"}
             %h4.user-name
               {{ user.account.firstName }} {{ user.account.lastName }}
             %h5.company-name

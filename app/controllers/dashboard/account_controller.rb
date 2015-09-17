@@ -1,6 +1,15 @@
 class Dashboard::AccountController < DashboardController
   layout 'dashboard'
 
+  def upload_logo
+    user = current_user
+
+    user.account.logo = params[:file]
+    user.save
+
+    render json: user.account.to_json 
+  end
+
   def show
       user = current_user
 

@@ -54,6 +54,7 @@ GEM
     angular-ui-bootstrap-rails (0.13.3)
     angular_rails_csrf (1.0.4)
       rails (>= 3, < 5)
+    angularjs-file-upload-rails (1.1.6)
     angularjs-rails-resource (2.0.0)
     animate-rails (1.0.8)
       rails
@@ -327,6 +328,7 @@ DEPENDENCIES
   angular-rails-templates
   angular-ui-bootstrap-rails
   angular_rails_csrf
+  angularjs-file-upload-rails (~> 1.1.6)
   angularjs-rails-resource (~> 2.0.0)
   animate-rails
   autoprefixer-rails

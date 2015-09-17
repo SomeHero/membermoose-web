@@ -31,17 +31,15 @@ module API
       end
 
       helpers do
-        def session
-          env[Rack::Session::Abstract::ENV_SESSION_KEY]
-        end
-        def warden
-          env['warden']
-        end
-
         def current_user
-          warden.user || @user
+          return nil if env['rack.session'][:user_id].nil?
+          @current_user ||= User.get(env['rack.session'][:user_id])
         end
 
+        def current_user=(user)
+          env['rack.session'][:user_id] = user.id unless user
+          @current_user = user
+        end
       end
 
       mount API::V1::Plans

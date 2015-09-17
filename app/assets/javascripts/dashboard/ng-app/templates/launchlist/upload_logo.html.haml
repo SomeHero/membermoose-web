@@ -1,2 +1,7 @@
 %h2
   Upload Your Logo!
+%form{"name"=>"myForm"}
+  %input{"type"=>"file", "nv-file-select"=>"", "uploader"=>"uploader", "ng-model"=>"picFile"}
+  %img.thumb{"ng-show"=>"myForm.file.$valid", "ngf-src"=>"!picFile.$error && picFile"}
+  %button.btn.btn-primary{"type"=>"submit", "ng-click"=>"uploadLogoClicked()"}
+    Upload Logo

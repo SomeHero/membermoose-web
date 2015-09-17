@@ -59,6 +59,7 @@ gem 'omniauth-stripe-connect'
 gem 'jasny_bootstrap_extension_rails'
 gem "animate-rails"
 gem 'rails-angular-motion'
+gem 'angularjs-file-upload-rails', '~> 1.1.6'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

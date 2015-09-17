@@ -29,6 +29,9 @@ class Account < ActiveRecord::Base
     :first_name => self.first_name,
     :last_name => self.last_name,
     :company_name => self.company_name,
+    :logo => {
+      url: self.logo.url
+    },
     :user => {
       :email => self.user.email,
     },

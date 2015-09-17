@@ -24,7 +24,11 @@ Rails.application.routes.draw do
     resources :members, :controller => "dashboard/members"
     resources :subscriptions, :controller => "dashboard/subscriptions"
     resources :payments, :controller => "dashboard/payments"
-    resources :account, :controller => "dashboard/account"
+    resources :account, :controller => "dashboard/account" do
+      collection do
+        post :upload_logo
+      end
+    end
   end
 
   resource :bulls do
