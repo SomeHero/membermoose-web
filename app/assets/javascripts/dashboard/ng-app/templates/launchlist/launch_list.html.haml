@@ -8,8 +8,8 @@
     .container-fluid
       .row
         .col-md-5
-          %ul.nav
-            %li
+          %ul#steps.nav
+            %li.brush{"ng-class"=>"isActiveStep(1)"}
               1. Customize Your site
               %ul.nav
                 %li
@@ -18,19 +18,19 @@
                 %li
                   %a{"ng-click"=>"chooseSubDomainClicked()"}
                     choose your sub-domain
-            %li
+            %li.heart{"ng-class"=>"isActiveStep(2)"}
               2. Start Creating Plans
               %ul.nav
                 %li
                   %a{"ng-click"=>"createPlanClicked()"}
                     create your first plan
-            %li
+            %li.money{"ng-class"=>"isActiveStep(3)"}
               3. Setup a Payment Processor
               %ul.nav
                 %li
                   %a{"ng-click"=>"connectStripeClicked()"}
                     connect your stripe account
-            %li
+            %li.flash{"ng-class"=>"isActiveStep(4)"}
               4. Activate Your Site
               %ul.nav
                 %li
@@ -39,7 +39,7 @@
                 %li
                   %a{"ng-click"=>"previewYourSiteClicked()"}
                     preview your site
-            %li
+            %li.peoples{"ng-class"=>"isActiveStep(5)"}
               5. Get subscribers
               %ul.nav
                 %li

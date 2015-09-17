@@ -17,6 +17,7 @@
 //= require bootstrap-sprockets
 //= require remodal
 //= require_directory ../xenon
+//= require ./get_started
 //= require angular
 //= require angular-animate
 //= require angular-ui-router

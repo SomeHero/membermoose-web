@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'launch_controller/index'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resource :dashboard do
+    resources :launch, :controller => "dashboard/launch"
     resources :plans, :controller => "dashboard/plans"
     resources :members, :controller => "dashboard/members"
     resources :subscriptions, :controller => "dashboard/subscriptions"

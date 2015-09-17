@@ -18,22 +18,35 @@
     template_index = 0
     $scope.user = user
     $scope.content_template_url = template_urls[template_index]
+    $scope.active_step = 1
+
+    $scope.isActiveStep = (step) ->
+      if step == $scope.active_step
+        return "active-step"
 
     $scope.uploadLogoClicked = () ->
+      $scope.active_step = 1
+
       template_index = 0
       $scope.content_template_url = template_urls[template_index]
 
     $scope.chooseSubDomainClicked = () ->
+      $scope.active_step = 1
+
       template_index = 1
       $scope.content_template_url = template_urls[template_index]
 
     $scope.createPlanClicked = () ->
       $scope.plan = new Plan()
 
+      $scope.active_step = 2
+
       template_index = 2
       $scope.content_template_url = template_urls[template_index]
 
     $scope.connectStripeClicked = () ->
+      $scope.active_step = 3
+
       template_index = 3
       $scope.content_template_url = template_urls[template_index]
 
@@ -54,6 +67,18 @@
             $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
             $scope.$parent.show_error_message = true
         )
+
+    $scope.pickYourPlanClicked = () ->
+      $scope.active_step = 4
+
+      template_index = 4
+      $scope.content_template_url = template_urls[template_index]
+
+    $scope.previewYourSiteClicked = () ->
+      $scope.active_step = 4
+
+      template_index = 5
+      $scope.content_template_url = template_urls[template_index]
 
     $scope.createPlan = (plan, form) ->
       plan.create().then(

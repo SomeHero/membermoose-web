@@ -32,17 +32,21 @@ module API
               :last_name => last_name
           })
 
+          session["account_id"] = account.id
+
           account
         end
         desc ""
         params do
-          requires :account_id, type: Integer, desc: "id of the newly created account"
           requires :company_name, type: String, desc: "company name of the account"
         end
         post "/step2" do
           Rails.logger.debug "Step 2 of Funnel for #{params["account_id"]}"
 
-          account = Account.find(params["account_id"])
+          account_id = session["account_id"]
+          error!('500 Internal Server Error', 500) unless account_id
+
+          account = Account.find(account_id)
 
           error!('404 Not Found', 404) unless account
 
@@ -53,21 +57,23 @@ module API
         end
         desc ""
         params do
-          requires :account_id, type: Integer, desc: "id of the newly created account"
           requires :email, type: String, desc: "email for the new account"
           requires :password, type: String, desc: "password for the new account"
         end
         post "/step3" do
           Rails.logger.debug "Step 3 of Funnel for #{params["account_id"]}"
 
-          account = Account.find(params["account_id"])
+          account_id = session["account_id"]
+          error!('500 Internal Server Error', 500) unless account_id
+
+          account = Account.find(account_id)
 
           error!('404 Not Found', 404) unless account
 
           user = account.user
 
           error!('400 Error', 400) unless user
-          
+
           user.email = params["email"]
           user.password = params["password"]
           user.save!

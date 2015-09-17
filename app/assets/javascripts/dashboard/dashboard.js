@@ -9,6 +9,10 @@ var app = angular.module('dashboardApp', [
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider
+        .state('launch', {
+            url: '/dashboard/launch',
+            controller: 'LaunchController'
+        })
         .state('account', {
             url: '/dashboard/account/:id/edit',
             templateUrl: 'dashboard/ng-app/templates/account.html',
