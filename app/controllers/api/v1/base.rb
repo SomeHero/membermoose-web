@@ -31,6 +31,13 @@ module API
       end
 
       helpers do
+        def session
+          env[Rack::Session::Abstract::ENV_SESSION_KEY]
+        end
+        def warden
+          env['warden']
+        end
+        
         def current_user
           return nil if env['rack.session'][:user_id].nil?
           @current_user ||= User.get(env['rack.session'][:user_id])
