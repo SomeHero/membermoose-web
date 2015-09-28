@@ -1,4 +1,4 @@
-class Bulls::SubscriptionsController < DashboardController
+class Bulls::SubscriptionsController < ApplicationController
   layout 'bulls'
 
   def new

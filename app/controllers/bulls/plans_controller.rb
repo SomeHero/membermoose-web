@@ -1,4 +1,4 @@
-class Bulls::PlansController < DashboardController
+class Bulls::PlansController < ApplicationController
   layout 'bulls'
 
   def index
