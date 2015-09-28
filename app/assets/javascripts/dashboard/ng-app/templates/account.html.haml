@@ -24,9 +24,10 @@
             Email Address
           %input#email.form-control{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
         .form-group
-          %label{:for=>"logo"}
+          %label{:for=>"logo", "style"=>"display: block;"}
             Logo
-          %input#email.form-control{:type=>"file",:name=>"user[account_attributes[logo]]" }
+          %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo", "style"=>"margin: 20px 0px;"}}
+          %input#logo.form-control{:type=>"file",:name=>"user[account_attributes[logo]]", "ng-model"=>"user.account.logo" }
         %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateAccount(user, accountForm)"}
           Submit
       .edit-bar

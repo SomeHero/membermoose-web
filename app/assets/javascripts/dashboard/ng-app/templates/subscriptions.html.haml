@@ -6,7 +6,7 @@
 %table.table{"ng-table"=>"", "ng-hide"=>"subscriptions.length == 0"}
   %tr{"ng-repeat"=>"subscription in subscriptions"}
     %td.select-item
-      %input{:type=>"checkbox", "ng-click"=>"selectSubscription($event, subscription)"}
+      %input{:type=>"checkbox", "ng-click"=>"selectSubscription($event, subscription)", "ng-checked"=>"selected_subscription == subscription"}
     %td{"data-title"=>"'Subscriber Name'"}
       {{subscription.subscriber.firstName}} {{subscription.subscriber.lastName}}
     %td{"data-title"=>"'Plan Name'"}
@@ -21,6 +21,7 @@
       $100.00
     %td{"data-title"=>"'Status'"}
       {{subscription.status}}
+%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0"}
 .no-results{"ng-show"=>"subscriptions.length == 0"}
   %img{:alt => "You have no subscribers", :src => asset_path('dead-moose.png')}/
   %p
@@ -38,23 +39,23 @@
     %h4
       Subscription Details
     %h6
-      Member Since: {{subscription.subscriber.createdAt | date:'mediumDate'}}
+      Member Since: {{selected_subscription.subscriber.createdAt | date:'mediumDate'}}
     %p.label
       Subscriber Name:
     %p.data
-      {{subscription.subscriber.firstName}} {{subscription.subscriber.lastName}}
+      {{selected_subscription.subscriber.firstName}} {{selected_subscription.subscriber.lastName}}
     %p.label
       Subscriber Email:
     %p.data
-      {{subscription.subscriber.user.email}}
+      {{selected_subscription.subscriber.user.email}}
     %p.label
       Plan Name:
     %p.data
-      {{subscription.plan.name}}
+      {{selected_subscription.plan.name}}
     %p.label
       Subscription Start Date
     %p.data
-      {{subscription.subscriber.createdAt | date:'mediumDate'}}
+      {{selected_subscription.subscriber.createdAt | date:'mediumDate'}}
     %p.label
       Subscription End Date
     %p.data
@@ -77,4 +78,4 @@
     %p.label
       Subscription status
     %p.data
-      {{subscription.status}}
+      {{selected_subscription.status}}

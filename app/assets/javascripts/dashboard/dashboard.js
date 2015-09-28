@@ -12,7 +12,15 @@ var app = angular.module('dashboardApp', [
       $stateProvider
         .state('launch', {
             url: '/dashboard/launch',
-            controller: 'LaunchController'
+            controller: 'LaunchController',
+            resolve: {
+              user: function(Account) {
+                return Account.get(1).then(function(user) {
+                  console.log("get account");
+                  return user;
+                });
+              }
+            }
         })
         .state('account', {
             url: '/dashboard/account/:id/edit',
@@ -63,7 +71,10 @@ var app = angular.module('dashboardApp', [
         return railsResourceFactory({
             url: '/dashboard/account',
             name: 'user',
-            serializer: 'UserSerializer'
+            serializer: 'UserSerializer',
+            beforeRequestWrapping: function(httpConfig, resource, context) {
+              var mapping, obj, _ref;
+            }
         });
     }]);
     angular.module('dashboardApp').factory('Plan', ['railsResourceFactory', function (railsResourceFactory) {
@@ -74,7 +85,7 @@ var app = angular.module('dashboardApp', [
     }]);
     angular.module('dashboardApp').factory('Member', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
-            url: '/dashboard/members',
+            url: '/dashboard/members?page={{page}}',
             name: 'member',
             serializer: 'MemberSerializer'
         });

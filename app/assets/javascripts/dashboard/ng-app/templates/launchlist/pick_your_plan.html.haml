@@ -1,2 +1,21 @@
 %h4
   Pick Your Plan
+
+%ul#plans.nav
+  %li.plan-item{"ng-click"=>"setSelectedPlan(1)", "ng-class"=>"isSelectedPlan(1)"}
+    %h6
+      Baby Moose
+    %p
+      Our free plan!  Use MemberMoose to create as many plans as you want but
+      we limit the subscribers to your plan to 10.
+    %p
+      $0.00/month + 2.9% + $0.30 per transaction}
+  %li.plan-item{"ng-click"=>"setSelectedPlan(2)", "ng-class"=>"isSelectedPlan(2)"}
+    %h6
+      Bull Plan
+    %p
+      Full access to all of MemberMoose's great features.  Unlimited plans and unlimited subscribers.
+    %p
+      $29.99/month + 2.9% + $0.30 per transaction
+%button.btn.btn-primary
+  Pick Plan

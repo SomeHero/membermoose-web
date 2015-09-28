@@ -3,7 +3,7 @@ class Plan < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   belongs_to :account
   has_many :subscriptions
-
+  has_many :members, :through => :subscriptions, :source => :account, class_name: "Account", foreign_key: "account_id"
   has_attached_file :photo
 
   scope :public_plans, -> { where(public: true) }

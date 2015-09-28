@@ -3,10 +3,25 @@
   'Member'
   '$window'
   ($scope, Member, window) ->
-    $scope.member = null
+    window.scope = $scope
     $scope.members = []
+    $scope.selected_member = null
+    $scope.totalItems = 100
+    $scope.currentPage = 1
+    $scope.itemsPerPage = 10
 
     $scope.edit_panel_open = false
+    $scope.setPage = (pageNo) ->
+      $scope.currentPage = pageNo
+
+    $scope.pageChanged = () ->
+      console.log('Page changed to: ' + $scope.currentPage);
+      $scope.getMembers()
+
+    $scope.getMembers = () ->
+      Member.get({page: $scope.currentPage}).then (members) ->
+        console.log("get members")
+        $scope.members = members
 
     $scope.billing_history =  [
       {payment_date:'8/1/2015', amount: 100, status: 'Paid'},
@@ -16,16 +31,18 @@
       {payment_date:'4/1/2015', amount: 100, status: 'Paid'},
       {payment_date:'3/1/2015', amount: 100, status: 'Paid'},
     ];
-    Member.get().then (members) ->
-      $scope.members = members
 
     $scope.selectMember = (event, member) ->
-      $scope.edit_panel_open = true
-      $scope.member = angular.copy(member)
+      if $scope.selected_member == member
+        $scope.edit_panel_open = false
+        $scope.selected_member = null
+      else
+        $scope.edit_panel_open = true
+        $scope.selected_member = member
 
       $scope.$parent.show_success_message = false
       $scope.$parent.show_error_message = false
-      
+
     $scope.updateMember = (member, form) ->
       if form.$valid
         member.update().then(
@@ -53,6 +70,8 @@
 
     $scope.closeEditBar = () ->
       $scope.edit_panel_open = false
+
+    $scope.getMembers()
 
     return
 ]

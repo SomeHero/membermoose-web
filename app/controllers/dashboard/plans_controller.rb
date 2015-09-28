@@ -2,7 +2,7 @@ class Dashboard::PlansController < DashboardController
   layout 'dashboard'
 
   def index
-    @plans = current_user.account.plans
+    @plans = current_user.account.plans.paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.html

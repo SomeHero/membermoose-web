@@ -3,7 +3,7 @@
   'Subscription'
   '$window'
   ($scope, Subscription, window) ->
-    $scope.subscription = null
+    $scope.selected_subscription = null
     $scope.subscriptions = []
 
     $scope.billing_history =  [
@@ -14,18 +14,18 @@
       {payment_date:'4/1/2015', amount: 100, status: 'Paid'},
       {payment_date:'3/1/2015', amount: 100, status: 'Paid'},
     ];
-    
+
     Subscription.get().then (subscriptions) ->
       $scope.subscriptions = subscriptions
 
     $scope.selectSubscription = (event, subscription) ->
-      if $scope.subscription == subscription
-        $scope.subscription = null
+      if $scope.selected_subscription == subscription
+        $scope.selected_subscription = null
       else
-        $scope.subscription = subscription
+        $scope.selected_subscription = subscription
 
     $scope.showEditBar = () ->
-      return $scope.subscription != null
+      return $scope.selected_subscription != null
 
     $scope.closeEditBar = () ->
       $scope.subscription = null

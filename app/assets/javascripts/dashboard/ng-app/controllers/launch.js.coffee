@@ -3,8 +3,9 @@
   'Account',
   'Plan',
   '$window',
-  '$modal'
-  ($scope, Account, Plan, window, $modal) ->
+  '$modal',
+  'user'
+  ($scope, Account, Plan, window, $modal, user) ->
     if window.location.pathname == "/dashboard/launch"
       modalInstance = $modal.open(
         animation: true
@@ -19,4 +20,4 @@
     return
 ]
 
-LaunchController.$inject = ['$scope', 'Account', 'Plan', 'window', '$modal']
+LaunchController.$inject = ['$scope', 'Account', 'Plan', 'window', '$modal', 'user']

@@ -2,7 +2,6 @@ class Subscription < ActiveRecord::Base
   belongs_to :account
   belongs_to :plan
   belongs_to :account_payment_processor
-
   before_save :populate_guid
   validates_uniqueness_of :guid
 

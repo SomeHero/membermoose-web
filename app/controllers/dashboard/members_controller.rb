@@ -3,6 +3,8 @@ class Dashboard::MembersController < DashboardController
 
   def index
     @members = current_user.account.members
+      .paginate(:page => params[:page], :per_page => 10)
+      .order("last_name asc")
 
     respond_to do |format|
       format.html

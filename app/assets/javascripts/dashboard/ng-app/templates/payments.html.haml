@@ -24,6 +24,7 @@
       Visa 1110
     %td{"data-title"=>"'Status'"}
       Active
+%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0"}          
 .no-results{"ng-show"=>"payments.length == 0"}
   %img{:alt => "You have no subscribers", :src => asset_path('dead-moose.png')}/
   %p

@@ -6,7 +6,7 @@
 %table.table{"ng-table"=>"", "ng-hide"=>"members.length == 0"}
   %tr{"ng-repeat"=>"member in members"}
     %td.select-item
-      %input{:type=>"checkbox", "ng-click"=>"selectMember($event, member)"}
+      %input{:type=>"checkbox", "ng-click"=>"selectMember($event, member)", "ng-checked"=>"selected_member == member"}
     %td{"data-title"=>"'First Name'"}
       {{member.firstName}}
     %td{"data-title"=>"'Last Name'"}
@@ -16,9 +16,10 @@
     %td{"data-title"=>"'Member Since'"}
       December 12, 2012
     %td{"data-title"=>"'Plans'"}
-      Lone Wolf
+      {{member.planNames}}
     %td{"data-title"=>"'Status'"}
       Active
+%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0"}
 .no-results{"ng-show"=>"members.length == 0"}
   %img{:alt => "Cards we support (visa, mastercard, discover, amex)", :src => asset_path('dead-moose.png')}/
   %p
@@ -36,27 +37,27 @@
     %h4
       Member Details
     %h6
-      {{member.firstName}} {{member.lastName}} ({{member.guid}})
+      {{selected_member.firstName}} {{selected_member.lastName}} ({{selected_member.guid}})
     %form{"name"=>"memberForm","ng-submit"=>"updatePlan(plan)"}
       .form-group
         %label{:for=>"firstName"}
           First Name
-        %input#firstName.form-control.input{:type=>"text",:name=>"member[first_name]",:placeholder=>"First Name","ng-model"=>"member.firstName"}
+        %input#firstName.form-control.input{:type=>"text",:name=>"selected_member[first_name]",:placeholder=>"First Name","ng-model"=>"selected_member.firstName"}
       .form-group
         %label{:for=>"lastName"}
           Last Name
-        %input#lastName.form-control.input{:type=>"text",:name=>"member[last_name]",:placeholder=>"Last Name","ng-model"=>"member.lastName"}
+        %input#lastName.form-control.input{:type=>"text",:name=>"selected_member[last_name]",:placeholder=>"Last Name","ng-model"=>"selected_member.lastName"}
       .form-group
         %label{:for=>"emailAddress"}
           Email Address
-        %input#emailAddress.form-control.input{:type=>"text",:name=>"member[user[email]]",:placeholder=>"Email Address","ng-model"=>"member.user.email"}
-      %button.btn.btn-primary{:type=>"submit",  "ng-click"=>"updateMember(member, memberForm)"}
+        %input#emailAddress.form-control.input{:type=>"text",:name=>"selected_member[user[email]]",:placeholder=>"Email Address","ng-model"=>"selected_member.user.email"}
+      %button.btn.btn-primary{:type=>"submit",  "ng-click"=>"updateMember(selected_member, memberForm)"}
         Update Member
     %div{:style=>"margin-top: 10px;"}
       %p.label
         Plans
       %p.data
-        Lone Wolf
+        {{selected_member.planNames}}
       %p.label
         Billing History:
       %p.data

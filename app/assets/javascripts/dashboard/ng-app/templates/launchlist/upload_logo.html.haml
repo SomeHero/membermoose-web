@@ -1,7 +1,8 @@
 %h2
   Upload Your Logo!
+%img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo"}
 %form{"name"=>"myForm"}
-  %input{"type"=>"file", "nv-file-select"=>"", "uploader"=>"uploader", "ng-model"=>"picFile"}
+  %input{"type"=>"file", "name"=>"file", "nv-file-select"=>"", "uploader"=>"uploader", "ng-model"=>"picFile"}
   %img.thumb{"ng-show"=>"myForm.file.$valid", "ngf-src"=>"!picFile.$error && picFile"}
-  %button.btn.btn-primary{"type"=>"submit", "ng-click"=>"uploadLogoClicked()"}
+  %button.btn.btn-primary{"type"=>"submit", "ng-click"=>"submitLogo()"}
     Upload Logo

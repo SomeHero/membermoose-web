@@ -2,8 +2,8 @@ class Account < ActiveRecord::Base
   belongs_to :user
   has_one :address
   has_many :plans
-  has_many :subscriptions, :through => :plans
-  has_many :members, :through => :subscriptions, :source => :account, class_name: "Account", foreign_key: "account_id"
+  has_many :subscriptions,  -> { includes :plan }, :through => :plans
+  has_many :members, :through => :plans
   has_many :account_payment_processors, :class_name => 'AccountPaymentProcessorOauth', :foreign_key => 'account_id'
   has_many :payments
   has_attached_file :logo
@@ -22,6 +22,10 @@ class Account < ActiveRecord::Base
   before_save :populate_guid
   validates_uniqueness_of :guid
 
+  def plan_names
+    self.subscriptions.pluck('plans.name').map(&:inspect).join(', ')
+  end
+
   def as_json(options={})
   {
     :id => self.id,
@@ -30,12 +34,13 @@ class Account < ActiveRecord::Base
     :last_name => self.last_name,
     :company_name => self.company_name,
     :logo => {
-      url: self.logo.url
+      url: self.logo.exists? ? self.logo.url : ""
     },
     :user => {
       :email => self.user.email,
     },
     :subdomain => self.subdomain,
+    :plan_names => self.plan_names,
     :payment_processors => self.account_payment_processors,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at

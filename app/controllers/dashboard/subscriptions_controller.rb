@@ -3,6 +3,9 @@ class Dashboard::SubscriptionsController < DashboardController
 
   def index
     @subscriptions = current_user.account.subscriptions
+      .joins(:account)
+      .paginate(:page => params[:page], :per_page => 10)
+      .order("last_name asc")
 
     respond_to do |format|
       format.html

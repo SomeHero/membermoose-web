@@ -109,3 +109,75 @@ Subscription.create!({
   #:account_payment_method =>
   :status => "Active"
 })
+wolfpack_1_plan = Plan.create!({
+    :account => larkin_account,
+    :name => "Wolfpack 1",
+    :description => "1 day per week",
+    :amount => "50.00",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trial_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
+wolfpack_2_plan = Plan.create!({
+    :account => larkin_account,
+    :name => "Wolfpack 2",
+    :description => "3 days per week",
+    :amount => "125.00",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trial_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
+wolfpack_3_plan = Plan.create!({
+    :account => larkin_account,
+    :name => "Wolfpack 3",
+    :description => "5 days per week",
+    :amount => "200.00",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trial_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
+wolfpack_4_plan = Plan.create!({
+    :account => larkin_account,
+    :name => "Wolfpack 2",
+    :description => "5 days per week, office",
+    :amount => "250.00",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trial_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
+wolfpack_5_plan = Plan.create!({
+    :account => larkin_account,
+    :name => "Wolfpack 2",
+    :description => "5 days per week, everything",
+    :amount => "250.00",
+    :billing_cycle => "Monthly",
+    :billing_interval => "1",
+    :trial_period_days => 30,
+    :terms_and_conditions => "Be cool"
+})
+
+wolfpack_plans = [wolfpack_1_plan, wolfpack_2_plan, wolfpack_3_plan, wolfpack_4_plan, wolfpack_5_plan]
+
+for i in 0..250
+username = Faker::Name.name
+email_address = Faker::Internet.safe_email
+
+Subscription.create!({
+  :account => Account.create!({
+    :user => User.create!({
+      :email => email_address,
+      :password => Faker::Internet.password()
+    }),
+    :first_name => username.split(" ")[0],
+    :last_name => username.split(" ")[1],
+    :company_name => ""
+  }),
+  :plan => wolfpack_plans[rand(0..4)],
+  #:account_payment_method =>
+  :status => "Active"
+})
+end

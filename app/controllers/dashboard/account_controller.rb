@@ -7,7 +7,7 @@ class Dashboard::AccountController < DashboardController
     user.account.logo = params[:file]
     user.save
 
-    render json: user.account.to_json 
+    render json: user.account.to_json
   end
 
   def show
