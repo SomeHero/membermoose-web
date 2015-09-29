@@ -100,7 +100,8 @@ larkin_account = Account.create!({
   }),
   :first_name => "Larkin",
   :last_name => "Garbee",
-  :company_name => "804RVA"
+  :company_name => "804RVA",
+  :subdomain => "804rva"
   #logo =>
 })
 Subscription.create!({
@@ -117,7 +118,8 @@ wolfpack_1_plan = Plan.create!({
     :billing_cycle => "Monthly",
     :billing_interval => "1",
     :trial_period_days => 30,
-    :terms_and_conditions => "Be cool"
+    :terms_and_conditions => "Be cool",
+    :public => true
 })
 wolfpack_2_plan = Plan.create!({
     :account => larkin_account,
@@ -127,7 +129,8 @@ wolfpack_2_plan = Plan.create!({
     :billing_cycle => "Monthly",
     :billing_interval => "1",
     :trial_period_days => 30,
-    :terms_and_conditions => "Be cool"
+    :terms_and_conditions => "Be cool",
+    :public => true
 })
 wolfpack_3_plan = Plan.create!({
     :account => larkin_account,
@@ -137,7 +140,8 @@ wolfpack_3_plan = Plan.create!({
     :billing_cycle => "Monthly",
     :billing_interval => "1",
     :trial_period_days => 30,
-    :terms_and_conditions => "Be cool"
+    :terms_and_conditions => "Be cool",
+    :public => true
 })
 wolfpack_4_plan = Plan.create!({
     :account => larkin_account,
@@ -147,7 +151,8 @@ wolfpack_4_plan = Plan.create!({
     :billing_cycle => "Monthly",
     :billing_interval => "1",
     :trial_period_days => 30,
-    :terms_and_conditions => "Be cool"
+    :terms_and_conditions => "Be cool",
+    :public => false
 })
 wolfpack_5_plan = Plan.create!({
     :account => larkin_account,
@@ -157,7 +162,8 @@ wolfpack_5_plan = Plan.create!({
     :billing_cycle => "Monthly",
     :billing_interval => "1",
     :trial_period_days => 30,
-    :terms_and_conditions => "Be cool"
+    :terms_and_conditions => "Be cool",
+    :public => true
 })
 
 wolfpack_plans = [wolfpack_1_plan, wolfpack_2_plan, wolfpack_3_plan, wolfpack_4_plan, wolfpack_5_plan]

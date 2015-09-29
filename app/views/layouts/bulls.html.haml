@@ -10,7 +10,7 @@
     %base{"href"=>"/"}
   %body{"ng-app"=>"bullsApp"}
     %header.text-center{:style => "background: #{@dominant_color}"}
-      - if @bull.account.logo
+      - if @bull.account.logo.exists?
         = image_tag @bull.account.logo.url
       %h1
         = @bull.account.company_name
