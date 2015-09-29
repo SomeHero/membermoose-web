@@ -5,6 +5,30 @@ class Payment < ActiveRecord::Base
   before_save :populate_guid
   validates_uniqueness_of :guid
 
+  def net_amount
+    self.amount - self.payment_processor_fee
+  end
+
+  def as_json(options={})
+  {
+    :id => self.id,
+    :guid => self.guid,
+    :amount => self.amount,
+    :fees => self.payment_processor_fee,
+    :net_amount => self.net_amount,
+    :payment_type => self.payment_type,
+    :status => self.status,
+    :payee => {
+      "guid" => self.account_payment_processor.account.guid,
+      "full_name" => self.account_payment_processor.account.full_name,
+      "email_address" => self.account_payment_processor.account.user.email
+    },
+    :account_payment_processor => self.account_payment_processor,
+    :created_at => self.created_at,
+    :updated_at	=> self.updated_at
+  }
+  end
+
   private
 
   def populate_guid

@@ -9,6 +9,7 @@
     $scope.totalItems = 100
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
+    $scope.isLoading = true
 
     $scope.edit_panel_open = false
     $scope.setPage = (pageNo) ->
@@ -16,21 +17,14 @@
 
     $scope.pageChanged = () ->
       console.log('Page changed to: ' + $scope.currentPage);
+      $scope.isLoading = true
       $scope.getMembers()
 
     $scope.getMembers = () ->
       Member.get({page: $scope.currentPage}).then (members) ->
         console.log("get members")
         $scope.members = members
-
-    $scope.billing_history =  [
-      {payment_date:'8/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'7/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'6/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'5/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'4/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'3/1/2015', amount: 100, status: 'Paid'},
-    ];
+        $scope.isLoading = false
 
     $scope.selectMember = (event, member) ->
       if $scope.selected_member == member

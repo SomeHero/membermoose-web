@@ -79,7 +79,7 @@ var app = angular.module('dashboardApp', [
     }]);
     angular.module('dashboardApp').factory('Plan', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
-            url: '/dashboard/plans',
+            url: '/dashboard/plans?page={{page}}',
             name: 'plan'
         });
     }]);
@@ -92,13 +92,13 @@ var app = angular.module('dashboardApp', [
     }]);
     angular.module('dashboardApp').factory('Subscription', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
-            url: '/dashboard/subscriptions',
+            url: '/dashboard/subscriptions?page={{page}}',
             name: 'subscription'
         });
     }]);
     angular.module('dashboardApp').factory('Payment', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
-            url: '/dashboard/payments',
+            url: '/dashboard/payments?page={{page}}',
             name: 'payment'
         });
     }]);

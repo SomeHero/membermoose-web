@@ -21,8 +21,8 @@
       $100.00
     %td{"data-title"=>"'Status'"}
       {{subscription.status}}
-%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0"}
-.no-results{"ng-show"=>"subscriptions.length == 0"}
+%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
+.no-results{"ng-show"=>"subscriptions.length == 0 && !isLoading"}
   %img{:alt => "You have no subscribers", :src => asset_path('dead-moose.png')}/
   %p
     No one has subscribed to any of your plans!
@@ -64,9 +64,9 @@
       Billing History
     %p.data
       %table.table
-        %tr{"ng-repeat"=>"payment in billing_history"}
+        %tr{"ng-repeat"=>"payment in selected_subscription.subscriber.billingHistory"}
           %td
-            {{payment.payment_date}}
+            {{payment.createdAt | date :'shortDate'}}
           %td
             {{payment.amount | currency}}
           %td

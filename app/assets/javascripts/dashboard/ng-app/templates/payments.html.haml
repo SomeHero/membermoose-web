@@ -6,26 +6,26 @@
 %table.table{"ng-table"=>"", "ng-hide"=>"payments.length == 0"}
   %tr{"ng-repeat"=>"payment in payments"}
     %td.select-item
-      %input{:type=>"checkbox", "ng-click"=>"selectPayment($event, payment)"}
+      %input{:type=>"checkbox", "ng-click"=>"selectPayment($event, payment)", "ng-checked"=>"selected_payment == payment"}
     %td{"data-title"=>"'Transaction Date'"}
-      Jul 15, 2013 7:45:01 AM
+      {{payment.createdAt | date:'medium'}}
     %td{"data-title"=>"'Payee Name/Subscriber Name'"}
-      Larkin Garbee
+      {{payment.payee.fullName}}
     %td{"data-title"=>"'Amount'"}
-      $100.00
+      {{payment.amount | currency}}
     %td{"data-title"=>"'Fees'"}
-      $1.35
+      {{payment.fees | currency}}
     %td{"data-title"=>"'Net Amount'"}
-      $98.65
+      {{payment.netAmount | currency}}
     %td{"data-title"=>"'Payment Processor'"}
-      Stripe
+      {{payment.accountPaymentProcessor.paymentProcessor.name}}
     %td{"data-title"=>"'Payment Method'"}
       Credit Card<br />
       Visa 1110
     %td{"data-title"=>"'Status'"}
-      Active
-%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0"}          
-.no-results{"ng-show"=>"payments.length == 0"}
+      {{payment.status}}
+%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
+.no-results{"ng-show"=>"payments.length == 0  && !isLoading"}
   %img{:alt => "You have no subscribers", :src => asset_path('dead-moose.png')}/
   %p
     You have not received any payments yet!
@@ -40,37 +40,51 @@
           %i.fa.fa-times{"ng-click"=>"closeEditBar()" }
   .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
     %h4
-      Subscription Details
+      Transaction Details
     %h6
-      Member Since: 7/13/2014
+      {{selected_payment.guid}}
     %p.label
-      Subscriber Name:
+      Transaction Date/Time
     %p.data
-      James Rhodes
+      {{selected_payment.createdAt | date:'medium'}}
     %p.label
-      Subscriber Email:
+      Payee Name:
     %p.data
-      james@somehero.com
+      {{selected_payment.payee.fullName}}
     %p.label
-      Plan Name:
+      Payment Type
+    %p.data
+      {{selected_payment.paymentType}}
+    %p.label
+      Subscription/Plan:
     %p.data
       Lone Wolf
     %p.label
-      Subscription Start Date
+      Amount
     %p.data
-      August 14, 2014
+      {{selected_payment.amount | currency}}
     %p.label
-      Subscription End Date
+      Fees
     %p.data
-      --
+      {{selected_payment.fees | currency}}
     %p.label
-      Billing History
+      Net Amount
     %p.data
+      {{selected_payment.netAmount | currency}}
     %p.label
-      Next Billing Date
+      Payment Processor
     %p.data
-      September 14, 2015
+      {{selected_payment.accountPaymentProcessor.paymentProcessor.name}}
     %p.label
-      Subscription status
+      Payment Method
     %p.data
-      Active
+      Credit Card</br>
+      Visa-1080
+    %p.label
+      Payment Status
+    %p.data
+      {{selected_payment.status}}
+    %p.label
+      comment
+    %p.data
+      Test Comment

@@ -19,8 +19,8 @@
       {{member.planNames}}
     %td{"data-title"=>"'Status'"}
       Active
-%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0"}
-.no-results{"ng-show"=>"members.length == 0"}
+%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
+.no-results{"ng-show"=>"members.length == 0 && !isLoading"}
   %img{:alt => "Cards we support (visa, mastercard, discover, amex)", :src => asset_path('dead-moose.png')}/
   %p
     You don't have any members yet!
@@ -62,9 +62,9 @@
         Billing History:
       %p.data
         %table.table
-          %tr{"ng-repeat"=>"payment in billing_history"}
+          %tr{"ng-repeat"=>"payment in selected_member.billingHistory"}
             %td
-              {{payment.payment_date}}
+              {{payment.createdAt | date :'shortDate'}}
             %td
               {{payment.amount | currency}}
             %td

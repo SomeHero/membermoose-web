@@ -3,23 +3,37 @@
   'Payment'
   '$window'
   ($scope, Payment, window) ->
-    $scope.payment = null
+    window.scope = $scope
+    $scope.selected_payment = null
     $scope.payments = []
+    $scope.totalItems = 100
+    $scope.currentPage = 1
+    $scope.itemsPerPage = 10
+    $scope.isLoading = true
 
-    Payment.get().then (payments) ->
-      $scope.payments = payments
+    $scope.pageChanged = () ->
+      console.log('Page changed to: ' + $scope.currentPage);
+      $scope.isLoading = true
+      $scope.getPayments()
+
+    $scope.getPayments = () ->
+      Payment.get({page: $scope.currentPage}).then (payments) ->
+        $scope.payments = payments
+        $scope.isLoading = false
 
     $scope.selectPayment = (event, payment) ->
-      if $scope.payment == payment
-        $scope.payment = null
+      if $scope.selected_payment == payment
+        $scope.selected_payment = null
       else
-        $scope.payment = payment
+        $scope.selected_payment = payment
 
     $scope.showEditBar = () ->
-      return $scope.payment != null
+      return $scope.selected_payment != null
 
     $scope.closeEditBar = () ->
-      $scope.subscription = null
+      $scope.selected_payment = null
+
+    $scope.getPayments()
 
     return
 ]

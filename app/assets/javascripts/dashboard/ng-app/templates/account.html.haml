@@ -7,29 +7,36 @@
   .row
     .col-md-9
       %form{"name"=>"accountForm"}
-        .form-group
-          %label{:for=>"firstName"}
-            First Name
-          %input#firstName.form-control{:type=>"text",:name=>"user[account_attributes[first_name]]",:placeholder=>"First Name","ng-model"=>"user.account.firstName" }
-        .form-group
-          %label{:for=>"lastName"}
-            Last Name
-          %input#lastName.form-control{:type=>"text",:name=>"user[account_attributes[last_name]]",:placeholder=>"Last Name","ng-model"=>"user.account.lastName" }
-        .form-group
-          %label{:for=>"companyName"}
-            Company Name
-          %input#companyName.form-control{:type=>"text",:name=>"user[account_attributes[company_name]]",:placeholder=>"Company Name","ng-model"=>"user.account.companyName" }
-        .form-group
-          %label{:for=>"email"}
-            Email Address
-          %input#email.form-control{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
-        .form-group
-          %label{:for=>"logo", "style"=>"display: block;"}
-            Logo
-          %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo", "style"=>"margin: 20px 0px;"}}
-          %input#logo.form-control{:type=>"file",:name=>"user[account_attributes[logo]]", "ng-model"=>"user.account.logo" }
-        %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateAccount(user, accountForm)"}
-          Submit
+        .row.form-group
+          .col-lg-8
+            %label{:for=>"firstName"}
+              First Name
+            %input#firstName.form-control{:type=>"text",:name=>"user[account_attributes[first_name]]",:placeholder=>"First Name","ng-model"=>"user.account.firstName" }
+        .row.form-group
+          .col-lg-8
+            %label{:for=>"lastName"}
+              Last Name
+            %input#lastName.form-control{:type=>"text",:name=>"user[account_attributes[last_name]]",:placeholder=>"Last Name","ng-model"=>"user.account.lastName" }
+        .row.form-group
+          .col-lg-8
+            %label{:for=>"companyName"}
+              Company Name
+            %input#companyName.form-control{:type=>"text",:name=>"user[account_attributes[company_name]]",:placeholder=>"Company Name","ng-model"=>"user.account.companyName" }
+        .row.form-group
+          .col-lg-8
+            %label{:for=>"email"}
+              Email Address
+            %input#email.form-control{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
+        .row.form-group
+          .col-lg-8
+            %label{:for=>"logo", "style"=>"display: block;"}
+              Logo
+            %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.length > 0", "style"=>"margin: 20px 0px;"}
+            %input#logo.form-control{:type=>"file",:name=>"user[account_attributes[logo]]", "ng-model"=>"user.account.logo" }
+        .row
+          .col-lg-4
+            %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateAccount(user, accountForm)"}
+              Submit
       .edit-bar
         .edit-controls
           %ul.list-inline.pull-right{:style=>"list-style-type: none;"}

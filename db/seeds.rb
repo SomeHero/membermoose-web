@@ -169,11 +169,10 @@ wolfpack_5_plan = Plan.create!({
 wolfpack_plans = [wolfpack_1_plan, wolfpack_2_plan, wolfpack_3_plan, wolfpack_4_plan, wolfpack_5_plan]
 
 for i in 0..250
-username = Faker::Name.name
-email_address = Faker::Internet.safe_email
+  username = Faker::Name.name
+  email_address = Faker::Internet.safe_email
 
-Subscription.create!({
-  :account => Account.create!({
+  account = Account.create!({
     :user => User.create!({
       :email => email_address,
       :password => Faker::Internet.password()
@@ -181,9 +180,30 @@ Subscription.create!({
     :first_name => username.split(" ")[0],
     :last_name => username.split(" ")[1],
     :company_name => ""
-  }),
-  :plan => wolfpack_plans[rand(0..4)],
-  #:account_payment_method =>
-  :status => "Active"
-})
+  })
+  plan = wolfpack_plans[rand(0..4)]
+  sub1 = Subscription.create!({
+    :account => account,
+    :plan => plan,
+    #:account_payment_method =>
+    :status => "Active"
+  })
+
+  numberOfPayments = rand(0..10)
+  account_payment_processor = AccountPaymentProcessor.create!({
+    :account => account,
+    :payment_processor => payment_processor,
+    :active => true
+  })
+  for j in 0..numberOfPayments
+    Payment.create!({
+        :account => larkin_account,
+        :account_payment_processor => account_payment_processor,
+        :amount => plan.amount,
+        :payment_processor_fee => plan.amount*0.01+0.30,
+        :payment_type => "Recurring",
+        :status => "Pending"
+    })
+  end
+
 end

@@ -4,6 +4,10 @@
   '$window'
   ($scope, Plan, window) ->
     window.scope = $scope
+    $scope.totalItems = 100
+    $scope.currentPage = 1
+    $scope.itemsPerPage = 10
+    $scope.isLoading = true
 
     $scope.plan = null
     $scope.plans_first_row = []
@@ -18,10 +22,12 @@
       'month',
       'year'
     ];
-    Plan.get().then (plans) ->
-      $scope.plans = plans
+    $scope.getPlans = () ->
+      Plan.get({page: $scope.currentPage}).then (plans) ->
+        $scope.isLoading = false
+        $scope.plans = plans
 
-      sortPlans()
+        sortPlans()
 
     $scope.editPlan = (plan) ->
       console.log("edit plan")
@@ -93,6 +99,8 @@
             $scope.rows.push($scope.row_plans)
             $scope.row_plans = []
       )
+
+    $scope.getPlans()
 
     return
 ]

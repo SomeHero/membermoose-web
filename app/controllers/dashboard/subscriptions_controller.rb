@@ -2,7 +2,7 @@ class Dashboard::SubscriptionsController < DashboardController
   layout 'dashboard'
 
   def index
-    @subscriptions = current_user.account.subscriptions
+    @subscriptions = current_user.account.subscriptions_plans
       .joins(:account)
       .paginate(:page => params[:page], :per_page => 10)
       .order("last_name asc")

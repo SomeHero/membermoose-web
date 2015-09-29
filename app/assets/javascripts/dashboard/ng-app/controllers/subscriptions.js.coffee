@@ -3,20 +3,23 @@
   'Subscription'
   '$window'
   ($scope, Subscription, window) ->
+    window.scope = $scope
     $scope.selected_subscription = null
     $scope.subscriptions = []
+    $scope.totalItems = 100
+    $scope.currentPage = 1
+    $scope.itemsPerPage = 10
+    $scope.isLoading = true
 
-    $scope.billing_history =  [
-      {payment_date:'8/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'7/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'6/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'5/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'4/1/2015', amount: 100, status: 'Paid'},
-      {payment_date:'3/1/2015', amount: 100, status: 'Paid'},
-    ];
+    $scope.pageChanged = () ->
+      console.log('Page changed to: ' + $scope.currentPage);
+      $scope.isLoading = true
+      $scope.getSubscriptions()
 
-    Subscription.get().then (subscriptions) ->
-      $scope.subscriptions = subscriptions
+    $scope.getSubscriptions = () ->
+      Subscription.get({page: $scope.currentPage}).then (subscriptions) ->
+        $scope.isLoading = false
+        $scope.subscriptions = subscriptions
 
     $scope.selectSubscription = (event, subscription) ->
       if $scope.selected_subscription == subscription
@@ -29,6 +32,8 @@
 
     $scope.closeEditBar = () ->
       $scope.subscription = null
+
+    $scope.getSubscriptions()
 
     return
 ]
