@@ -85,4 +85,5 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   mount API::Base => '/api'
+  mount StripeEvent::Engine => '/stripe-events'
 end
