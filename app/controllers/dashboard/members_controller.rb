@@ -2,13 +2,15 @@ class Dashboard::MembersController < DashboardController
   layout 'dashboard'
 
   def index
+    @total_items = current_user.account.members.count
     @members = current_user.account.members
       .paginate(:page => params[:page], :per_page => 10)
       .order("last_name asc")
 
     respond_to do |format|
       format.html
-      format.json { render :json => @members.to_json }
+      format.json { render :json => { :members => @members,
+        :total_items => @total_items }}
     end
   end
 

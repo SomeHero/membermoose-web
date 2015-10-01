@@ -7,6 +7,22 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 
+valid_credit_card_nums = [
+  "4242424242424242",
+  "4012888888881881",
+  "4000056655665556",
+  "5555555555554444",
+  "5200828282828210",
+  "5105105105105100",
+  "378282246310005",
+  "371449635398431",
+  "6011111111111117",
+  "6011000990139424",
+  "30569309025904",
+  "38520000023237",
+  "3530111333300000",
+  "3566002020360505"
+]
 mm_user = User.create!({
   :email => 'admin@membermoose.com',
   :password => 'password'
@@ -18,76 +34,83 @@ mm_account = Account.create!({
   :company_name => "Member Moose"
   #logo =>
   })
-baby_moose = Plan.create!({
+baby_moose = CreatePlan.call({
     :account => mm_account,
     :name => "Baby Moose",
+    :stripe_id => "Test Baby Moose",
     :description => "Unlimited plans but only 5 subscribers per plan",
     :amount => 0,
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
     :trial_period_days => 0,
     :terms_and_conditions => "Be cool"
-})
-big_moose = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+big_moose = CreatePlan.call({
     :account => mm_account,
     :name => "StartUp Moose",
+    :stripe_id => "Test StartUp Moose",
     :description => "Unlimited plans up to 100 subscribers per plan",
     :amount => "9.99",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
     :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
-})
-baby_moose = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+baby_moose = CreatePlan.call({
     :account => mm_account,
     :name => "Top Moose",
+    :stripe_id => "Top Moose",
     :description => "Unlimited plans, unlimited subscribers",
     :amount => "29.99",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
     :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
-})
-mama_moose = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+mama_moose = CreatePlan.call({
     :account => mm_account,
     :name => "Mama Moose",
+    :stripe_id => "Mama Moose",
     :description => "Unlimited plans, unlimited subscribers but only if you're a mama moose",
     :amount => "19.99",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
     :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
-})
-papa_moose = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+papa_moose = CreatePlan.call({
     :account => mm_account,
     :name => "Papa Moose",
+    :stripe_id => "Papa Moose",
     :description => "Unlimited plans, unlimited subscribers but only if you're a papa moose",
     :amount => "299.99",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
     :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
-})
-enterprise_moose = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+enterprise_moose = CreatePlan.call({
     :account => mm_account,
     :name => "Enterprise Moose",
+    :stripe_id => "Enterprise Moose",
     :description => "Unlimited plans, unlimited subscribers for enterprise",
     :amount => "1000.99",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
     :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
-})
-special_moose = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+special_moose = CreatePlan.call({
     :account => mm_account,
     :name => "Special Moose",
+    :stripe_id => "Special Moose",
     :description => "Unlimited plans, unlimited subscribers for specials",
     :amount => "0.99",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
     :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
-})
+}, ENV["STRIPE_SECRET_KEY"])
 payment_processor = PaymentProcessor.create!({
   :name => "Stripe",
   :active => true
@@ -104,67 +127,74 @@ larkin_account = Account.create!({
   :subdomain => "804rva"
   #logo =>
 })
-Subscription.create!({
-  :account => larkin_account,
-  :plan => baby_moose,
-  #:account_payment_method =>
-  :status => "Active"
-})
-wolfpack_1_plan = Plan.create!({
+
+token = CreateToken.call(valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)], rand(1..12), 2020, rand(100..999), ENV["STRIPE_SECRET_KEY"])
+
+CreateSubscription.call(
+  special_moose,
+  larkin_account.user.email,
+  token.id
+)
+wolfpack_1_plan = CreatePlan.call({
     :account => larkin_account,
     :name => "Wolfpack 1",
+    :stripe_id => "Test Wolfpack 1",
     :description => "1 day per week",
     :amount => "50.00",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
     :trial_period_days => 30,
     :terms_and_conditions => "Be cool",
     :public => true
-})
-wolfpack_2_plan = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+wolfpack_2_plan = CreatePlan.call({
     :account => larkin_account,
     :name => "Wolfpack 2",
+    :stripe_id => "Test Wolfpack 2",
     :description => "3 days per week",
     :amount => "125.00",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
     :trial_period_days => 30,
     :terms_and_conditions => "Be cool",
     :public => true
-})
-wolfpack_3_plan = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+wolfpack_3_plan = CreatePlan.call({
     :account => larkin_account,
     :name => "Wolfpack 3",
+    :stripe_id => "Test Wolfpack 3",
     :description => "5 days per week",
     :amount => "200.00",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
-    :trial_period_days => 30,
+    :trial_period_days => 0,
     :terms_and_conditions => "Be cool",
     :public => true
-})
-wolfpack_4_plan = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+wolfpack_4_plan = CreatePlan.call({
     :account => larkin_account,
-    :name => "Wolfpack 2",
+    :name => "Wolfpack 4",
+    :stripe_id => "Test Wolfpack 4",
     :description => "5 days per week, office",
     :amount => "250.00",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
-    :trial_period_days => 30,
+    :trial_period_days => 0,
     :terms_and_conditions => "Be cool",
     :public => false
-})
-wolfpack_5_plan = Plan.create!({
+}, ENV["STRIPE_SECRET_KEY"])
+wolfpack_5_plan = CreatePlan.call({
     :account => larkin_account,
-    :name => "Wolfpack 2",
+    :name => "Wolfpack 5",
+    :stripe_id => "Test Wolfpack 5",
     :description => "5 days per week, everything",
     :amount => "250.00",
-    :billing_cycle => "Monthly",
+    :billing_cycle => "month",
     :billing_interval => "1",
-    :trial_period_days => 30,
+    :trial_period_days => 0,
     :terms_and_conditions => "Be cool",
     :public => true
-})
+}, ENV["STRIPE_SECRET_KEY"])
 
 wolfpack_plans = [wolfpack_1_plan, wolfpack_2_plan, wolfpack_3_plan, wolfpack_4_plan, wolfpack_5_plan]
 
@@ -181,13 +211,15 @@ for i in 0..250
     :last_name => username.split(" ")[1],
     :company_name => ""
   })
+
+  token = CreateToken.call(valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)], rand(1..12), 2020, rand(100..999), ENV["STRIPE_SECRET_KEY"])
   plan = wolfpack_plans[rand(0..4)]
-  sub1 = Subscription.create!({
-    :account => account,
-    :plan => plan,
-    #:account_payment_method =>
-    :status => "Active"
-  })
+
+  CreateSubscription.call(
+    plan,
+    account.user.email,
+    token.id
+  )
 
   numberOfPayments = rand(0..10)
   account_payment_processor = AccountPaymentProcessor.create!({

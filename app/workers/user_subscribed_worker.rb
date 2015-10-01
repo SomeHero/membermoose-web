@@ -5,7 +5,7 @@ class UserSubscribedWorker
 
   def self.perform(user_id)
 
-    return false if !Rails.env.production?
+    #return false if !Rails.env.production?
 
   	user = User.find(user_id)
 

@@ -1,8 +1,9 @@
 @PlansController = angular.module('bullsApp').controller 'PlansController', [
   '$scope'
   'Plan'
+  '$modal'
   '$window'
-  ($scope, Plan, window) ->
+  ($scope, Plan, $modal, window) ->
     window.scope = $scope
 
     $scope.plans_per_row = 4
@@ -15,10 +16,23 @@
     $scope.rows = []
     $scope.row_plans = []
 
-    Plan.get().then (plans) ->
-      $scope.plans = plans
+    $scope.getPlans = () ->
+      Plan.get().then (plans) ->
+        $scope.plans = plans
+        sortPlans()
 
-      sortPlans()
+        return
+
+    $scope.subscribe = (plan) ->
+      modalInstance = $modal.open(
+        animation: true
+        templateUrl: 'bulls/ng-app/templates/subscribe.html'
+        controller: 'SubscribeController'
+        size: 'lg'
+        resolve:
+          plan: ->
+            plan
+      )
 
     sortPlans = () ->
       $scope.rows = []
@@ -35,7 +49,9 @@
             $scope.row_plans = []
       )
 
+    $scope.getPlans()
+
     return
 ]
 
-PlansController.$inject = ['$scope', 'Plan', 'window']
+PlansController.$inject = ['$scope', 'Plan', '$modal', 'window']

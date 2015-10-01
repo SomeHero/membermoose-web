@@ -1,0 +1,85 @@
+.col-sm-12.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4
+  .row
+    .col-sm-12.col-md-12.col-lg-12.business-logo
+      - if @logo
+        = image_tag @logo.pic.url(:medium)
+    .col-sm-12.subscribe-to.plan-details
+      - if @plan
+        #plan-info
+          %h1= @plan.name
+          %h2
+            %span= number_to_currency(@plan.decimal_amount)
+            a #{@plan.interval}
+  .wrapper
+    - if notice
+      %p.notice= notice
+    - if alert
+      %p.alert= alert
+  #unscare
+    %p
+      = @plan.user.display_name
+      is using MemberMoose to manage their subscriptions, create an account below and you'll be able to cancel at any time!
+    - if @plan.trial_period_days && @plan.trial_period_days > 0
+      %p
+        There is a Trial Period of #{@plan.trial_period_days} days for #{@plan.name}, you won't be charged until #{(DateTime.now + @plan.trial_period_days.days).strftime("%B %d %Y")}
+  .panel.panel-default{:style => "width: 100%;"}
+    .panel-body
+      .payment-errors.alert.alert-danger{:style => "display:none"}
+      = form_for @subscription, :html => { :class => 'form-horizontal' } do |f|
+        = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+        - if params[:plan_id]
+          = hidden_field_tag :plan_id, params[:plan_id]
+        - else
+          = label_tag :plan_id, class: 'col-sm-3 control-label'
+          .col-sm-9
+            = select_tag :plan_id, options_for_select(@plans.map{|x| [x.stripe_id, x.id]}), class: 'form-control input-lg'
+        %fieldset
+          %legend Personal Information
+          .form-group
+            = label_tag :name, "Full Name", class: 'col-sm-3 control-label'
+            .col-sm-9
+              = text_field_tag :name, flash[:name], :placeholder => 'John R. Doe', class: 'form-control input-lg'
+          .form-group
+            = label_tag :password, "Password", class: 'col-sm-3 control-label'
+            .col-sm-9
+              = password_field_tag :password, flash[:password], :placeholder => "********", class: 'form-control input-lg'
+          .form-group
+            = label_tag :address_line1, "Street Address", class: 'col-sm-3 control-label'
+            .col-sm-9
+              = text_field_tag :address_line1, flash[:address_line1], :placeholder => "123 sesame street", class: 'form-control input-lg'
+          .form-group
+            = label_tag :address_city, "City", class: 'col-sm-3 control-label'
+            .col-sm-9
+              = text_field_tag :address_city, flash[:address_city], :placeholder => "New York", class: 'form-control input-lg'
+          .form-group
+            = label_tag :address_state, "State", class: 'col-sm-3 control-label'
+            .col-sm-9
+              = select_tag :address_state, options_for_select( [[ "Select a State", "" ]] + STATES, selected: flash[:address_state]), class: 'form-control input-lg'
+          .form-group
+            = label_tag :address_zip, "ZIP Code", class: 'col-sm-3 control-label'
+            .col-sm-9
+              = text_field_tag :address_zip, flash[:address_zip], :placeholder => "12345", class: 'form-control input-lg'
+          .form-group
+        .col-sm-10
+          = hidden_field_tag :address_country, "US"
+  - if @plan.terms_and_conditions.present?
+    .form-group
+      .col-sm-12
+        = label_tag :accept_terms_and_conditions, class: 'col-sm-2 col-md-9' do
+          = check_box_tag :accept_terms_and_conditions, "1", false, class: 'col-sm-1'
+          %span
+            I accept the #{link_to "Terms and Conditions", "#terms"}
+      .remodal{"data-remodal-id" => "terms"}
+        %h1 Terms and Conditions
+        .col-lg-12.form-group
+          = @plan.terms_and_conditions
+        .col-lg-12.form-group
+          %a.remodal-confirm{:href => "#"} Done Reading
+<script
+src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+data-key="#{@bull.publishable_key}"
+data-name="#{@bull.display_name}"
+data-description="Pay #{number_to_currency(@plan.amount.to_f / 100.0)} to #{@bull.display_name}"
+- if @logo
+  data-image="#{@logo.pic.url(:thumb)}"
+data-amount="#{@plan.amount}">

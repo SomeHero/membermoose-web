@@ -11,7 +11,7 @@ class CreatePlan
 
       Stripe::Plan.create(
         id: options[:stripe_id],
-        amount: options[:amount],
+        amount: (options[:amount].to_f * 100).to_i,
         currency: 'usd',
         interval: options[:billing_cycle],
         interval_count: options[:billing_interval],

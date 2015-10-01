@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929115704) do
+ActiveRecord::Schema.define(version: 20150930202250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20150929115704) do
     t.datetime "photo_updated_at"
     t.string   "subdomain"
     t.string   "guid"
+    t.string   "stripe_customer_id"
   end
 
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
@@ -186,6 +187,7 @@ ActiveRecord::Schema.define(version: 20150929115704) do
     t.datetime "updated_at"
     t.integer  "account_payment_processor_id"
     t.string   "guid"
+    t.string   "stripe_id"
   end
 
   add_index "subscriptions", ["account_id"], name: "index_subscriptions_on_account_id", using: :btree

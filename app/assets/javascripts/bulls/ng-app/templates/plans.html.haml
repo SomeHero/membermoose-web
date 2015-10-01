@@ -11,5 +11,5 @@
             {{plan.name}}
           %h3.plan-amount
             {{plan.amount | currency }}
-        %button.btn.btn-lg.btn-success
+        %button.btn.btn-lg.btn-success{"ng-click"=>"subscribe(plan)"}
           Subscribe

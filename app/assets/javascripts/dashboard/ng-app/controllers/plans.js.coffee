@@ -4,7 +4,7 @@
   '$window'
   ($scope, Plan, window) ->
     window.scope = $scope
-    $scope.totalItems = 100
+    $scope.totalItems = 0
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
     $scope.isLoading = true
@@ -23,9 +23,10 @@
       'year'
     ];
     $scope.getPlans = () ->
-      Plan.get({page: $scope.currentPage}).then (plans) ->
+      Plan.get({page: $scope.currentPage}).then (result) ->
+        $scope.plans = result.data
+        $scope.totalItems = result.originalData.total_items
         $scope.isLoading = false
-        $scope.plans = plans
 
         sortPlans()
 

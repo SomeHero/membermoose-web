@@ -3,8 +3,12 @@ var app = angular.module('bullsApp', [
         'ui.router',
         'templates',
         'rails',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'angularPayments'
     ])
+    .run(function ($window) {
+      $window.Stripe.setPublishableKey('pk_test_4WpPoyEVIDzw8SkqQ6w0kRSq');
+    })
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider
         .state('plans', {
@@ -33,5 +37,11 @@ var app = angular.module('bullsApp', [
         return railsResourceFactory({
             url: '/bulls/plans',
             name: 'plan'
+        });
+    }]);
+    angular.module('bullsApp').factory('Subscription', ['railsResourceFactory', function (railsResourceFactory) {
+        return railsResourceFactory({
+            url: '/bulls/subscriptions',
+            name: 'subscription'
         });
     }]);

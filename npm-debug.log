@@ -1,0 +1,991 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'bower-json' ]
+2 info using npm@2.14.2
+3 info using node@v0.10.29
+4 verbose install initial load of /Users/jamesrhodes/Desktop/mmoose-ng/package.json
+5 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/package.json
+6 silly cache add args [ 'bower-json', null ]
+7 verbose cache add spec bower-json
+8 silly cache add parsed spec { raw: 'bower-json',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'bower-json',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: '*',
+8 silly cache add   type: 'range' }
+9 silly addNamed bower-json@*
+10 verbose addNamed "*" is a valid semver range for bower-json
+11 silly addNameRange { name: 'bower-json', range: '*', hasData: false }
+12 silly mapToRegistry name bower-json
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/bower-json
+16 verbose addNameRange registry:https://registry.npmjs.org/bower-json not in flight; fetching
+17 verbose request uri https://registry.npmjs.org/bower-json
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 15:49:48
+20 verbose request id 4666b4eb1f71beb6
+21 verbose etag "9GD7W4TQAG79KGJEQASHHAYZS"
+22 http request GET https://registry.npmjs.org/bower-json
+23 http 304 https://registry.npmjs.org/bower-json
+24 silly get cb [ 304,
+24 silly get   { date: 'Tue, 29 Sep 2015 19:49:49 GMT',
+24 silly get     via: '1.1 varnish',
+24 silly get     'cache-control': 'max-age=60',
+24 silly get     etag: '"9GD7W4TQAG79KGJEQASHHAYZS"',
+24 silly get     age: '0',
+24 silly get     connection: 'keep-alive',
+24 silly get     'x-served-by': 'cache-jfk1033-JFK',
+24 silly get     'x-cache': 'HIT',
+24 silly get     'x-cache-hits': '1',
+24 silly get     'x-timer': 'S1443556189.412953,VS0,VE18',
+24 silly get     vary: 'Accept' } ]
+25 verbose etag https://registry.npmjs.org/bower-json from cache
+26 verbose get saving bower-json to /Users/jamesrhodes/.npm/registry.npmjs.org/bower-json/.cache.json
+27 silly addNameRange number 2 { name: 'bower-json', range: '*', hasData: true }
+28 silly addNameRange versions [ 'bower-json',
+28 silly addNameRange   [ '0.1.0-rc.1', '0.2.0', '0.3.0', '0.4.0', '0.5.0', '0.6.0' ] ]
+29 silly addNamed bower-json@0.6.0
+30 verbose addNamed "0.6.0" is a plain semver version for bower-json
+31 silly mapToRegistry name bower-json
+32 silly mapToRegistry using default registry
+33 silly mapToRegistry registry https://registry.npmjs.org/
+34 silly mapToRegistry uri https://registry.npmjs.org/bower-json
+35 verbose addRemoteTarball https://registry.npmjs.org/bower-json/-/bower-json-0.6.0.tgz not in flight; adding
+36 verbose addRemoteTarball [ 'https://registry.npmjs.org/bower-json/-/bower-json-0.6.0.tgz',
+36 verbose addRemoteTarball   '326579b23c33e4ea828e4763c55cd81fd7650329' ]
+37 info retry fetch attempt 1 at 15:49:49
+38 info attempt registry request try #1 at 15:49:49
+39 http fetch GET https://registry.npmjs.org/bower-json/-/bower-json-0.6.0.tgz
+40 http fetch 200 https://registry.npmjs.org/bower-json/-/bower-json-0.6.0.tgz
+41 silly fetchAndShaCheck shasum 326579b23c33e4ea828e4763c55cd81fd7650329
+42 verbose addTmpTarball /var/folders/yh/fj5cp8k92q77km6cfcrtx51w0000gn/T/npm-22282-f03fe219/registry.npmjs.org/bower-json/-/bower-json-0.6.0.tgz not in flight; adding
+43 verbose addTmpTarball already have metadata; skipping unpack for bower-json@0.6.0
+44 silly cache afterAdd bower-json@0.6.0
+45 verbose afterAdd /Users/jamesrhodes/.npm/bower-json/0.6.0/package/package.json not in flight; writing
+46 verbose afterAdd /Users/jamesrhodes/.npm/bower-json/0.6.0/package/package.json written
+47 silly install resolved [ { name: 'bower-json',
+47 silly install resolved     version: '0.6.0',
+47 silly install resolved     description: 'Read bower.json files with semantics, normalisation, defaults and validation',
+47 silly install resolved     author: { name: 'Twitter' },
+47 silly install resolved     license: 'MIT',
+47 silly install resolved     repository: { type: 'git', url: 'https://github.com/bower/json' },
+47 silly install resolved     main: 'lib/json',
+47 silly install resolved     engines: { node: '>=0.10.0' },
+47 silly install resolved     dependencies:
+47 silly install resolved      { 'deep-extend': '^0.4.0',
+47 silly install resolved        'ext-name': '^3.0.0',
+47 silly install resolved        'graceful-fs': '^3.0.0',
+47 silly install resolved        intersect: '^1.0.1' },
+47 silly install resolved     devDependencies:
+47 silly install resolved      { 'expect.js': '^0.3.1',
+47 silly install resolved        grunt: '^0.4.4',
+47 silly install resolved        'grunt-cli': '^0.1.13',
+47 silly install resolved        'grunt-contrib-jshint': '^0.11.2',
+47 silly install resolved        'grunt-contrib-watch': '^0.6.1',
+47 silly install resolved        'grunt-simple-mocha': '^0.4.0',
+47 silly install resolved        mocha: '*',
+47 silly install resolved        'underscore.string': '^3.0.3' },
+47 silly install resolved     scripts: { test: 'grunt test' },
+47 silly install resolved     files: [ 'lib' ],
+47 silly install resolved     gitHead: '6eb7778a7f1ff012c92a4a19280ea80aee674277',
+47 silly install resolved     bugs: { url: 'https://github.com/bower/json/issues' },
+47 silly install resolved     homepage: 'https://github.com/bower/json',
+47 silly install resolved     _id: 'bower-json@0.6.0',
+47 silly install resolved     _shasum: '326579b23c33e4ea828e4763c55cd81fd7650329',
+47 silly install resolved     _from: 'bower-json@*',
+47 silly install resolved     _npmVersion: '2.7.4',
+47 silly install resolved     _nodeVersion: '0.12.2',
+47 silly install resolved     _npmUser: { name: 'desandro', email: 'desandrocodes@gmail.com' },
+47 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+47 silly install resolved     dist:
+47 silly install resolved      { shasum: '326579b23c33e4ea828e4763c55cd81fd7650329',
+47 silly install resolved        tarball: 'http://registry.npmjs.org/bower-json/-/bower-json-0.6.0.tgz' },
+47 silly install resolved     directories: {},
+47 silly install resolved     _resolved: 'https://registry.npmjs.org/bower-json/-/bower-json-0.6.0.tgz' } ]
+48 info install bower-json@0.6.0 into /Users/jamesrhodes/Desktop/mmoose-ng
+49 info installOne bower-json@0.6.0
+50 verbose installOne of bower-json to /Users/jamesrhodes/Desktop/mmoose-ng not in flight; installing
+51 verbose lock using /Users/jamesrhodes/.npm/_locks/bower-json-dfe7cbd98c2ea7a3.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+52 silly install write writing bower-json 0.6.0 to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+53 verbose unbuild node_modules/bower-json
+54 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json is being purged from base /Users/jamesrhodes/Desktop/mmoose-ng
+55 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+56 verbose tar unpack /Users/jamesrhodes/.npm/bower-json/0.6.0/package.tgz
+57 verbose tar unpacking to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+58 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json is being purged
+59 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+60 silly gunzTarPerm modes [ '755', '644' ]
+61 silly gunzTarPerm extractEntry package.json
+62 silly gunzTarPerm extractEntry README.md
+63 silly gunzTarPerm extractEntry LICENSE
+64 silly gunzTarPerm extractEntry lib/json.js
+65 silly gunzTarPerm extractEntry lib/util/createError.js
+66 silly gunzTarPerm extractEntry lib/util/isAsset.js
+67 silly gunzTarPerm extractEntry lib/util/isComponent.js
+68 verbose write writing to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/package.json
+69 info preinstall bower-json@0.6.0
+70 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/package.json
+71 silly prepareForInstallMany adding deep-extend@^0.4.0 from bower-json dependencies
+72 silly prepareForInstallMany adding ext-name@^3.0.0 from bower-json dependencies
+73 silly prepareForInstallMany adding graceful-fs@^3.0.0 from bower-json dependencies
+74 silly prepareForInstallMany adding intersect@^1.0.1 from bower-json dependencies
+75 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/package.json
+76 silly cache add args [ 'graceful-fs@^3.0.0', null ]
+77 verbose cache add spec graceful-fs@^3.0.0
+78 silly cache add parsed spec { raw: 'graceful-fs@^3.0.0',
+78 silly cache add   scope: null,
+78 silly cache add   name: 'graceful-fs',
+78 silly cache add   rawSpec: '^3.0.0',
+78 silly cache add   spec: '>=3.0.0 <4.0.0',
+78 silly cache add   type: 'range' }
+79 silly addNamed graceful-fs@>=3.0.0 <4.0.0
+80 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for graceful-fs
+81 silly addNameRange { name: 'graceful-fs', range: '>=3.0.0 <4.0.0', hasData: false }
+82 silly mapToRegistry name graceful-fs
+83 silly mapToRegistry using default registry
+84 silly mapToRegistry registry https://registry.npmjs.org/
+85 silly mapToRegistry uri https://registry.npmjs.org/graceful-fs
+86 verbose addNameRange registry:https://registry.npmjs.org/graceful-fs not in flight; fetching
+87 silly cache add args [ 'deep-extend@^0.4.0', null ]
+88 verbose cache add spec deep-extend@^0.4.0
+89 silly cache add args [ 'ext-name@^3.0.0', null ]
+90 verbose cache add spec ext-name@^3.0.0
+91 silly cache add parsed spec { raw: 'deep-extend@^0.4.0',
+91 silly cache add   scope: null,
+91 silly cache add   name: 'deep-extend',
+91 silly cache add   rawSpec: '^0.4.0',
+91 silly cache add   spec: '>=0.4.0 <0.5.0',
+91 silly cache add   type: 'range' }
+92 silly addNamed deep-extend@>=0.4.0 <0.5.0
+93 verbose addNamed ">=0.4.0 <0.5.0" is a valid semver range for deep-extend
+94 silly addNameRange { name: 'deep-extend', range: '>=0.4.0 <0.5.0', hasData: false }
+95 silly mapToRegistry name deep-extend
+96 silly mapToRegistry using default registry
+97 silly mapToRegistry registry https://registry.npmjs.org/
+98 silly mapToRegistry uri https://registry.npmjs.org/deep-extend
+99 verbose addNameRange registry:https://registry.npmjs.org/deep-extend not in flight; fetching
+100 silly cache add parsed spec { raw: 'ext-name@^3.0.0',
+100 silly cache add   scope: null,
+100 silly cache add   name: 'ext-name',
+100 silly cache add   rawSpec: '^3.0.0',
+100 silly cache add   spec: '>=3.0.0 <4.0.0',
+100 silly cache add   type: 'range' }
+101 silly addNamed ext-name@>=3.0.0 <4.0.0
+102 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for ext-name
+103 silly addNameRange { name: 'ext-name', range: '>=3.0.0 <4.0.0', hasData: false }
+104 silly mapToRegistry name ext-name
+105 silly mapToRegistry using default registry
+106 silly mapToRegistry registry https://registry.npmjs.org/
+107 silly mapToRegistry uri https://registry.npmjs.org/ext-name
+108 verbose addNameRange registry:https://registry.npmjs.org/ext-name not in flight; fetching
+109 silly cache add args [ 'intersect@^1.0.1', null ]
+110 verbose cache add spec intersect@^1.0.1
+111 silly cache add parsed spec { raw: 'intersect@^1.0.1',
+111 silly cache add   scope: null,
+111 silly cache add   name: 'intersect',
+111 silly cache add   rawSpec: '^1.0.1',
+111 silly cache add   spec: '>=1.0.1 <2.0.0',
+111 silly cache add   type: 'range' }
+112 silly addNamed intersect@>=1.0.1 <2.0.0
+113 verbose addNamed ">=1.0.1 <2.0.0" is a valid semver range for intersect
+114 silly addNameRange { name: 'intersect', range: '>=1.0.1 <2.0.0', hasData: false }
+115 silly mapToRegistry name intersect
+116 silly mapToRegistry using default registry
+117 silly mapToRegistry registry https://registry.npmjs.org/
+118 silly mapToRegistry uri https://registry.npmjs.org/intersect
+119 verbose addNameRange registry:https://registry.npmjs.org/intersect not in flight; fetching
+120 verbose request uri https://registry.npmjs.org/ext-name
+121 verbose request no auth needed
+122 info attempt registry request try #1 at 15:49:49
+123 http request GET https://registry.npmjs.org/ext-name
+124 verbose request uri https://registry.npmjs.org/graceful-fs
+125 verbose request no auth needed
+126 info attempt registry request try #1 at 15:49:49
+127 verbose etag "6A8OIHSAUDCCUMW7MWX3L6A9C"
+128 http request GET https://registry.npmjs.org/graceful-fs
+129 verbose request uri https://registry.npmjs.org/intersect
+130 verbose request no auth needed
+131 info attempt registry request try #1 at 15:49:49
+132 verbose etag "8E0XRGVI1JYA2PYANRMWGBJWL"
+133 http request GET https://registry.npmjs.org/intersect
+134 verbose request uri https://registry.npmjs.org/deep-extend
+135 verbose request no auth needed
+136 info attempt registry request try #1 at 15:49:49
+137 verbose etag "7LU9K9J3TF2KN5N5C7S1M3LZA"
+138 http request GET https://registry.npmjs.org/deep-extend
+139 http 304 https://registry.npmjs.org/intersect
+140 silly get cb [ 304,
+140 silly get   { date: 'Tue, 29 Sep 2015 19:49:49 GMT',
+140 silly get     via: '1.1 varnish',
+140 silly get     'cache-control': 'max-age=60',
+140 silly get     etag: '"8E0XRGVI1JYA2PYANRMWGBJWL"',
+140 silly get     age: '26',
+140 silly get     connection: 'keep-alive',
+140 silly get     'x-served-by': 'cache-jfk1031-JFK',
+140 silly get     'x-cache': 'HIT',
+140 silly get     'x-cache-hits': '1',
+140 silly get     'x-timer': 'S1443556189.959967,VS0,VE0',
+140 silly get     vary: 'Accept' } ]
+141 verbose etag https://registry.npmjs.org/intersect from cache
+142 verbose get saving intersect to /Users/jamesrhodes/.npm/registry.npmjs.org/intersect/.cache.json
+143 http 200 https://registry.npmjs.org/ext-name
+144 silly get cb [ 200,
+144 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+144 silly get     etag: '"1OJLM9PY47S3R86ORV47EXIB3"',
+144 silly get     'content-type': 'application/json',
+144 silly get     'cache-control': 'max-age=60',
+144 silly get     'content-length': '8518',
+144 silly get     'accept-ranges': 'bytes',
+144 silly get     date: 'Tue, 29 Sep 2015 19:49:49 GMT',
+144 silly get     via: '1.1 varnish',
+144 silly get     age: '5',
+144 silly get     connection: 'keep-alive',
+144 silly get     'x-served-by': 'cache-jfk1022-JFK',
+144 silly get     'x-cache': 'HIT',
+144 silly get     'x-cache-hits': '1',
+144 silly get     'x-timer': 'S1443556189.960942,VS0,VE0',
+144 silly get     vary: 'Accept' } ]
+145 verbose get saving ext-name to /Users/jamesrhodes/.npm/registry.npmjs.org/ext-name/.cache.json
+146 http 304 https://registry.npmjs.org/graceful-fs
+147 silly get cb [ 304,
+147 silly get   { date: 'Tue, 29 Sep 2015 19:49:49 GMT',
+147 silly get     via: '1.1 varnish',
+147 silly get     'cache-control': 'max-age=60',
+147 silly get     etag: '"6A8OIHSAUDCCUMW7MWX3L6A9C"',
+147 silly get     age: '41',
+147 silly get     connection: 'keep-alive',
+147 silly get     'x-served-by': 'cache-jfk1030-JFK',
+147 silly get     'x-cache': 'HIT',
+147 silly get     'x-cache-hits': '7',
+147 silly get     'x-timer': 'S1443556189.963704,VS0,VE0',
+147 silly get     vary: 'Accept' } ]
+148 verbose etag https://registry.npmjs.org/graceful-fs from cache
+149 verbose get saving graceful-fs to /Users/jamesrhodes/.npm/registry.npmjs.org/graceful-fs/.cache.json
+150 http 304 https://registry.npmjs.org/deep-extend
+151 silly get cb [ 304,
+151 silly get   { date: 'Tue, 29 Sep 2015 19:49:49 GMT',
+151 silly get     via: '1.1 varnish',
+151 silly get     'cache-control': 'max-age=60',
+151 silly get     etag: '"7LU9K9J3TF2KN5N5C7S1M3LZA"',
+151 silly get     age: '46',
+151 silly get     connection: 'keep-alive',
+151 silly get     'x-served-by': 'cache-jfk1027-JFK',
+151 silly get     'x-cache': 'HIT',
+151 silly get     'x-cache-hits': '2',
+151 silly get     'x-timer': 'S1443556189.968884,VS0,VE0',
+151 silly get     vary: 'Accept' } ]
+152 verbose etag https://registry.npmjs.org/deep-extend from cache
+153 verbose get saving deep-extend to /Users/jamesrhodes/.npm/registry.npmjs.org/deep-extend/.cache.json
+154 silly addNameRange number 2 { name: 'intersect', range: '>=1.0.1 <2.0.0', hasData: true }
+155 silly addNameRange versions [ 'intersect',
+155 silly addNameRange   [ '0.0.0', '0.0.1', '0.0.2', '0.0.3', '0.1.0', '1.0.0', '1.0.1' ] ]
+156 silly addNamed intersect@1.0.1
+157 verbose addNamed "1.0.1" is a plain semver version for intersect
+158 silly mapToRegistry name intersect
+159 silly mapToRegistry using default registry
+160 silly mapToRegistry registry https://registry.npmjs.org/
+161 silly mapToRegistry uri https://registry.npmjs.org/intersect
+162 verbose addRemoteTarball https://registry.npmjs.org/intersect/-/intersect-1.0.1.tgz not in flight; adding
+163 verbose addRemoteTarball [ 'https://registry.npmjs.org/intersect/-/intersect-1.0.1.tgz',
+163 verbose addRemoteTarball   '332650e10854d8c0ac58c192bdc27a8bf7e7a30c' ]
+164 silly addNameRange number 2 { name: 'graceful-fs', range: '>=3.0.0 <4.0.0', hasData: true }
+165 silly addNameRange versions [ 'graceful-fs',
+165 silly addNameRange   [ '1.0.0',
+165 silly addNameRange     '1.0.1',
+165 silly addNameRange     '1.0.2',
+165 silly addNameRange     '1.1.0',
+165 silly addNameRange     '1.1.1',
+165 silly addNameRange     '1.1.2',
+165 silly addNameRange     '1.1.3',
+165 silly addNameRange     '1.1.4',
+165 silly addNameRange     '1.1.5',
+165 silly addNameRange     '1.1.6',
+165 silly addNameRange     '1.1.7',
+165 silly addNameRange     '1.1.8',
+165 silly addNameRange     '1.1.9',
+165 silly addNameRange     '1.1.10',
+165 silly addNameRange     '1.1.11',
+165 silly addNameRange     '1.1.12',
+165 silly addNameRange     '1.1.13',
+165 silly addNameRange     '1.1.14',
+165 silly addNameRange     '1.2.0',
+165 silly addNameRange     '1.2.1',
+165 silly addNameRange     '1.2.2',
+165 silly addNameRange     '1.2.3',
+165 silly addNameRange     '2.0.0',
+165 silly addNameRange     '2.0.1',
+165 silly addNameRange     '2.0.2',
+165 silly addNameRange     '2.0.3',
+165 silly addNameRange     '3.0.0',
+165 silly addNameRange     '3.0.1',
+165 silly addNameRange     '3.0.2',
+165 silly addNameRange     '3.0.3',
+165 silly addNameRange     '3.0.4',
+165 silly addNameRange     '3.0.5',
+165 silly addNameRange     '3.0.6',
+165 silly addNameRange     '3.0.7',
+165 silly addNameRange     '3.0.8',
+165 silly addNameRange     '4.1.0',
+165 silly addNameRange     '4.1.1',
+165 silly addNameRange     '4.1.2' ] ]
+166 silly addNamed graceful-fs@3.0.8
+167 verbose addNamed "3.0.8" is a plain semver version for graceful-fs
+168 silly addNameRange number 2 { name: 'deep-extend', range: '>=0.4.0 <0.5.0', hasData: true }
+169 silly addNameRange versions [ 'deep-extend',
+169 silly addNameRange   [ '0.2.0',
+169 silly addNameRange     '0.2.1',
+169 silly addNameRange     '0.2.2',
+169 silly addNameRange     '0.2.4',
+169 silly addNameRange     '0.2.5',
+169 silly addNameRange     '0.2.6',
+169 silly addNameRange     '0.2.7',
+169 silly addNameRange     '0.2.8',
+169 silly addNameRange     '0.2.9',
+169 silly addNameRange     '0.2.10',
+169 silly addNameRange     '0.2.11',
+169 silly addNameRange     '0.3.0',
+169 silly addNameRange     '0.3.1',
+169 silly addNameRange     '0.3.2',
+169 silly addNameRange     '0.3.3',
+169 silly addNameRange     '0.4.0' ] ]
+170 silly addNamed deep-extend@0.4.0
+171 verbose addNamed "0.4.0" is a plain semver version for deep-extend
+172 silly mapToRegistry name deep-extend
+173 silly mapToRegistry using default registry
+174 silly mapToRegistry registry https://registry.npmjs.org/
+175 silly mapToRegistry uri https://registry.npmjs.org/deep-extend
+176 verbose addRemoteTarball https://registry.npmjs.org/deep-extend/-/deep-extend-0.4.0.tgz not in flight; adding
+177 verbose addRemoteTarball [ 'https://registry.npmjs.org/deep-extend/-/deep-extend-0.4.0.tgz',
+177 verbose addRemoteTarball   'f58b46db58eb5d6439cdd0f2e6cafb4739fc1283' ]
+178 info retry fetch attempt 1 at 15:49:50
+179 info attempt registry request try #1 at 15:49:50
+180 http fetch GET https://registry.npmjs.org/intersect/-/intersect-1.0.1.tgz
+181 silly addNameRange number 2 { name: 'ext-name', range: '>=3.0.0 <4.0.0', hasData: true }
+182 silly addNameRange versions [ 'ext-name',
+182 silly addNameRange   [ '1.0.1', '2.0.0', '2.0.1', '2.0.2', '2.2.0', '3.0.0' ] ]
+183 silly addNamed ext-name@3.0.0
+184 verbose addNamed "3.0.0" is a plain semver version for ext-name
+185 silly mapToRegistry name ext-name
+186 silly mapToRegistry using default registry
+187 silly mapToRegistry registry https://registry.npmjs.org/
+188 silly mapToRegistry uri https://registry.npmjs.org/ext-name
+189 verbose addRemoteTarball https://registry.npmjs.org/ext-name/-/ext-name-3.0.0.tgz not in flight; adding
+190 verbose addRemoteTarball [ 'https://registry.npmjs.org/ext-name/-/ext-name-3.0.0.tgz',
+190 verbose addRemoteTarball   '07e4418737cb1f513c32c6ea48d8b8c8e0471abb' ]
+191 info retry fetch attempt 1 at 15:49:50
+192 info attempt registry request try #1 at 15:49:50
+193 http fetch GET https://registry.npmjs.org/deep-extend/-/deep-extend-0.4.0.tgz
+194 silly cache afterAdd graceful-fs@3.0.8
+195 verbose afterAdd /Users/jamesrhodes/.npm/graceful-fs/3.0.8/package/package.json not in flight; writing
+196 info retry fetch attempt 1 at 15:49:50
+197 info attempt registry request try #1 at 15:49:50
+198 http fetch GET https://registry.npmjs.org/ext-name/-/ext-name-3.0.0.tgz
+199 verbose afterAdd /Users/jamesrhodes/.npm/graceful-fs/3.0.8/package/package.json written
+200 http fetch 200 https://registry.npmjs.org/deep-extend/-/deep-extend-0.4.0.tgz
+201 http fetch 200 https://registry.npmjs.org/intersect/-/intersect-1.0.1.tgz
+202 silly fetchAndShaCheck shasum f58b46db58eb5d6439cdd0f2e6cafb4739fc1283
+203 silly fetchAndShaCheck shasum 332650e10854d8c0ac58c192bdc27a8bf7e7a30c
+204 verbose addTmpTarball /var/folders/yh/fj5cp8k92q77km6cfcrtx51w0000gn/T/npm-22282-f03fe219/registry.npmjs.org/deep-extend/-/deep-extend-0.4.0.tgz not in flight; adding
+205 verbose addTmpTarball already have metadata; skipping unpack for deep-extend@0.4.0
+206 verbose addTmpTarball /var/folders/yh/fj5cp8k92q77km6cfcrtx51w0000gn/T/npm-22282-f03fe219/registry.npmjs.org/intersect/-/intersect-1.0.1.tgz not in flight; adding
+207 verbose addTmpTarball already have metadata; skipping unpack for intersect@1.0.1
+208 silly cache afterAdd intersect@1.0.1
+209 verbose afterAdd /Users/jamesrhodes/.npm/intersect/1.0.1/package/package.json not in flight; writing
+210 silly cache afterAdd deep-extend@0.4.0
+211 verbose afterAdd /Users/jamesrhodes/.npm/deep-extend/0.4.0/package/package.json not in flight; writing
+212 verbose afterAdd /Users/jamesrhodes/.npm/intersect/1.0.1/package/package.json written
+213 verbose afterAdd /Users/jamesrhodes/.npm/deep-extend/0.4.0/package/package.json written
+214 http fetch 200 https://registry.npmjs.org/ext-name/-/ext-name-3.0.0.tgz
+215 silly fetchAndShaCheck shasum 07e4418737cb1f513c32c6ea48d8b8c8e0471abb
+216 verbose addTmpTarball /var/folders/yh/fj5cp8k92q77km6cfcrtx51w0000gn/T/npm-22282-f03fe219/registry.npmjs.org/ext-name/-/ext-name-3.0.0.tgz not in flight; adding
+217 verbose addTmpTarball already have metadata; skipping unpack for ext-name@3.0.0
+218 silly cache afterAdd ext-name@3.0.0
+219 verbose afterAdd /Users/jamesrhodes/.npm/ext-name/3.0.0/package/package.json not in flight; writing
+220 verbose afterAdd /Users/jamesrhodes/.npm/ext-name/3.0.0/package/package.json written
+221 silly install resolved [ { author:
+221 silly install resolved      { name: 'Isaac Z. Schlueter',
+221 silly install resolved        email: 'i@izs.me',
+221 silly install resolved        url: 'http://blog.izs.me' },
+221 silly install resolved     name: 'graceful-fs',
+221 silly install resolved     description: 'A drop-in replacement for fs, making various improvements.',
+221 silly install resolved     version: '3.0.8',
+221 silly install resolved     repository:
+221 silly install resolved      { type: 'git',
+221 silly install resolved        url: 'git://github.com/isaacs/node-graceful-fs.git' },
+221 silly install resolved     main: 'graceful-fs.js',
+221 silly install resolved     engines: { node: '>=0.4.0' },
+221 silly install resolved     directories: { test: 'test' },
+221 silly install resolved     scripts: { test: 'tap test/*.js' },
+221 silly install resolved     keywords:
+221 silly install resolved      [ 'fs',
+221 silly install resolved        'module',
+221 silly install resolved        'reading',
+221 silly install resolved        'retry',
+221 silly install resolved        'retries',
+221 silly install resolved        'queue',
+221 silly install resolved        'error',
+221 silly install resolved        'errors',
+221 silly install resolved        'handling',
+221 silly install resolved        'EMFILE',
+221 silly install resolved        'EAGAIN',
+221 silly install resolved        'EINVAL',
+221 silly install resolved        'EPERM',
+221 silly install resolved        'EACCESS' ],
+221 silly install resolved     license: 'ISC',
+221 silly install resolved     devDependencies: { mkdirp: '^0.5.0', rimraf: '^2.2.8', tap: '^1.2.0' },
+221 silly install resolved     gitHead: '45c57aa5e323c35a985a525de6f0c9a6ef59e1f8',
+221 silly install resolved     bugs: { url: 'https://github.com/isaacs/node-graceful-fs/issues' },
+221 silly install resolved     homepage: 'https://github.com/isaacs/node-graceful-fs#readme',
+221 silly install resolved     _id: 'graceful-fs@3.0.8',
+221 silly install resolved     _shasum: 'ce813e725fa82f7e6147d51c9a5ca68270551c22',
+221 silly install resolved     _from: 'graceful-fs@>=3.0.0 <4.0.0',
+221 silly install resolved     _npmVersion: '2.10.1',
+221 silly install resolved     _nodeVersion: '2.0.1',
+221 silly install resolved     _npmUser: { name: 'isaacs', email: 'isaacs@npmjs.com' },
+221 silly install resolved     dist:
+221 silly install resolved      { shasum: 'ce813e725fa82f7e6147d51c9a5ca68270551c22',
+221 silly install resolved        tarball: 'http://registry.npmjs.org/graceful-fs/-/graceful-fs-3.0.8.tgz' },
+221 silly install resolved     maintainers: [ [Object] ],
+221 silly install resolved     _resolved: 'https://registry.npmjs.org/graceful-fs/-/graceful-fs-3.0.8.tgz',
+221 silly install resolved     readme: 'ERROR: No README data found!' },
+221 silly install resolved   { name: 'intersect',
+221 silly install resolved     description: 'Find the intersection of two arrays',
+221 silly install resolved     version: '1.0.1',
+221 silly install resolved     repository:
+221 silly install resolved      { type: 'git',
+221 silly install resolved        url: 'git://github.com/juliangruber/intersect.git' },
+221 silly install resolved     homepage: 'https://github.com/juliangruber/intersect',
+221 silly install resolved     main: 'index.js',
+221 silly install resolved     scripts: { test: 'tape test/*.js' },
+221 silly install resolved     dependencies: {},
+221 silly install resolved     devDependencies: { tape: '~2.3.0' },
+221 silly install resolved     keywords: [ 'intersect', 'array' ],
+221 silly install resolved     author:
+221 silly install resolved      { name: 'Julian Gruber',
+221 silly install resolved        email: 'mail@juliangruber.com',
+221 silly install resolved        url: 'http://juliangruber.com' },
+221 silly install resolved     license: 'MIT',
+221 silly install resolved     testling: { files: 'test/*.js', browsers: [Object] },
+221 silly install resolved     gitHead: '0a48f9fa15a8cba97a2e381984042a8f4c392d8a',
+221 silly install resolved     bugs: { url: 'https://github.com/juliangruber/intersect/issues' },
+221 silly install resolved     _id: 'intersect@1.0.1',
+221 silly install resolved     _shasum: '332650e10854d8c0ac58c192bdc27a8bf7e7a30c',
+221 silly install resolved     _from: 'intersect@>=1.0.1 <2.0.0',
+221 silly install resolved     _npmVersion: '2.6.1',
+221 silly install resolved     _nodeVersion: '0.10.36',
+221 silly install resolved     _npmUser: { name: 'juliangruber', email: 'julian@juliangruber.com' },
+221 silly install resolved     maintainers: [ [Object] ],
+221 silly install resolved     dist:
+221 silly install resolved      { shasum: '332650e10854d8c0ac58c192bdc27a8bf7e7a30c',
+221 silly install resolved        tarball: 'http://registry.npmjs.org/intersect/-/intersect-1.0.1.tgz' },
+221 silly install resolved     directories: {},
+221 silly install resolved     _resolved: 'https://registry.npmjs.org/intersect/-/intersect-1.0.1.tgz' },
+221 silly install resolved   { name: 'deep-extend',
+221 silly install resolved     description: 'Recursive object extending',
+221 silly install resolved     license: 'MIT',
+221 silly install resolved     version: '0.4.0',
+221 silly install resolved     homepage: 'https://github.com/unclechu/node-deep-extend',
+221 silly install resolved     keywords:
+221 silly install resolved      [ 'deep-extend',
+221 silly install resolved        'extend',
+221 silly install resolved        'deep',
+221 silly install resolved        'recursive',
+221 silly install resolved        'xtend',
+221 silly install resolved        'clone',
+221 silly install resolved        'merge',
+221 silly install resolved        'json' ],
+221 silly install resolved     licenses: [ [Object] ],
+221 silly install resolved     repository:
+221 silly install resolved      { type: 'git',
+221 silly install resolved        url: 'git://github.com/unclechu/node-deep-extend.git' },
+221 silly install resolved     author: { name: 'Viacheslav Lotsmanov', email: 'lotsmanov89@gmail.com' },
+221 silly install resolved     bugs: { url: 'https://github.com/unclechu/node-deep-extend/issues' },
+221 silly install resolved     contributors: [ [Object], [Object] ],
+221 silly install resolved     main: 'lib/deep-extend.js',
+221 silly install resolved     engines: { node: '>=0.4.0', iojs: '>=1.0.0' },
+221 silly install resolved     scripts: { test: 'mocha' },
+221 silly install resolved     devDependencies: { mocha: '^2.2.1', should: '^5.2.0' },
+221 silly install resolved     directories: { lib: './lib/', test: './test/' },
+221 silly install resolved     files:
+221 silly install resolved      [ 'lib/deep-extend.js',
+221 silly install resolved        'test/index.spec.js',
+221 silly install resolved        'test/mocha.opts',
+221 silly install resolved        'index.js',
+221 silly install resolved        'LICENSE',
+221 silly install resolved        'README.md' ],
+221 silly install resolved     gitHead: '9ea374c54bdff7e42be163ae09670ea8cf3bbc7e',
+221 silly install resolved     _id: 'deep-extend@0.4.0',
+221 silly install resolved     _shasum: 'f58b46db58eb5d6439cdd0f2e6cafb4739fc1283',
+221 silly install resolved     _from: 'deep-extend@>=0.4.0 <0.5.0',
+221 silly install resolved     _npmVersion: '2.8.3',
+221 silly install resolved     _nodeVersion: '1.8.1',
+221 silly install resolved     _npmUser: { name: 'unclechu', email: 'lotsmanov89@gmail.com' },
+221 silly install resolved     maintainers: [ [Object] ],
+221 silly install resolved     dist:
+221 silly install resolved      { shasum: 'f58b46db58eb5d6439cdd0f2e6cafb4739fc1283',
+221 silly install resolved        tarball: 'http://registry.npmjs.org/deep-extend/-/deep-extend-0.4.0.tgz' },
+221 silly install resolved     _resolved: 'https://registry.npmjs.org/deep-extend/-/deep-extend-0.4.0.tgz' },
+221 silly install resolved   { name: 'ext-name',
+221 silly install resolved     version: '3.0.0',
+221 silly install resolved     description: 'Get the file extension and MIME type from a file',
+221 silly install resolved     license: 'MIT',
+221 silly install resolved     repository: { type: 'git', url: 'https://github.com/kevva/ext-name' },
+221 silly install resolved     author:
+221 silly install resolved      { name: 'Kevin Mårtensson',
+221 silly install resolved        email: 'kevinmartensson@gmail.com',
+221 silly install resolved        url: 'https://github.com/kevva' },
+221 silly install resolved     engines: { node: '>=0.10.0' },
+221 silly install resolved     bin: { 'ext-name': 'cli.js' },
+221 silly install resolved     scripts: { test: 'node test.js' },
+221 silly install resolved     files: [ 'cli.js', 'index.js' ],
+221 silly install resolved     keywords: [ 'ext', 'extname', 'mime' ],
+221 silly install resolved     dependencies:
+221 silly install resolved      { 'ends-with': '^0.2.0',
+221 silly install resolved        'ext-list': '^2.0.0',
+221 silly install resolved        meow: '^3.1.0',
+221 silly install resolved        'sort-keys-length': '^1.0.0' },
+221 silly install resolved     devDependencies: { ava: '^0.0.4' },
+221 silly install resolved     gitHead: '5c636230352126f78cc317b5c07196724a7e5151',
+221 silly install resolved     bugs: { url: 'https://github.com/kevva/ext-name/issues' },
+221 silly install resolved     homepage: 'https://github.com/kevva/ext-name',
+221 silly install resolved     _id: 'ext-name@3.0.0',
+221 silly install resolved     _shasum: '07e4418737cb1f513c32c6ea48d8b8c8e0471abb',
+221 silly install resolved     _from: 'ext-name@>=3.0.0 <4.0.0',
+221 silly install resolved     _npmVersion: '2.7.1',
+221 silly install resolved     _nodeVersion: '1.6.2',
+221 silly install resolved     _npmUser: { name: 'kevva', email: 'kevinmartensson@gmail.com' },
+221 silly install resolved     maintainers: [ [Object] ],
+221 silly install resolved     dist:
+221 silly install resolved      { shasum: '07e4418737cb1f513c32c6ea48d8b8c8e0471abb',
+221 silly install resolved        tarball: 'http://registry.npmjs.org/ext-name/-/ext-name-3.0.0.tgz' },
+221 silly install resolved     directories: {},
+221 silly install resolved     _resolved: 'https://registry.npmjs.org/ext-name/-/ext-name-3.0.0.tgz' } ]
+222 info install graceful-fs@3.0.8 into /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+223 info install intersect@1.0.1 into /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+224 info install deep-extend@0.4.0 into /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+225 info install ext-name@3.0.0 into /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+226 info installOne graceful-fs@3.0.8
+227 verbose installOne of graceful-fs to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json not in flight; installing
+228 info installOne intersect@1.0.1
+229 verbose installOne of intersect to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json not in flight; installing
+230 info installOne deep-extend@0.4.0
+231 verbose installOne of deep-extend to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json not in flight; installing
+232 info installOne ext-name@3.0.0
+233 verbose installOne of ext-name to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json not in flight; installing
+234 verbose lock using /Users/jamesrhodes/.npm/_locks/graceful-fs-2094b028ff262a45.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs
+235 verbose lock using /Users/jamesrhodes/.npm/_locks/deep-extend-4d3408e40265685a.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend
+236 silly install write writing graceful-fs 3.0.8 to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs
+237 silly install write writing deep-extend 0.4.0 to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend
+238 verbose lock using /Users/jamesrhodes/.npm/_locks/ext-name-85716a78357738b9.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name
+239 verbose lock using /Users/jamesrhodes/.npm/_locks/intersect-8a78a0cb977f34f1.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect
+240 silly install write writing ext-name 3.0.0 to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name
+241 silly install write writing intersect 1.0.1 to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect
+242 verbose unbuild node_modules/bower-json/node_modules/graceful-fs
+243 verbose unbuild node_modules/bower-json/node_modules/deep-extend
+244 verbose unbuild node_modules/bower-json/node_modules/intersect
+245 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs is being purged from base /Users/jamesrhodes/Desktop/mmoose-ng
+246 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs
+247 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend is being purged from base /Users/jamesrhodes/Desktop/mmoose-ng
+248 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend
+249 verbose unbuild node_modules/bower-json/node_modules/ext-name
+250 verbose tar unpack /Users/jamesrhodes/.npm/graceful-fs/3.0.8/package.tgz
+251 verbose tar unpacking to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs
+252 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs is being purged
+253 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs
+254 verbose tar unpack /Users/jamesrhodes/.npm/deep-extend/0.4.0/package.tgz
+255 verbose tar unpacking to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend
+256 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend is being purged
+257 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend
+258 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect is being purged from base /Users/jamesrhodes/Desktop/mmoose-ng
+259 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect
+260 silly gunzTarPerm modes [ '755', '644' ]
+261 silly gunzTarPerm modes [ '755', '644' ]
+262 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name is being purged from base /Users/jamesrhodes/Desktop/mmoose-ng
+263 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name
+264 verbose tar unpack /Users/jamesrhodes/.npm/intersect/1.0.1/package.tgz
+265 verbose tar unpacking to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect
+266 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect is being purged
+267 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect
+268 verbose tar unpack /Users/jamesrhodes/.npm/ext-name/3.0.0/package.tgz
+269 verbose tar unpacking to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name
+270 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name is being purged
+271 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name
+272 silly gunzTarPerm modes [ '755', '644' ]
+273 silly gunzTarPerm modes [ '755', '644' ]
+274 silly gunzTarPerm extractEntry package.json
+275 silly gunzTarPerm extractEntry package.json
+276 silly gunzTarPerm extractEntry package.json
+277 silly gunzTarPerm extractEntry package.json
+278 silly gunzTarPerm modified mode [ 'package.json', 436, 420 ]
+279 silly gunzTarPerm extractEntry README.md
+280 silly gunzTarPerm extractEntry LICENSE
+281 silly gunzTarPerm extractEntry .npmignore
+282 silly gunzTarPerm extractEntry README.md
+283 silly gunzTarPerm extractEntry .npmignore
+284 silly gunzTarPerm extractEntry README.md
+285 silly gunzTarPerm extractEntry cli.js
+286 silly gunzTarPerm modified mode [ 'cli.js', 509, 493 ]
+287 silly gunzTarPerm extractEntry index.js
+288 silly gunzTarPerm modified mode [ 'index.js', 436, 420 ]
+289 silly gunzTarPerm extractEntry index.js
+290 silly gunzTarPerm extractEntry CHANGELOG.md
+291 silly gunzTarPerm extractEntry LICENSE
+292 silly gunzTarPerm extractEntry fs.js
+293 silly gunzTarPerm extractEntry license
+294 silly gunzTarPerm modified mode [ 'license', 436, 420 ]
+295 silly gunzTarPerm extractEntry readme.md
+296 silly gunzTarPerm modified mode [ 'readme.md', 436, 420 ]
+297 silly gunzTarPerm extractEntry bench.js
+298 silly gunzTarPerm extractEntry index.js
+299 silly gunzTarPerm extractEntry graceful-fs.js
+300 silly gunzTarPerm extractEntry polyfills.js
+301 silly gunzTarPerm extractEntry .travis.yml
+302 silly gunzTarPerm extractEntry component.json
+303 silly gunzTarPerm extractEntry lib/deep-extend.js
+304 silly gunzTarPerm extractEntry test/index.spec.js
+305 silly gunzTarPerm extractEntry test/max-open.js
+306 silly gunzTarPerm extractEntry test/mocha.opts
+307 silly gunzTarPerm extractEntry Makefile
+308 silly gunzTarPerm extractEntry test/test.js
+309 silly gunzTarPerm extractEntry test/open.js
+310 silly gunzTarPerm extractEntry test/readdir-sort.js
+311 silly gunzTarPerm extractEntry test/write-then-read.js
+312 verbose write writing to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name/package.json
+313 info preinstall ext-name@3.0.0
+314 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name/package.json
+315 silly prepareForInstallMany adding ends-with@^0.2.0 from ext-name dependencies
+316 silly prepareForInstallMany adding ext-list@^2.0.0 from ext-name dependencies
+317 silly prepareForInstallMany adding meow@^3.1.0 from ext-name dependencies
+318 silly prepareForInstallMany adding sort-keys-length@^1.0.0 from ext-name dependencies
+319 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name/package.json
+320 verbose write writing to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect/package.json
+321 silly cache add args [ 'meow@^3.1.0', null ]
+322 verbose cache add spec meow@^3.1.0
+323 silly cache add parsed spec { raw: 'meow@^3.1.0',
+323 silly cache add   scope: null,
+323 silly cache add   name: 'meow',
+323 silly cache add   rawSpec: '^3.1.0',
+323 silly cache add   spec: '>=3.1.0 <4.0.0',
+323 silly cache add   type: 'range' }
+324 silly addNamed meow@>=3.1.0 <4.0.0
+325 verbose addNamed ">=3.1.0 <4.0.0" is a valid semver range for meow
+326 silly addNameRange { name: 'meow', range: '>=3.1.0 <4.0.0', hasData: false }
+327 silly mapToRegistry name meow
+328 silly mapToRegistry using default registry
+329 silly mapToRegistry registry https://registry.npmjs.org/
+330 silly mapToRegistry uri https://registry.npmjs.org/meow
+331 verbose addNameRange registry:https://registry.npmjs.org/meow not in flight; fetching
+332 silly cache add args [ 'ends-with@^0.2.0', null ]
+333 verbose cache add spec ends-with@^0.2.0
+334 silly cache add args [ 'ext-list@^2.0.0', null ]
+335 verbose cache add spec ext-list@^2.0.0
+336 silly cache add parsed spec { raw: 'ends-with@^0.2.0',
+336 silly cache add   scope: null,
+336 silly cache add   name: 'ends-with',
+336 silly cache add   rawSpec: '^0.2.0',
+336 silly cache add   spec: '>=0.2.0 <0.3.0',
+336 silly cache add   type: 'range' }
+337 silly addNamed ends-with@>=0.2.0 <0.3.0
+338 verbose addNamed ">=0.2.0 <0.3.0" is a valid semver range for ends-with
+339 silly addNameRange { name: 'ends-with', range: '>=0.2.0 <0.3.0', hasData: false }
+340 silly mapToRegistry name ends-with
+341 silly mapToRegistry using default registry
+342 silly mapToRegistry registry https://registry.npmjs.org/
+343 silly mapToRegistry uri https://registry.npmjs.org/ends-with
+344 verbose addNameRange registry:https://registry.npmjs.org/ends-with not in flight; fetching
+345 silly cache add parsed spec { raw: 'ext-list@^2.0.0',
+345 silly cache add   scope: null,
+345 silly cache add   name: 'ext-list',
+345 silly cache add   rawSpec: '^2.0.0',
+345 silly cache add   spec: '>=2.0.0 <3.0.0',
+345 silly cache add   type: 'range' }
+346 silly addNamed ext-list@>=2.0.0 <3.0.0
+347 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for ext-list
+348 silly addNameRange { name: 'ext-list', range: '>=2.0.0 <3.0.0', hasData: false }
+349 silly mapToRegistry name ext-list
+350 silly mapToRegistry using default registry
+351 silly mapToRegistry registry https://registry.npmjs.org/
+352 silly mapToRegistry uri https://registry.npmjs.org/ext-list
+353 verbose addNameRange registry:https://registry.npmjs.org/ext-list not in flight; fetching
+354 verbose request uri https://registry.npmjs.org/ends-with
+355 verbose request no auth needed
+356 info attempt registry request try #1 at 15:49:50
+357 http request GET https://registry.npmjs.org/ends-with
+358 verbose request uri https://registry.npmjs.org/ext-list
+359 verbose request no auth needed
+360 info attempt registry request try #1 at 15:49:50
+361 http request GET https://registry.npmjs.org/ext-list
+362 silly cache add args [ 'sort-keys-length@^1.0.0', null ]
+363 verbose cache add spec sort-keys-length@^1.0.0
+364 silly cache add parsed spec { raw: 'sort-keys-length@^1.0.0',
+364 silly cache add   scope: null,
+364 silly cache add   name: 'sort-keys-length',
+364 silly cache add   rawSpec: '^1.0.0',
+364 silly cache add   spec: '>=1.0.0 <2.0.0',
+364 silly cache add   type: 'range' }
+365 silly addNamed sort-keys-length@>=1.0.0 <2.0.0
+366 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for sort-keys-length
+367 silly addNameRange { name: 'sort-keys-length',
+367 silly addNameRange   range: '>=1.0.0 <2.0.0',
+367 silly addNameRange   hasData: false }
+368 silly mapToRegistry name sort-keys-length
+369 silly mapToRegistry using default registry
+370 silly mapToRegistry registry https://registry.npmjs.org/
+371 silly mapToRegistry uri https://registry.npmjs.org/sort-keys-length
+372 verbose addNameRange registry:https://registry.npmjs.org/sort-keys-length not in flight; fetching
+373 verbose request uri https://registry.npmjs.org/sort-keys-length
+374 verbose request no auth needed
+375 info attempt registry request try #1 at 15:49:50
+376 http request GET https://registry.npmjs.org/sort-keys-length
+377 info preinstall intersect@1.0.1
+378 verbose request uri https://registry.npmjs.org/meow
+379 verbose request no auth needed
+380 info attempt registry request try #1 at 15:49:50
+381 verbose etag "2U87BRYBJV8DZ0AIAZBYRSV1F"
+382 http request GET https://registry.npmjs.org/meow
+383 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect/package.json
+384 verbose write writing to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend/package.json
+385 info preinstall deep-extend@0.4.0
+386 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect/package.json
+387 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend/package.json
+388 silly install resolved []
+389 verbose about to build /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect
+390 info build /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect
+391 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend/package.json
+392 info linkStuff intersect@1.0.1
+393 silly linkStuff intersect@1.0.1 has /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules as its parent node_modules
+394 verbose write writing to /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs/package.json
+395 verbose linkBins intersect@1.0.1
+396 verbose linkMans intersect@1.0.1
+397 verbose rebuildBundles intersect@1.0.1
+398 silly install resolved []
+399 verbose about to build /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend
+400 info build /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend
+401 info install intersect@1.0.1
+402 info postinstall intersect@1.0.1
+403 info preinstall graceful-fs@3.0.8
+404 verbose unlock done using /Users/jamesrhodes/.npm/_locks/intersect-8a78a0cb977f34f1.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/intersect
+405 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs/package.json
+406 info linkStuff deep-extend@0.4.0
+407 silly linkStuff deep-extend@0.4.0 has /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules as its parent node_modules
+408 verbose linkBins deep-extend@0.4.0
+409 verbose linkMans deep-extend@0.4.0
+410 verbose rebuildBundles deep-extend@0.4.0
+411 verbose readDependencies loading dependencies from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs/package.json
+412 info install deep-extend@0.4.0
+413 info postinstall deep-extend@0.4.0
+414 verbose unlock done using /Users/jamesrhodes/.npm/_locks/deep-extend-4d3408e40265685a.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/deep-extend
+415 silly install resolved []
+416 verbose about to build /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs
+417 info build /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs
+418 info linkStuff graceful-fs@3.0.8
+419 silly linkStuff graceful-fs@3.0.8 has /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules as its parent node_modules
+420 verbose linkBins graceful-fs@3.0.8
+421 verbose linkMans graceful-fs@3.0.8
+422 verbose rebuildBundles graceful-fs@3.0.8
+423 info install graceful-fs@3.0.8
+424 info postinstall graceful-fs@3.0.8
+425 verbose unlock done using /Users/jamesrhodes/.npm/_locks/graceful-fs-2094b028ff262a45.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/graceful-fs
+426 http 200 https://registry.npmjs.org/meow
+427 silly get cb [ 200,
+427 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+427 silly get     etag: '"8ELX99CJ4JVFHKD4TJR0K83XM"',
+427 silly get     'content-type': 'application/json',
+427 silly get     'cache-control': 'max-age=60',
+427 silly get     'content-length': '10258',
+427 silly get     'accept-ranges': 'bytes',
+427 silly get     date: 'Tue, 29 Sep 2015 19:49:50 GMT',
+427 silly get     via: '1.1 varnish',
+427 silly get     age: '23',
+427 silly get     connection: 'keep-alive',
+427 silly get     'x-served-by': 'cache-jfk1026-JFK',
+427 silly get     'x-cache': 'HIT',
+427 silly get     'x-cache-hits': '3',
+427 silly get     'x-timer': 'S1443556190.926102,VS0,VE0',
+427 silly get     vary: 'Accept' } ]
+428 verbose get saving meow to /Users/jamesrhodes/.npm/registry.npmjs.org/meow/.cache.json
+429 http 200 https://registry.npmjs.org/ends-with
+430 silly get cb [ 200,
+430 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+430 silly get     etag: '"BEONQOC9YF0O8USHNOI2HB5X3"',
+430 silly get     'content-type': 'application/json',
+430 silly get     'cache-control': 'max-age=60',
+430 silly get     'content-length': '4570',
+430 silly get     'accept-ranges': 'bytes',
+430 silly get     date: 'Tue, 29 Sep 2015 19:49:50 GMT',
+430 silly get     via: '1.1 varnish',
+430 silly get     age: '20',
+430 silly get     connection: 'keep-alive',
+430 silly get     'x-served-by': 'cache-jfk1024-JFK',
+430 silly get     'x-cache': 'HIT',
+430 silly get     'x-cache-hits': '1',
+430 silly get     'x-timer': 'S1443556190.930927,VS0,VE0',
+430 silly get     vary: 'Accept' } ]
+431 verbose get saving ends-with to /Users/jamesrhodes/.npm/registry.npmjs.org/ends-with/.cache.json
+432 silly addNameRange number 2 { name: 'meow', range: '>=3.1.0 <4.0.0', hasData: true }
+433 silly addNameRange versions [ 'meow',
+433 silly addNameRange   [ '1.0.0', '2.0.0', '2.1.0', '3.0.0', '3.1.0', '3.3.0' ] ]
+434 silly addNamed meow@3.3.0
+435 verbose addNamed "3.3.0" is a plain semver version for meow
+436 silly addNameRange number 2 { name: 'ends-with', range: '>=0.2.0 <0.3.0', hasData: true }
+437 silly addNameRange versions [ 'ends-with', [ '0.1.0', '0.2.0' ] ]
+438 silly addNamed ends-with@0.2.0
+439 verbose addNamed "0.2.0" is a plain semver version for ends-with
+440 silly mapToRegistry name meow
+441 silly mapToRegistry using default registry
+442 silly mapToRegistry registry https://registry.npmjs.org/
+443 silly mapToRegistry uri https://registry.npmjs.org/meow
+444 verbose addRemoteTarball https://registry.npmjs.org/meow/-/meow-3.3.0.tgz not in flight; adding
+445 verbose addRemoteTarball [ 'https://registry.npmjs.org/meow/-/meow-3.3.0.tgz',
+445 verbose addRemoteTarball   'f8777fd0db67f73d1de1beee08c97c8665efc6ed' ]
+446 silly mapToRegistry name ends-with
+447 silly mapToRegistry using default registry
+448 silly mapToRegistry registry https://registry.npmjs.org/
+449 silly mapToRegistry uri https://registry.npmjs.org/ends-with
+450 verbose addRemoteTarball https://registry.npmjs.org/ends-with/-/ends-with-0.2.0.tgz not in flight; adding
+451 verbose addRemoteTarball [ 'https://registry.npmjs.org/ends-with/-/ends-with-0.2.0.tgz',
+451 verbose addRemoteTarball   '2f9da98d57a50cfda4571ce4339000500f4e6b8a' ]
+452 info retry fetch attempt 1 at 15:49:51
+453 info attempt registry request try #1 at 15:49:51
+454 http fetch GET https://registry.npmjs.org/meow/-/meow-3.3.0.tgz
+455 info retry fetch attempt 1 at 15:49:51
+456 info attempt registry request try #1 at 15:49:51
+457 http fetch GET https://registry.npmjs.org/ends-with/-/ends-with-0.2.0.tgz
+458 http 200 https://registry.npmjs.org/ext-list
+459 silly get cb [ 200,
+459 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+459 silly get     etag: '"6BE5R0V0DONIOUVHAKH7L52YK"',
+459 silly get     'content-type': 'application/json',
+459 silly get     'cache-control': 'max-age=60',
+459 silly get     'content-length': '7824',
+459 silly get     'accept-ranges': 'bytes',
+459 silly get     date: 'Tue, 29 Sep 2015 19:49:50 GMT',
+459 silly get     via: '1.1 varnish',
+459 silly get     age: '0',
+459 silly get     connection: 'keep-alive',
+459 silly get     'x-served-by': 'cache-jfk1026-JFK',
+459 silly get     'x-cache': 'HIT',
+459 silly get     'x-cache-hits': '1',
+459 silly get     'x-timer': 'S1443556190.925581,VS0,VE18',
+459 silly get     vary: 'Accept' } ]
+460 verbose get saving ext-list to /Users/jamesrhodes/.npm/registry.npmjs.org/ext-list/.cache.json
+461 silly addNameRange number 2 { name: 'ext-list', range: '>=2.0.0 <3.0.0', hasData: true }
+462 silly addNameRange versions [ 'ext-list',
+462 silly addNameRange   [ '0.1.0', '0.2.0', '1.0.0', '2.0.0', '2.1.0', '2.2.0' ] ]
+463 silly addNamed ext-list@2.2.0
+464 verbose addNamed "2.2.0" is a plain semver version for ext-list
+465 silly mapToRegistry name ext-list
+466 silly mapToRegistry using default registry
+467 silly mapToRegistry registry https://registry.npmjs.org/
+468 silly mapToRegistry uri https://registry.npmjs.org/ext-list
+469 verbose addRemoteTarball https://registry.npmjs.org/ext-list/-/ext-list-2.2.0.tgz not in flight; adding
+470 verbose addRemoteTarball [ 'https://registry.npmjs.org/ext-list/-/ext-list-2.2.0.tgz',
+470 verbose addRemoteTarball   'a3e6fdeab978bca7a320c7e786f537083fc30055' ]
+471 info retry fetch attempt 1 at 15:49:51
+472 info attempt registry request try #1 at 15:49:51
+473 http fetch GET https://registry.npmjs.org/ext-list/-/ext-list-2.2.0.tgz
+474 http fetch 200 https://registry.npmjs.org/ends-with/-/ends-with-0.2.0.tgz
+475 silly fetchAndShaCheck shasum 2f9da98d57a50cfda4571ce4339000500f4e6b8a
+476 verbose addTmpTarball /var/folders/yh/fj5cp8k92q77km6cfcrtx51w0000gn/T/npm-22282-f03fe219/registry.npmjs.org/ends-with/-/ends-with-0.2.0.tgz not in flight; adding
+477 verbose addTmpTarball already have metadata; skipping unpack for ends-with@0.2.0
+478 silly cache afterAdd ends-with@0.2.0
+479 verbose afterAdd /Users/jamesrhodes/.npm/ends-with/0.2.0/package/package.json not in flight; writing
+480 verbose afterAdd /Users/jamesrhodes/.npm/ends-with/0.2.0/package/package.json written
+481 http fetch 200 https://registry.npmjs.org/meow/-/meow-3.3.0.tgz
+482 silly fetchAndShaCheck shasum f8777fd0db67f73d1de1beee08c97c8665efc6ed
+483 verbose addTmpTarball /var/folders/yh/fj5cp8k92q77km6cfcrtx51w0000gn/T/npm-22282-f03fe219/registry.npmjs.org/meow/-/meow-3.3.0.tgz not in flight; adding
+484 verbose addTmpTarball already have metadata; skipping unpack for meow@3.3.0
+485 http fetch 200 https://registry.npmjs.org/ext-list/-/ext-list-2.2.0.tgz
+486 silly fetchAndShaCheck shasum a3e6fdeab978bca7a320c7e786f537083fc30055
+487 verbose addTmpTarball /var/folders/yh/fj5cp8k92q77km6cfcrtx51w0000gn/T/npm-22282-f03fe219/registry.npmjs.org/ext-list/-/ext-list-2.2.0.tgz not in flight; adding
+488 verbose addTmpTarball already have metadata; skipping unpack for ext-list@2.2.0
+489 silly cache afterAdd ext-list@2.2.0
+490 verbose afterAdd /Users/jamesrhodes/.npm/ext-list/2.2.0/package/package.json not in flight; writing
+491 verbose afterAdd /Users/jamesrhodes/.npm/ext-list/2.2.0/package/package.json written
+492 http 200 https://registry.npmjs.org/sort-keys-length
+493 silly get cb [ 200,
+493 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+493 silly get     etag: '"8WVCOY4HNN0BXQST5IIY13ISE"',
+493 silly get     'content-type': 'application/json',
+493 silly get     'cache-control': 'max-age=60',
+493 silly get     'content-length': '3686',
+493 silly get     'accept-ranges': 'bytes',
+493 silly get     date: 'Tue, 29 Sep 2015 19:49:51 GMT',
+493 silly get     via: '1.1 varnish',
+493 silly get     age: '0',
+493 silly get     connection: 'keep-alive',
+493 silly get     'x-served-by': 'cache-jfk1025-JFK',
+493 silly get     'x-cache': 'MISS',
+493 silly get     'x-cache-hits': '0',
+493 silly get     'x-timer': 'S1443556191.149995,VS0,VE26',
+493 silly get     vary: 'Accept' } ]
+494 verbose get saving sort-keys-length to /Users/jamesrhodes/.npm/registry.npmjs.org/sort-keys-length/.cache.json
+495 silly addNameRange number 2 { name: 'sort-keys-length',
+495 silly addNameRange   range: '>=1.0.0 <2.0.0',
+495 silly addNameRange   hasData: true }
+496 silly addNameRange versions [ 'sort-keys-length', [ '1.0.0', '1.0.1' ] ]
+497 silly addNamed sort-keys-length@1.0.1
+498 verbose addNamed "1.0.1" is a plain semver version for sort-keys-length
+499 silly mapToRegistry name sort-keys-length
+500 silly mapToRegistry using default registry
+501 silly mapToRegistry registry https://registry.npmjs.org/
+502 silly mapToRegistry uri https://registry.npmjs.org/sort-keys-length
+503 verbose addRemoteTarball https://registry.npmjs.org/sort-keys-length/-/sort-keys-length-1.0.1.tgz not in flight; adding
+504 verbose addRemoteTarball [ 'https://registry.npmjs.org/sort-keys-length/-/sort-keys-length-1.0.1.tgz',
+504 verbose addRemoteTarball   '9cb6f4f4e9e48155a6aa0671edd336ff1479a188' ]
+505 info retry fetch attempt 1 at 15:49:51
+506 info attempt registry request try #1 at 15:49:51
+507 http fetch GET https://registry.npmjs.org/sort-keys-length/-/sort-keys-length-1.0.1.tgz
+508 http fetch 200 https://registry.npmjs.org/sort-keys-length/-/sort-keys-length-1.0.1.tgz
+509 silly fetchAndShaCheck shasum 9cb6f4f4e9e48155a6aa0671edd336ff1479a188
+510 verbose addTmpTarball /var/folders/yh/fj5cp8k92q77km6cfcrtx51w0000gn/T/npm-22282-f03fe219/registry.npmjs.org/sort-keys-length/-/sort-keys-length-1.0.1.tgz not in flight; adding
+511 verbose addTmpTarball already have metadata; skipping unpack for sort-keys-length@1.0.1
+512 silly cache afterAdd sort-keys-length@1.0.1
+513 verbose afterAdd /Users/jamesrhodes/.npm/sort-keys-length/1.0.1/package/package.json not in flight; writing
+514 verbose afterAdd /Users/jamesrhodes/.npm/sort-keys-length/1.0.1/package/package.json written
+515 verbose about to build /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name
+516 verbose unlock done using /Users/jamesrhodes/.npm/_locks/ext-name-85716a78357738b9.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name
+517 verbose about to build /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+518 verbose unlock done using /Users/jamesrhodes/.npm/_locks/bower-json-dfe7cbd98c2ea7a3.lock for /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+519 verbose stack Error: EACCES, mkdir '/Users/jamesrhodes/.npm/meow/3.3.0'
+520 verbose cwd /Users/jamesrhodes/Desktop/mmoose-ng
+521 error Darwin 14.4.0
+522 error argv "node" "/usr/local/bin/npm" "install" "bower-json"
+523 error node v0.10.29
+524 error npm  v2.14.2
+525 error path /Users/jamesrhodes/.npm/meow/3.3.0
+526 error code EACCES
+527 error errno 3
+528 error Error: EACCES, mkdir '/Users/jamesrhodes/.npm/meow/3.3.0'
+528 error  { [Error: EACCES, mkdir '/Users/jamesrhodes/.npm/meow/3.3.0']
+528 error   errno: 3,
+528 error   code: 'EACCES',
+528 error   path: '/Users/jamesrhodes/.npm/meow/3.3.0',
+528 error   parent: 'ext-name' }
+529 error Please try running this command again as root/Administrator.
+530 verbose exit [ 3, true ]
+531 verbose unbuild node_modules/bower-json/node_modules/ext-name
+532 info preuninstall ext-name@3.0.0
+533 info uninstall ext-name@3.0.0
+534 verbose unbuild rmStuff ext-name@3.0.0 from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules
+535 verbose unbuild rmStuff in /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules
+536 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/.bin/ext-name is being gently removed
+537 silly gentlyRm verifying /Users/jamesrhodes/Desktop/mmoose-ng is an npm working directory
+538 silly gentlyRm containing path /Users/jamesrhodes/Desktop/mmoose-ng is under npm's control, in /Users/jamesrhodes/Desktop/mmoose-ng
+539 silly gentlyRm deletion target /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/.bin/ext-name is under /Users/jamesrhodes/Desktop/mmoose-ng
+540 verbose gentlyRm vacuuming from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/.bin/ext-name up to /Users/jamesrhodes/Desktop/mmoose-ng
+541 info postuninstall ext-name@3.0.0
+542 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name is being purged from base /Users/jamesrhodes/Desktop/mmoose-ng
+543 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name
+544 silly vacuum-fs purging /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules/ext-name
+545 silly vacuum-fs quitting because other entries in /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json/node_modules
+546 verbose unbuild node_modules/bower-json
+547 info preuninstall bower-json@0.6.0
+548 info uninstall bower-json@0.6.0
+549 verbose unbuild rmStuff bower-json@0.6.0 from /Users/jamesrhodes/Desktop/mmoose-ng/node_modules
+550 info postuninstall bower-json@0.6.0
+551 silly gentlyRm /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json is being purged from base /Users/jamesrhodes/Desktop/mmoose-ng
+552 verbose gentlyRm don't care about contents; nuking /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+553 silly vacuum-fs purging /Users/jamesrhodes/Desktop/mmoose-ng/node_modules/bower-json
+554 silly vacuum-fs removing /Users/jamesrhodes/Desktop/mmoose-ng/node_modules
+555 silly vacuum-fs finished vacuuming up to /Users/jamesrhodes/Desktop/mmoose-ng

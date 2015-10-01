@@ -56,6 +56,7 @@ var app = angular.module('dashboardApp', [
     });
     angular.module('dashboardApp').config(function (RailsResourceProvider) {
       //RailsResourceProvider.rootWrapping(false);
+      RailsResourceProvider.fullResponse(true);
     });
     angular.module('dashboardApp').factory('UserSerializer', function (railsSerializer) {
       return railsSerializer(function () {
@@ -84,11 +85,13 @@ var app = angular.module('dashboardApp', [
         });
     }]);
     angular.module('dashboardApp').factory('Member', ['railsResourceFactory', function (railsResourceFactory) {
-        return railsResourceFactory({
-            url: '/dashboard/members?page={{page}}',
+        Member = railsResourceFactory({
+            url: '/dashboard/members',
             name: 'member',
             serializer: 'MemberSerializer'
         });
+
+        return Member
     }]);
     angular.module('dashboardApp').factory('Subscription', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({

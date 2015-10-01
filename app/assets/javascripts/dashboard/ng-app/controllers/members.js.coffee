@@ -6,7 +6,7 @@
     window.scope = $scope
     $scope.members = []
     $scope.selected_member = null
-    $scope.totalItems = 100
+    $scope.totalItems = 0
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
     $scope.isLoading = true
@@ -21,9 +21,11 @@
       $scope.getMembers()
 
     $scope.getMembers = () ->
-      Member.get({page: $scope.currentPage}).then (members) ->
+      Member.setUrl('/dashboard/members?page={{page}}')
+      Member.get({page: $scope.currentPage}).then (result) ->
         console.log("get members")
-        $scope.members = members
+        $scope.members = result.data
+        $scope.totalItems = result.originalData.total_items
         $scope.isLoading = false
 
     $scope.selectMember = (event, member) ->
@@ -39,6 +41,7 @@
 
     $scope.updateMember = (member, form) ->
       if form.$valid
+        Member.setUrl('/dashboard/members')
         member.update().then(
           (updated_member) ->
             angular.forEach($scope.members, (value,index) =>
