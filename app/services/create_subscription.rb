@@ -1,10 +1,27 @@
 class CreateSubscription
-  def self.call(plan, email_address, token)
-    account, raw_token = CreateUser.call(email_address)
+  def self.call(plan, first_name, last_name, email_address, token,
+    stripe_card_id, card_brand, card_last4, exp_month, exp_year)
+
+    account, raw_token = CreateUser.call(first_name, last_name, email_address)
+
+    #does card exist for account
+    card = account.cards.where(:external_id => stripe_card_id).first
+
+    if !card
+      card = Card.create!({
+          :account => account,
+          :external_id => stripe_card_id,
+          :brand => card_brand,
+          :last4 => card_last4,
+          :expiration_month => exp_month,
+          :expiration_year => exp_year
+      })
+    end
 
     subscription = Subscription.new(
       plan: plan,
-      account: account
+      account: account,
+      card: card
     )
 
     begin
@@ -33,6 +50,6 @@ class CreateSubscription
       subscription.errors[:base] << e.message
     end
 
-    subscription
+    return account, subscription, card, raw_token
   end
 end

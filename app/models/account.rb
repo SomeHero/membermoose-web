@@ -9,6 +9,7 @@ class Account < ActiveRecord::Base
   has_many :account_payment_processors_oauth, :class_name => 'AccountPaymentProcessorOauth', :foreign_key => 'account_id'
   has_many :payments
   has_many :bills, :through => :account_payment_processors, :source => :payments
+  has_many :cards
   has_attached_file :logo
   has_attached_file :photo
 

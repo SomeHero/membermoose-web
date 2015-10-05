@@ -2,6 +2,8 @@ class Subscription < ActiveRecord::Base
   belongs_to :account
   belongs_to :plan
   belongs_to :account_payment_processor
+  belongs_to :card
+  
   before_save :populate_guid
   validates_uniqueness_of :guid
 
@@ -15,6 +17,18 @@ class Subscription < ActiveRecord::Base
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }
+  end
+
+  def last_invoice_date
+
+  end
+
+  def next_invoice_date
+
+  end
+
+  def next_invoice_amount
+
   end
 
   private

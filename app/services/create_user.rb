@@ -1,5 +1,5 @@
 class CreateUser
-  def self.call(email_address)
+  def self.call(first_name, last_name, email_address)
 
     user = User.find_by(email: email_address)
 
@@ -9,17 +9,17 @@ class CreateUser
       User, :reset_password_token)
     password = SecureRandom.hex(32)
 
-    account = Account.create!(
+    account = Account.create!({
       :user => User.create!({
         email: email_address,
         password: password,
         password_confirmation: password,
         reset_password_token: enc_token,
         reset_password_sent_at: Time.now
-      })#,
-      #:first_name => username.split(" ")[0],
-      #:last_name => username.split(" ")[1],)
-    )
+      }),
+      :first_name => first_name,
+      :last_name => last_name
+    })
 
     return account, raw_token
   end

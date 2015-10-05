@@ -128,13 +128,32 @@ larkin_account = Account.create!({
   #logo =>
 })
 
-token = CreateToken.call(valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)], rand(1..12), 2020, rand(100..999), ENV["STRIPE_SECRET_KEY"])
+card = {
+  number: valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)],
+  brand: "Visa",
+  expiration_month: rand(1..12),
+  expiration_year: 2020,
+  cvc: rand(100..999)
+}
+token = CreateToken.call(card[:number],
+  card[:expiration_month],
+  card[:expiration_year],
+  card[:cvc],
+  ENV["STRIPE_SECRET_KEY"])
 
 CreateSubscription.call(
   special_moose,
+  larkin_account.first_name,
+  larkin_account.last_name,
   larkin_account.user.email,
-  token.id
+  token.id,
+  token.card.id,
+  token.card.brand,
+  token.card.last4,
+  token.card.exp_month,
+  token.card.exp_year
 )
+
 wolfpack_1_plan = CreatePlan.call({
     :account => larkin_account,
     :name => "Wolfpack 1",
@@ -215,10 +234,30 @@ for i in 0..250
   token = CreateToken.call(valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)], rand(1..12), 2020, rand(100..999), ENV["STRIPE_SECRET_KEY"])
   plan = wolfpack_plans[rand(0..4)]
 
-  CreateSubscription.call(
+  card = {
+    :number => valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)],
+    :brand => "Visa",
+    :expiration_month => rand(1..12),
+    :expiration_year => 2020,
+    :cvc => rand(100..999)
+  }
+  token = CreateToken.call(card[:number],
+    card[:expiration_month],
+    card[:expiration_year],
+    card[:cvc],
+    ENV["STRIPE_SECRET_KEY"])
+
+  account, subscription, card, raw_token = CreateSubscription.call(
     plan,
+    account.first_name,
+    account.last_name,
     account.user.email,
-    token.id
+    token.id,
+    token.card.id,
+    token.card.brand,
+    token.card.last4,
+    token.card.exp_month,
+    token.card.exp_year
   )
 
   numberOfPayments = rand(0..10)
@@ -234,7 +273,8 @@ for i in 0..250
         :amount => plan.amount,
         :payment_processor_fee => plan.amount*0.01+0.30,
         :payment_type => "Recurring",
-        :status => "Pending"
+        :status => "Pending",
+        :card => card
     })
   end
 

@@ -23,6 +23,7 @@ class Plan < ActiveRecord::Base
     :trial_period_days => self.trial_period_days,
     :terms_and_conditions => self.terms_and_conditions,
     :public => self.public,
+    :stripe_id => self.stripe_id,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }

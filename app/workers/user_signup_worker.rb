@@ -3,17 +3,23 @@ require 'slack-notifier'
 class UserSignupWorker
   @queue = :user_signup_worker_queue
 
-  def self.perform(user_id)
+  def self.perform(subscription_id)
 
     #return false if !Rails.env.production?
 
-  	user = User.find(user_id)
+    subscription = Subscription.find(subscription_id)
+    return false unless subscription
 
-  	return false unless user
+    begin
+      self.send_welcome_email subscription
+    rescue StandardError => e
+      Rails.logger.error "Error encountered while attempting to send welcome email: #{e.message}"
+      Rails.logger.error e.backtrace.join("\n")
 
-    self.send_welcome_email user
+      return false
+    end
 
-    return false unless Rails.env.production?
+    #return false unless Rails.env.production?
 
     #notifier = Slack::Notifier.new "transferllc", "wi8oy1HpbfJLMIR693STWwEk",
                                #channel: '#random', username: 'notifier'
@@ -22,22 +28,29 @@ class UserSignupWorker
 
   end
 
-  def self.send_welcome_email user
+  def self.send_welcome_email subscription
     #send welcome email
+    logo = "mm-logo.png"
+    if subscription.plan.account.logo.exists?
+      logo = subscription.plan.account.logo.url
+    end
+
+    binding.pry
     UserNotification::UserNotificationRouter.instance.notify_user(UserNotification::Notification::USER_WELCOME,
-    :from_address => "welcome@membermoose.com",
-    :from_name => "The Member Moose Team",
-    :subject => "Welcome to Member Moose",
-    :user => user,
+    :from_address => subscription.plan.account.user.email,
+    :from_name => "The #{subscription.plan.account.company_name} Team",
+    :subject => "Welcome to #{subscription.plan.account.company_name}",
+    :user => subscription.account.user,
     :template_name => "Welcome",
     :merge_fields => {
-      "merge_logo_url" => "http://localhost:3000",
-      "merge_plan_name" =>  "Baby Moose",
-      "merge_bull_email" => "members@membermoose.com",
+      "merge_logo_url" => logo,
+      "merge_plan_name" =>  subscription.plan.name,
+      "merge_bull_name" => subscription.plan.account.company_name,
+      "merge_bull_email" => subscription.plan.account.user.email,
       "merge_manage_account_url" => "http://localhost:3000",
       "merge_create_plan_url" => "http://localhost:3000",
-      "merge_plan_amount" => "$100.00",
-      "merge_billing_interval" => "Monthly"
+      "merge_plan_amount" => ActionController::Base.helpers.number_to_currency(subscription.plan.amount),
+      "merge_billing_interval" => subscription.plan.billing_cycle
     })
 
   end

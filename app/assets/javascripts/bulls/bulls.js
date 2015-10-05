@@ -4,7 +4,7 @@ var app = angular.module('bullsApp', [
         'templates',
         'rails',
         'ui.bootstrap',
-        'angularPayments'
+        'angular-stripe'
     ])
     .run(function ($window) {
       $window.Stripe.setPublishableKey('pk_test_4WpPoyEVIDzw8SkqQ6w0kRSq');

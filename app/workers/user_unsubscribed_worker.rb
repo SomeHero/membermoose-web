@@ -1,6 +1,6 @@
 require 'slack-notifier'
 
-class UserSubscribedWorker
+class UserUnsubscribedWorker
   @queue = :user_subscribed_worker_queue
 
   def self.perform(user_id)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930202250) do
+ActiveRecord::Schema.define(version: 20151004133601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,19 @@ ActiveRecord::Schema.define(version: 20150930202250) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "cards", force: true do |t|
+    t.integer  "account_id"
+    t.string   "brand"
+    t.string   "last4"
+    t.integer  "expiration_month"
+    t.integer  "expiration_year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "external_id"
+  end
+
+  add_index "cards", ["account_id"], name: "index_cards_on_account_id", using: :btree
+
   create_table "payment_processors", force: true do |t|
     t.string   "name"
     t.boolean  "active"
@@ -135,10 +148,12 @@ ActiveRecord::Schema.define(version: 20150930202250) do
     t.datetime "updated_at"
     t.string   "guid"
     t.string   "external_id"
+    t.integer  "card_id"
   end
 
   add_index "payments", ["account_id"], name: "index_payments_on_account_id", using: :btree
   add_index "payments", ["account_payment_processor_id"], name: "index_payments_on_account_payment_processor_id", using: :btree
+  add_index "payments", ["card_id"], name: "index_payments_on_card_id", using: :btree
 
   create_table "plans", force: true do |t|
     t.string   "name"
@@ -188,10 +203,12 @@ ActiveRecord::Schema.define(version: 20150930202250) do
     t.integer  "account_payment_processor_id"
     t.string   "guid"
     t.string   "stripe_id"
+    t.integer  "card_id"
   end
 
   add_index "subscriptions", ["account_id"], name: "index_subscriptions_on_account_id", using: :btree
   add_index "subscriptions", ["account_payment_processor_id"], name: "index_subscriptions_on_account_payment_processor_id", using: :btree
+  add_index "subscriptions", ["card_id"], name: "index_subscriptions_on_card_id", using: :btree
   add_index "subscriptions", ["plan_id"], name: "index_subscriptions_on_plan_id", using: :btree
 
   create_table "users", force: true do |t|
