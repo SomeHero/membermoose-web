@@ -272,9 +272,11 @@ for i in 0..250
         :account_payment_processor => account_payment_processor,
         :amount => plan.amount,
         :payment_processor_fee => plan.amount*0.01+0.30,
+        :payment_method => "Credit Card",
         :payment_type => "Recurring",
         :status => "Pending",
-        :card => card
+        :card => card,
+        :comments => "Recurring Payment for #{subscription.plan.name} (test)"
     })
   end
 

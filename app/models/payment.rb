@@ -2,7 +2,7 @@ class Payment < ActiveRecord::Base
   belongs_to :account
   belongs_to :account_payment_processor
   belongs_to :card
-  
+
   before_save :populate_guid
   validates_uniqueness_of :guid
 
@@ -18,6 +18,7 @@ class Payment < ActiveRecord::Base
     :fees => self.payment_processor_fee,
     :net_amount => self.net_amount,
     :payment_type => self.payment_type,
+    :payment_method => self.payment_method,
     :status => self.status,
     :payee => {
       "guid" => self.account_payment_processor.account.guid,
@@ -26,6 +27,7 @@ class Payment < ActiveRecord::Base
     },
     :account_payment_processor => self.account_payment_processor,
     :card => self.card,
+    :comments => self.comments,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }

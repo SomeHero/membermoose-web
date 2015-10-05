@@ -19,9 +19,9 @@
       {{payment.netAmount | currency}}
     %td{"data-title"=>"'Payment Processor'"}
       {{payment.accountPaymentProcessor.paymentProcessor.name}}
-    %td{"data-title"=>"'Payment Method'"}
-      Credit Card<br />
-      Visa 1110
+    %td.payment-method{"data-title"=>"'Payment Method'"}
+      {{payment.paymentMethod}}<br />
+      {{payment.card.brand}} ending in {{payment.card.last4}}
     %td{"data-title"=>"'Status'"}
       {{payment.status}}
 %pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
@@ -78,13 +78,13 @@
     %p.label
       Payment Method
     %p.data
-      Credit Card</br>
-      Visa-1080
+      {{selected_payment.paymentMethod}}<br />
+      {{selected_payment.card.brand}} ending in {{selected_payment.card.last4}}
     %p.label
       Payment Status
     %p.data
       {{selected_payment.status}}
     %p.label
-      comment
+      Comment
     %p.data
-      Test Comment
+      {{selected_payment.comments}}
