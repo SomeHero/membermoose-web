@@ -19,7 +19,7 @@ class Bulls::SubscriptionsController < ApplicationController
     exp_month = params["subscription"]["stripe_token"]["card"]["exp_month"]
     exp_year = params["subscription"]["stripe_token"]["card"]["exp_year"]
 
-    subscription = CreateSubscription.call(
+    account, subscription, card, raw_token = CreateSubscription.call(
       plan,
       first_name,
       last_name,
@@ -35,7 +35,7 @@ class Bulls::SubscriptionsController < ApplicationController
     begin
       Resque.enqueue(UserSignupWorker, subscription.id)
     rescue
-      Rails.logger.error "Error sender User Welcome email #{$!}"
+      Rails.logger.error "Error sending User Welcome email #{$!}"
     end
 
     begin
