@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005140611) do
+ActiveRecord::Schema.define(version: 20151006170227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,30 @@ ActiveRecord::Schema.define(version: 20151005140611) do
 
   add_index "cards", ["account_id"], name: "index_cards_on_account_id", using: :btree
 
+  create_table "charges", force: true do |t|
+    t.string   "status"
+    t.decimal  "amount"
+    t.string   "currency"
+    t.integer  "card_id"
+    t.string   "external_invoice_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "charges", ["card_id"], name: "index_charges_on_card_id", using: :btree
+
+  create_table "invoices", force: true do |t|
+    t.string   "external_id"
+    t.decimal  "subtotal"
+    t.decimal  "total"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "subscription_id"
+  end
+
+  add_index "invoices", ["subscription_id"], name: "index_invoices_on_subscription_id", using: :btree
+
   create_table "payment_processors", force: true do |t|
     t.string   "name"
     t.boolean  "active"
@@ -151,11 +175,13 @@ ActiveRecord::Schema.define(version: 20151005140611) do
     t.integer  "card_id"
     t.string   "payment_method"
     t.string   "comments"
+    t.integer  "subscription_id"
   end
 
   add_index "payments", ["account_id"], name: "index_payments_on_account_id", using: :btree
   add_index "payments", ["account_payment_processor_id"], name: "index_payments_on_account_payment_processor_id", using: :btree
   add_index "payments", ["card_id"], name: "index_payments_on_card_id", using: :btree
+  add_index "payments", ["subscription_id"], name: "index_payments_on_subscription_id", using: :btree
 
   create_table "plans", force: true do |t|
     t.string   "name"

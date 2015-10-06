@@ -4,7 +4,8 @@ class CreateSubscription
 
     account, raw_token = CreateUser.call(first_name, last_name, email_address)
 
-    #does card exist for account
+    payment_processor = PaymentProcessor.find_by(:name => "Stripe")
+
     card = account.cards.where(:external_id => stripe_card_id).first
 
     if !card
@@ -43,8 +44,23 @@ class CreateSubscription
         )
       end
 
-      subscription.stripe_id = stripe_sub.id
+      subscription.payments.new({
+          :account => plan.account,
+          :account_payment_processor => AccountPaymentProcessor.new({
+            :account => account,
+            :payment_processor => payment_processor,
+            :active => true
+          }),
+          :amount => plan.amount,
+          :payment_processor_fee => plan.amount*0.01+0.30,
+          :payment_method => "Credit Card",
+          :payment_type => "Recurring",
+          :status => "Pending",
+          :card => card,
+          :comments => "Recurring Payment for #{subscription.plan.name} (test)"
+      })
 
+      subscription.stripe_id = stripe_sub.id
       subscription.save!
     rescue Stripe::StripeError => e
       subscription.errors[:base] << e.message

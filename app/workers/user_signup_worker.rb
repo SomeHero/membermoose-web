@@ -35,7 +35,6 @@ class UserSignupWorker
       logo = subscription.plan.account.logo.url
     end
 
-    binding.pry
     UserNotification::UserNotificationRouter.instance.notify_user(UserNotification::Notification::USER_WELCOME,
     :from_address => subscription.plan.account.user.email,
     :from_name => "The #{subscription.plan.account.company_name} Team",

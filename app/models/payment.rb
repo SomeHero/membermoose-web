@@ -2,7 +2,8 @@ class Payment < ActiveRecord::Base
   belongs_to :account
   belongs_to :account_payment_processor
   belongs_to :card
-
+  belongs_to :payment
+  
   before_save :populate_guid
   validates_uniqueness_of :guid
 

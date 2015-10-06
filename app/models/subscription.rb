@@ -3,6 +3,9 @@ class Subscription < ActiveRecord::Base
   belongs_to :plan
   belongs_to :account_payment_processor
   belongs_to :card
+
+  has_many :invoices
+  has_many :payments
   
   before_save :populate_guid
   validates_uniqueness_of :guid

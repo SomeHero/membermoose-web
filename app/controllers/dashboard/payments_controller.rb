@@ -5,6 +5,7 @@ class Dashboard::PaymentsController < DashboardController
     @total_items = current_user.account.payments.count
     @payments = current_user.account.payments
       .paginate(:page => params[:page], :per_page => 10)
+      .order("created_at desc")
 
     respond_to do |format|
       format.html

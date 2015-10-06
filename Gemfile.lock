@@ -311,6 +311,8 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    ultrahook (0.1.4)
+      json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
@@ -372,4 +374,5 @@ DEPENDENCIES
   stripe_event
   turbolinks
   uglifier (>= 1.3.0)
+  ultrahook
   will_paginate
