@@ -6,9 +6,6 @@ var app = angular.module('bullsApp', [
         'ui.bootstrap',
         'angular-stripe'
     ])
-    .run(function ($window) {
-      $window.Stripe.setPublishableKey('pk_test_4WpPoyEVIDzw8SkqQ6w0kRSq');
-    })
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider
         .state('plans', {

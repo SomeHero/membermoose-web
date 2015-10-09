@@ -9,11 +9,15 @@
   ($scope, Plan, Subscription, plan, $modalInstance, stripe, window) ->
     window.scope = $scope
 
+    $scope.loading = {
+      show_spinner: false
+    }
     $scope.subscription = {}
     $scope.plan = plan
 
     $scope.charge = (form)  ->
       if form.$valid
+        $scope.loading.show_spinner = true
         $scope.payment.plan = $scope.plan.stripeId
 
         stripe.card.createToken($scope.payment.card).then((token) ->
@@ -30,17 +34,25 @@
             stripe_token: token
           }).create().then(
             (response) ->
+              $scope.loading.show_spinner = false
+
               $modalInstance.close();
 
               console.log("account updated")
             (http)  ->
+              $scope.loading.show_spinner = false
+
               console.log("error creating subscription we should show something")
               errors = http.data
           )
         ).then((subscription) ->
+          $scope.loading.show_spinner = false
+
           console.log 'successfully submitted payment for $', $scope.plan.amount
           return
         ).catch (err) ->
+          $scope.loading.show_spinner = false
+
           if err.type and /^Stripe/.test(err.type)
             console.log 'Stripe error: ', err.message
           else

@@ -6,20 +6,21 @@
   ($scope, Plan, $modal, window) ->
     window.scope = $scope
 
-    $scope.plans_per_row = 4
-    $scope.bull = {
-      account: {
-        company_name: "Bember Boose"
-      }
+    $scope.loading = {
+      show_spinner: false
     }
+    $scope.plans_per_row = 4
     $scope.plans = []
     $scope.rows = []
     $scope.row_plans = []
 
     $scope.getPlans = () ->
+      $scope.loading.show_spinner = true
       Plan.get().then (plans) ->
         $scope.plans = plans
         sortPlans()
+
+        $scope.loading.show_spinner = false
 
         return
 

@@ -20,6 +20,11 @@ html, body {
   width: 100%;
   position: absolute;
 }
+.fill-height {
+  min-height: 100%;
+  height:auto !important; /* cross-browser */
+  height: 100%; /* cross-browser */
+}
 .container-fluid, .row-fluid {
   height: inherit;
 }

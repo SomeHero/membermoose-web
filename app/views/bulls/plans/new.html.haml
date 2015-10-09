@@ -75,6 +75,7 @@
           = @plan.terms_and_conditions
         .col-lg-12.form-group
           %a.remodal-confirm{:href => "#"} Done Reading
+%div{"loading-screen" => "loading.show_spinner"}
 <script
 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 data-key="#{@bull.publishable_key}"
