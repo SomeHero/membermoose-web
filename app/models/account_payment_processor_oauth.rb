@@ -1,11 +1,10 @@
 class AccountPaymentProcessorOauth < ActiveRecord::Base
-  belongs_to :account
-  belongs_to :payment_processor
+  belongs_to :account_payment_processor
 
   def as_json(options={})
   {
     :id => self.id,
-    :payment_processor => self.payment_processor.name,
+    :account_payment_processor => self.account_payment_processor,
     :oauth_user_id => self.oauth_user_id,
     :name => self.name,
     :email => self.email,

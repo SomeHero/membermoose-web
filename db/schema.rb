@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006170227) do
+ActiveRecord::Schema.define(version: 20151010113302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,21 +27,25 @@ ActiveRecord::Schema.define(version: 20151006170227) do
     t.string   "refresh_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_payment_processor_id"
   end
 
   add_index "account_payment_processor_oauths", ["account_id"], name: "index_account_payment_processor_oauths_on_account_id", using: :btree
+  add_index "account_payment_processor_oauths", ["account_payment_processor_id"], name: "oauth_index", unique: true, using: :btree
   add_index "account_payment_processor_oauths", ["payment_processor_id"], name: "index_account_payment_processor_oauths_on_payment_processor_id", using: :btree
 
   create_table "account_payment_processors", force: true do |t|
     t.integer  "account_id"
     t.integer  "payment_processor_id"
     t.json     "raw_response"
-    t.string   "stripe_user_id"
-    t.string   "stripe_refresh_token"
-    t.string   "stripe_access_token"
+    t.string   "oauth_user_id"
+    t.string   "refresh_token"
+    t.string   "token"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.string   "email"
   end
 
   add_index "account_payment_processors", ["account_id"], name: "index_account_payment_processors_on_account_id", using: :btree

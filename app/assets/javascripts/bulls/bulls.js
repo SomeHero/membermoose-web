@@ -22,6 +22,7 @@ var app = angular.module('bullsApp', [
     });
     angular.module('bullsApp').config(function (RailsResourceProvider) {
       //RailsResourceProvider.rootWrapping(false);
+      RailsResourceProvider.fullResponse(true);
     });
     angular.module('bullsApp').factory('Account', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({

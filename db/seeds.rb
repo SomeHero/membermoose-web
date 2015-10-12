@@ -23,6 +23,10 @@ valid_credit_card_nums = [
   "3530111333300000",
   "3566002020360505"
 ]
+payment_processor = PaymentProcessor.create!({
+  :name => "Stripe",
+  :active => true
+})
 mm_user = User.create!({
   :email => 'admin@membermoose.com',
   :password => 'password'
@@ -33,7 +37,16 @@ mm_account = Account.create!({
   :last_name => "Rhodes",
   :company_name => "Member Moose"
   #logo =>
-  })
+})
+account_payment_processor = AccountPaymentProcessor.create!({
+  :account => mm_account,
+  :payment_processor => payment_processor,
+  :oauth_user_id => "acct_14Nll74IZxLlgOpC",
+  :name => "Somehero",
+  :email => "james@somehero.com",
+  :token => "pk_test_WgSy4BgEWxeJHhCxqDIOgeBV",
+  :active => true
+})
 baby_moose = CreatePlan.call({
     :account => mm_account,
     :name => "Baby Moose",
@@ -111,11 +124,6 @@ special_moose = CreatePlan.call({
     :trial_period_days => 30,
     :terms_and_conditions => "Be cool"
 }, ENV["STRIPE_SECRET_KEY"])
-payment_processor = PaymentProcessor.create!({
-  :name => "Stripe",
-  :active => true
-})
-
 larkin_account = Account.create!({
   :user => User.create!({
     :email => 'contact@804RVA.com',
@@ -126,6 +134,15 @@ larkin_account = Account.create!({
   :company_name => "804RVA",
   :subdomain => "804rva"
   #logo =>
+})
+account_payment_processor = AccountPaymentProcessor.create!({
+  :account => larkin_account,
+  :payment_processor => payment_processor,
+  :oauth_user_id => "acct_14Nll74IZxLlgOpC",
+  :name => "Somehero",
+  :email => "james@somehero.com",
+  :token => "pk_test_WgSy4BgEWxeJHhCxqDIOgeBV",
+  :active => true
 })
 
 card = {
@@ -261,11 +278,7 @@ for i in 0..250
   )
 
   numberOfPayments = rand(0..10)
-  account_payment_processor = AccountPaymentProcessor.create!({
-    :account => account,
-    :payment_processor => payment_processor,
-    :active => true
-  })
+
   for j in 0..numberOfPayments
     Payment.create!({
         :account => larkin_account,

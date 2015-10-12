@@ -8,6 +8,13 @@
     = csrf_meta_tags
     %link{:href => "https://fonts.googleapis.com/css?family=Raleway:400,500,700", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "https://www.google.com/fonts#UsePlace:use/Collection:Lato:400,700,300,100", :rel => "stylesheet", :type => "text/css"}/
+    %script
+      _test_env =
+      != (Rails.env == 'production' ? nil : 'testing' ).to_json
+
+      account =
+      != @bull ? @bull.account.to_json : nil
+
     %base{"href"=>"/"}
   %body{"ng-app"=>"bullsApp"}
     %header.text-center{:style => "background: #{@dominant_color}"}

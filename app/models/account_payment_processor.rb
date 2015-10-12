@@ -8,10 +8,14 @@ class AccountPaymentProcessor < ActiveRecord::Base
   {
     :id => self.id,
     :payment_processor => self.payment_processor,
+    :oauth_user_id => self.oauth_user_id,
+    :name => self.name,
+    :email => self.email,
+    :token => self.token,
     :active => self.active,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }
   end
-  
+
 end

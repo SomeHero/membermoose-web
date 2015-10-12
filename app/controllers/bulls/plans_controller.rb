@@ -2,14 +2,14 @@ class Bulls::PlansController < ApplicationController
   layout 'bulls'
 
   def index
-    account = Account.where(:subdomain => request.subdomain).first
+    account_id = session[:account_id]
+    account = Account.find(account_id)
 
-    @bull = account.user
     @plans = account.plans.public_plans
 
     respond_to do |format|
       format.html
-      format.json { render :json => @plans.to_json }
+      format.json { render :json => { :plans => @plans }}
     end
   end
 

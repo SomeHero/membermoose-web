@@ -1,8 +1,5 @@
-%div.container-fluid
-  .col-md-8.col-md-offset-4
-    .row
-      .col-sm-12.col-md-12.col-lg-12.business-logo
-        %img
+%div.container-fluid.ng-cloak
+  .col-md-10.col-md-offset-1
     .row
       .col-sm-12.subscribe-to.plan-details
         #plan-info
@@ -18,68 +15,78 @@
         .form-group
           .col-md-6
             %input#firstName.form-control.input{:type=>"text",:name=>"subscription[first_name]",:placeholder=>"First Name","ng-model"=>"subscription.first_name", "required"=>""}
-            %span{"ng-show" => "subscriptionForm['subscription[first_name]'].$dirty && subscriptionForm['subscription[first_name]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[first_name]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[first_name]'].$error.required"}
                 First Name is required
           .col-md-6
             %input#lastName.form-control.input{:type=>"text",:name=>"subscription[last_name]",:placeholder=>"Last Name","ng-model"=>"subscription.last_name", "required"=>""}
-            %span{"ng-show" => "subscriptionForm['subscription[last_name]'].$dirty && subscriptionForm['subscription[last_name]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[last_name]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[last_name]'].$error.required"}
                 Last Name is required
         .form-group
           .col-md-12
             %input#address.form-control.input{:type=>"text",:name=>"subscription[address]",:placeholder=>"Street Address","ng-model"=>"subscription.address", "required"=>""}
-            %span{"ng-show" => "subscriptionForm['subscription[address]'].$dirty && subscriptionForm['subscription[address]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[address]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[address]'].$error.required"}
                 Address is required
         .form-group
           .col-md-6
             %input#city.form-control.input{:type=>"text",:name=>"subscription[city]",:placeholder=>"City","ng-model"=>"subscription.city", "required"=>""}
-            %span{"ng-show" => "subscriptionForm['subscription[city]'].$dirty && subscriptionForm['subscription[city]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[city]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[city]'].$error.required"}
                 City is required
           .col-md-3
             %input#state.form-control.input{:type=>"text",:name=>"subscription[state]",:placeholder=>"State","ng-model"=>"subscription.state", "required"=>""}
-            %span{"ng-show" => "subscriptionForm['subscription[state]'].$dirty && subscriptionForm['subscription[state]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[state]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[state]'].$error.required"}
                 State is required
           .col-md-3
             %input#state.form-control.input{:type=>"text",:name=>"subscription[zip_code]",:placeholder=>"Zip Code","ng-model"=>"subscription.zip_code", "required"=>""}
-            %span{"ng-show" => "subscriptionForm['subscription[zip_code]'].$dirty && subscriptionForm['subscription[zip_code]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[zip_code]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[zip_code]'].$error.required"}
                 Zip Code is required
         .form-group
           .col-md-12
             %input#state.form-control.input{:type=>"text",:name=>"subscription[email]",:placeholder=>"Email Address","ng-model"=>"subscription.email", "required"=>""}
-            %span{"ng-show" => "subscriptionForm['subscription[email]'].$dirty && subscriptionForm['subscription[email]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[email]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[email]'].$error.required"}
                 Email Address is required
         .form-group
           .col-md-12
             %input#state.form-control.input{:type=>"text",:name=>"subscription[password]",:placeholder=>"Password","ng-model"=>"subscription.password", "required"=>""}
-            %span{"ng-show" => "subscriptionForm['subscription[password]'].$dirty && subscriptionForm['subscription[password]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[password]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[password]'].$error.required"}
                 Password is required
         .form-group
           .col-md-8
-            %input#creditCardNumber.form-control.input{:type=>"text",:name=>"subscription[credit_card_number]","ng-model"=>"payment.card.number", "placeholder"=>"Card Number Number", "payments-validate"=>"card"}
-            %span{"ng-show" => "subscriptionForm['subscription[credit_card_number]'].$dirty && subscriptionForm['subscription[credit_card_number]'].$invalid", :style => "color:red"}
+            %input#creditCardNumber.form-control.input{:type=>"text",:name=>"subscription[credit_card_number]","ng-model"=>"payment.card.number", "placeholder"=>"Card Number Number", "payments-validate"=>"card", "required"=>""}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[credit_card_number]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[credit_card_number]'].$error.required"}
-                Card Number is required
+                Credit Card Number is required
+              %span{"ng-show" => "!subscriptionForm['subscription[credit_card_number]'].$error.required && !credit_card_valid"}
+                Credit Card Number is invalid
           .col-md-4
-            %input#cvc.form-control.input{:type=>"text",:name=>"subscription[cvc]","ng-model"=>"payment.card.cvc", "placeholder"=>"CVC"}
-            %span{"ng-show" => "subscriptionForm['subscription[cvc]'].$dirty && subscriptionForm['subscription[cvc]'].$invalid", :style => "color:red"}
+            %input#cvc.form-control.input{:type=>"text",:name=>"subscription[cvc]","ng-model"=>"payment.card.cvc", "placeholder"=>"CVC", "required"=>""}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[cvc]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[cvc]'].$error.required"}
                 CVC is required
         .form-group
           .col-md-6
-            %input#expiry.form-control.input{:type=>"text",:name=>"subscription[expiry_month]","ng-model"=>"payment.card.exp_month", "placeholder"=>"Expiration Month"}
-            %span{"ng-show" => "subscriptionForm['subscription[expiry_month]'].$dirty && subscriptionForm['subscription[expiry_month]'].$invalid", :style => "color:red"}
+            %select#expiry.form-control.input{:type=>"text",:name=>"subscription[expiry_month]","ng-model"=>"payment.card.exp_month", "placeholder"=>"Expiration Month", "required"=>""}
+              %option{"value"=>"", "selected"=>""}
+                Card Expiration Month
+              %option{"ng-repeat"=>"option in data.available_expiration_monthes", "value"=>"{{option.id}}"}
+                {{option.month}}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[expiry_month]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[expiry_month]'].$error.required"}
                 Expiration Month is required
           .col-md-6
-            %input#expiry.form-control.input{:type=>"text",:name=>"subscription[expiry_year]","ng-model"=>"payment.card.exp_year", "placeholder"=>"Expiration Year"}
-            %span{"ng-show" => "subscriptionForm['subscription[expiry_year]'].$dirty && subscriptionForm['subscription[expiry_year]'].$invalid", :style => "color:red"}
+            %select#expiry.form-control.input{:type=>"text",:name=>"subscription[expiry_year]","ng-model"=>"payment.card.exp_year", "placeholder"=>"Expiration Year", "required"=>""}
+              %option{"value"=>"", "selected"=>""}
+                Card Expiration Year
+              %option{"ng-repeat"=>"option in data.available_expiration_years", "value"=>"{{option.year}}"}
+                {{option.year}}
+            %span{"ng-show" => "form_submitted && subscriptionForm['subscription[expiry_year]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "subscriptionForm['subscription[expiry_year]'].$error.required"}
                 Expiration Year is required
         %button.btn.btn-lg.btn-success{"ng-click"=>"charge(subscriptionForm)"}

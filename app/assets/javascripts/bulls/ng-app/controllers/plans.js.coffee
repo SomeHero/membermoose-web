@@ -6,6 +6,7 @@
   ($scope, Plan, $modal, window) ->
     window.scope = $scope
 
+    $scope.account = account
     $scope.loading = {
       show_spinner: false
     }
@@ -16,8 +17,8 @@
 
     $scope.getPlans = () ->
       $scope.loading.show_spinner = true
-      Plan.get().then (plans) ->
-        $scope.plans = plans
+      Plan.get().then (result) ->
+        $scope.plans = result.data
         sortPlans()
 
         $scope.loading.show_spinner = false
@@ -31,6 +32,8 @@
         controller: 'SubscribeController'
         size: 'lg'
         resolve:
+          account: ->
+            account
           plan: ->
             plan
       )
