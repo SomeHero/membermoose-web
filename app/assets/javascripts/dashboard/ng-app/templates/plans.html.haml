@@ -7,7 +7,7 @@
   .container-fluid
     .row{:style=>"margin-bottom: 20px;"}
       .col-md-3
-        .plan{"ng-click"=>"createPlan()", :style=>"position: relative;"}
+        .plan.thumbnail{"ng-click"=>"createPlan()", :style=>"position: relative;"}
           .plan-image
             .overlay
               .view-project{:style=>"height: 100px; line-height: 100px; margin-top: 10px;"}
@@ -17,7 +17,7 @@
             %h2.plan-name{:style=>"margin-top: 0px;"}
               Create Plan
       .col-md-3{"ng-repeat"=>"plan in plans_first_row"}
-        .plan{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
+        .plan.thumbnail{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
           .plan-image{:style=>"height:70px;"}
             .overlay
               %div.view-project
@@ -29,7 +29,7 @@
               {{plan.amount | currency }}
     .row{"ng-repeat"=>"row in rows", :style=>"margin-bottom: 20px;"}
       .col-md-3{"ng-repeat"=>"plan in row"}
-        .plan{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
+        .plan.thumbnail{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
           .plan-image{:style=>"height:70px;"}
             .overlay
               %div.view-project
