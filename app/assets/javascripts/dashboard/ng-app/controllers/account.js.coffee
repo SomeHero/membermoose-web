@@ -1,8 +1,13 @@
 @AccountController = angular.module('dashboardApp').controller 'AccountController', [
   '$scope'
   'Account'
+  '$stateParams'
   '$window'
-  ($scope, Account, window) ->
+  ($scope, Account, $stateParams, window) ->
+
+    $scope.getAccount = () ->
+      Account.get($stateParams.id).then (result) ->
+        $scope.user = result.data
 
     $scope.updateAccount = (user, form) ->
       console.log "updating user"
@@ -22,7 +27,9 @@
             $scope.$parent.show_error_message = true
         )
 
+    $scope.getAccount()
+
     return
 ]
 
-AccountController.$inject = ['$scope', 'Account', 'window']
+AccountController.$inject = ['$scope', 'Account', '$stateParams', 'window']
