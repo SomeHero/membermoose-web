@@ -29,6 +29,11 @@
             %input#email.form-control{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
         .row.form-group
           .col-lg-8
+            %label{:for=>"subdomain"}
+              Subdomain
+            %input#subdomain.form-control{:type=>"text",:name=>"user[account_attributes[subdomain]]",:placeholder=>"Subdomain","ng-model"=>"user.account.subdomain" }
+        .row.form-group
+          .col-lg-8
             %label{:for=>"logo", "style"=>"display: block;"}
               Logo
             %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.length > 0", "style"=>"margin: 20px 0px;"}
