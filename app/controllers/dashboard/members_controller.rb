@@ -40,7 +40,7 @@ class Dashboard::MembersController < DashboardController
   end
 
   def permitted_params
-    params.require(:member).permit(:id, :first_name, :last_name, :user => [:email])
+    params.require(:member).permit(:id, :first_name, :last_name, :user_attributes => [:email])
   end
 
 end
