@@ -24,3 +24,4 @@
 //= require angular-ui-bootstrap-tpls
 //= require_tree .
 //= require_directory ../directives
+//= require_directory ../templates

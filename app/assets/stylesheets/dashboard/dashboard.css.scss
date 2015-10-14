@@ -66,9 +66,6 @@ body {
     border-right: solid 1px $border-color;
     padding-left: 40px;
   }
-  .container-fluid {
-    padding-left: 0px;
-  }
   a.navbar-brand {
     font-size: 14px;
     font-weight: 700;
@@ -212,6 +209,7 @@ body {
   height: 100%;
 }
 #content-wrapper {
+  padding-left: 0px;
   margin-right: -15px;
   .content-title {
     background-color: #f7f9fa;
@@ -364,4 +362,10 @@ body {
 .success-message.ng-hide, .error-message.ng-hide {
   top: -60px;
   display: block !important;
+}
+.modal-lg {
+  width: 80% !important;
+}
+.modal-content {
+  padding: 20px;
 }

@@ -6,7 +6,6 @@ class Account < ActiveRecord::Base
   has_many :subscriptions_plans,  -> { includes :plan }, :through => :plans, :source => :subscriptions
   has_many :members, :through => :plans
   has_many :account_payment_processors
-  has_many :account_payment_processors_oauth, :class_name => 'AccountPaymentProcessorOauth', :foreign_key => 'account_id'
   has_many :payments
   has_many :bills, :through => :account_payment_processors, :source => :payments
   has_many :cards

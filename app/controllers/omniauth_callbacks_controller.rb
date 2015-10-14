@@ -5,12 +5,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # The code below is to show you where to access the data.
 
     payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    binding.pry
+
     #parse out oauth_user_id, name, email, token, refresh_token
     oauth_user_id =request.env["omniauth.auth"]["uid"]
     name = request.env["omniauth.auth"]["info"]["name"]
     email = request.env["omniauth.auth"]["info"]["email"]
-    token = request.env["omniauth.auth"]["info"]["stripe_publishable_key"]
+    api_key = request.env["omniauth.auth"]["info"]["stripe_publishable_key"]
+    secret_token = request.env["omniauth.auth"]["credentials"]["token"]
     refresh_token = request.env["omniauth.auth"]["credentials"]["refresh_token"]
     #raise request.env["omniauth.auth"].to_yam
 
@@ -20,7 +21,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       oauth_user_id: oauth_user_id,
       name: name,
       email: email,
-      token: token,
+      api_key: api_key,
+      secret_token: secret_token,
       refresh_token: refresh_token
     })
 

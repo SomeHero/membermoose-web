@@ -25,3 +25,5 @@
 //= require angularjs-file-upload
 //= require ng-table
 //= require_tree .
+//= require_directory ../directives
+//= require_directory ../templates

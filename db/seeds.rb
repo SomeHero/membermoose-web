@@ -38,15 +38,6 @@ mm_account = Account.create!({
   :company_name => "Member Moose"
   #logo =>
 })
-account_payment_processor = AccountPaymentProcessor.create!({
-  :account => mm_account,
-  :payment_processor => payment_processor,
-  :oauth_user_id => "acct_14Nll74IZxLlgOpC",
-  :name => "Somehero",
-  :email => "james@somehero.com",
-  :token => "pk_test_WgSy4BgEWxeJHhCxqDIOgeBV",
-  :active => true
-})
 baby_moose = CreatePlan.call({
     :account => mm_account,
     :name => "Baby Moose",
@@ -134,15 +125,6 @@ larkin_account = Account.create!({
   :company_name => "804RVA",
   :subdomain => "804rva"
   #logo =>
-})
-account_payment_processor = AccountPaymentProcessor.create!({
-  :account => larkin_account,
-  :payment_processor => payment_processor,
-  :oauth_user_id => "acct_14Nll74IZxLlgOpC",
-  :name => "Somehero",
-  :email => "james@somehero.com",
-  :token => "pk_test_WgSy4BgEWxeJHhCxqDIOgeBV",
-  :active => true
 })
 
 card = {
@@ -276,21 +258,5 @@ for i in 0..250
     token.card.exp_month,
     token.card.exp_year
   )
-
-  numberOfPayments = rand(0..10)
-
-  for j in 0..numberOfPayments
-    Payment.create!({
-        :account => larkin_account,
-        :account_payment_processor => account_payment_processor,
-        :amount => plan.amount,
-        :payment_processor_fee => plan.amount*0.01+0.30,
-        :payment_method => "Credit Card",
-        :payment_type => "Recurring",
-        :status => "Pending",
-        :card => card,
-        :comments => "Recurring Payment for #{subscription.plan.name} (test)"
-    })
-  end
 
 end

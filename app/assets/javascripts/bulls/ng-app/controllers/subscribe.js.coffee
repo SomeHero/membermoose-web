@@ -10,7 +10,7 @@
   ($scope, Plan, Subscription, account, plan, $modalInstance, stripe, window) ->
     window.scope = $scope
 
-    stripe.setPublishableKey(account.payment_processors[0].token)
+    stripe.setPublishableKey(account.payment_processors[0].api_key)
     $scope.loading = {
       show_spinner: false
     }

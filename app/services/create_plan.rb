@@ -15,7 +15,7 @@ class CreatePlan
         currency: 'usd',
         interval: options[:billing_cycle],
         interval_count: options[:billing_interval],
-        name: options[:name],
+        name: options[:name]
       )
     rescue Stripe::StripeError => e
       plan.errors[:base] << e.message

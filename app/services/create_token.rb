@@ -14,7 +14,6 @@ class CreateToken
         }
       )
     rescue Stripe::StripeError => e
-      binding.pry
       return e.message
     end
     return token

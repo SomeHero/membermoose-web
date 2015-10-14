@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151010113302) do
+ActiveRecord::Schema.define(version: 20151014025357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,12 +40,13 @@ ActiveRecord::Schema.define(version: 20151010113302) do
     t.json     "raw_response"
     t.string   "oauth_user_id"
     t.string   "refresh_token"
-    t.string   "token"
+    t.string   "api_key"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
     t.string   "email"
+    t.string   "secret_token"
   end
 
   add_index "account_payment_processors", ["account_id"], name: "index_account_payment_processors_on_account_id", using: :btree

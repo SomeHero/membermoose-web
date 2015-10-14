@@ -1,8 +1,9 @@
 @PlansController = angular.module('dashboardApp').controller 'PlansController', [
   '$scope'
   'Plan'
+  '$modal'
   '$window'
-  ($scope, Plan, window) ->
+  ($scope, Plan, $modal, window) ->
     window.scope = $scope
     $scope.totalItems = 0
     $scope.currentPage = 1
@@ -23,6 +24,7 @@
       'year'
     ];
     $scope.getPlans = () ->
+      Plan.setUrl('/dashboard/plans?page={{page}}')
       Plan.get({page: $scope.currentPage}).then (result) ->
         $scope.plans = result.data
         $scope.totalItems = result.originalData.total_items
@@ -44,7 +46,19 @@
     $scope.createPlan = () ->
       console.log("create plan")
 
+      modalInstance = $modal.open(
+        animation: true
+        templateUrl: 'dashboard/ng-app/templates/new_plan.html'
+        controller: 'CreatePlanController'
+        size: 'lg'
+      )
+      modalInstance.result.then (() ->
+        $scope.getPlans()
+      ), ->
+        $log.info 'Modal dismissed at: ' + new Date
+
     $scope.updatePlan = (plan, form) ->
+      Plan.setUrl('/dashboard/plans')
       if form.$valid
         plan.update().then(
           (updated_plan) ->
@@ -106,4 +120,4 @@
     return
 ]
 
-PlansController.$inject = ['$scope', 'Plan', 'window']
+PlansController.$inject = ['$scope', 'Plan', '$modal', 'window']

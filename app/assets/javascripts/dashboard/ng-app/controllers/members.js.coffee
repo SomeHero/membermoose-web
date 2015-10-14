@@ -40,8 +40,8 @@
       $scope.$parent.show_error_message = false
 
     $scope.updateMember = (member, form) ->
+      Member.setUrl('/dashboard/members')
       if form.$valid
-        Member.setUrl('/dashboard/members')
         member.update().then(
           (updated_member) ->
             angular.forEach($scope.members, (value,index) =>

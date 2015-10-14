@@ -17,6 +17,7 @@
       $scope.getPayments()
 
     $scope.getPayments = () ->
+      Payment.setUrl('/dashboard/payments?page={{page}}')
       Payment.get({page: $scope.currentPage}).then (result) ->
         $scope.payments = result.data
         $scope.totalItems = result.originalData.total_items

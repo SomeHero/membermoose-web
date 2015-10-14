@@ -19,7 +19,7 @@ class Bulls::SubscriptionsController < ApplicationController
     exp_month = params["subscription"]["stripe_token"]["card"]["exp_month"]
     exp_year = params["subscription"]["stripe_token"]["card"]["exp_year"]
 
-    account, subscription, card, raw_token = CreateSubscription.call(
+    account, @subscription, card, raw_token = CreateSubscription.call(
       plan,
       first_name,
       last_name,
@@ -33,17 +33,33 @@ class Bulls::SubscriptionsController < ApplicationController
     )
 
     begin
-      Resque.enqueue(UserSignupWorker, subscription.id)
-    rescue
-      Rails.logger.error "Error sending User Welcome email #{$!}"
+      @subscription.save
+    rescue => e
+      @subscription.errors[:base] << e.message
     end
 
-    begin
-      Resque.enqueue(UserSubscribedWorker, subscription.id)
-    rescue
-      Rails.logger.error "Error sending User Subscribed email #{$!}"
+    if @subscription.errors.count == 0
+      begin
+        Resque.enqueue(UserSignupWorker, subscription.id)
+      rescue
+        Rails.logger.error "Error sending User Welcome email #{$!}"
+      end
+
+      begin
+        Resque.enqueue(UserSubscribedWorker, subscription.id)
+      rescue
+        Rails.logger.error "Error sending User Subscribed email #{$!}"
+      end
     end
 
-    render :json => subscription.to_json
+    respond_to do |format|
+      if @subscription.errors.count == 0
+        format.html  { render action: 'new' }
+        format.json { render :json => @subscription.to_json }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @subscription.errors, status: :bad_request }
+      end
+    end
   end
 end

@@ -24,16 +24,30 @@ class Dashboard::PlansController < DashboardController
   end
 
   def create
-    @plan = Plan.new(permitted_params)
-    @plan.account = current_user.account
+    account = current_user.account
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).first
+
+    @plan = CreatePlan.call({
+        :account => account,
+        :name => params["plan"]["name"],
+        :stripe_id => params["plan"]["name"],
+        :description => params["plan"]["description"],
+        :amount => params["plan"]["amount"],
+        :billing_cycle => params["plan"]["billing_cycle"],
+        :billing_interval => params["plan"]["billing_interval"],
+        :trial_period_days => params["plan"]["free_trial_period"],
+        :terms_and_conditions => params["plan"]["terms_and_conditions"],
+        :public => true
+    }, stripe.secret_token)
 
     respond_to do |format|
-      if @plan.save
+      if @plan.errors.count == 0 && @plan.save
         format.html  { render action: 'new' }
         format.json { render :json => @plan.to_json }
       else
         format.html { render action: 'new' }
-        format.json { render json: current_user.errors, status: :unprocessable_entity }
+        format.json { render json: @plan.errors, status: :bad_request }
       end
     end
   end

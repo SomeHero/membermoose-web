@@ -61,10 +61,13 @@ class CreateSubscription
       })
 
       subscription.stripe_id = stripe_sub.id
-      subscription.save!
     rescue Stripe::StripeError => e
       subscription.errors[:base] << e.message
+
+      return account, subscription, card, raw_token
     end
+
+    subscription.save!
 
     return account, subscription, card, raw_token
   end

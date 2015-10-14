@@ -1,0 +1,64 @@
+.container-fluid
+  .row
+    %h2
+      Create a Plan
+    %form.form-horizontal{"name"=>"form", "novalidate"=>""}
+      .form-group
+        .col-md-12
+          %label{:for=>"plan-name"}
+            Plan Name
+          %input#planName.form-control.input{:type=>"text",:name=>"plan[name]",:placeholder=>"Plan Name","ng-model"=>"plan.name", "required"=>""}
+          %span{"ng-show" => "form_submitted && form['plan[name]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form['plan[name]'].$error.required"}
+              Plan Name is required
+      .form-group
+        .col-md-12
+          %label{:for=>"plan-name"}
+            Plan Description
+          %textarea#description.form-control.input{:type=>"text",:name=>"plan[description]",:placeholder=>"Plan Description","ng-model"=>"plan.description", "required"=>""}
+          %span{"ng-show" => "form_submitted && form['plan[description]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form['plan[description]'].$error.required"}
+              Plan Description is required
+      .form-group
+        .col-md-3
+          %label{:for=>"plan-name"}
+            Amount
+          %input#amount.form-control.input{:type=>"text",:name=>"plan[amount]",:placeholder=>"Amount","ng-model"=>"plan.amount", "required"=>""}
+          %span{"ng-show" => "form_submitted && form['plan[amount]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form['plan[amount]'].$error.required"}
+              Amount is required
+      .form-group
+        .col-md-3
+          %label{:for=>"plan-name"}
+            Billing Interval
+          %input#billing-interval.form-control.input{:type=>"text",:name=>"plan[billing_interval]",:placeholder=>"Billing Interval","ng-model"=>"plan.billing_interval", "required"=>""}
+          %span{"ng-show" => "form_submitted && form['plan[billing_interval]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form['plan[billing_interval]'].$error.required"}
+              Billing Interval is required
+        .col-md-3
+          %label{:for=>"plan-name"}
+            Billing Cycle
+          %select#billing-cycle.form-control.input{:type=>"text",:name=>"plan[billing_cycle]","ng-model"=>"plan.billing_cycle", "placeholder"=>"Billing Cycle", "required"=>""}
+            %option{"value"=>"", "selected"=>""}
+              Select Billing Cycle
+            %option{"ng-repeat"=>"option in data.billing_cycle", "value"=>"{{option.value}}"}
+              {{option.text}}
+          %span{"ng-show" => "form_submitted && form['plan[billing_cycle]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form['plan[billing_cycle]'].$error.required"}
+              Billing Cycle is required
+      .form-group
+        .col-md-3
+          %label{:for=>"free-trial-period"}
+            Free Trial Period
+          %input#free-trial-period.form-control.input{:type=>"text",:name=>"plan[free_trial_period]",:placeholder=>"Free Trial Period","ng-model"=>"plan.free_trial_period", "required"=>""}
+          %span{"ng-show" => "form_submitted && form['plan[free_trial_period]'].$invalid", :style => "color:red"}
+            %span{"ng-show" => "form['plan[free_trial_period]'].$error.required"}
+              Free Trial Period is required
+      .form-group
+        .col-md-12
+          %label{:for=>"terms-and-conditions"}
+            Terms and Conditions
+          %textarea#terms-and-conditions.form-control.input{:type=>"text",:name=>"plan[terms_and_conditions]",:placeholder=>"Terms and Conditions","ng-model"=>"plan.terms_and_conditions"}
+    %button.btn.btn-lg.btn-success{"ng-click"=>"create_plan(form)"}
+      Create Plan
+%div{"loading-screen" => "loading.show_spinner"}

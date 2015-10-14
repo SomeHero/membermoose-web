@@ -7,7 +7,7 @@
 
 app.directive "loadingScreen", ->
   restrict: 'EA'
-  templateUrl: 'bulls/ng-app/templates/loading_screen.html'
+  templateUrl: 'loading_screen.html'
   replace: true
   scope: true
   link: postLink = (scope, element, attrs) ->

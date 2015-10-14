@@ -17,6 +17,7 @@
       $scope.getSubscriptions()
 
     $scope.getSubscriptions = () ->
+      Subscription.setUrl('/dashboard/subscriptions?page={{page}}')
       Subscription.get({page: $scope.currentPage}).then (result) ->
         $scope.subscriptions = result.data
         $scope.totalItems = result.originalData.total_items
