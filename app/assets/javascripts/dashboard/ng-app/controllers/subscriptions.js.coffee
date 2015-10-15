@@ -2,7 +2,8 @@
   '$scope'
   'Subscription'
   '$window'
-  ($scope, Subscription, window) ->
+  '$timeout'
+  ($scope, Subscription, window, $timeout) ->
     window.scope = $scope
     $scope.selected_subscription = null
     $scope.subscriptions = []
@@ -35,9 +36,15 @@
     $scope.closeEditBar = () ->
       $scope.subscription = null
 
+    $scope.clear_messages = () ->
+      $timeout(remove_messages, 4000);
+
+    remove_messages = () ->
+      $scope.$parent.show_success_message = false
+
     $scope.getSubscriptions()
 
     return
 ]
 
-SubscriptionsController.$inject = ['$scope', 'Subscription', 'window']
+SubscriptionsController.$inject = ['$scope', 'Subscription', 'window', '$timeout']

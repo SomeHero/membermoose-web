@@ -2,7 +2,8 @@
   '$scope'
   'Member'
   '$window'
-  ($scope, Member, window) ->
+  '$timeout'
+  ($scope, Member, window, $timeout) ->
     window.scope = $scope
     $scope.members = []
     $scope.selected_member = null
@@ -52,6 +53,7 @@
 
             $scope.$parent.success_message = "Member, " + member.firstName + " " + member.lastName + ", was successfully updated."
             $scope.$parent.show_success_message = true
+            $scope.clear_message()
 
             console.log("member updated")
           (http)  ->
@@ -60,6 +62,7 @@
 
             $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
             $scope.$parent.show_error_message = true
+            $scope.clear_message()
         )
 
     $scope.showEditBar = () ->
@@ -68,9 +71,15 @@
     $scope.closeEditBar = () ->
       $scope.edit_panel_open = false
 
+    $scope.clear_messages = () ->
+      $timeout(remove_messages, 4000);
+
+    remove_messages = () ->
+      $scope.$parent.show_success_message = false
+
     $scope.getMembers()
 
     return
 ]
 
-MembersController.$inject = ['$scope', 'Member', 'window']
+MembersController.$inject = ['$scope', 'Member', 'window', '$timeout']

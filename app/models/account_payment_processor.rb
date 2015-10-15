@@ -12,7 +12,6 @@ class AccountPaymentProcessor < ActiveRecord::Base
     :name => self.name,
     :email => self.email,
     :api_key => self.api_key,
-    :secret_token => self.secret_token,
     :active => self.active,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at

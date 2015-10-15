@@ -3,7 +3,8 @@
   'Plan'
   '$modal'
   '$window'
-  ($scope, Plan, $modal, window) ->
+  '$timeout'
+  ($scope, Plan, $modal, window, $timeout) ->
     window.scope = $scope
     $scope.totalItems = 0
     $scope.currentPage = 1
@@ -70,6 +71,7 @@
 
             $scope.$parent.success_message = "Your plan, " + plan.name + ", was successfully updated."
             $scope.$parent.show_success_message = true
+            $scope.clear_messages()
 
             console.log("plan updated")
           (http)  ->
@@ -78,6 +80,7 @@
 
             $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
             $scope.$parent.show_error_message = true
+            $scope.clear_message()
         )
 
     $scope.showEditBar = () ->
@@ -115,9 +118,15 @@
             $scope.row_plans = []
       )
 
+    $scope.clear_messages = () ->
+      $timeout(remove_messages, 4000);
+
+    remove_messages = () ->
+      $scope.$parent.show_success_message = false
+
     $scope.getPlans()
 
     return
 ]
 
-PlansController.$inject = ['$scope', 'Plan', '$modal', 'window']
+PlansController.$inject = ['$scope', 'Plan', '$modal', 'window', '$timeout']

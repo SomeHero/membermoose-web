@@ -2,7 +2,8 @@
   '$scope'
   'Payment'
   '$window'
-  ($scope, Payment, window) ->
+  '$timeout'
+  ($scope, Payment, window, $timeout) ->
     window.scope = $scope
     $scope.selected_payment = null
     $scope.payments = []
@@ -35,9 +36,15 @@
     $scope.closeEditBar = () ->
       $scope.selected_payment = null
 
+    $scope.clear_messages = () ->
+      $timeout(remove_messages, 4000);
+
+    remove_messages = () ->
+      $scope.$parent.show_success_message = false
+
     $scope.getPayments()
 
     return
 ]
 
-PaymentController.$inject = ['$scope', 'Payment', 'window']
+PaymentController.$inject = ['$scope', 'Payment', 'window', '$timeout']

@@ -3,7 +3,8 @@
   'Plan'
   '$modalInstance'
   '$window'
-  ($scope, Plan, $modalInstance, window) ->
+  '$timeout'
+  ($scope, Plan, $modalInstance, window, $timeout) ->
     window.scope = $scope
 
     $scope.form_submitted = false
@@ -51,7 +52,16 @@
 
           console.log("error creating plan; we should show something")
           $scope.errors = http.data
+
+          $scope.clear_messages()
       )
+
+    $scope.clear_messages = () ->
+      $timeout(remove_messages, 4000);
+
+    remove_messages = () ->
+      $scope.$parent.show_success_message = false
+
 ]
 
-CreatePlanController.$inject = ['$scope', 'Plan', '$modalInstance', 'window']
+CreatePlanController.$inject = ['$scope', 'Plan', '$modalInstance', 'window', '$timeout']

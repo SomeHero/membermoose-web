@@ -5,7 +5,8 @@
   'Account'
   'user'
   'FileUploader'
-  ($scope, Plan, window, Account, user, FileUploader) ->
+  '$timeout'
+  ($scope, Plan, window, Account, user, FileUploader, timeout) ->
     window.scope = $scope
 
     csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -77,6 +78,7 @@
 
             $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
             $scope.$parent.show_error_message = true
+            $scope.clear_message()
         )
 
     $scope.createPlanClicked = () ->
@@ -146,7 +148,13 @@
       template_index = 5
       $scope.content_template_url = template_urls[template_index]
 
+    $scope.clear_messages = () ->
+      $timeout(remove_messages, 4000);
+
+    remove_messages = () ->
+      $scope.$parent.show_success_message = false
+
     return
 ]
 
-LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', 'user', 'FileUploader']
+LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', 'user', 'FileUploader', '$timeout']
