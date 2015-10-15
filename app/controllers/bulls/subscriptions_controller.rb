@@ -40,13 +40,13 @@ class Bulls::SubscriptionsController < ApplicationController
 
     if @subscription.errors.count == 0
       begin
-        Resque.enqueue(UserSignupWorker, subscription.id)
+        Resque.enqueue(UserSignupWorker, @subscription.id)
       rescue
         Rails.logger.error "Error sending User Welcome email #{$!}"
       end
 
       begin
-        Resque.enqueue(UserSubscribedWorker, subscription.id)
+        Resque.enqueue(UserSubscribedWorker, @subscription.id)
       rescue
         Rails.logger.error "Error sending User Subscribed email #{$!}"
       end

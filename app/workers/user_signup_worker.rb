@@ -1,6 +1,7 @@
 require 'slack-notifier'
 
 class UserSignupWorker
+
   @queue = :user_signup_worker_queue
 
   def self.perform(subscription_id)
@@ -30,10 +31,17 @@ class UserSignupWorker
 
   def self.send_welcome_email subscription
     #send welcome email
+    binding.pry
     logo = "mm-logo.png"
     if subscription.plan.account.logo.exists?
       logo = subscription.plan.account.logo.url
     end
+
+    host = "http://www.membermoose-ng.com"
+    if !Rails.env.production?
+      host = "http://localhost:3000"
+    end
+    logo_url = host + logo
 
     UserNotification::UserNotificationRouter.instance.notify_user(UserNotification::Notification::USER_WELCOME,
     :from_address => subscription.plan.account.user.email,
@@ -42,7 +50,7 @@ class UserSignupWorker
     :user => subscription.account.user,
     :template_name => "Welcome",
     :merge_fields => {
-      "merge_logo_url" => logo,
+      "merge_logo_url" => logo_url,
       "merge_plan_name" =>  subscription.plan.name,
       "merge_bull_name" => subscription.plan.account.company_name,
       "merge_bull_email" => subscription.plan.account.user.email,

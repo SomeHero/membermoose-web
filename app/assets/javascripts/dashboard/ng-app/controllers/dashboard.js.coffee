@@ -14,9 +14,9 @@
     $scope.show_error_message = false
     $scope.error_message = ""
 
-    Account.get(1).then (user) ->
+    Account.get(58).then (response) ->
       console.log "get account"
-      $scope.user = user
+      $scope.user = response.data
 
     Plan.get().then (plans) ->
       $scope.plans = plans
