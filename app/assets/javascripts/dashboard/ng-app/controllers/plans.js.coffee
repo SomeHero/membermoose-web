@@ -83,6 +83,27 @@
             $scope.clear_message()
         )
 
+    $scope.deletePlan = () ->
+      Plan.setUrl('/dashboard/plans')
+      $scope.plan.delete().then(
+        (response) ->
+          $scope.closeEditBar()
+
+          $scope.$parent.success_message = "Your plan, " + $scope.plan.name + ", was successfully deleted."
+          $scope.$parent.show_success_message = true
+          $scope.clear_messages()
+
+          $scope.getPlans()
+          
+          console.log("plan deleted")
+        (http)  ->
+          console.log("error deleting plan")
+          errors = http.data
+
+          $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
+          $scope.$parent.show_error_message = true
+          $scope.clear_message()
+      )
     $scope.showEditBar = () ->
       $scope.edit_panel_open = true
 

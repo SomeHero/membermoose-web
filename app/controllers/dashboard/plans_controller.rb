@@ -70,6 +70,27 @@ class Dashboard::PlansController < DashboardController
     end
   end
 
+  def destroy
+    Rails.logger.info("Attempting to Delete Plan")
+
+    account = current_user.account
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).first
+
+    plan = Plan.find(params["id"])
+    @plan = DeletePlan.call(plan, stripe.secret_token)
+
+    respond_to do |format|
+      if @plan.errors.count == 0 && @plan.delete
+        format.html  { render action: 'index' }
+        format.json { render json: {}, status: 200 }
+      else
+        format.html { render action: 'index' }
+        format.json { render json: @plan.errors, status: :bad_request }
+      end
+    end
+  end
+
   def permitted_params
     params.require(:plan).permit(:id, :name, :description, :amount, :billing_cycle, :billing_interval, :trial_period_days, :terms_and_conditions, :public)
   end
