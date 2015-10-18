@@ -3,10 +3,9 @@
   'Plan'
   '$window'
   'Account'
-  'user'
   'FileUploader'
   '$timeout'
-  ($scope, Plan, window, Account, user, FileUploader, timeout) ->
+  ($scope, Plan, window, Account, FileUploader, timeout) ->
     window.scope = $scope
 
     csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -21,7 +20,6 @@
       "dashboard/ng-app/templates/launchlist/share_with_email.html"
     ]
     template_index = 0
-    $scope.user = user
     $scope.content_template_url = template_urls[template_index]
     $scope.active_step = 1
     $scope.uploader = new FileUploader({
@@ -37,10 +35,12 @@
         return "active-step"
 
     $scope.uploadLogoClicked = () ->
-      $scope.active_step = 1
-
-      template_index = 0
-      $scope.content_template_url = template_urls[template_index]
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      inst = $('[data-remodal-id=upload-logo-modal]').remodal(options)
+      inst.open();
 
     $scope.submitLogo = () ->
       $scope.uploader.onSuccessItem = (response, json) -> (
@@ -54,10 +54,12 @@
       $scope.uploader.uploadAll()
 
     $scope.chooseSubDomainClicked = () ->
-      $scope.active_step = 1
-
-      template_index = 1
-      $scope.content_template_url = template_urls[template_index]
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      inst = $('[data-remodal-id=subdomain-modal]').remodal(options)
+      inst.open();
 
     $scope.updateSubdomainClicked = (user, form) ->
       console.log "updating subdomain"
@@ -82,12 +84,14 @@
         )
 
     $scope.createPlanClicked = () ->
-      $scope.plan = new Plan()
+      console.log("create plan")
 
-      $scope.active_step = 2
-
-      template_index = 2
-      $scope.content_template_url = template_urls[template_index]
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      inst = $('[data-remodal-id=new-plan-modal]').remodal(options)
+      inst.open();
 
     $scope.createPlan = (plan, form) ->
       plan.create().then(
@@ -105,10 +109,12 @@
       )
 
     $scope.connectStripeClicked = () ->
-      $scope.active_step = 3
-
-      template_index = 3
-      $scope.content_template_url = template_urls[template_index]
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      inst = $('[data-remodal-id=stripe-modal]').remodal(options)
+      inst.open();
 
     $scope.stripe_connect = () ->
       openUrl = "/users/auth/stripe_connect"
@@ -157,4 +163,4 @@
     return
 ]
 
-LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', 'user', 'FileUploader', '$timeout']
+LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', 'FileUploader', '$timeout']

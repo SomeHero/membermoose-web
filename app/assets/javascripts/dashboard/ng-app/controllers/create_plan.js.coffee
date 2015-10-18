@@ -1,12 +1,12 @@
 @CreatePlanController = angular.module('dashboardApp').controller 'CreatePlanController', [
   '$scope'
   'Plan'
-  '$modalInstance'
   '$window'
   '$timeout'
-  ($scope, Plan, $modalInstance, window, $timeout) ->
+  ($scope, Plan, window, $timeout) ->
     window.scope = $scope
 
+    $scope.newPlanSection = 1
     $scope.form_submitted = false
     $scope.loading = {
       show_spinner: false
@@ -28,7 +28,16 @@
       ]
     }
 
-    $scope.create_plan = (form)  ->
+    $scope.isActiveSection = (section) ->
+      if section == $scope.newPlanSection
+        return "active"
+
+      return ""
+
+    $scope.nextSection = () ->
+      $scope.newPlanSection = $scope.newPlanSection + 1
+
+    $scope.createPlan = ()  ->
       Plan.setUrl('/dashboard/plans')
       $scope.loading.show_spinner = true
       $scope.form_submitted = true
@@ -64,4 +73,4 @@
 
 ]
 
-CreatePlanController.$inject = ['$scope', 'Plan', '$modalInstance', 'window', '$timeout']
+CreatePlanController.$inject = ['$scope', 'Plan', 'window', '$timeout']

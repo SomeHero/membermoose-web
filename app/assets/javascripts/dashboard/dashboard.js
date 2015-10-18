@@ -10,22 +10,15 @@ var app = angular.module('dashboardApp', [
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider
-        .state('launch', {
-            url: '/dashboard/launch',
-            controller: 'LaunchController',
-            resolve: {
-              user: function(Account) {
-                return Account.get(1).then(function(user) {
-                  console.log("get account");
-                  return user;
-                });
-              }
-            }
-        })
         .state('account', {
             url: '/dashboard/account/:id/edit',
             templateUrl: 'dashboard/ng-app/templates/account.html',
             controller: 'AccountController'
+        })
+        .state('launch_list', {
+            url: '/dashboard/launch',
+            templateUrl: 'dashboard/ng-app/templates/launch_list.html',
+            controller: 'LaunchListController'
         })
         .state('members', {
             url: '/dashboard/members',

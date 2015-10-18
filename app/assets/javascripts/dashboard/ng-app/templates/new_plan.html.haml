@@ -1,64 +1,68 @@
-.container-fluid
-  .row
-    %h2
-      Create a Plan
-    %form.form-horizontal{"name"=>"form", "novalidate"=>""}
-      .form-group
-        .col-md-12
-          %label{:for=>"plan-name"}
-            Plan Name
-          %input#planName.form-control.input{:type=>"text",:name=>"plan[name]",:placeholder=>"Plan Name","ng-model"=>"plan.name", "required"=>""}
-          %span{"ng-show" => "form_submitted && form['plan[name]'].$invalid", :style => "color:red"}
-            %span{"ng-show" => "form['plan[name]'].$error.required"}
-              Plan Name is required
-      .form-group
-        .col-md-12
-          %label{:for=>"plan-name"}
-            Plan Description
-          %textarea#description.form-control.input{:type=>"text",:name=>"plan[description]",:placeholder=>"Plan Description","ng-model"=>"plan.description", "required"=>""}
-          %span{"ng-show" => "form_submitted && form['plan[description]'].$invalid", :style => "color:red"}
-            %span{"ng-show" => "form['plan[description]'].$error.required"}
-              Plan Description is required
-      .form-group
-        .col-md-3
-          %label{:for=>"plan-name"}
-            Amount
-          %input#amount.form-control.input{:type=>"text",:name=>"plan[amount]",:placeholder=>"Amount","ng-model"=>"plan.amount", "required"=>""}
-          %span{"ng-show" => "form_submitted && form['plan[amount]'].$invalid", :style => "color:red"}
-            %span{"ng-show" => "form['plan[amount]'].$error.required"}
-              Amount is required
-      .form-group
-        .col-md-3
-          %label{:for=>"plan-name"}
-            Billing Interval
-          %input#billing-interval.form-control.input{:type=>"text",:name=>"plan[billing_interval]",:placeholder=>"Billing Interval","ng-model"=>"plan.billing_interval", "required"=>""}
-          %span{"ng-show" => "form_submitted && form['plan[billing_interval]'].$invalid", :style => "color:red"}
-            %span{"ng-show" => "form['plan[billing_interval]'].$error.required"}
-              Billing Interval is required
-        .col-md-3
-          %label{:for=>"plan-name"}
-            Billing Cycle
-          %select#billing-cycle.form-control.input{:type=>"text",:name=>"plan[billing_cycle]","ng-model"=>"plan.billing_cycle", "placeholder"=>"Billing Cycle", "required"=>""}
-            %option{"value"=>"", "selected"=>""}
-              Select Billing Cycle
-            %option{"ng-repeat"=>"option in data.billing_cycle", "value"=>"{{option.value}}"}
-              {{option.text}}
-          %span{"ng-show" => "form_submitted && form['plan[billing_cycle]'].$invalid", :style => "color:red"}
-            %span{"ng-show" => "form['plan[billing_cycle]'].$error.required"}
-              Billing Cycle is required
-      .form-group
-        .col-md-3
-          %label{:for=>"free-trial-period"}
-            Free Trial Period
-          %input#free-trial-period.form-control.input{:type=>"text",:name=>"plan[free_trial_period]",:placeholder=>"Free Trial Period","ng-model"=>"plan.free_trial_period", "required"=>""}
-          %span{"ng-show" => "form_submitted && form['plan[free_trial_period]'].$invalid", :style => "color:red"}
-            %span{"ng-show" => "form['plan[free_trial_period]'].$error.required"}
-              Free Trial Period is required
-      .form-group
-        .col-md-12
-          %label{:for=>"terms-and-conditions"}
-            Terms and Conditions
-          %textarea#terms-and-conditions.form-control.input{:type=>"text",:name=>"plan[terms_and_conditions]",:placeholder=>"Terms and Conditions","ng-model"=>"plan.terms_and_conditions"}
-    %button.btn.btn-lg.btn-success{"ng-click"=>"create_plan(form)"}
-      Create Plan
-%div{"loading-screen" => "loading.show_spinner"}
+.remodel-overlay{"style"=>"display: none;", "ng-controller"=>"CreatePlanController"}
+  .remodal{"data-remodal-id"=>"new-plan-modal", "data-remodal-options"=>"hashTracking: false" }
+    %section{"ng-class"=>"isActiveSection(1)"}
+      %header
+        %h1
+          Tell us about your plan.
+      .group
+        %label{:for => "plan_name"}
+          Plan Name
+        %input#plan_name{:autofocus => "", :name => "plan_name", :placeholder => "Plan Name", :required => "", :type => "text", "ng-model"=>"plan.name"}/
+      .group
+        %label{:for => "plan_description"}
+          Plan Description
+        %textarea#plan_description{:autofocus => "", :name => "plan_description", :placeholder => "Description of plan", :required => "", "ng-model"=>"plan.description"}
+      %footer
+        %button.continue{"ng-click"=>"nextSection()"}
+          Plan Description
+          %i.fa-arrow-right
+    %section{"ng-class"=>"isActiveSection(2)"}
+      %header
+        %h1
+          Describe your plan.
+      .group
+        %label{:for => "plan_description"}
+          Plan Description
+        %textarea#plan_description{:autofocus => "", :name => "plan_description", :placeholder => "Plan Description", :required => "", "ng-model"=>"plan.description"}/
+      %footer
+        %button.continue{"ng-click"=>"nextSection()"}
+          Billing
+          %i.fa-arrow-right
+    %section{"ng-class"=>"isActiveSection(3)"}
+      %header
+        %h1
+          How will you bill your customers?
+      .group
+        %label{:for => "billing_interval"}
+          My customers are billed every
+        %input#plan_amountl{:autofocus => "", :name => "amount", :placeholder => "Amount", :required => "", :type => "text", "ng-model"=>"plan.amount"}/
+        %input#plan_billing_interval{:autofocus => "", :name => "billing_interval", :placeholder => "Billing Interval", :required => "", :type => "text", "ng-model"=>"plan.billing_interval"}/
+        %input#plan_description{:autofocus => "", :name => "billing_cycle", :placeholder => "Billing Cycle", :required => "", :type => "text", "ng-model"=>"plan.billing_cycle"}/
+      %footer
+        %button.continue{"ng-click"=>"nextSection()"}
+          Trial Period
+          %i.fa-arrow-right
+    %section{"ng-class"=>"isActiveSection(4)"}
+      %header
+        %h1
+          Do you offer new subscribers a free trial period?
+      .group
+        %label{:for => "free_trial_period"}
+          Free Trial Period (in days)
+        %input#plan_description{:autofocus => "", :name => "free_trial_period", :placeholder => "Free Trial Period (# of days)", :required => "", :type => "text", "ng-model"=>"plan.free_trial_period"}/
+      %footer
+        %button.continue{"ng-click"=>"nextSection()"}
+          Terms and Conditions
+          %i.fa-arrow-right
+    %section{"ng-class"=>"isActiveSection(5)"}
+      %header
+        %h1
+          Are there any Terms and Conditions for your plan?
+      .group
+        %label{:for => "free_trial_period"}
+          Terms and Conditions
+        %input#plan_description{:autofocus => "", :name => "terms_and_conditions", :placeholder => "Terms and Conditions", :type => "text", "ng-modal"=>"plan.terms_and_conditions"}/
+      %footer
+        %button.continue{"ng-click"=>"createPlan()"}
+          Create Plan
+          %i.fa-arrow-right

@@ -1,8 +1,54 @@
 %header.content-title
-  %h4
-    MEMBERS
-  %h6
-    All of the people who love what you do.
+  %i.linecons-user.header-icon
+  .content-title-wrapper
+    %h4
+      MEMBERS
+    %h6
+      All of the people who love what you do.
+  .search-toggle{"ng-click"=>"toggle_search()"}
+    .fa.fa-search.search-icon
+%div.search-panel{"ng-show"=>"display_search"}
+  .search-panel-wrapper
+    %form{"name"=>"searchForm"}
+      .container-fluid
+        .row
+          .row-height
+            .col-md-3.col-height
+              .inside
+                %label
+                  Member Email
+                .form-group
+                  %input.form-control{"type"=>"text", "placeholder"=>"Email Address", "ng-model"=>"search.email_address", "ng-change"=>"getSearchCount()", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
+            .col-md-3.col-height
+              .inside
+                %label
+                  Member Name
+                .form-group
+                  %input.form-control{"type"=>"text", "placeholder"=>"First Name", "ng-model"=>"search.first_name", "ng-change"=>"getSearchCount()", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
+                .form-group
+                  %input.form-control{"type"=>"text", "placeholder"=>"Last Name", "ng-model"=>"search.last_name", "ng-change"=>"getSearchCount()", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
+            .col-md-3.col-height
+              .inside
+                %label
+                  Plan
+                .form-group
+                  %select#search-plan.form-control.input{:type=>"text",:name=>"search[plan]","ng-model"=>"search.plan_id", "ng-change"=>"getSearchCount()", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
+                    %option{"value"=>"", "selected"=>""}
+                      All Plans
+                    %option{"ng-repeat"=>"plan in plans", "value"=>"{{plan.id}}"}
+                      {{plan.name}}
+                %label
+                  Member Status
+                .form-group
+                  %input.form-control{"type"=>"text"}
+            .col-md-3.col-height
+              .inside-centered
+                %label
+                  Matching Results
+                .results-count
+                  {{searchItems}}
+                %button.btn.btn-primary.btn-lg{"ng-click"=>"search()"}
+                  Apply Search
 %table.table{"ng-table"=>"", "ng-hide"=>"members.length == 0"}
   %tr{"ng-repeat"=>"member in members"}
     %td.select-item

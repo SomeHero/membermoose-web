@@ -1,0 +1,83 @@
+.fill.ng-scope{:style => "min-height: 553px;","ng-controller"=>"LaunchListController"}
+  #page-launch.ng-scope
+    .ready.notready.ng-scope
+      .owl-checklist
+        .owl-checklist-mark.first.ng-hide{"ng-show" => "project.steps.step1"}
+        .owl-checklist-mark.second.ng-hide{"ng-show" => "project.steps.step2"}
+        .owl-checklist-mark.third.ng-hide{"ng-show" => "project.steps.step3"}
+      %h3
+        %span
+          %strong Welcome!
+          Let's get ready to launch.
+      %span.skip
+        %strong> Your on our free account:  
+        Get up to 10 subscribers per plan
+        .middot>
+        Test out all features for free
+      %a.skip-link{:href => "/project/member-moose/v1.0/plans", "ng-transclude" => "", "ui-sref" => "project.plans({ project: project.subdomain, version: version.version })", "ui-sref-active" => "active", "ui-sref-loading" => "loading"}
+        %span.ng-scope Upgrade my account now!
+        .fa.fa-chevron-circle-right.fa-left.ng-scope
+    .padder
+      .row
+        .col-xs-6
+          .checklist{"ng-class" => "{done: project.steps.step1}"}
+            .check.check-off.fa.fa-book
+            .check.check-on.fa.fa-check
+            %h3.ng-binding
+              %span> 1.
+              Customize Your Site
+            %p
+              %a.ng-binding{:href => "", "ng-click" => "uploadLogoClicked()"}
+                Upload a logo
+                %span.fa.fa-chevron-right.fa-left
+            %p
+              %a.ng-binding{:href => "", "ng-click" => "chooseSubDomainClicked()"}
+                Setup your subdomain
+                %span.fa.fa-chevron-right.fa-left
+          %hr/
+          .checklist{"ng-class" => "{done: project.steps.step2}"}
+            .check.check-off.fa.fa-paint-brush
+            .check.check-on.fa.fa-check
+            %h3.ng-binding
+              %span> 2.
+              Create your first plan
+            %p
+              %a{:href => "", "ng-click" => "createPlanClicked()"}
+                %span.ng-scope Create your first plan
+                %span.fa.fa-chevron-right.fa-left.ng-scope
+          %hr/
+          .checklist{"ng-class" => "{done: project.steps.step3}"}
+            .check.check-off.fa.fa-gift
+            .check.check-on.fa.fa-check
+            %h3
+              %span> 3.
+              Setup a payment processor
+            %p
+              %a{:href => "", "ng-click" => "connectStripeClicked()"}
+                %span.ng-scope
+                  Connect your Stripe Accont
+                %span.fa.fa-chevron-right.fa-left.ng-scope
+        .col-xs-6
+          .browser-lg
+            %a.browser-render.theme-line{:href => "http://{{user.account.subdomain}}.mmoose-ng.localhost:3000", :target => "_blank"}
+              / ngIf: project.appearance.theme == 'line'
+              .window.ng-scope{"ng-if" => "project.appearance.theme == 'line'"}
+                .el-header
+                  .el-logo{:style => "background-color:#1e1c1c"}
+                  .el-headline
+                  .el-paragraph
+                  .el-paragraph.p2
+                  .el-paragraph.p3
+                  .el-button{:style => "background-color:#1e1c1c"}
+                .el-divider{:style => "background-color:#1e1c1c"}
+              .visit
+                .zoom
+                  .fa.fa-external-link-square>
+                  Visit Your Site
+            %a.visit-site{:href => "http://{{user.account.subdomain}}.mmoose-ng.localhost:3000", :target => "_blank"}
+              .fa.fa-external-link-square
+              %strong Visit Your Site
+%div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/upload_logo.html'"}
+%div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/choose_subdomain.html'"}
+%div{"ng-include"=>"'dashboard/ng-app/templates/new_plan.html'"}
+%div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/connect_stripe.html'"}

@@ -8,9 +8,11 @@
     $scope.members = []
     $scope.selected_member = null
     $scope.totalItems = 0
+    $scope.searchItems = 0
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
     $scope.isLoading = true
+    $scope.display_search = false
 
     $scope.edit_panel_open = false
     $scope.setPage = (pageNo) ->
@@ -27,7 +29,27 @@
         console.log("get members")
         $scope.members = result.data
         $scope.totalItems = result.originalData.total_items
+        $scope.searchItems = $scope.totalItems
         $scope.isLoading = false
+
+    $scope.getSearchCount = () ->
+      Member.setUrl('/dashboard/members/count')
+      Member.query({
+          firstName: $scope.search.first_name,
+          lastName: $scope.search.last_name,
+          email_address: $scope.search.email_address
+      }).then (result) ->
+        $scope.searchItems = result.data.count
+
+    $scope.search = () ->
+      Member.setUrl('/dashboard/members')
+      Member.query({
+          firstName: $scope.search.first_name,
+          lastName: $scope.search.last_name,
+          email_address: $scope.search.email_address
+      }).then (result) ->
+        $scope.members = result.data
+        $scope.totalItems = result.originalData.total_items
 
     $scope.selectMember = (event, member) ->
       if $scope.selected_member == member
@@ -73,6 +95,12 @@
 
     $scope.clear_messages = () ->
       $timeout(remove_messages, 4000);
+
+    $scope.toggle_search = () ->
+      if $scope.display_search
+        $scope.display_search = false
+      else
+        $scope.display_search = true
 
     remove_messages = () ->
       $scope.$parent.show_success_message = false

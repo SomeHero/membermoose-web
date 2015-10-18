@@ -47,16 +47,12 @@
     $scope.createPlan = () ->
       console.log("create plan")
 
-      modalInstance = $modal.open(
-        animation: true
-        templateUrl: 'dashboard/ng-app/templates/new_plan.html'
-        controller: 'CreatePlanController'
-        size: 'lg'
-      )
-      modalInstance.result.then (() ->
-        $scope.getPlans()
-      ), ->
-        $log.info 'Modal dismissed at: ' + new Date
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      inst = $('[data-remodal-id=new-plan-modal]').remodal(options)
+      inst.open();
 
     $scope.updatePlan = (plan, form) ->
       Plan.setUrl('/dashboard/plans')
@@ -94,7 +90,7 @@
           $scope.clear_messages()
 
           $scope.getPlans()
-          
+
           console.log("plan deleted")
         (http)  ->
           console.log("error deleting plan")

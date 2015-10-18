@@ -21,9 +21,21 @@ Rails.application.routes.draw do
   resource :dashboard do
     resources :launch, :controller => "dashboard/launch"
     resources :plans, :controller => "dashboard/plans"
-    resources :members, :controller => "dashboard/members"
-    resources :subscriptions, :controller => "dashboard/subscriptions"
-    resources :payments, :controller => "dashboard/payments"
+    resources :members, :controller => "dashboard/members" do
+      collection do
+        get :count
+      end
+    end
+    resources :subscriptions, :controller => "dashboard/subscriptions" do
+      collection do
+        get :count
+      end
+    end
+    resources :payments, :controller => "dashboard/payments" do
+      collection do
+        get :count
+      end
+    end
     resources :account, :controller => "dashboard/account" do
       collection do
         post :upload_logo

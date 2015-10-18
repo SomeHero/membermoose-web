@@ -31,7 +31,6 @@ class UserSignupWorker
 
   def self.send_welcome_email subscription
     #send welcome email
-    binding.pry
     logo = "mm-logo.png"
     if subscription.plan.account.logo.exists?
       logo = subscription.plan.account.logo.url

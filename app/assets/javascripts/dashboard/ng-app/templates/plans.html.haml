@@ -1,8 +1,10 @@
 %header.content-title
-  %h4
-    PLANS
-  %h6
-    Your recurring subsciption plans your members subscribe to.
+  %i.linecons-heart.header-icon
+  .content-title-wrapper
+    %h4
+      PLANS
+    %h6
+      Your recurring subsciption plans your members subscribe to.
 %div{:style=>"margin: 40px 0px;"}
   .container-fluid
     .row{:style=>"margin-bottom: 20px;"}
@@ -11,8 +13,7 @@
           .plan-image
             .overlay
               .view-project{:style=>"height: 100px; line-height: 100px; margin-top: 10px;"}
-                %a{"ng-href"=>"/plans/{{plan.id}}"}
-                  %i.fa.fa-plus{:style=>"font-size: 72px; line-height: 100px;"}
+                %i.fa.fa-plus{:style=>"font-size: 72px; line-height: 100px;"}
           .plan-info
             %h2.plan-name{:style=>"margin-top: 0px;"}
               Create Plan
@@ -101,3 +102,4 @@
           %switch#public.green{"name"=>"public", "ng-model"=>"plan.public", "ng-model-options"=>"{updateOn: 'submit'}"}}
       %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updatePlan(plan, plansForm)"}
         Submit
+%div{"ng-include"=>"'dashboard/ng-app/templates/new_plan.html'"}

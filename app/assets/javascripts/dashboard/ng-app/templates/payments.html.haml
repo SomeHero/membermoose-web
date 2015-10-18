@@ -1,8 +1,51 @@
 %header.content-title
-  %h4
-    PAYMENTS
-  %h6
-    Money In. Money Out
+  %i.linecons-money.header-icon
+  .content-title-wrapper
+    %h4
+      PAYMENTS
+    %h6
+      Money In. Money Out
+  .search-toggle{"ng-click"=>"toggle_search()"}
+    .fa.fa-search.search-icon
+%div.search-panel{"ng-show"=>"display_search"}
+  .search-panel-wrapper
+    %form{"name"=>"searchForm"}
+      .container-fluid
+        .row
+          .row-height
+            .col-md-3.col-height
+              .inside
+                %label
+                  Date Range
+                %p.input-group
+                  %input.form-control{"type"=>"date", "uib-datepicker-popup"=>"", "ng-model"=>"from-date"}
+                  .input-group-btn
+                    %button.btn.btn-default{"type"=>"button", "ng-click"=>"open($event)"}
+                      %i.glyphicon.glyphicon-calendar
+                .form-group
+                  %input.form-control{"type"=>"text"}
+            .col-md-3.col-height
+              .inside
+                %label
+                  Payee Name
+                .form-group
+                  %input.form-control{"type"=>"text", "placeholder"=>"First Name", "ng-change"=>"getSearchCount()", "ng-model"=>"search.first_name", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
+                .form-group
+                  %input.form-control{"type"=>"text", "placeholder"=>"Last Name", "ng-change"=>"getSearchCount()", "ng-model"=>"search.last_name", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
+            .col-md-3.col-height
+              .inside
+                %label
+                  Payment Amount
+                .form-group
+                  %input.form-control{"type"=>"text"}
+            .col-md-3.col-height
+              .inside-centered
+                %label
+                  Matching results
+                .results-count
+                  {{searchItems}}
+                %button.btn.btn-primary.btn-lg{"ng-click"=>"search()"}
+                  Apply Search
 %table.table{"ng-table"=>"", "ng-hide"=>"payments.length == 0"}
   %tr{"ng-repeat"=>"payment in payments"}
     %td.select-item

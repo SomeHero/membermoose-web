@@ -18,19 +18,8 @@
       console.log "get account"
       $scope.user = response.data
 
-    Plan.get().then (plans) ->
-      $scope.plans = plans
-
-    $scope.openLaunchList = () ->
-      modalInstance = $modal.open(
-        animation: true
-        templateUrl: 'dashboard/ng-app/templates/launchlist/launch_list.html'
-        controller: 'LaunchListController'
-        size: 'lg'
-        resolve:
-          user: ->
-            $scope.user
-      )
+    Plan.get().then (response) ->
+      $scope.plans = response.data
 
     $scope.setMenuItemSelected = (url) ->
       if url == window.location.pathname

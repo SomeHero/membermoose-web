@@ -1,7 +1,20 @@
-%h4
-  Connect Your Stripe Account
-%a.stripe-connect{"ng-click"=>"stripe_connect()"}
-  %span
-    Connect With Stripe
-%div
-  You're connected as {{user.account.paymentProcessors[0].name}} ({{user.account.paymentProcessors[0].email}})
+.remodel-overlay{"style"=>"display: none;", "ng-controller"=>"CreatePlanController"}
+  .remodal{"data-remodal-id"=>"stripe-modal", "data-remodal-options"=>"hashTracking: false" }
+    %section.active
+      %header
+        %h1
+          Connect your Stripe Account
+      .group
+        #connect-stripe-wrapper{"style"=>"padding: 50px 0px;"}
+          %a.stripe-connect{"ng-click"=>"stripe_connect()"}
+            %span
+              Connect With Stripe
+        %p.notes
+          Get ready to start accepting payments from your customers.  All you need to do is set up a Stripe account and connect it to MemberMoose. If you don't already have a Stripe account, we'll help you set one up.
+          Click the <strong>Connect with Stripe</strong> button above. 
+        %p.notes
+          All payments made through Stripe are charged a 2.9% +.50 per transaction fee.
+      %footer
+        %button.continue
+          Save
+          %i.fa-arrow-right

@@ -1,8 +1,13 @@
-%h2
-  Upload Your Logo!
-%img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo"}
-%form{"name"=>"myForm"}
-  %input{"type"=>"file", "name"=>"file", "nv-file-select"=>"", "uploader"=>"uploader", "ng-model"=>"picFile"}
-  %img.thumb{"ng-show"=>"myForm.file.$valid", "ngf-src"=>"!picFile.$error && picFile"}
-  %button.btn.btn-primary{"type"=>"submit", "ng-click"=>"submitLogo()"}
-    Upload Logo
+.remodel-overlay{"style"=>"display: none;"}
+  .remodal{"data-remodal-id"=>"upload-logo-modal", "data-remodal-options"=>"hashTracking: false" }
+    %section.active
+      %header
+        %h1
+          Upload your logo.
+      .group
+        %div#logo-area{"style"=>"height: 380px; 240px;"}
+          %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
+      %footer
+        %button.continue{"ng-click"=>"nextSection()"}
+          Upload Logo
+          %i.fa-arrow-right

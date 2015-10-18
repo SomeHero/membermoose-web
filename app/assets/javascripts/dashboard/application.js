@@ -15,6 +15,7 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require bootstrap-sprockets
+//= require remodal
 //= require angular
 //= require angular-animate
 //= require angular-ui-router

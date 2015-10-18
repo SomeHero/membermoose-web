@@ -20,14 +20,16 @@
     %nav.navbar.navba.navbar-fixed-top{:role => "navigation"}
       .container-fluid#brand-header
         .row-fluid{:style=>"margin-right: -15px;"}
-          .navbar-header.col-sm-3.col-md-2
-            %a.navbar-brand MemberMoose
+          #navbar-header.col-sm-3.col-md-2
+            .navbar-brand-wrapper
+              %a.navbar-brand
+                MemberMoose
             %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
               %span.sr-only Toggle navigation
               %span.icon-bar
               %span.icon-bar
               %span.icon-bar
-          .col-sm-9.col-md-10
+          #navbar-menu.col-sm-9.col-md-10
             .navbar-collapse.collapse
               %ul#top-nav.nav.navbar-nav.navbar-right
                 %li
@@ -53,8 +55,8 @@
                 34<br />
                 Your Moose Pack
             %ul.nav.nav-sidebar
-              %li.top-nav-item{"ng-class"=>"setMenuItemSelected('/dashboard/launch_list')"}
-                %a.am-fade-and-scale{"href"=>"/dashboard/launch"}
+              %li.top-nav-item{"ng-class"=>"setMenuItemSelected('/dashboard/launch')"}
+                %a{"href"=>"/dashboard/launch"}
                   %i.linecons-paper-plane
                   LAUNCH LIST
               %li{"ng-class"=>"setMenuItemSelected('/dashboard/plans')"}
@@ -77,10 +79,5 @@
                 = link_to edit_dashboard_account_url(:id => current_user.id) do
                   %i.linecons-note
                   ACCOUNT
-            %a{"ng-href"=>"http://{{user.account.subdomain}}.mmoose-ng.localhost:3000", "target"=>"_new"}
-              .visit
-                .zoom
-                  .fa.fa-external-link-square
-                  Visit Your Site
           #content.col-sm-9.col-xs-height.col-top.col-md-10
             = yield
