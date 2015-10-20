@@ -17,6 +17,7 @@
 //= require bootstrap-sprockets
 //= require remodal
 //= require angular
+//= require ng-file-upload-all
 //= require angular-animate
 //= require angular-ui-router
 //= require angular-rails-templates

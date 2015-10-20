@@ -341,6 +341,11 @@ body {
   [class^="linecons-"], [class*=" linecons-"] {
     font-size: 14px;
   }
+  #profile-block {
+    img.logo {
+      width: 120px;
+    }
+  }
   h4.user-name {
     font-size: 12px;
     font-weight: 700;

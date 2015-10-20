@@ -6,7 +6,8 @@ var app = angular.module('dashboardApp', [
         'ui.bootstrap',
         'ngTable',
         'uiSwitch',
-        'angularFileUpload'
+        'angularFileUpload',
+        'ngFileUpload'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider

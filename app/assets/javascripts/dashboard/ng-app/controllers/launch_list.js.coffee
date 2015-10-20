@@ -5,8 +5,8 @@
   'Account'
   '$timeout'
   'fileReader'
-  '$upload'
-  ($scope, Plan, window, Account, timeout, fileReader, $upload) ->
+  'Upload'
+  ($scope, Plan, window, Account, timeout, fileReader, Upload) ->
     window.scope = $scope
     csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -30,13 +30,19 @@
       if step == $scope.active_step
         return "active-step"
 
+    $scope.get_logo = () ->
+      if $scope.image.tempImage.url
+        return $scope.image.tempImage.url
+      else
+        return $scope.user.account.logo.url
+
     $scope.uploadLogoClicked = () ->
       options = {
         "hashTracking": false,
         "closeOnOutsideClick": false
       }
-      inst = $('[data-remodal-id=upload-logo-modal]').remodal(options)
-      inst.open();
+      window.modal = $('[data-remodal-id=upload-logo-modal]').remodal(options)
+      window.modal.open();
 
     	$scope.onFileSelect = ($files) ->
 
@@ -62,14 +68,26 @@
     $scope.submitLogo = () ->
       console.log("submit logo clicked")
 
-      $scope.uploader.onSuccessItem = (response, json) -> (
-        $scope.user.account.logo = json["logo"]
+      if !$scope.file
+        window.modal.close()
 
-        $scope.active_step = 1
-        template_index = 1
-      )
+        return
 
-      $scope.uploader.uploadAll()
+      Upload.upload(
+        url: 'dashboard/account/upload_logo'
+        data:
+          file: $scope.file).then ((resp) ->
+        console.log 'Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data
+        window.modal.close()
+
+        return
+      ), ((resp) ->
+        console.log 'Error status: ' + resp.status
+        return
+      ), (evt) ->
+        progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
+        console.log 'progress: ' + progressPercentage + '% ' + evt.config.data.file.name
+        return
 
     $scope.chooseSubDomainClicked = () ->
       options = {
@@ -177,4 +195,4 @@
     return
 ]
 
-LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', '$upload']
+LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', 'Upload']

@@ -6,7 +6,7 @@
           Upload your logo.
       .group
         #logo-area{"style"=>"height: 200px; 200px;"}
-          %img.logo{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
+          %img.logo{"ng-src"=>"{{get_logo()}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
         %input.file-select{"ng-file-select" => "onFileSelect($files)", type: "file"}
         %div{"ng-file-drag-over-class" => "optional-css-class", "ng-file-drop" => "onFileSelect($files)", "ng-show" => "dropSupported"} drop files here
       %footer
