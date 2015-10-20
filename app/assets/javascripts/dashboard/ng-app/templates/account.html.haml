@@ -39,8 +39,9 @@
             .col-lg-8
               %label{:for=>"logo", "style"=>"display: block;"}
                 Logo
-              %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
-              %input#logo.form-control{:type=>"file",:name=>"user[account_attributes[logo]]", "ng-model"=>"user.account.logo" }
+              %img{"ng-src"=>"{{user.account.logo.url}}", "ng-alt"=>"{{user.account.companyName}}","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
+              %button.btn.btn-primary{"ng-click"=>"upload_logo_clicked()", "type"=>"button"}
+                Upload Logo
           .row
             .col-lg-4
               %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateAccount(user, accountForm)"}
@@ -78,3 +79,4 @@
               9/14/2015
             %p.label
               Billing History:
+%div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/upload_logo.html'"}
