@@ -27,4 +27,5 @@
 //= require ng-table
 //= require_tree .
 //= require_directory ../directives
+//= require_directory ../services
 //= require_directory ../templates

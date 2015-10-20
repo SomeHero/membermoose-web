@@ -5,9 +5,11 @@
         %h1
           Upload your logo.
       .group
-        %div#logo-area{"style"=>"height: 380px; 240px;"}
-          %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
+        #logo-area{"style"=>"height: 200px; 200px;"}
+          %img.logo{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
+        %input.file-select{"ng-file-select" => "onFileSelect($files)", type: "file"}
+        %div{"ng-file-drag-over-class" => "optional-css-class", "ng-file-drop" => "onFileSelect($files)", "ng-show" => "dropSupported"} drop files here
       %footer
-        %button.continue{"ng-click"=>"nextSection()"}
+        %button.continue{"ng-click"=>"submitLogo()"}
           Upload Logo
           %i.fa-arrow-right

@@ -1,18 +1,21 @@
 .remodel-overlay{"style"=>"display: none;", "ng-controller"=>"CreatePlanController"}
   .remodal{"data-remodal-id"=>"subdomain-modal", "data-remodal-options"=>"hashTracking: false" }
     %section.active
-      %header
-        %h1
-          Pick your subdomain.
-      .group
-        %label{:for => "subdomain"}
-          Subdomain
-        %input#plan_name{:autofocus => "", :name => "subdomain", :placeholder => "http://my-subdomain.membermoose.com", :required => "", :type => "text", "ng-model"=>"subdomain"}/
-        %p.notes
-          Pick the subdomain for your MemberMoose website.  Your MemberMoose website
-          will display all of your plans and will be site that you will direct customers to
-          subscribe to one of your plans.
-      %footer
-        %button.continue
-          Save
-          %i.fa-arrow-right
+      %form{"name"=>"form", "novalidate"=>""}
+        %header
+          %h1
+            Pick your subdomain.
+        .group
+          %label{:for => "subdomain"}
+            Subdomain
+          %input#plan_name{:autofocus => "", :name => "subdomain", :placeholder => "subdomain", :required => "", :type => "text", "ng-model"=>"user.account.subdomain"}/
+          %p.example
+            Your MemberMoose website url is https://{{user.account.subdomain}}.mmoose.localhost:3000
+          %p.notes
+            Pick the subdomain for your MemberMoose website.  Your MemberMoose website
+            will display all of your plans and will be site that you will direct customers to
+            subscribe to one of your plans.
+        %footer
+          %button.continue{"ng-click"=>"updateSubdomainClicked(form)"}
+            Save
+            %i.fa-arrow-right

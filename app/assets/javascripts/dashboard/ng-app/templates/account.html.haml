@@ -8,72 +8,73 @@
 .container-fluid
   .row
     .col-md-9
-      %form{"name"=>"accountForm"}
-        .row.form-group
-          .col-lg-8
-            %label{:for=>"firstName"}
-              First Name
-            %input#firstName.form-control{:type=>"text",:name=>"user[account_attributes[first_name]]",:placeholder=>"First Name","ng-model"=>"user.account.firstName" }
-        .row.form-group
-          .col-lg-8
-            %label{:for=>"lastName"}
-              Last Name
-            %input#lastName.form-control{:type=>"text",:name=>"user[account_attributes[last_name]]",:placeholder=>"Last Name","ng-model"=>"user.account.lastName" }
-        .row.form-group
-          .col-lg-8
-            %label{:for=>"companyName"}
-              Company Name
-            %input#companyName.form-control{:type=>"text",:name=>"user[account_attributes[company_name]]",:placeholder=>"Company Name","ng-model"=>"user.account.companyName" }
-        .row.form-group
-          .col-lg-8
-            %label{:for=>"email"}
-              Email Address
-            %input#email.form-control{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
-        .row.form-group
-          .col-lg-8
-            %label{:for=>"subdomain"}
-              Subdomain
-            %input#subdomain.form-control{:type=>"text",:name=>"user[account_attributes[subdomain]]",:placeholder=>"Subdomain","ng-model"=>"user.account.subdomain" }
-        .row.form-group
-          .col-lg-8
-            %label{:for=>"logo", "style"=>"display: block;"}
-              Logo
-            %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
-            %input#logo.form-control{:type=>"file",:name=>"user[account_attributes[logo]]", "ng-model"=>"user.account.logo" }
-        .row
-          .col-lg-4
-            %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateAccount(user, accountForm)"}
-              Submit
-      .edit-bar
-        .edit-controls
-          %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
-            %li{"style"=>"margin-right: 28px"}
-              %a{:title=>"Plan Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/account.html'"}
-                %i.fa.fa-cog{"ng-click"=>"openMenu()"}
-        .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
-          %h4
-            Account Details
-          %h6
-            Member Since: 7/13/2014
-          #current-plan-wrapper
-            #current-plan
-              .subscription-cost.text-center
-                $0/month
-              .subscription-description
-                You are currently subscribed to the Baby Moose Plan
-              %ul.subscription-details
-                %li
-                  forever free
-                %li
-                  unlimited plans
-                %li
-                  up to 5 subscribers
-          #upgrade-plan-wrapper
-            %button.btn.btn-primary{:type=>"submit"}
-              Upgrade Plan
-          %p.label
-            Next Billing Date:
-          %p.data
-            9/14/2015
-          %p.label
-            Billing History:
+      .form-wrapper
+        %form{"name"=>"accountForm"}
+          .row.form-group
+            .col-lg-8
+              %label{:for=>"firstName"}
+                First Name
+              %input#firstName.form-control{:type=>"text",:name=>"user[account_attributes[first_name]]",:placeholder=>"First Name","ng-model"=>"user.account.firstName" }
+          .row.form-group
+            .col-lg-8
+              %label{:for=>"lastName"}
+                Last Name
+              %input#lastName.form-control{:type=>"text",:name=>"user[account_attributes[last_name]]",:placeholder=>"Last Name","ng-model"=>"user.account.lastName" }
+          .row.form-group
+            .col-lg-8
+              %label{:for=>"companyName"}
+                Company Name
+              %input#companyName.form-control{:type=>"text",:name=>"user[account_attributes[company_name]]",:placeholder=>"Company Name","ng-model"=>"user.account.companyName" }
+          .row.form-group
+            .col-lg-8
+              %label{:for=>"email"}
+                Email Address
+              %input#email.form-control{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
+          .row.form-group
+            .col-lg-8
+              %label{:for=>"subdomain"}
+                Subdomain
+              %input#subdomain.form-control{:type=>"text",:name=>"user[account_attributes[subdomain]]",:placeholder=>"Subdomain","ng-model"=>"user.account.subdomain" }
+          .row.form-group
+            .col-lg-8
+              %label{:for=>"logo", "style"=>"display: block;"}
+                Logo
+              %img{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
+              %input#logo.form-control{:type=>"file",:name=>"user[account_attributes[logo]]", "ng-model"=>"user.account.logo" }
+          .row
+            .col-lg-4
+              %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateAccount(user, accountForm)"}
+                Submit
+        .edit-bar
+          .edit-controls
+            %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
+              %li{"style"=>"margin-right: 28px"}
+                %a{:title=>"Plan Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/account.html'"}
+                  %i.fa.fa-cog{"ng-click"=>"openMenu()"}
+          .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
+            %h4
+              Account Details
+            %h6
+              Member Since: 7/13/2014
+            #current-plan-wrapper
+              #current-plan
+                .subscription-cost.text-center
+                  $0/month
+                .subscription-description
+                  You are currently subscribed to the Baby Moose Plan
+                %ul.subscription-details
+                  %li
+                    forever free
+                  %li
+                    unlimited plans
+                  %li
+                    up to 5 subscribers
+            #upgrade-plan-wrapper
+              %button.btn.btn-primary{:type=>"submit"}
+                Upgrade Plan
+            %p.label
+              Next Billing Date:
+            %p.data
+              9/14/2015
+            %p.label
+              Billing History:

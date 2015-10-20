@@ -3,11 +3,11 @@
   'Plan'
   '$window'
   'Account'
-  'FileUploader'
   '$timeout'
-  ($scope, Plan, window, Account, FileUploader, timeout) ->
+  'fileReader'
+  '$upload'
+  ($scope, Plan, window, Account, timeout, fileReader, $upload) ->
     window.scope = $scope
-
     csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     template_urls = [
@@ -22,14 +22,10 @@
     template_index = 0
     $scope.content_template_url = template_urls[template_index]
     $scope.active_step = 1
-    $scope.uploader = new FileUploader({
-      url: '/dashboard/account/upload_logo'
-      headers : {
-        'X-CSRF-TOKEN': csrf_token
-      }
-    })
     $scope.select_plan = 0
-
+    $scope.image = {
+      tempImage: {}
+  	}
     $scope.isActiveStep = (step) ->
       if step == $scope.active_step
         return "active-step"
@@ -42,13 +38,35 @@
       inst = $('[data-remodal-id=upload-logo-modal]').remodal(options)
       inst.open();
 
+    	$scope.onFileSelect = ($files) ->
+
+    		#$files: an array of files selected, each file has name, size, and type.
+    		i = 0
+
+    		while i < $files.length
+    			$file = $files[i]
+    			$scope.file = $file
+    			$scope.getFile()
+
+    			#upload.php script, node.js route, or servlet upload url
+    			# method: POST or PUT,
+    			# headers: {'headerKey': 'headerValue'}, withCredential: true,
+    			i++
+
+    	$scope.getFile = ->
+    		$scope.progress = 0
+    		fileReader.readAsDataUrl($scope.file, $scope).then (result) ->
+    			$scope.image.tempImage.url = result
+    			$scope.image.tempImage.file_name = $scope.file
+
     $scope.submitLogo = () ->
+      console.log("submit logo clicked")
+
       $scope.uploader.onSuccessItem = (response, json) -> (
         $scope.user.account.logo = json["logo"]
 
         $scope.active_step = 1
         template_index = 1
-        $scope.content_template_url = template_urls[template_index]
       )
 
       $scope.uploader.uploadAll()
@@ -58,22 +76,18 @@
         "hashTracking": false,
         "closeOnOutsideClick": false
       }
-      inst = $('[data-remodal-id=subdomain-modal]').remodal(options)
-      inst.open();
+      window.modal = $('[data-remodal-id=subdomain-modal]').remodal(options)
+      window.modal.open();
 
-    $scope.updateSubdomainClicked = (user, form) ->
+    $scope.updateSubdomainClicked = (form) ->
       console.log "updating subdomain"
 
       if form.$valid
-        user.update().then(
+        $scope.user.update().then(
           (updated_user) ->
             console.log("subdomain updated")
 
-            $scope.active_step = 2
-
-            template_index = 2
-            $scope.content_template_url = template_urls[template_index]
-
+            window.modal.close()
           (http)  ->
             console.log("error updating subdomain")
             errors = http.data
@@ -163,4 +177,4 @@
     return
 ]
 
-LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', 'FileUploader', '$timeout']
+LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', '$upload']

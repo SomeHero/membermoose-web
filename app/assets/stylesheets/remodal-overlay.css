@@ -32,15 +32,7 @@
     border-radius: 10px;
     margin: 0 auto;
   }
-
-  img[src*='logo'] {
-    display: block;
-    max-width: 100%;
-    width: 380px;
-    min-width: 320px;
-    margin: 0 auto;
-  }
-
+  
   .moose-dialog {
     position: absolute;
     top: -150px;
