@@ -77,6 +77,7 @@
             %a.visit-site{:href => "http://{{user.account.subdomain}}.mmoose-ng.localhost:3000", :target => "_blank"}
               .fa.fa-external-link-square
               %strong Visit Your Site
+%div{"loading-screen" => "loading.show_spinner"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/upload_logo.html'"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/choose_subdomain.html'"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/new_plan.html'"}

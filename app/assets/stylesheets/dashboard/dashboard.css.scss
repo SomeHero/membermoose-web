@@ -713,8 +713,19 @@ body {
       text-align: left;
     }
   }
-
-  input[type="text"], select, textarea {
+  textarea {
+    text-align: center;
+    color: #888888;
+    font-size: 20px;
+    width: 100%;
+    background: none;
+    border: 2px solid transparent;
+    border-bottom: #ccc solid 2px;
+    margin: 0 0 5px;
+    padding: 18px 18px 10px;
+    outline: none;
+  }
+  input[type="text"], select {
     text-align: center;
     color: #888888;
     font-size: 32px;
@@ -734,7 +745,15 @@ body {
       -webkit-animation-timing-function: linear;
     }
   }
-
+  .input-wrapper {
+    border-bottom: #ccc solid 2px;
+    margin: 0 0 5px;
+    padding: 18px 18px 10px;
+    select {
+      width: inherit;
+      border: none;
+    }
+  }
   %button {
     line-height: 18px;
     outline: red;

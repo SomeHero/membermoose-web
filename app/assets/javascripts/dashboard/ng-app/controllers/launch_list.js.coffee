@@ -122,8 +122,8 @@
         "hashTracking": false,
         "closeOnOutsideClick": false
       }
-      inst = $('[data-remodal-id=new-plan-modal]').remodal(options)
-      inst.open();
+      window.modal = $('[data-remodal-id=new-plan-modal]').remodal(options)
+      window.modal.open();
 
     $scope.createPlan = (plan, form) ->
       plan.create().then(
