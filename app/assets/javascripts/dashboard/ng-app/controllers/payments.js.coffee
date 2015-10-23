@@ -84,6 +84,17 @@
       else
         $scope.display_search = true
 
+    $scope.refund_payment_clicked = () ->
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      window.modal = $('[data-remodal-id=refund-payment-modal]').remodal(options)
+      window.modal.open();
+
+    $scope.refund_payment_submit = () ->
+      console.log "refund payment"
+
     remove_messages = () ->
       $scope.$parent.show_success_message = false
 

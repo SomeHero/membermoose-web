@@ -47,6 +47,11 @@ class CreateSubscription
 
       subscription.payments.new({
           :account => plan.account,
+          :account_payment_processor => AccountPaymentProcessor.new({
+            :account => account,
+            :payment_processor => payment_processor,
+            :active => true
+          }),
           :amount => plan.amount,
           :payment_processor_fee => plan.amount*0.01+0.30,
           :payment_method => "Credit Card",

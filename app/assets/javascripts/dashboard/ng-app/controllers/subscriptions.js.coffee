@@ -78,6 +78,28 @@
       else
         $scope.display_search = true
 
+    $scope.cancel_subscription_clicked = () ->
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      window.modal = $('[data-remodal-id=cancel-subscription-modal]').remodal(options)
+      window.modal.open();
+
+    $scope.cancel_subscription_submit = () ->
+      console.log "subscription cancelled"
+
+    $scope.change_plan_clicked = () ->
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      window.modal = $('[data-remodal-id=change-plan-modal]').remodal(options)
+      window.modal.open();
+
+    $scope.change_plan_submit = () ->
+      console.log "subscription cancelled"
+
     remove_messages = () ->
       $scope.$parent.show_success_message = false
 
