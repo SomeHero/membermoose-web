@@ -1,5 +1,6 @@
 class ChangeSubscriptionStatusToInt < ActiveRecord::Migration
   def change
-    change_column :subscriptions, :status, :integer, :default => 0
+    drop_column :subscriptions, :status
+    add_column :subscriptions, :status, :integer, :default => 1
   end
 end
