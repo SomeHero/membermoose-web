@@ -6,7 +6,8 @@
   '$timeout'
   'fileReader'
   'Upload'
-  ($scope, Account, $stateParams, window, $timeout, fileReader, Upload) ->
+  'AccountServiceChannel'
+  ($scope, Account, $stateParams, window, $timeout, fileReader, Upload, AccountServiceChannel) ->
 
     $scope.image = {
       tempImage: {}
@@ -84,6 +85,10 @@
         data:
           file: $scope.file).then ((resp) ->
         console.log 'Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data
+
+        $scope.getAccount()
+        AccountServiceChannel.accountUpdated()
+
         window.modal.close()
 
         return
@@ -106,4 +111,4 @@
     return
 ]
 
-AccountController.$inject = ['$scope', 'Account', '$stateParams', 'window', '$timeout', 'fileReader', 'Upload']
+AccountController.$inject = ['$scope', 'Account', '$stateParams', 'window', '$timeout', 'fileReader', 'Upload', 'AccountServiceChannel']

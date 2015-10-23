@@ -6,7 +6,8 @@
   '$timeout'
   'fileReader'
   'Upload'
-  ($scope, Plan, window, Account, timeout, fileReader, Upload) ->
+  'AccountServiceChannel'
+  ($scope, Plan, window, Account, timeout, fileReader, Upload, AccountServiceChannel) ->
     window.scope = $scope
     csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -78,6 +79,9 @@
         data:
           file: $scope.file).then ((resp) ->
         console.log 'Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data
+
+        AccountServiceChannel.accountUpdated()
+
         window.modal.close()
 
         return
@@ -195,4 +199,4 @@
     return
 ]
 
-LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', 'Upload']
+LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', 'Upload', 'AccountServiceChannel']

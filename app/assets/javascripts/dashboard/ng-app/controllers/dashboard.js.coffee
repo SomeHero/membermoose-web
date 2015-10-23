@@ -3,8 +3,9 @@
   'Account',
   'Plan',
   '$window',
-  '$modal'
-  ($scope, Account, Plan, window, $modal) ->
+  '$modal',
+  'AccountServiceChannel'
+  ($scope, Account, Plan, window, $modal, AccountServiceChannel) ->
     $scope.user = null
     $scope.plans = []
 
@@ -14,12 +15,14 @@
     $scope.show_error_message = false
     $scope.error_message = ""
 
-    Account.get(58).then (response) ->
-      console.log "get account"
-      $scope.user = response.data
+    $scope.getAccount = () ->
+      Account.get(58).then (response) ->
+        console.log "get account"
+        $scope.user = response.data
 
-    Plan.get().then (response) ->
-      $scope.plans = response.data
+    $scope.getPlans = () ->
+      Plan.get().then (response) ->
+        $scope.plans = response.data
 
     $scope.setMenuItemSelected = (url) ->
       if url == window.location.pathname
@@ -31,7 +34,17 @@
     $scope.close_error_message = () ->
       $scope.show_error_message = false
 
+    onAccountUpdated = () ->
+      console.log "Account Updated"
+
+      $scope.getAccount()
+
+    AccountServiceChannel.onAccountUpdated($scope, onAccountUpdated);
+
+    $scope.getAccount()
+    $scope.getPlans()
+
     return
 ]
 
-AccountController.$inject = ['$scope', 'Account', 'Plan', 'window', '$modal']
+AccountController.$inject = ['$scope', 'Account', 'Plan', 'window', '$modal', 'AccountServiceChannel']

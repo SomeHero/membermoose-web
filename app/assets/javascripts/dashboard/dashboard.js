@@ -100,3 +100,20 @@ var app = angular.module('dashboardApp', [
             name: 'payment'
         });
     }]);
+    angular.module('dashboardApp').service('AccountServiceChannel', function ($rootScope) {
+        var ACCOUNT_UPDATED_MESSAGE, accountUpdated, onAccountUpdated;
+        ACCOUNT_UPDATED_MESSAGE = 'accountUpdatedMessage';
+        accountUpdated = function() {
+          $rootScope.$broadcast(ACCOUNT_UPDATED_MESSAGE);
+        };
+        onAccountUpdated = function($scope, handler) {
+          $scope.$on(ACCOUNT_UPDATED_MESSAGE, function(event, message) {
+            handler();
+          });
+        };
+        return {
+          accountUpdated: accountUpdated,
+          onAccountUpdated: onAccountUpdated
+        };
+      }
+    );
