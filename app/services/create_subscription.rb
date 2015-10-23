@@ -47,11 +47,6 @@ class CreateSubscription
 
       subscription.payments.new({
           :account => plan.account,
-          :account_payment_processor => AccountPaymentProcessor.new({
-            :account => account,
-            :payment_processor => payment_processor,
-            :active => true
-          }),
           :amount => plan.amount,
           :payment_processor_fee => plan.amount*0.01+0.30,
           :payment_method => "Credit Card",
@@ -68,6 +63,8 @@ class CreateSubscription
       return account, subscription, card, raw_token
     end
 
+    #ToDo: create method on Plan that will calculate the next invoice date
+    next_invoice_date = Date.today + 30.days
     subscription.save!
 
     return account, subscription, card, raw_token

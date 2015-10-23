@@ -17,6 +17,11 @@ var app = angular.module('dashboardApp', [
             templateUrl: 'dashboard/ng-app/templates/account.html',
             controller: 'AccountController'
         })
+        .state('change_password', {
+            url: '/dashboard/account/:id/change_password',
+            templateUrl: 'dashboard/ng-app/templates/change_password.html',
+            controller: 'ChangePasswordController'
+        })
         .state('launch_list', {
             url: '/dashboard/launch',
             templateUrl: 'dashboard/ng-app/templates/launch_list.html',

@@ -161,6 +161,8 @@
 
     $scope.handlePopupAuthentication = (network, oauth_authentication) ->
       scope.$apply ->
+        AccountServiceChannel.accountUpdated()
+
         $scope.applyNetwork network, oauth_authentication
 
     $scope.applyNetwork = (network, account) ->
