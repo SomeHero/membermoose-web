@@ -1,4 +1,6 @@
 class Subscription < ActiveRecord::Base
+  enum status: %w(subscribed cancelled)
+
   belongs_to :account
   belongs_to :plan
   belongs_to :account_payment_processor
@@ -6,7 +8,7 @@ class Subscription < ActiveRecord::Base
 
   has_many :invoices
   has_many :payments
-  
+
   before_save :populate_guid
   validates_uniqueness_of :guid
 

@@ -5,11 +5,23 @@ class Dashboard::PaymentsController < DashboardController
     query = current_user.account.payments
       .joins(:account_payment_processor => :account )
 
+    if params[:from_date]
+      query = query.where("payments.created_at >= ?", params["from_date"])
+    end
+    if params[:to_date]
+      query = query.where("payments.created_at <= ?", params["to_date"])
+    end
     if params[:first_name].present?
       query = query.where("accounts.first_name" => params["first_name"])
     end
     if params[:last_name].present?
       query = query.where("accounts.last_name" => params["last_name"])
+    end
+    if params[:from_amount].present? & params[:to_amount].present?
+      query = query.where("amount >= ?", params["from_amount"])
+    end
+    if params[:to_amount].present?
+      query = query.where("amount <= ?", params["to_amount"])
     end
 
     @total_items = query.count
@@ -28,11 +40,23 @@ class Dashboard::PaymentsController < DashboardController
     query = current_user.account.payments
       .joins(:account_payment_processor => :account )
 
+    if params[:from_date]
+      query = query.where("created_at >= ?", params["from_date"])
+    end
+    if params[:to_date]
+      query = query.where("created_at <= ?", params["to_date"])
+    end
     if params[:first_name].present?
       query = query.where("accounts.first_name" => params["first_name"])
     end
     if params[:last_name].present?
       query = query.where("accounts.last_name" => params["last_name"])
+    end
+    if params[:from_amount].present? & params[:to_amount].present?
+      query = query.where("amount >= ?", params["from_amount"])
+    end
+    if params[:to_amount].present?
+      query = query.where("amount <= ?", params["to_amount"])
     end
 
     render :json => { :count => query.count }

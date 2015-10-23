@@ -22,7 +22,8 @@ class CreateSubscription
     subscription = Subscription.new(
       plan: plan,
       account: account,
-      card: card
+      card: card,
+      status: Subscription.statuses[:subscribed]
     )
 
     begin

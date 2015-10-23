@@ -14,6 +14,10 @@ class Dashboard::SubscriptionsController < DashboardController
     if params[:last_name].present?
       query = query.where("accounts.last_name" => params["last_name"])
     end
+    if params[:status].present?
+      query = query.where("status" => params["status"])
+    end
+
     @total_items = query.count
     @subscriptions = query
       .paginate(:page => params[:page], :per_page => 10)
@@ -38,6 +42,9 @@ class Dashboard::SubscriptionsController < DashboardController
     end
     if params[:last_name].present?
       query = query.where("accounts.last_name" => params["last_name"])
+    end
+    if params[:status].present?
+      query = query.where("status" => params["status"])
     end
 
     render :json => { :count => query.count }

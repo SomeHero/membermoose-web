@@ -13,7 +13,14 @@
     $scope.itemsPerPage = 10
     $scope.isLoading = true
     $scope.display_search = false
-
+    $scope.statuses = [
+        {text: 'Subscribed', value: '0'},
+        {text: 'Cancelled', value: '1'},
+    ]
+    $scope.search = {
+      invoice_from_date: null,
+      invoice_to_date: null
+    }
     $scope.pageChanged = () ->
       console.log('Page changed to: ' + $scope.currentPage);
       $scope.isLoading = true
@@ -32,7 +39,8 @@
       Subscription.query({
           firstName: $scope.search.first_name,
           lastName: $scope.search.last_name,
-          plan_id: $scope.search.plan_id
+          plan_id: $scope.search.plan_id,
+          status: $scope.search.status
       }).then (result) ->
         $scope.subscriptions = result.data
         $scope.totalItems = result.originalData.total_items
@@ -44,7 +52,8 @@
       Subscription.query({
           firstName: $scope.search.first_name,
           lastName: $scope.search.last_name,
-          plan_id: $scope.search.plan_id
+          plan_id: $scope.search.plan_id,
+          status: $scope.search.status
       }).then (result) ->
         $scope.searchItems = result.data.count
 

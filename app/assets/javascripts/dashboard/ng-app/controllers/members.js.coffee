@@ -13,7 +13,10 @@
     $scope.itemsPerPage = 10
     $scope.isLoading = true
     $scope.display_search = false
-
+    $scope.statuses = [
+        {text: 'Active', value: '1'},
+        {text: 'InActive', value: '0'},
+    ]
     $scope.edit_panel_open = false
     $scope.setPage = (pageNo) ->
       $scope.currentPage = pageNo
@@ -37,7 +40,9 @@
       Member.query({
           firstName: $scope.search.first_name,
           lastName: $scope.search.last_name,
-          email_address: $scope.search.email_address
+          email_address: $scope.search.email_address,
+          plan_id: $scope.search.plan_id,
+          status: $scope.search.status
       }).then (result) ->
         $scope.searchItems = result.data.count
 
@@ -46,7 +51,9 @@
       Member.query({
           firstName: $scope.search.first_name,
           lastName: $scope.search.last_name,
-          email_address: $scope.search.email_address
+          email_address: $scope.search.email_address,
+          plan_id: $scope.search.plan_id,
+          status: $scope.search.status
       }).then (result) ->
         $scope.members = result.data
         $scope.totalItems = result.originalData.total_items

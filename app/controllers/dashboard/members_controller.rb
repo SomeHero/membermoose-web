@@ -14,6 +14,12 @@ class Dashboard::MembersController < DashboardController
     if params[:email_address].present?
       query = query.where("users.email" => params["email_address"])
     end
+    if params[:plan_id].present?
+      query = query.where("plans.id" => params["plan_id"])
+    end
+    if params[:status].present?
+      query = query.where("status" => params["status"])
+    end
 
     @total_items = query.count
     @members = query

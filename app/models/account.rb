@@ -33,6 +33,10 @@ class Account < ActiveRecord::Base
     self.subscriptions.pluck('plans.name').join(', ')
   end
 
+  def status
+    self.subscriptions.where(:status => Subscription.statuses[:subscribed]).count > 0 ? "active" : "inactive"
+  end
+
   def as_json(options={})
   {
     :id => self.id,
@@ -50,6 +54,7 @@ class Account < ActiveRecord::Base
     :plan_names => self.plan_names,
     :payment_processors => self.account_payment_processors,
     :billing_history => self.bills,
+    :status => self.status,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }

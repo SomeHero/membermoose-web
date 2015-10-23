@@ -34,18 +34,25 @@
                 %label
                   Subscription Status
                 .form-group
-                  %input.form-control{"type"=>"text"}
+                  %select#search-status.form-control.input{:name=>"search[status]","ng-model"=>"search.status", "ng-change"=>"getSearchCount()", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
+                    %option{"value"=>"", "selected"=>""}
+                      All Statuses
+                    %option{"ng-repeat"=>"status in statuses", "value"=>"{{status.value}}"}
+                      {{status.text}}
             .col-md-3.col-height
               .inside
                 %label
                   Next Invoice Date
                 %p.input-group
-                  %input.form-control{"type"=>"date", "uib-datepicker-popup"=>"", "ng-model"=>"from-date"}
-                  .input-group-btn
+                  %input.form-control{"type"=>"date", "uib-datepicker-popup"=>"", "ng-model"=>"search.invoice_from_date"}/
+                  %span.input-group-btn
                     %button.btn.btn-default{"type"=>"button", "ng-click"=>"open($event)"}
                       %i.glyphicon.glyphicon-calendar
-                .form-group
-                  %input.form-control{"type"=>"text"}
+                %p.input-group
+                  %input.form-control{"type"=>"date", "uib-datepicker-popup"=>"", "ng-model"=>"search.invoice_to_date"}/
+                  %span.input-group-btn
+                    %button.btn.btn-default{"type"=>"button", "ng-click"=>"open($event)"}
+                      %i.glyphicon.glyphicon-calendar
             .col-md-3.col-height
               .inside-centered
                 %label

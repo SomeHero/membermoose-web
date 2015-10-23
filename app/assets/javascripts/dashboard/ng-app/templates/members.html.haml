@@ -32,7 +32,7 @@
                 %label
                   Plan
                 .form-group
-                  %select#search-plan.form-control.input{:type=>"text",:name=>"search[plan]","ng-model"=>"search.plan_id", "ng-change"=>"getSearchCount()", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
+                  %select#search-plan.form-control.input{:name=>"search[plan]","ng-model"=>"search.plan_id", "ng-change"=>"getSearchCount()", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
                     %option{"value"=>"", "selected"=>""}
                       All Plans
                     %option{"ng-repeat"=>"plan in plans", "value"=>"{{plan.id}}"}
@@ -40,7 +40,11 @@
                 %label
                   Member Status
                 .form-group
-                  %input.form-control{"type"=>"text"}
+                  %select#search-status.form-control.input{:name=>"search[status]","ng-model"=>"search.status", "ng-change"=>"getSearchCount()", "ng-model-options"=>"{ debounce: { 'default': 1000, 'blur': 0 } }"}
+                    %option{"value"=>"", "selected"=>""}
+                      All Statuses
+                    %option{"ng-repeat"=>"status in statuses", "value"=>"{{status.value}}"}
+                      {{status.text}}
             .col-md-3.col-height
               .inside-centered
                 %label
@@ -64,7 +68,7 @@
     %td{"data-title"=>"'Plans'"}
       {{member.planNames}}
     %td{"data-title"=>"'Status'"}
-      Active
+      {{member.status}}
 %pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
 .no-results{"ng-show"=>"members.length == 0 && !isLoading"}
   %img{:alt => "Cards we support (visa, mastercard, discover, amex)", :src => asset_path('dead-moose.png')}/

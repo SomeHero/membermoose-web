@@ -7,7 +7,8 @@ var app = angular.module('dashboardApp', [
         'ngTable',
         'uiSwitch',
         'angularFileUpload',
-        'ngFileUpload'
+        'ngFileUpload',
+        'rzModule'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider
