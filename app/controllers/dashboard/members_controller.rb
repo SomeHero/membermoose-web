@@ -18,7 +18,7 @@ class Dashboard::MembersController < DashboardController
       query = query.where("plans.id" => params["plan_id"])
     end
     if params[:status].present?
-      query = query.where("status" => params["status"])
+      query = query.where("accounts.id in (Select subscriptions.account_id from subscriptions inner join plans on subscriptions.plan_id = plans.id where plans.account_id = #{current_user.account.id} and subscriptions.status = #{params[:status]})")
     end
 
     @total_items = query.count
@@ -46,7 +46,13 @@ class Dashboard::MembersController < DashboardController
     if params[:email_address].present?
       query = query.where("users.email" => params["email_address"])
     end
-
+    if params[:plan_id].present?
+      query = query.where("plans.id" => params["plan_id"])
+    end
+    if params[:status].present?
+      query = query.where("accounts.id in (Select subscriptions.account_id from subscriptions inner join plans on subscriptions.plan_id = plans.id where plans.account_id = #{current_user.account.id} and subscriptions.status = #{params[:status]})")
+    end
+    
     render :json => { :count => query.count }
   end
 

@@ -14,8 +14,8 @@
     $scope.isLoading = true
     $scope.display_search = false
     $scope.statuses = [
-        {text: 'Active', value: '1'},
-        {text: 'InActive', value: '0'},
+        {text: 'Active', value: '0'},
+        {text: 'InActive', value: '1'},
     ]
     $scope.edit_panel_open = false
     $scope.setPage = (pageNo) ->
