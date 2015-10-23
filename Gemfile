@@ -19,7 +19,6 @@ gem "pry-nav", "~> 0.2"
 gem 'pry-rails'
 gem 'pry-remote'
 gem 'stripe_event'
-gem 'glider-rails' 
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

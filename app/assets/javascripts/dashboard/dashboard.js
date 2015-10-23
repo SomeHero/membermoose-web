@@ -100,6 +100,23 @@ var app = angular.module('dashboardApp', [
             name: 'payment'
         });
     }]);
+    angular.module('dashboardApp').service('PlansServiceChannel', function ($rootScope) {
+        var PLANS_UPDATED_MESSAGE, plansUpdated, onPlansUpdated;
+        PLANS_UPDATED_MESSAGE = 'plansUpdatedMessage';
+        plansUpdated = function() {
+          $rootScope.$broadcast(PLANS_UPDATED_MESSAGE);
+        };
+        onPlansUpdated = function($scope, handler) {
+          $scope.$on(PLANS_UPDATED_MESSAGE, function(event, message) {
+            handler();
+          });
+        };
+        return {
+          plansUpdated: plansUpdated,
+          onPlansUpdated: onPlansUpdated
+        };
+      }
+    );
     angular.module('dashboardApp').service('AccountServiceChannel', function ($rootScope) {
         var ACCOUNT_UPDATED_MESSAGE, accountUpdated, onAccountUpdated;
         ACCOUNT_UPDATED_MESSAGE = 'accountUpdatedMessage';

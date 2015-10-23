@@ -1,8 +1,14 @@
 class CreatePlan
   def self.call(options={}, stripe_secret_key)
+
     plan = Plan.new(options)
+    #ToDo: Add something that indicates weather this is synced
 
     if !plan.valid?
+      return plan
+    end
+    if !stripe_secret_key
+      plan.save #just go ahead and save the plan unsync'ed
       return plan
     end
 
@@ -22,6 +28,7 @@ class CreatePlan
       return plan
     end
 
+    #ToDo: if we got this far update flag to incidate plan was synced
     plan.save
 
     return plan

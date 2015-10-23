@@ -4,7 +4,8 @@
   '$modal'
   '$window'
   '$timeout'
-  ($scope, Plan, $modal, window, $timeout) ->
+  'PlansServiceChannel'
+  ($scope, Plan, $modal, window, $timeout, PlansServiceChannel) ->
     window.scope = $scope
     $scope.totalItems = 0
     $scope.currentPage = 1
@@ -68,6 +69,8 @@
             $scope.$parent.success_message = "Your plan, " + plan.name + ", was successfully updated."
             $scope.$parent.show_success_message = true
             $scope.clear_messages()
+
+            PlansServiceChannel.onPlansUpdated()
 
             console.log("plan updated")
           (http)  ->
@@ -141,9 +144,16 @@
     remove_messages = () ->
       $scope.$parent.show_success_message = false
 
+    onPlansUpdated = () ->
+      console.log "Plans Updated"
+
+      $scope.getPlans()
+
+    PlansServiceChannel.onPlansUpdated($scope, onPlansUpdated);
+
     $scope.getPlans()
 
     return
 ]
 
-PlansController.$inject = ['$scope', 'Plan', '$modal', 'window', '$timeout']
+PlansController.$inject = ['$scope', 'Plan', '$modal', 'window', '$timeout', 'PlansServiceChannel']

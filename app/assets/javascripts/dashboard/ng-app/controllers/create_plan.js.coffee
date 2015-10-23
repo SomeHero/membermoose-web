@@ -3,7 +3,8 @@
   'Plan'
   '$window'
   '$timeout'
-  ($scope, Plan, window, $timeout) ->
+  'PlansServiceChannel'
+  ($scope, Plan, window, $timeout, PlansServiceChannel) ->
     window.scope = $scope
 
     $scope.newPlanSection = 1
@@ -58,6 +59,8 @@
         }).create().then(
           (response) ->
 
+            PlansServiceChannel.plansUpdated()
+
             window.modal.close()
 
           (http)  ->
@@ -78,4 +81,4 @@
 
 ]
 
-CreatePlanController.$inject = ['$scope', 'Plan', 'window', '$timeout']
+CreatePlanController.$inject = ['$scope', 'Plan', 'window', '$timeout', 'PlansServiceChannel']
