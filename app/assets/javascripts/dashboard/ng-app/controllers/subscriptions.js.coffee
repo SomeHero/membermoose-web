@@ -12,6 +12,9 @@
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
     $scope.isLoading = true
+    $scope.loading = {
+      show_spinner: false
+    }
     $scope.display_search = false
     $scope.statuses = [
         {text: 'Subscribed', value: '0'},
@@ -67,7 +70,7 @@
       return $scope.selected_subscription != null
 
     $scope.closeEditBar = () ->
-      $scope.subscription = null
+      $scope.selected_subscription = null
 
     $scope.clear_messages = () ->
       $timeout(remove_messages, 4000);
@@ -87,7 +90,33 @@
       window.modal.open();
 
     $scope.cancel_subscription_submit = () ->
-      console.log "subscription cancelled"
+      Subscription.setUrl('/dashboard/subscriptions')
+      $scope.loading.show_spinner = true
+      $scope.selected_subscription.delete().then(
+        () ->
+          $scope.closeEditBar()
+
+          $scope.$parent.success_message = "The subscription was successfully deleted."
+          $scope.$parent.show_success_message = true
+          $scope.clear_messages()
+
+          $scope.loading.show_spinner = false
+          window.modal.close()
+
+          $scope.selected_subscription.status = "Cancelled"
+          $scope.closeEditBar()
+
+          console.log("subscription deleted")
+        (http)  ->
+          console.log("error deleting subscription")
+          errors = http.data
+
+          $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
+          $scope.$parent.show_error_message = true
+          $scope.clear_message()
+
+          $scope.loading.show_spinner = false
+      )
 
     $scope.change_plan_clicked = () ->
       options = {

@@ -1,8 +1,8 @@
 %ul.nav.submenu-nav
-  %li
+  %li{"ng-show"=>"selected_subscription.status == 'subscribed'"}
     %a.top-nav-item{"ng-click"=>"change_plan_clicked()"}
       Change Plan
-  %li
+  %li{"ng-show"=>"selected_subscription.status == 'subscribed'"}
     %a{"ng-click"=>"cancel_subscription_clicked()"}
       Cancel Subscription
   %li
