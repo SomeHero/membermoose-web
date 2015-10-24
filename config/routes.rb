@@ -30,10 +30,16 @@ Rails.application.routes.draw do
       collection do
         get :count
       end
+      member do
+        post :change
+      end
     end
     resources :payments, :controller => "dashboard/payments" do
       collection do
         get :count
+      end
+      member do
+        post :refund
       end
     end
     resources :account, :controller => "dashboard/account" do

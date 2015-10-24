@@ -122,7 +122,9 @@ StripeEvent.configure do |events|
 
     card = Card.find_by(:external_id => data.card.id)
 
+    binding.pry
     charge = Charge.create!({
+      :external_id => data.id,
       :external_invoice_id => data.invoice,
       :status => data.status,
       :amount => data.amount/100,
@@ -140,11 +142,11 @@ StripeEvent.configure do |events|
     # Define subscriber behavior based on the event object
     #event.class       #=> Stripe::Event
     #event.type        #=> "charge.failed"
-    charge = event.data.object #=> #<Stripe::Charge:0x3fcb34c115f8>
-    payment = Payment.find_by(external_id: charge.id)
+    data = event.data.object #=> #<Stripe::Charge:0x3fcb34c115f8>
+    charge = Charge.find_by(external_id: data.id)
 
     begin
-      Resque.enqueue(ChargeFailedWorker, payment.id)
+      Resque.enqueue(ChargeFailedWorker, charge.id)
     rescue
       puts "Error #{$!}"
     end

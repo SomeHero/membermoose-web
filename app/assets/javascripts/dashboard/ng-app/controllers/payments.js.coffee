@@ -3,7 +3,8 @@
   'Payment'
   '$window'
   '$timeout'
-  ($scope, Payment, window, $timeout) ->
+  '$http'
+  ($scope, Payment, window, $timeout, $http) ->
     window.scope = $scope
     $scope.selected_payment = null
     $scope.payments = []
@@ -12,6 +13,9 @@
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
     $scope.isLoading = true
+    $scope.loading = {
+      show_spinner: false
+    }
     $scope.display_search = false
     $scope.search = {
       from_date: null,
@@ -93,7 +97,36 @@
       window.modal.open();
 
     $scope.refund_payment_submit = () ->
-      console.log "refund payment"
+      $scope.loading.show_spinner = true
+      $http.post('/dashboard/payments/' + $scope.selected_payment.id  + '/refund').then(
+        () ->
+          $scope.closeEditBar()
+
+          $scope.$parent.success_message = "The payment was successfully refunded."
+          $scope.$parent.show_success_message = true
+          $scope.clear_messages()
+
+          $scope.loading.show_spinner = false
+          window.modal.close()
+
+          $scope.selected_subscription.status = "Cancelled"
+          $scope.closeEditBar()
+
+          console.log("payment refunded")
+        (http)  ->
+          console.log("error refunding payment")
+          errors = http.data
+
+          $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
+          $scope.$parent.show_error_message = true
+          $scope.clear_messages()
+
+          $scope.loading.show_spinner = false
+          window.modal.close()
+      )
+
+    $scope.clear_messages = () ->
+      $timeout(remove_messages, 4000);
 
     remove_messages = () ->
       $scope.$parent.show_success_message = false
@@ -103,4 +136,4 @@
     return
 ]
 
-PaymentController.$inject = ['$scope', 'Payment', 'window', '$timeout']
+PaymentController.$inject = ['$scope', 'Payment', 'window', '$timeout', '$http']

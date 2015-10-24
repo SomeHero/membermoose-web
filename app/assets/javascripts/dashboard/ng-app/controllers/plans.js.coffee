@@ -82,6 +82,14 @@
             $scope.clear_message()
         )
 
+    $scope.delete_plan_clicked = () ->
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      window.modal = $('[data-remodal-id=delete-plan-modal]').remodal(options)
+      window.modal.open();
+
     $scope.deletePlan = () ->
       Plan.setUrl('/dashboard/plans')
       $scope.plan.delete().then(
@@ -103,6 +111,15 @@
           $scope.$parent.show_error_message = true
           $scope.clear_message()
       )
+
+    $scope.share_plan_clicked = () ->
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      window.modal = $('[data-remodal-id=share-plan-modal]').remodal(options)
+      window.modal.open();
+
     $scope.showEditBar = () ->
       $scope.edit_panel_open = true
 

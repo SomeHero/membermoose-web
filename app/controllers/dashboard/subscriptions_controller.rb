@@ -50,6 +50,18 @@ class Dashboard::SubscriptionsController < DashboardController
     render :json => { :count => query.count }
   end
 
+  def change
+    @subscription = Subscription.find(params[:id])
+    @plan = Plan.find(params[:plan_id])
+
+    @subscription = ChangeSubscription.call(@subscription, @plan)
+
+    respond_to do |format|
+      format.html  { render action: 'show' }
+      format.json { render :json => {:subscription => @subscription}, status: 200 }
+    end
+  end
+
   def destroy
     @subscription = Subscription.find(params[:id])
     @subscription = CancelSubscription.call(@subscription)

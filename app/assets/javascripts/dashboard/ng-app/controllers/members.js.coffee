@@ -94,6 +94,22 @@
             $scope.clear_message()
         )
 
+    $scope.billing_history_clicked = () ->
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      window.modal = $('[data-remodal-id=billing-history-modal]').remodal(options)
+      window.modal.open();
+
+    $scope.next_invoice_clicked = () ->
+      options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      window.modal = $('[data-remodal-id=next-invoice-modal]').remodal(options)
+      window.modal.open();
+
     $scope.showEditBar = () ->
       $scope.edit_panel_open = true
 

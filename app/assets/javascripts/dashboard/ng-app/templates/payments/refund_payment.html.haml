@@ -1,7 +1,13 @@
 .remodel-overlay{"style"=>"display: none;"}
   .remodal{"data-remodal-id"=>"refund-payment-modal", "data-remodal-options"=>"hashTracking: false" }
     %section.active
-      %h2
-        Refund Payment?
-      %h4
-        {{selected_payment.amount}}
+      %header
+        %h2
+          Refund Payment?
+        %h4
+          Are your sure you want to refund {{selected_payment.amount | currency}} to {{selected_payment.payee.fullName}}?
+      %footer
+        %button.continue{"ng-click"=>"refund_payment_submit()"}
+          Refund
+          %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}

@@ -10,11 +10,16 @@ class InvoiceCreatedWorker
       subscription = invoice.subscription
       payment = subscription.payments.where(:status => "Pending").first
 
-      payment.status = "Complete"
-      payment.save!
+      if payment
+        payment.charge = charge
+        payment.status = "Complete"
+        payment.save!
 
-      invoice.status = "Paid"
-      invoice.save!
+        invoice.status = "Paid"
+        invoice.save!
+      else
+        #we should create a new payment object
+      end
     end
   end
 end

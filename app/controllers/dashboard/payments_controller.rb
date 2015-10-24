@@ -62,12 +62,17 @@ class Dashboard::PaymentsController < DashboardController
     render :json => { :count => query.count }
   end
 
-  def edit
+  def refund
+    @payment = Payment.find(params[:id])
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+    stripe = @payment.account.account_payment_processors.where(:payment_processor => stripe_payment_processor).first
 
-  end
+    @payment = RefundPayment.call(@payment, stripe.secret_token)
 
-  def update
-
+    respond_to do |format|
+      format.html  { render action: 'show' }
+      format.json { render :json => {:subscription => @subscription}, status: 200 }
+    end
   end
 
 end

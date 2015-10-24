@@ -4,6 +4,8 @@ class AccountPaymentProcessor < ActiveRecord::Base
 
   has_many :payments
 
+  scope :active, -> { where(active: true) }
+
   def as_json(options={})
   {
     :id => self.id,

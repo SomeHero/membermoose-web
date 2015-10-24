@@ -52,7 +52,7 @@ class Account < ActiveRecord::Base
     },
     :subdomain => self.subdomain,
     :plan_names => self.plan_names,
-    :payment_processors => self.account_payment_processors,
+    :payment_processors => self.account_payment_processors.active,
     :billing_history => self.bills,
     :status => self.status,
     :created_at => self.created_at,

@@ -50,7 +50,7 @@ class CreateSubscription
           :account_payment_processor => AccountPaymentProcessor.new({
             :account => account,
             :payment_processor => payment_processor,
-            :active => true
+            :active => false
           }),
           :amount => plan.amount,
           :payment_processor_fee => plan.amount*0.01+0.30,

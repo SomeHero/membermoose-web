@@ -23,7 +23,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       email: email,
       api_key: api_key,
       secret_token: secret_token,
-      refresh_token: refresh_token
+      refresh_token: refresh_token,
+      active: true
     })
 
     if @account_payment_processor.save
