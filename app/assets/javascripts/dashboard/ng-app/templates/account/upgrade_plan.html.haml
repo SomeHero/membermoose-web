@@ -1,6 +1,13 @@
-.remodel-overlay{"style"=>"display: none;"}
+.remodal-overlay{"style"=>"display: none;"}
   .remodal{"data-remodal-id"=>"upgrade-plan-modal", "data-remodal-options"=>"hashTracking: false" }
     %section.active
       %header
         %h2
-          Upgrade Your MemberMouse Plan
+          Upgrade Your Plan
+        %h4
+          Are your sure you want to refund {{selected_payment.amount | currency}} to {{selected_payment.payee.fullName}}?
+        %footer
+          %button.continue{"ng-click"=>"refund_payment_submit()"}
+            Upgrade
+            %i.fa-arrow-right
+        %div{"loading-screen" => "loading.show_spinner"}

@@ -22,6 +22,7 @@ class Account < ActiveRecord::Base
 
   #validates :subdomain, :length => (SUBDOMAIN_MIN_LENGTH..SUBDOMAIN_MAX_LENGTH), :format => { :with => /^[\w-]+$/ }, :presence   => true, :uniqueness => true, :exclusion => { :in => DISALLOWED_SUBDOMAINS }
 
+  before_update :update_site_url
   before_save :populate_guid
   validates_uniqueness_of :guid
 
@@ -38,26 +39,30 @@ class Account < ActiveRecord::Base
   end
 
   def as_json(options={})
-  {
-    :id => self.id,
-    :guid => self.guid,
-    :first_name => self.first_name,
-    :last_name => self.last_name,
-    :company_name => self.company_name,
-    :logo => {
-      url: self.logo.exists? ? self.logo.url : ""
-    },
-    :user => {
-      :email => self.user.email,
-    },
-    :subdomain => self.subdomain,
-    :plan_names => self.plan_names,
-    :payment_processors => self.account_payment_processors.active,
-    :billing_history => self.bills,
-    :status => self.status,
-    :created_at => self.created_at,
-    :updated_at	=> self.updated_at
-  }
+    protocol = "http://"
+    domain_suffix = "mmoose-ng.localhost:3000"
+
+    {
+      :id => self.id,
+      :guid => self.guid,
+      :first_name => self.first_name,
+      :last_name => self.last_name,
+      :company_name => self.company_name,
+      :logo => {
+        url: self.logo.exists? ? self.logo.url : ""
+      },
+      :user => {
+        :email => self.user.email,
+      },
+      :subdomain => self.subdomain,
+      :site_url => self.site_url,
+      :plan_names => self.plan_names,
+      :payment_processors => self.account_payment_processors.active,
+      :billing_history => self.bills,
+      :status => self.status,
+      :created_at => self.created_at,
+      :updated_at	=> self.updated_at
+    }
   end
 
   private
@@ -68,5 +73,9 @@ class Account < ActiveRecord::Base
         self.guid = SecureRandom.random_number(1_000_000_000).to_s(36)
       end
     end
+  end
+  def update_site_url
+    binding.pry
+
   end
 end

@@ -12,6 +12,12 @@
     $scope.image = {
       tempImage: {}
     }
+    options = {
+      "hashTracking": false,
+      "closeOnOutsideClick": false
+    }
+    upload_logo_modal = null
+    upgrade_account_modal = null
 
     $scope.getAccount = () ->
       Account.get($stateParams.id).then (result) ->
@@ -44,12 +50,10 @@
         return $scope.user.account.logo.url
 
     $scope.upload_logo_clicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=upload-logo-modal]').remodal(options)
-      window.modal.open();
+      if !upload_logo_modal
+        upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal(options)
+
+      upload_logo_modal.open();
 
     	$scope.onFileSelect = ($files) ->
 
@@ -99,6 +103,12 @@
         progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
         console.log 'progress: ' + progressPercentage + '% ' + evt.config.data.file.name
         return
+
+    $scope.upgrade_plan_clicked = () ->
+      if !upgrade_plan_modal
+        upload_logo_modal = $('[data-remodal-id=upgrade-plan-modal]').remodal(options)
+
+      upgrade_plan_modal.open();
 
     $scope.clear_messages = () ->
       $timeout(remove_messages, 4000);

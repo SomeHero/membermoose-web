@@ -25,6 +25,14 @@
       'month',
       'year'
     ];
+    options = {
+      "hashTracking": false,
+      "closeOnOutsideClick": false
+    }
+    create_plan_modal  = null
+    delete_plan_modal = null
+    share_plan_modal = null
+
     $scope.getPlans = () ->
       Plan.setUrl('/dashboard/plans?page={{page}}')
       Plan.get({page: $scope.currentPage}).then (result) ->
@@ -48,12 +56,10 @@
     $scope.createPlan = () ->
       console.log("create plan")
 
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=new-plan-modal]').remodal(options)
-      window.modal.open();
+      if !create_plan_modal
+        create_plan_modal = $('[data-remodal-id=new-plan-modal]').remodal(options)
+
+      create_plan_modal.open();
 
     $scope.updatePlan = (plan, form) ->
       Plan.setUrl('/dashboard/plans')
@@ -83,12 +89,10 @@
         )
 
     $scope.delete_plan_clicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=delete-plan-modal]').remodal(options)
-      window.modal.open();
+      if !delete_plan_modal
+        delete_plan_modal = $('[data-remodal-id=delete-plan-modal]').remodal(options)
+
+      delete_plan_modal.open();
 
     $scope.deletePlan = () ->
       Plan.setUrl('/dashboard/plans')
@@ -113,12 +117,10 @@
       )
 
     $scope.share_plan_clicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=share-plan-modal]').remodal(options)
-      window.modal.open();
+      if !share_plan_modal
+        share_plan_modal = $('[data-remodal-id=share-plan-modal]').remodal(options)
+
+      share_plan_modal.open();
 
     $scope.showEditBar = () ->
       $scope.edit_panel_open = true

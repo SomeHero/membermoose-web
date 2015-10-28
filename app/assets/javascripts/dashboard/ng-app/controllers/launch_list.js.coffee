@@ -27,6 +27,15 @@
     $scope.image = {
       tempImage: {}
   	}
+    options = {
+      "hashTracking": false,
+      "closeOnOutsideClick": false
+    }
+    upload_logo_modal = null
+    setup_subdomain_modal = null
+    create_plan_modal = null
+    connect_stripe_modal = null
+
     $scope.isActiveStep = (step) ->
       if step == $scope.active_step
         return "active-step"
@@ -38,12 +47,10 @@
         return $scope.user.account.logo.url
 
     $scope.uploadLogoClicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=upload-logo-modal]').remodal(options)
-      window.modal.open();
+      if !upload_logo_modal
+        upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal(options)
+
+      upload_logo_modal.open();
 
     	$scope.onFileSelect = ($files) ->
 
@@ -94,12 +101,10 @@
         return
 
     $scope.chooseSubDomainClicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=subdomain-modal]').remodal(options)
-      window.modal.open();
+      if !setup_subdomain_modal
+        setup_subdomain_modal = $('[data-remodal-id=subdomain-modal]').remodal(options)
+
+      setup_subdomain_modal.open();
 
     $scope.updateSubdomainClicked = (form) ->
       console.log "updating subdomain"
@@ -120,14 +125,10 @@
         )
 
     $scope.createPlanClicked = () ->
-      console.log("create plan")
+      if !setup_subdomain_modal
+        setup_subdomain_modal = $('[data-remodal-id=new-plan-modal]').remodal(options)
 
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=new-plan-modal]').remodal(options)
-      window.modal.open();
+      setup_subdomain_modal.open();
 
     $scope.createPlan = (plan, form) ->
       plan.create().then(
@@ -145,12 +146,10 @@
       )
 
     $scope.connectStripeClicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      inst = $('[data-remodal-id=stripe-modal]').remodal(options)
-      inst.open();
+      if !connect_stripe_modal
+        connect_stripe_modal = $('[data-remodal-id=stripe-modal]').remodal(options)
+
+      connect_stripe_modal.open();
 
     $scope.stripe_connect = () ->
       openUrl = "/users/auth/stripe_connect"

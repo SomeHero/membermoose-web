@@ -18,6 +18,13 @@
         {text: 'InActive', value: '1'},
     ]
     $scope.edit_panel_open = false
+    options = {
+      "hashTracking": false,
+      "closeOnOutsideClick": false
+    }
+    billing_history_modal = null
+    next_invoice_modal = false
+
     $scope.setPage = (pageNo) ->
       $scope.currentPage = pageNo
 
@@ -95,20 +102,16 @@
         )
 
     $scope.billing_history_clicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=billing-history-modal]').remodal(options)
-      window.modal.open();
+      if !billing_history_modal
+        billing_history_modal = $('[data-remodal-id=billing-history-modal]').remodal(options)
+
+      billing_history_modal.open();
 
     $scope.next_invoice_clicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=next-invoice-modal]').remodal(options)
-      window.modal.open();
+      if !next_invoice_modal
+        next_invoice_modal = $('[data-remodal-id=next-invoice-modal]').remodal(options)
+
+      next_invoice_modal.open()
 
     $scope.showEditBar = () ->
       $scope.edit_panel_open = true

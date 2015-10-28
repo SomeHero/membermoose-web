@@ -124,6 +124,7 @@ larkin_account = Account.create!({
   :last_name => "Garbee",
   :company_name => "804RVA",
   :subdomain => "804rva"
+  :site_url => (Rails.env.production? ? "https://804rva.membermoose-ng.com" : "http://804rva.mmoose-ng.localhost:3000/")
   #logo =>
 })
 

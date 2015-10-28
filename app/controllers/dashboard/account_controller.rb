@@ -29,7 +29,6 @@ class Dashboard::AccountController < DashboardController
         format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   def permitted_params

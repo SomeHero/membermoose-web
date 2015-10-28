@@ -27,6 +27,13 @@
       ceil: 1000,
       floor: 0
     }
+    options = {
+      "hashTracking": false,
+      "closeOnOutsideClick": false
+    }
+    refund_payment_modal = null
+    payment_history_modal = null
+
     $scope.pageChanged = () ->
       console.log('Page changed to: ' + $scope.currentPage);
       $scope.isLoading = true
@@ -89,12 +96,10 @@
         $scope.display_search = true
 
     $scope.refund_payment_clicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=refund-payment-modal]').remodal(options)
-      window.modal.open();
+      if !refund_payment_modal
+        refund_payment_modal = $('[data-remodal-id=refund-payment-modal]').remodal(options)
+
+      refund_payment_modal.open()
 
     $scope.refund_payment_submit = () ->
       $scope.loading.show_spinner = true

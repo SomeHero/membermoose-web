@@ -71,7 +71,7 @@
                   %li
                     up to 5 subscribers
             #upgrade-plan-wrapper
-              %button.btn.btn-primary{:type=>"submit"}
+              %button.btn.btn-primary{:type=>"button", "ng-click"=>"upgrade_plan_clicked()"}
                 Upgrade Plan
             %p.label
               Next Billing Date:
@@ -80,3 +80,4 @@
             %p.label
               Billing History:
 %div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/upload_logo.html'"}
+%div{"ng-include"=>"'dashboard/ng-app/templates/account/upgrade_plan.html'"}

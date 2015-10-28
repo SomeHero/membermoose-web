@@ -24,6 +24,14 @@
       invoice_from_date: null,
       invoice_to_date: null
     }
+    options = {
+      "hashTracking": false,
+      "closeOnOutsideClick": false
+    }
+    change_plan_modal = null
+    cancel_subscription_modal = null
+    credit_subscription_modal = null
+
     $scope.pageChanged = () ->
       console.log('Page changed to: ' + $scope.currentPage);
       $scope.isLoading = true
@@ -82,12 +90,10 @@
         $scope.display_search = true
 
     $scope.cancel_subscription_clicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=cancel-subscription-modal]').remodal(options)
-      window.modal.open();
+      if !cancel_subscription_modal
+        cancel_subscription_modal = $('[data-remodal-id=cancel-subscription-modal]').remodal(options)
+
+      cancel_subscription_modal.open()
 
     $scope.cancel_subscription_submit = () ->
       Subscription.setUrl('/dashboard/subscriptions')
@@ -119,12 +125,10 @@
       )
 
     $scope.change_plan_clicked = () ->
-      options = {
-        "hashTracking": false,
-        "closeOnOutsideClick": false
-      }
-      window.modal = $('[data-remodal-id=change-plan-modal]').remodal(options)
-      window.modal.open();
+      if !change_plan_modal
+        change_plan_modal = $('[data-remodal-id=change-plan-modal]').remodal(options)
+
+      change_plan_modal.open()
 
     $scope.change_plan_submit = () ->
       console.log "subscription cancelled"
