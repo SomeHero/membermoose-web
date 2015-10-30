@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable
-
+      
   has_one :account
   accepts_nested_attributes_for :account, :update_only => true
 

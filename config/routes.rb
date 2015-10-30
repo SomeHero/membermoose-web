@@ -46,6 +46,9 @@ Rails.application.routes.draw do
       collection do
         post :upload_logo
       end
+      member do
+        post :change_password
+      end
     end
   end
 

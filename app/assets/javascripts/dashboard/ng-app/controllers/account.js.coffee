@@ -6,9 +6,14 @@
   '$timeout'
   'fileReader'
   'Upload'
-  'AccountServiceChannel'
-  ($scope, Account, $stateParams, window, $timeout, fileReader, Upload, AccountServiceChannel) ->
+  'AccountServiceChannel',
+  '$http'
+  ($scope, Account, $stateParams, window, $timeout, fileReader, Upload, AccountServiceChannel, $http) ->
 
+    $scope.loading = {
+      show_spinner: false
+    }
+    $scope.form_submitted = false
     $scope.image = {
       tempImage: {}
     }
@@ -16,9 +21,13 @@
       "hashTracking": false,
       "closeOnOutsideClick": false
     }
+    change_password_modal = null
     upload_logo_modal = null
     upgrade_account_modal = null
     $scope.isLoading = true
+    $scope.change_password = {}
+    $scope.show_error_message = false
+    $scope.error_message = ""
 
     $scope.getAccount = () ->
       Account.get($stateParams.id).then (result) ->
@@ -41,9 +50,8 @@
             console.log("error updating account")
             errors = http.data
 
-            $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
+            $scope.parent.error_message = error.message
             $scope.$parent.show_error_message = true
-            $scope.clear_messages()
         )
 
     $scope.get_logo = () ->
@@ -113,6 +121,46 @@
 
       upgrade_plan_modal.open();
 
+    $scope.changePasswordClicked = () ->
+      if !change_password_modal
+        change_password_modal = $('[data-remodal-id=change-password-modal]').remodal(options)
+
+      change_password_modal.open();
+
+    $scope.changePasswordCancelled = (form) ->
+      change_password_modal.close();
+
+    $scope.updatePassword = (form) ->
+      console.log "updating user"
+      $scope.form_submitted = true
+
+      if form.$valid
+        $scope.loading.show_spinner = true
+        params = {
+            current_password: $scope.change_password.current_password,
+            new_password: $scope.change_password.new_password,
+            new_password_again: $scope.change_password.new_password_again
+        }
+        $http.post('/dashboard/account/' + $scope.user.user_id  + '/change_password', params).then(
+          () ->
+            $scope.loading.show_spinner = false
+            $scope.form_submitted = false
+            
+            $scope.$parent.success_message = "Your account was successfully updated."
+            $scope.$parent.show_success_message = true
+            $scope.clear_messages()
+
+            $scope.change_password = {}
+
+            change_password_modal.close();
+
+          (http)  ->
+            $scope.loading.show_spinner = false
+
+            $scope.error_message = http.statusText
+            $scope.show_error_message = true
+        )
+
     $scope.clear_messages = () ->
       $timeout(remove_messages, 4000);
 
@@ -124,4 +172,4 @@
     return
 ]
 
-AccountController.$inject = ['$scope', 'Account', '$stateParams', 'window', '$timeout', 'fileReader', 'Upload', 'AccountServiceChannel']
+AccountController.$inject = ['$scope', 'Account', '$stateParams', 'window', '$timeout', 'fileReader', 'Upload', 'AccountServiceChannel', '$http']
