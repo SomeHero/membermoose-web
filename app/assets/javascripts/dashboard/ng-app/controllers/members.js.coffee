@@ -12,6 +12,9 @@
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
     $scope.isLoading = true
+    $scope.loading = {
+      show_spinner: false
+    }
     $scope.display_search = false
     $scope.statuses = [
         {text: 'Active', value: '0'},

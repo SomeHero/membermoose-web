@@ -18,10 +18,13 @@
     }
     upload_logo_modal = null
     upgrade_account_modal = null
+    $scope.isLoading = true
 
     $scope.getAccount = () ->
       Account.get($stateParams.id).then (result) ->
         $scope.user = result.data
+
+        $scope.isLoading = false
 
     $scope.updateAccount = (user, form) ->
       console.log "updating user"

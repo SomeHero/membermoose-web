@@ -102,6 +102,7 @@
           %switch#public.green{"name"=>"public", "ng-model"=>"plan.public", "ng-model-options"=>"{updateOn: 'submit'}"}}
       %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updatePlan(plan, plansForm)"}
         Submit
+%div{"loading-screen" => "isLoading"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/plans/new_plan.html'"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/plans/delete_plan.html'"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/plans/share_plan.html'"}
