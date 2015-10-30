@@ -1,10 +1,11 @@
 @CreatePlanController = angular.module('dashboardApp').controller 'CreatePlanController', [
   '$scope'
+  '$rootScope'
   'Plan'
   '$window'
   '$timeout'
   'PlansServiceChannel'
-  ($scope, Plan, window, $timeout, PlansServiceChannel) ->
+  ($scope, $rootScope, Plan, window, $timeout, PlansServiceChannel) ->
     window.scope = $scope
 
     $scope.newPlanSection = 1
@@ -81,4 +82,4 @@
 
 ]
 
-CreatePlanController.$inject = ['$scope', 'Plan', 'window', '$timeout', 'PlansServiceChannel']
+CreatePlanController.$inject = ['$scope', '$rootScope', 'Plan', 'window', '$timeout', 'PlansServiceChannel']

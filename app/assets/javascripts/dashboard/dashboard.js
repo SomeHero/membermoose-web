@@ -139,3 +139,6 @@ var app = angular.module('dashboardApp', [
         };
       }
     );
+app.run(function($rootScope) {
+  // you can inject any instance here
+});

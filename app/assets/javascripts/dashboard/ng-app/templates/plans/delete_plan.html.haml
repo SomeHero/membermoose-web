@@ -3,4 +3,13 @@
     %section.active
       %header
         %h2
-          Delete Plan {{}}?
+          Delete Plan {{selected_plan.name}}?
+        %h4
+          Are your sure you want to delete {{selected_plan.name}}?
+          %footer
+            %button.previous{"ng-click"=>"deletePlanCancelled()"}
+              Cancel
+            %button.continue{"ng-click"=>"deletePlan()"}
+              Delete
+              %i.fa-arrow-right
+        %div{"loading-screen" => "loading.show_spinner"}
