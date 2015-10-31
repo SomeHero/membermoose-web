@@ -11,9 +11,6 @@
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
     $scope.isLoading = true
-    $scope.loading = {
-      show_spinner: false
-    }
     $scope.plan = {}
     $scope.selected_plan = null
     $scope.plans_first_row = []
@@ -235,12 +232,6 @@
             $scope.rows.push($scope.row_plans)
             $scope.row_plans = []
       )
-
-    $scope.clear_messages = () ->
-      $timeout(remove_messages, 4000);
-
-    remove_messages = () ->
-      $scope.$parent.show_success_message = false
 
     onPlansUpdated = () ->
       console.log "Plans Updated"

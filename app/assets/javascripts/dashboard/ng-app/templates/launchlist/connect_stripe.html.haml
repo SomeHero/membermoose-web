@@ -9,8 +9,8 @@
           %a.stripe-connect{"ng-click"=>"stripe_connect()"}
             %span
               Connect With Stripe
-        %p.notes{"ng-show"=>"user.account.paymentProcessors.length > 0"}
-          Your Stripe account with the email address <strong>{{user.account.paymentProcessors[0].email}}</strong> is already connected.  Click the "Connect With Stripe" button
+        %p.notes{"ng-show"=>"user.account.payment_processors.length > 0"}
+          Your Stripe account with the email address <strong>{{user.account.payment_processors[0].email}}</strong> is already connected.  Click the "Connect With Stripe" button
           above if you wish to change your connected Stripe account.
         %p.notes
           Get ready to start accepting payments from your customers.  All you need to do is set up a Stripe account and connect it to MemberMoose. If you don't already have a Stripe account, we'll help you set one up.

@@ -8,7 +8,8 @@ var app = angular.module('dashboardApp', [
         'uiSwitch',
         'angularFileUpload',
         'ngFileUpload',
-        'rzModule'
+        'rzModule',
+        'angular-stripe'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider

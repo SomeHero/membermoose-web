@@ -60,8 +60,13 @@ class Account < ActiveRecord::Base
       :payment_processors => self.account_payment_processors.active,
       :billing_history => self.bills,
       :status => self.status,
-      :created_at => self.created_at,
-      :updated_at	=> self.updated_at
+      :hasUploadedLogo => self.has_uploaded_logo,
+      :hasSetupSubdomain => self.has_setup_subdomain,
+      :hasCreatedPlan => self.has_created_plan,
+      :hasConnectedStripe => self.has_connected_stripe,
+      :hasUpgradedPlan => self.has_upgraded_plan,
+      :createdAt => self.created_at,
+      :updatedAt	=> self.updated_at
     }
   end
 

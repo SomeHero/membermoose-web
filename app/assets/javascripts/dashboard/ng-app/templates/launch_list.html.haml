@@ -1,6 +1,6 @@
-.fill.ng-scope{:style => "min-height: 553px;","ng-controller"=>"LaunchListController"}
-  #page-launch.ng-scope
-    .ready.notready.ng-scope
+.fill{:style => "min-height: 553px;"}
+  #page-launch
+    .ready.notready
       .owl-checklist
         .owl-checklist-mark.first.ng-hide{"ng-show" => "project.steps.step1"}
         .owl-checklist-mark.second.ng-hide{"ng-show" => "project.steps.step2"}
@@ -10,13 +10,13 @@
           %strong Welcome!
           Let's get ready to launch.
       %span.skip
-        %strong> Your on our free account:  
+        %strong> You're on our free account:  
         Get up to 10 subscribers per plan
         .middot>
         Test out all features for free
       %a.skip-link{"ng-click"=>"upgradePlanClicked()"}
-        %span.ng-scope Upgrade my account now!
-        .fa.fa-chevron-circle-right.fa-left.ng-scope
+        %span Upgrade my account now!
+        .fa.fa-chevron-circle-right.fa-left
     .padder
       .row
         .col-sm-12.col-lg-6
@@ -43,8 +43,8 @@
               Create your first plan
             %p
               %a{:href => "", "ng-click" => "createPlanClicked()"}
-                %span.ng-scope Create your first plan
-                %span.fa.fa-chevron-right.fa-left.ng-scope
+                %span Create your first plan
+                %span.fa.fa-chevron-right.fa-left
           %hr/
           .checklist{"ng-class" => "{done: project.steps.step3}"}
             .check.check-off.fa.fa-bank
@@ -54,11 +54,11 @@
               Setup a payment processor
             %p
               %a{:href => "", "ng-click" => "connectStripeClicked()"}
-                %span.ng-scope
+                %span
                   Connect your Stripe Accont
-                %span.fa.fa-chevron-right.fa-left.ng-scope
+                %span.fa.fa-chevron-right.fa-left
           %hr/
-          .checklist{"ng-class" => "{done: project.steps.step3}"}
+          .checklist{"ng-class" => "{done: project.steps.step4}"}
             .check.check-off.fa.fa-rocket
             .check.check-on.fa.fa-check
             %h3
@@ -66,14 +66,14 @@
               Upgrade to your Plan
             %p
               %a{:href => "", "ng-click" => "upgradePlanClicked()"}
-                %span.ng-scope
+                %span
                   Upgrade to Awesome-ness
-                %span.fa.fa-chevron-right.fa-left.ng-scope
+                %span.fa.fa-chevron-right.fa-left
         .col-sm-12.col-lg-6
           .browser-lg
-            %a.browser-render.theme-line{:href => "http://{{user.account.subdomain}}.mmoose-ng.localhost:3000", :target => "_blank"}
+            %a.browser-render.theme-line{:href => "{{user.account.site_url}}", :target => "_blank"}
               / ngIf: project.appearance.theme == 'line'
-              .window.ng-scope{"ng-if" => "project.appearance.theme == 'line'"}
+              .window{"ng-if" => "project.appearance.theme == 'line'"}
                 .el-header
                   .el-logo{:style => "background-color:#1e1c1c"}
                   .el-headline

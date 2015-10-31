@@ -4,21 +4,20 @@
   'Plan',
   '$window',
   '$modal',
+  '$timeout'
   'AccountServiceChannel'
-  ($scope, Account, Plan, window, $modal, AccountServiceChannel) ->
-    $scope.user = null
+  ($scope, Account, Plan, window, $modal, $timeout, AccountServiceChannel) ->
+    $scope.user = user
     $scope.plans = []
 
+    $scope.loading = {
+      show_spinner: false
+    }
     $scope.show_success_message = false
     $scope.success_message = ""
 
     $scope.show_error_message = false
     $scope.error_message = ""
-
-    $scope.getAccount = () ->
-      Account.get(58).then (response) ->
-        console.log "get account"
-        $scope.user = response.data
 
     $scope.getPlans = () ->
       Plan.get().then (response) ->
@@ -34,6 +33,12 @@
     $scope.close_error_message = () ->
       $scope.show_error_message = false
 
+    $scope.clear_messages = () ->
+      $timeout(remove_messages, 4000);
+
+    remove_messages = () ->
+      $scope.show_success_message = false
+
     onAccountUpdated = () ->
       console.log "Account Updated"
 
@@ -41,10 +46,9 @@
 
     AccountServiceChannel.onAccountUpdated($scope, onAccountUpdated);
 
-    $scope.getAccount()
     $scope.getPlans()
 
     return
 ]
 
-AccountController.$inject = ['$scope', 'Account', 'Plan', 'window', '$modal', 'AccountServiceChannel']
+AccountController.$inject = ['$scope', 'Account', 'Plan', 'window', '$modal', '$timeout', 'AccountServiceChannel']

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026013227) do
+ActiveRecord::Schema.define(version: 20151031113756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,11 @@ ActiveRecord::Schema.define(version: 20151026013227) do
     t.string   "guid"
     t.string   "stripe_customer_id"
     t.string   "site_url"
+    t.boolean  "has_uploaded_logo",    default: false
+    t.boolean  "has_setup_subdomain",  default: false
+    t.boolean  "has_created_plan",     default: false
+    t.boolean  "has_connected_stripe", default: false
+    t.boolean  "has_upgraded_plan",    default: false
   end
 
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree

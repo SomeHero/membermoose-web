@@ -16,7 +16,7 @@
                       .form-group
                         %label{:for => "card_number"}
                           Card Number
-                        %input.col-lg-12#card_number{:autofocus => "", :name => "card_number", :placeholder => "Credit Card Number", :required => "", :type => "text", "ng-model"=>"credit_card.card_number"}/
+                        %input.col-lg-12#card_number{:autofocus => "", :name => "card_number", :placeholder => "Credit Card Number", :required => "", :type => "text", "ng-model"=>"credit_card.number"}/
                         %span{"ng-show" => "form_submitted && upgradePlanForm['card_number'].$invalid", :style => "color:red"}
                           %span{"ng-show" => "upgradePlanForm['card_number'].$error.required"}
                             Card Number is required.
@@ -25,10 +25,10 @@
                       .form-group
                         %label{:for => "expiry_date"}
                           Expiry Date
-                        %input#expiry_date_month{:name => "expiry_date_month", :placeholder => "MM", :required => "", :type => "text", "ng-model"=>"credit_card.expiry_month", :style => "width: 36px;"}/
+                        %input#expiry_date_month{:name => "expiry_date_month", :placeholder => "MM", :required => "", :type => "text", "ng-model"=>"credit_card.exp_month", :style => "width: 36px;"}/
                         %span{:style=>"display: inline;"}
                           \/
-                        %input#expiry_date_year{:name => "expiry_date_year", :placeholder => "YYYY", :required => "", :type => "text", "ng-model"=>"credit_card.expiry_year", :style => "width: 60px;"}/
+                        %input#expiry_date_year{:name => "expiry_date_year", :placeholder => "YYYY", :required => "", :type => "text", "ng-model"=>"credit_card.exp_year", :style => "width: 60px;"}/
                         %span{"ng-show" => "form_submitted && upgradePlanForm['expiry_date_month'].$invalid", :style => "color:red"}
                           %span{"ng-show" => "upgradePlanForm['expiry_date_month'].$error.required"}
                             Card Expiration month is required.
@@ -36,7 +36,7 @@
                       .form-group
                         %label{:for => "security_code"}
                           Security Code
-                        %input#security_code{:name => "security_code", :placeholder => "", :required => "", :type => "text", "ng-model"=>"credit_card.expiry_year", :style => "width: 100px;"}/
+                        %input#security_code{:name => "security_code", :placeholder => "", :required => "", :type => "text", "ng-model"=>"credit_card.cvc", :style => "width: 100px;"}/
                         %span{"ng-show" => "form_submitted && upgradePlanForm['security_code'].$invalid", :style => "color:red"}
                           %span{"ng-show" => "upgradePlanForm['security_code'].$error.required"}
                             Security Code is required.
@@ -53,7 +53,7 @@
                     %p
                       Excellent Support
       %footer
-        %button.continue{"ng-click"=>"refund_payment_submit()"}
+        %button.continue{"ng-click"=>"upgradePlanSubmit()"}
           Upgrade
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}

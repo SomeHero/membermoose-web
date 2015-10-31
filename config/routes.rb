@@ -48,6 +48,8 @@ Rails.application.routes.draw do
       end
       member do
         post :change_password
+        post :change_subdomain
+        post :upgrade_plan
       end
     end
   end

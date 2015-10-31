@@ -28,10 +28,11 @@
       "hashTracking": false,
       "closeOnOutsideClick": false
     }
+
     change_plan_modal = null
     cancel_subscription_modal = null
     credit_subscription_modal = null
-
+    
     $scope.pageChanged = () ->
       console.log('Page changed to: ' + $scope.currentPage);
       $scope.isLoading = true
@@ -80,9 +81,6 @@
     $scope.closeEditBar = () ->
       $scope.selected_subscription = null
 
-    $scope.clear_messages = () ->
-      $timeout(remove_messages, 4000);
-
     $scope.toggle_search = () ->
       if $scope.display_search
         $scope.display_search = false
@@ -107,7 +105,7 @@
           $scope.clear_messages()
 
           $scope.loading.show_spinner = false
-          window.modal.close()
+          cancel_subscription_modal.close()
 
           $scope.selected_subscription.status = "Cancelled"
           $scope.closeEditBar()
@@ -131,10 +129,7 @@
       change_plan_modal.open()
 
     $scope.change_plan_submit = () ->
-      console.log "subscription cancelled"
-
-    remove_messages = () ->
-      $scope.$parent.show_success_message = false
+      console.log "subscription changed"
 
     $scope.getSubscriptions()
 

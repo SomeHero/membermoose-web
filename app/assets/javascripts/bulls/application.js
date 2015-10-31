@@ -25,3 +25,4 @@
 //= require_tree .
 //= require_directory ../directives
 //= require_directory ../templates
+//= require_directory ../services

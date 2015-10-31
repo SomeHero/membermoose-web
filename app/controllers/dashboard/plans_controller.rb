@@ -41,6 +41,11 @@ class Dashboard::PlansController < DashboardController
         :public => true
     }, stripe.secret_token)
 
+    if @plan.errors.count == 0
+      account.has_created_plan = true
+      account.save
+    end
+
     respond_to do |format|
       if @plan.errors.count == 0 && @plan.save
         format.html  { render action: 'new' }

@@ -5,23 +5,14 @@
   'Account'
   '$timeout'
   'fileReader'
+  'stripe'
   'Upload'
   'AccountServiceChannel'
-  ($scope, Plan, window, Account, timeout, fileReader, Upload, AccountServiceChannel) ->
+  '$http'
+  ($scope, Plan, window, Account, $timeout, fileReader, stripe, Upload, AccountServiceChannel, $http) ->
     window.scope = $scope
     csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    template_urls = [
-      "dashboard/ng-app/templates/launchlist/upload_logo.html",
-      "dashboard/ng-app/templates/launchlist/choose_subdomain.html",
-      "dashboard/ng-app/templates/launchlist/create_plan.html",
-      "dashboard/ng-app/templates/launchlist/connect_stripe.html",
-      "dashboard/ng-app/templates/launchlist/pick_your_plan.html",
-      "dashboard/ng-app/templates/launchlist/preview_your_site.html",
-      "dashboard/ng-app/templates/launchlist/share_with_email.html"
-    ]
-    template_index = 0
-    $scope.content_template_url = template_urls[template_index]
     $scope.active_step = 1
     $scope.select_plan = 0
     $scope.image = {
@@ -37,6 +28,19 @@
     create_plan_modal = null
     connect_stripe_modal = null
     upgrade_plan_modal = null
+
+    $scope.project = {
+      steps: {
+        step1: $scope.user.account.hasUploadedLogo && $scope.user.account.hasSetupSubdomain,
+        step2: $scope.user.account.hasCreatedPlan,
+        step3: $scope.user.account.hasConnectedStripe,
+        step4: $scope.user.account.hasUpgradedPlan
+      }
+    }
+    $scope.setup_subdomain = {
+      subdomain: $scope.user.account.subdomain
+    }
+    $scope.credit_card = {}
 
     $scope.isActiveStep = (step) ->
       if step == $scope.active_step
@@ -79,7 +83,7 @@
       console.log("submit logo clicked")
 
       if !$scope.file
-        window.modal.close()
+        upload_logo_modal.close()
 
         return
 
@@ -91,7 +95,7 @@
 
         AccountServiceChannel.accountUpdated()
 
-        window.modal.close()
+        upload_logo_modal.close()
 
         return
       ), ((resp) ->
@@ -112,18 +116,28 @@
       console.log "updating subdomain"
 
       if form.$valid
-        $scope.user.update().then(
-          (updated_user) ->
-            console.log("subdomain updated")
+        subdomain = $scope.setup_subdomain.subdomain
 
-            window.modal.close()
+        $scope.loading.show_spinner = true
+        params = {
+            subdomain: $scope.setup_subdomain.subdomain
+        }
+        $http.post('/dashboard/account/' + $scope.user.id  + '/change_subdomain', params).then(
+          () ->
+            $scope.loading.show_spinner = false
+            $scope.form_submitted = false
+
+            $scope.$parent.success_message = "Your successfully setup your subdomain."
+            $scope.$parent.show_success_message = true
+            $scope.clear_messages()
+
+            setup_subdomain_modal.close();
+
           (http)  ->
-            console.log("error updating subdomain")
-            errors = http.data
+            $scope.loading.show_spinner = false
 
-            $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
-            $scope.$parent.show_error_message = true
-            $scope.clear_message()
+            $scope.error_message = http.statusText
+            $scope.show_error_message = true
         )
 
     $scope.isActiveSection = (section) ->
@@ -152,9 +166,6 @@
 
           $scope.active_step = 3
 
-          template_index = 3
-          $scope.content_template_url = template_urls[template_index]
-
         (http)  ->
           console.log("error creating plan")
           errors = http.data
@@ -181,9 +192,6 @@
 
     $scope.applyNetwork = (network, account) ->
       $scope.active_step = 4
-
-      template_index = 4
-      $scope.content_template_url = template_urls[template_index]
 
       console.log("stripe connected")
 
@@ -212,6 +220,34 @@
 
       upgrade_plan_modal.open();
 
+    $scope.upgradePlanSubmit = () ->
+      console.log("upgrade plan")
+
+      stripe.setPublishableKey("pk_test_5Km0uUASqaRvRu1JTx8Iiefx")
+      stripe.card.createToken($scope.credit_card).then((token) ->
+        console.log 'token created for card ending in ', token.card.last4
+        params = {
+          stripe_token: token
+        }
+        $http.post('/dashboard/account/' + $scope.user.id  + '/upgrade_plan', params).then(
+          () ->
+            $scope.loading.show_spinner = false
+            $scope.form_submitted = false
+
+            $scope.$parent.success_message = "Your successfully upgraded your plan. You're awesome."
+            $scope.$parent.show_success_message = true
+            $scope.clear_messages()
+
+            upgrade_plan_modal.close();
+
+          (http)  ->
+            $scope.loading.show_spinner = false
+
+            $scope.error_message = http.statusText
+            $scope.show_error_message = true
+        )
+      )
+
     $scope.clear_messages = () ->
       $timeout(remove_messages, 4000);
 
@@ -221,4 +257,4 @@
     return
 ]
 
-LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', 'Upload', 'AccountServiceChannel']
+LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', 'stripe', 'Upload', 'AccountServiceChannel', '$http']

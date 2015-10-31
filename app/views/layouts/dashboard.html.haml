@@ -2,11 +2,19 @@
 %html
   %head
     %title Member Moose - Dashboard
+    %script{:src => "https://js.stripe.com/v2/", :type => "text/javascript"}
     = stylesheet_link_tag    'application-dashboard', media: 'all'
     = javascript_include_tag 'dashboard/application'
     = csrf_meta_tags
     %link{:href => "https://fonts.googleapis.com/css?family=Raleway:400,500,700", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "https://www.google.com/fonts#UsePlace:use/Collection:Lato:400,700,300,100", :rel => "stylesheet", :type => "text/css"}/
+    %script
+      _test_env =
+      != (Rails.env == 'production' ? nil : 'testing' ).to_json
+
+      user =
+      != @user ? @user.to_json : nil
+
     %base{"href"=>"/dashboard"}
   %body{"ng-app"=>"dashboardApp", "ng-controller"=>"DashboardController"}
     .success-message.animate-show.alert.alert-success{"role"=>"alert", "ng-show"=>"show_success_message"}

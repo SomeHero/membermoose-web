@@ -5,6 +5,17 @@ class Dashboard::AccountController < DashboardController
     user = current_user
 
     user.account.logo = params[:file]
+    user.account.has_uploaded_logo = true
+    user.save
+
+    render json: user.account.to_json
+  end
+
+  def change_subdomain
+    user = current_user
+
+    user.account.subdomain = params[:subdomain]
+    user.account.has_setup_subdomain = true
     user.save
 
     render json: user.account.to_json
@@ -58,6 +69,68 @@ class Dashboard::AccountController < DashboardController
       render :json => payload, :status => 200
     else
       render :json => user.errors, :status => :unprocessable_entity
+    end
+  end
+
+  def upgrade_plan
+    binding.pry
+    #ToDo: need a better way to identify special plan
+    plan = Plan.find(2)
+    user = current_user
+
+    email = user.email
+    stripe_token = params["stripe_token"]["id"]
+    type = params["stripe_token"]["type"]
+    stripe_card_id = params["stripe_token"]["card"]["id"]
+    card_brand = params["stripe_token"]["card"]["brand"]
+    card_last4 = params["stripe_token"]["card"]["last4"]
+    exp_month = params["stripe_token"]["card"]["exp_month"]
+    exp_year = params["stripe_token"]["card"]["exp_year"]
+
+    account, @subscription, card, raw_token = CreateSubscription.call(
+      plan,
+      "",
+      "",
+      email,
+      stripe_token,
+      stripe_card_id,
+      card_brand,
+      card_last4,
+      exp_month,
+      exp_year
+    )
+
+    begin
+      @subscription.save
+    rescue => e
+      @subscription.errors[:base] << e.message
+    end
+
+    if @subscription.errors.count == 0
+      user.account.has_upgraded_plan = true
+      user.save
+
+      begin
+        Resque.enqueue(UserSignupWorker, @subscription.id)
+      rescue
+        Rails.logger.error "Error sending User Welcome email #{$!}"
+      end
+
+      begin
+        Resque.enqueue(UserSubscribedWorker, @subscription.id)
+      rescue
+        Rails.logger.error "Error sending User Subscribed email #{$!}"
+      end
+    end
+
+    respond_to do |format|
+      if @subscription.errors.count == 0
+        format.html  { render action: 'index' }
+        format.json { render :json => @subscription.to_json }
+      else
+        format.html { render action: 'index' }
+        format.json { render json: @subscription.errors, status: :bad_request }
+      end
     end
   end
 
