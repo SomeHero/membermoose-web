@@ -6,13 +6,13 @@ class Dashboard::MembersController < DashboardController
     .joins(:user)
 
     if params[:first_name].present?
-      query = query.where("accounts.first_name" => params["first_name"])
+      query = query.where("LOWER(accounts.first_name) like ?", "%#{params["first_name"].downcase}%")
     end
     if params[:last_name].present?
-      query = query.where("accounts.last_name" => params["last_name"])
+      query = query.where("LOWER(accounts.last_name) like ?", "%#{params["last_name"].downcase}%")
     end
     if params[:email_address].present?
-      query = query.where("users.email" => params["email_address"])
+      query = query.where("LOWER(users.email) like ?", "%#{params["email_address"].downcase}%")
     end
     if params[:plan_id].present?
       query = query.where("plans.id" => params["plan_id"])
@@ -38,13 +38,13 @@ class Dashboard::MembersController < DashboardController
     .joins(:user)
 
     if params[:first_name].present?
-      query = query.where("accounts.first_name" => params["first_name"])
+      query = query.where("LOWER(accounts.first_name) like ?", "%#{params["first_name"].downcase}%")
     end
     if params[:last_name].present?
-      query = query.where("accounts.last_name" => params["last_name"])
+      query = query.where("LOWER(accounts.last_name) like ?", "%#{params["last_name"].downcase}%")
     end
     if params[:email_address].present?
-      query = query.where("users.email" => params["email_address"])
+      query = query.where("LOWER(users.email) like ?", "%#{params["email_address"].downcase}%")
     end
     if params[:plan_id].present?
       query = query.where("plans.id" => params["plan_id"])
@@ -52,7 +52,7 @@ class Dashboard::MembersController < DashboardController
     if params[:status].present?
       query = query.where("accounts.id in (Select subscriptions.account_id from subscriptions inner join plans on subscriptions.plan_id = plans.id where plans.account_id = #{current_user.account.id} and subscriptions.status = #{params[:status]})")
     end
-    
+
     render :json => { :count => query.count }
   end
 
