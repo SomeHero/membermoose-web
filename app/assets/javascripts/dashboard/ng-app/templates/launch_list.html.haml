@@ -14,14 +14,14 @@
         Get up to 10 subscribers per plan
         .middot>
         Test out all features for free
-      %a.skip-link{:href => "/project/member-moose/v1.0/plans", "ng-transclude" => "", "ui-sref" => "project.plans({ project: project.subdomain, version: version.version })", "ui-sref-active" => "active", "ui-sref-loading" => "loading"}
+      %a.skip-link{"ng-click"=>"upgradePlanClicked()"}
         %span.ng-scope Upgrade my account now!
         .fa.fa-chevron-circle-right.fa-left.ng-scope
     .padder
       .row
-        .col-xs-6
+        .col-sm-12.col-lg-6
           .checklist{"ng-class" => "{done: project.steps.step1}"}
-            .check.check-off.fa.fa-book
+            .check.check-off.fa.fa-pencil
             .check.check-on.fa.fa-check
             %h3.ng-binding
               %span> 1.
@@ -36,7 +36,7 @@
                 %span.fa.fa-chevron-right.fa-left
           %hr/
           .checklist{"ng-class" => "{done: project.steps.step2}"}
-            .check.check-off.fa.fa-paint-brush
+            .check.check-off.fa.fa-heart
             .check.check-on.fa.fa-check
             %h3.ng-binding
               %span> 2.
@@ -47,7 +47,7 @@
                 %span.fa.fa-chevron-right.fa-left.ng-scope
           %hr/
           .checklist{"ng-class" => "{done: project.steps.step3}"}
-            .check.check-off.fa.fa-gift
+            .check.check-off.fa.fa-bank
             .check.check-on.fa.fa-check
             %h3
               %span> 3.
@@ -57,7 +57,19 @@
                 %span.ng-scope
                   Connect your Stripe Accont
                 %span.fa.fa-chevron-right.fa-left.ng-scope
-        .col-xs-6
+          %hr/
+          .checklist{"ng-class" => "{done: project.steps.step3}"}
+            .check.check-off.fa.fa-rocket
+            .check.check-on.fa.fa-check
+            %h3
+              %span> 4.
+              Upgrade to your Plan
+            %p
+              %a{:href => "", "ng-click" => "upgradePlanClicked()"}
+                %span.ng-scope
+                  Upgrade to Awesome-ness
+                %span.fa.fa-chevron-right.fa-left.ng-scope
+        .col-sm-12.col-lg-6
           .browser-lg
             %a.browser-render.theme-line{:href => "http://{{user.account.subdomain}}.mmoose-ng.localhost:3000", :target => "_blank"}
               / ngIf: project.appearance.theme == 'line'
@@ -82,3 +94,4 @@
 %div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/choose_subdomain.html'"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/plans/new_plan.html'"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/connect_stripe.html'"}
+%div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/upgrade_plan.html'"}

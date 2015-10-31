@@ -703,60 +703,68 @@ body {
   }
 
   // Forms & Inputs
-  label {
-    display: none;
-
-    &[for="hide-password"] {
-      display: block;
+  .payment-form {
+    text-align: left;
+    label {
+      display: inherit;
     }
   }
 
-  .group, .multi-group {
-    position: relative;
-    p.notes {
-      font-size: 12px;
-      text-align: left;
-    }
-  }
-  textarea {
-    text-align: center;
-    color: #888888;
-    font-size: 20px;
-    width: 100%;
-    background: none;
-    border: 2px solid transparent;
-    border-bottom: #ccc solid 2px;
-    margin: 0 0 5px;
-    padding: 18px 18px 10px;
-    outline: none;
-  }
-  input[type="text"], input[type="password"], select {
-    text-align: center;
-    color: #888888;
-    font-size: 32px;
-    width: 100%;
-    background: none;
-    border: 2px solid transparent;
-    border-bottom: #ccc solid 2px;
-    margin: 0 0 5px;
-    padding: 18px 18px 10px;
-    outline: none;
+  .action-form {
+    label {
+      display: none;
 
-    &.error {
-      -webkit-animation-name: shake;
-      -webkit-animation-duration: 0.3s;
-      -webkit-transform-origin:50% 50%;
-      -webkit-animation-iteration-count: 1;
-      -webkit-animation-timing-function: linear;
+      &[for="hide-password"] {
+        display: block;
+      }
     }
-  }
-  .input-wrapper {
-    border-bottom: #ccc solid 2px;
-    margin: 0 0 5px;
-    padding: 18px 18px 10px;
-    select {
-      width: inherit;
-      border: none;
+    .group, .multi-group {
+      position: relative;
+      p.notes {
+        font-size: 12px;
+        text-align: left;
+      }
+    }
+    textarea {
+      text-align: center;
+      color: #888888;
+      font-size: 20px;
+      width: 100%;
+      background: none;
+      border: 2px solid transparent;
+      border-bottom: #ccc solid 2px;
+      margin: 0 0 5px;
+      padding: 18px 18px 10px;
+      outline: none;
+    }
+    input[type="text"], input[type="password"], select {
+      text-align: center;
+      color: #888888;
+      font-size: 32px;
+      width: 100%;
+      background: none;
+      border: 2px solid transparent;
+      border-bottom: #ccc solid 2px;
+      margin: 0 0 5px;
+      padding: 18px 18px 10px;
+      outline: none;
+
+      &.error {
+        -webkit-animation-name: shake;
+        -webkit-animation-duration: 0.3s;
+        -webkit-transform-origin:50% 50%;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: linear;
+      }
+    }
+    .input-wrapper {
+      border-bottom: #ccc solid 2px;
+      margin: 0 0 5px;
+      padding: 18px 18px 10px;
+      select {
+        width: inherit;
+        border: none;
+      }
     }
   }
   %button {

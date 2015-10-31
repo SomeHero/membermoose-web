@@ -31,10 +31,12 @@
       "hashTracking": false,
       "closeOnOutsideClick": false
     }
+    $scope.newPlanSection = 1
     upload_logo_modal = null
     setup_subdomain_modal = null
     create_plan_modal = null
     connect_stripe_modal = null
+    upgrade_plan_modal = null
 
     $scope.isActiveStep = (step) ->
       if step == $scope.active_step
@@ -124,11 +126,24 @@
             $scope.clear_message()
         )
 
-    $scope.createPlanClicked = () ->
-      if !setup_subdomain_modal
-        setup_subdomain_modal = $('[data-remodal-id=new-plan-modal]').remodal(options)
+    $scope.isActiveSection = (section) ->
+      if section == $scope.newPlanSection
+        return "active"
 
-      setup_subdomain_modal.open();
+      return ""
+
+    $scope.nextSection = (form) ->
+      if form.$valid
+        $scope.newPlanSection = $scope.newPlanSection + 1
+        $scope.form_submitted = false
+      else
+        $scope.form_submitted = true
+
+    $scope.createPlanClicked = () ->
+      if !create_plan_modal
+        create_plan_modal = $('[data-remodal-id=new-plan-modal]').remodal(options)
+
+      create_plan_modal.open();
 
     $scope.createPlan = (plan, form) ->
       plan.create().then(
@@ -190,6 +205,12 @@
 
       template_index = 5
       $scope.content_template_url = template_urls[template_index]
+
+    $scope.upgradePlanClicked = () ->
+      if !upgrade_plan_modal
+        upgrade_plan_modal = $('[data-remodal-id=upgrade-plan-modal]').remodal(options)
+
+      upgrade_plan_modal.open();
 
     $scope.clear_messages = () ->
       $timeout(remove_messages, 4000);
