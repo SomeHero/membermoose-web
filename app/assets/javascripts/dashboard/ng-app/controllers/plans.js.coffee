@@ -151,7 +151,7 @@
 
             $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
             $scope.$parent.show_error_message = true
-            $scope.clear_message()
+            $scope.clear_messages()
         )
 
     $scope.delete_plan_clicked = () ->
@@ -186,7 +186,7 @@
 
           $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
           $scope.$parent.show_error_message = true
-          $scope.clear_message()
+          $scope.clear_messages()
       )
 
     $scope.share_plan_clicked = () ->

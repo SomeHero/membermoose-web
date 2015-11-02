@@ -122,7 +122,6 @@ StripeEvent.configure do |events|
 
     card = Card.find_by(:external_id => data.card.id)
 
-    binding.pry
     charge = Charge.create!({
       :external_id => data.id,
       :external_invoice_id => data.invoice,

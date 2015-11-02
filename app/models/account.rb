@@ -79,8 +79,17 @@ class Account < ActiveRecord::Base
       end
     end
   end
+  def build_site_url subdomain
+    if Rails.env.production?
+      site_url ="https://#{subdomain}.membermoose-ng.com"
+    else
+      site_url = "http://#{subdomain}.mmoose-ng.localhost:3000/"
+    end
+    return site_url
+  end
   def update_site_url
-    binding.pry
-
+    if self.subdomain_changed?
+      self.site_url =build_site_url(self.subdomain)
+    end
   end
 end

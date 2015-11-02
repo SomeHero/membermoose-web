@@ -3,7 +3,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def stripe_connect
     # Delete the code inside of this method and write your own.
     # The code below is to show you where to access the data.
-    user = current_user
+    @user = current_user
 
     payment_processor = PaymentProcessor.where(:name => "Stripe").first
 
@@ -17,7 +17,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #raise request.env["omniauth.auth"].to_yam
 
     @account_payment_processor = AccountPaymentProcessor.new({
-      account: user.account,
+      account: @user.account,
       payment_processor: payment_processor,
       oauth_user_id: oauth_user_id,
       name: name,
@@ -29,11 +29,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     })
 
     if @account_payment_processor.errors.count == 0
-      stripe_payment_processors = user.account.account_payment_processors.where(:payment_processor => payment_processor, :active => true)
+      stripe_payment_processors = @user.account.account_payment_processors.where(:payment_processor => payment_processor, :active => true)
       stripe_payment_processors.update_all(:active => false)
 
-      user.account.has_connected_stripe = true
-      user.account.save!
+      @user.account.has_connected_stripe = true
+      @user.account.save!
     end
 
     if @account_payment_processor.errors.count == 0 && @account_payment_processor.save

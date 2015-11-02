@@ -75,7 +75,7 @@
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
       %section{"ng-class"=>"isActiveSection(4)"}
-        %form{"name"=>"planTerms", "novalidate"=>""}
+        %form{"name"=>"planTermsForm", "novalidate"=>""}
           %header
             %h1
               Are there any Terms and Conditions for your plan?
@@ -84,7 +84,7 @@
               Terms and Conditions
             %textarea#terms_and_conditions{:autofocus => "", :rows => 5, :name => "plan[terms_and_conditions]", :placeholder => "Terms and Conditions", "ng-modal"=>"plan.terms_and_conditions"}
           %footer
-            %button.continue{"ng-click"=>"createPlan(planTerms)"}
+            %button.continue{"ng-click"=>"createPlan(planTermsForm)"}
               Create Plan
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}

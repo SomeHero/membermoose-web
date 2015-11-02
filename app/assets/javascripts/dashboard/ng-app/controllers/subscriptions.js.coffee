@@ -32,7 +32,7 @@
     change_plan_modal = null
     cancel_subscription_modal = null
     credit_subscription_modal = null
-    
+
     $scope.pageChanged = () ->
       console.log('Page changed to: ' + $scope.currentPage);
       $scope.isLoading = true
@@ -117,7 +117,7 @@
 
           $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
           $scope.$parent.show_error_message = true
-          $scope.clear_message()
+          $scope.clear_messages()
 
           $scope.loading.show_spinner = false
       )

@@ -92,7 +92,7 @@
 
             $scope.$parent.success_message = "Member, " + member.firstName + " " + member.lastName + ", was successfully updated."
             $scope.$parent.show_success_message = true
-            $scope.clear_message()
+            $scope.clear_messages()
 
             console.log("member updated")
           (http)  ->
@@ -101,7 +101,7 @@
 
             $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
             $scope.$parent.show_error_message = true
-            $scope.clear_message()
+            $scope.clear_messages()
         )
 
     $scope.billing_history_clicked = () ->

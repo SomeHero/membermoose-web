@@ -13,6 +13,10 @@
     $scope.loading = {
       show_spinner: false
     }
+    $scope.options = {
+      "hashTracking": false,
+      "closeOnOutsideClick": false
+    }
     $scope.show_success_message = false
     $scope.success_message = ""
 
@@ -41,8 +45,6 @@
 
     onAccountUpdated = () ->
       console.log "Account Updated"
-
-      $scope.getAccount()
 
     AccountServiceChannel.onAccountUpdated($scope, onAccountUpdated);
 

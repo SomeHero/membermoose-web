@@ -14,7 +14,7 @@
         Get up to 10 subscribers per plan
         .middot>
         Test out all features for free
-      %a.skip-link{"ng-click"=>"upgradePlanClicked()"}
+      %a.skip-link{"ng-click"=>"upgradePlanClicked()", "ng-hide"=>"project.steps.step4"}
         %span Upgrade my account now!
         .fa.fa-chevron-circle-right.fa-left
     .padder
@@ -55,7 +55,7 @@
             %p
               %a{:href => "", "ng-click" => "connectStripeClicked()"}
                 %span
-                  Connect your Stripe Accont
+                  Connect your Stripe Account
                 %span.fa.fa-chevron-right.fa-left
           %hr/
           .checklist{"ng-class" => "{done: project.steps.step4}"}

@@ -8,20 +8,18 @@
   'stripe'
   'Upload'
   'AccountServiceChannel'
+  'PlansServiceChannel'
   '$http'
-  ($scope, Plan, window, Account, $timeout, fileReader, stripe, Upload, AccountServiceChannel, $http) ->
+  ($scope, Plan, window, Account, $timeout, fileReader, stripe, Upload, AccountServiceChannel, PlansServiceChannel, $http) ->
     window.scope = $scope
     csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     $scope.active_step = 1
     $scope.select_plan = 0
+    $scope.plan = {}
     $scope.image = {
       tempImage: {}
   	}
-    options = {
-      "hashTracking": false,
-      "closeOnOutsideClick": false
-    }
     $scope.newPlanSection = 1
     upload_logo_modal = null
     setup_subdomain_modal = null
@@ -54,7 +52,7 @@
 
     $scope.uploadLogoClicked = () ->
       if !upload_logo_modal
-        upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal(options)
+        upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal($scope.options)
 
       upload_logo_modal.open();
 
@@ -90,25 +88,21 @@
       Upload.upload(
         url: 'dashboard/account/upload_logo'
         data:
-          file: $scope.file).then ((resp) ->
-        console.log 'Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data
+          file: $scope.file).then ((response) ->
+            $scope.user.account = response.data
 
-        AccountServiceChannel.accountUpdated()
+            AccountServiceChannel.accountUpdated()
 
-        upload_logo_modal.close()
-
-        return
+            upload_logo_modal.close()
       ), ((resp) ->
         console.log 'Error status: ' + resp.status
-        return
       ), (evt) ->
         progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
         console.log 'progress: ' + progressPercentage + '% ' + evt.config.data.file.name
-        return
 
     $scope.chooseSubDomainClicked = () ->
       if !setup_subdomain_modal
-        setup_subdomain_modal = $('[data-remodal-id=subdomain-modal]').remodal(options)
+        setup_subdomain_modal = $('[data-remodal-id=subdomain-modal]').remodal($scope.options)
 
       setup_subdomain_modal.open();
 
@@ -123,13 +117,16 @@
             subdomain: $scope.setup_subdomain.subdomain
         }
         $http.post('/dashboard/account/' + $scope.user.id  + '/change_subdomain', params).then(
-          () ->
+          (response) ->
+            $scope.user.account = response.data
             $scope.loading.show_spinner = false
             $scope.form_submitted = false
 
-            $scope.$parent.success_message = "Your successfully setup your subdomain."
-            $scope.$parent.show_success_message = true
+            $scope.success_message = "Your successfully setup your subdomain."
+            $scope.show_success_message = true
             $scope.clear_messages()
+
+            AccountServiceChannel.accountUpdated()
 
             setup_subdomain_modal.close();
 
@@ -155,25 +152,50 @@
 
     $scope.createPlanClicked = () ->
       if !create_plan_modal
-        create_plan_modal = $('[data-remodal-id=new-plan-modal]').remodal(options)
+        create_plan_modal = $('[data-remodal-id=new-plan-modal]').remodal($scope.options)
 
       create_plan_modal.open();
 
-    $scope.createPlan = (plan, form) ->
-      plan.create().then(
-        (plan) ->
-          console.log("plan created")
+    $scope.createPlan = (form) ->
+      if form.$valid
+        Plan.setUrl('/dashboard/plans')
+        $scope.loading.show_spinner = true
+        $scope.form_submitted = true
 
-          $scope.active_step = 3
+        new Plan({
+          name: $scope.plan.name,
+          description: $scope.plan.description,
+          amount: $scope.plan.amount,
+          billing_interval: 1,
+          billing_cycle: $scope.plan.billing_cycle,
+          free_trial_period: $scope.plan.free_trial_period,
+          terms_and_conditions: $scope.plan.terms_and_conditions
+        }).create().then(
+          (response) ->
+            #$scope.user.account = response.data
 
-        (http)  ->
-          console.log("error creating plan")
-          errors = http.data
-      )
+            $scope.loading.show_spinner = false
+            $scope.newPlanSection = 1
+
+            $scope.user.account.hasCreatedPlan = true
+            AccountServiceChannel.accountUpdated()
+            PlansServiceChannel.plansUpdated()
+
+            create_plan_modal.close()
+          (http)  ->
+            console.log("error creating plan; we should show something")
+            $scope.errors = http.data
+
+            $scope.loading.show_spinner = false
+
+            $scope.clear_messages()
+        )
+      else
+        console.log "Failed to Create a Plan"
 
     $scope.connectStripeClicked = () ->
       if !connect_stripe_modal
-        connect_stripe_modal = $('[data-remodal-id=stripe-modal]').remodal(options)
+        connect_stripe_modal = $('[data-remodal-id=stripe-modal]').remodal($scope.options)
 
       connect_stripe_modal.open();
 
@@ -184,39 +206,19 @@
 
       true
 
-    $scope.handlePopupAuthentication = (network, oauth_authentication) ->
+    $scope.handlePopupAuthentication = () ->
       scope.$apply ->
-        AccountServiceChannel.accountUpdated()
+        $scope.applyNetwork
 
-        $scope.applyNetwork network, oauth_authentication
+    $scope.applyNetwork = () ->
+      $scope.user.account.hasConnectedStripe = true
+      AccountServiceChannel.accountUpdated()
 
-    $scope.applyNetwork = (network, account) ->
-      $scope.active_step = 4
-
-      console.log("stripe connected")
-
-    $scope.pickYourPlanClicked = () ->
-      $scope.active_step = 4
-
-      template_index = 4
-      $scope.content_template_url = template_urls[template_index]
-
-    $scope.isSelectedPlan = (plan_id) ->
-      if plan_id == $scope.selected_plan
-        "selected"
-
-    $scope.setSelectedPlan = (plan_id) ->
-      $scope.selected_plan = plan_id
-
-    $scope.previewYourSiteClicked = () ->
-      $scope.active_step = 4
-
-      template_index = 5
-      $scope.content_template_url = template_urls[template_index]
+      connect_stripe_modal.close()
 
     $scope.upgradePlanClicked = () ->
       if !upgrade_plan_modal
-        upgrade_plan_modal = $('[data-remodal-id=upgrade-plan-modal]').remodal(options)
+        upgrade_plan_modal = $('[data-remodal-id=upgrade-plan-modal]').remodal($scope.options)
 
       upgrade_plan_modal.open();
 
@@ -254,7 +256,15 @@
     remove_messages = () ->
       $scope.$parent.show_success_message = false
 
+    onAccountUpdated = () ->
+      $scope.project.steps.step1 = $scope.user.account.hasUploadedLogo && $scope.user.account.hasSetupSubdomain
+      $scope.project.steps.step2 = $scope.user.account.hasCreatedPlan
+      $scope.project.steps.step3 = $scope.user.account.hasConnectedStripe
+      $scope.project.steps.step4 = $scope.user.account.hasUpgradedPlan
+
+    AccountServiceChannel.onAccountUpdated($scope, onAccountUpdated);
+
     return
 ]
 
-LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', 'stripe', 'Upload', 'AccountServiceChannel', '$http']
+LaunchListController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', 'stripe', 'Upload', 'AccountServiceChannel', 'PlansServiceChannel', '$http']

@@ -1,6 +1,5 @@
 class RefundPayment
   def self.call(payment, stripe_secret_key)
-    binding.pry
     stripe_charge_id = payment.charge.external_id
 
     Stripe.api_key = stripe_secret_key

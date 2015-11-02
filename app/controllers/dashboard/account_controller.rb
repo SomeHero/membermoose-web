@@ -6,9 +6,12 @@ class Dashboard::AccountController < DashboardController
 
     user.account.logo = params[:file]
     user.account.has_uploaded_logo = true
-    user.save
 
-    render json: user.account.to_json
+    if user.save
+      render json: user.account.to_json
+    else
+      render json: user.errors, status: :unprocessable_entity
+    end
   end
 
   def change_subdomain
@@ -16,9 +19,12 @@ class Dashboard::AccountController < DashboardController
 
     user.account.subdomain = params[:subdomain]
     user.account.has_setup_subdomain = true
-    user.save
 
-    render json: user.account.to_json
+    if user.save
+      render json: user.account.to_json
+    else
+      render json: user.errors, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -73,7 +79,6 @@ class Dashboard::AccountController < DashboardController
   end
 
   def upgrade_plan
-    binding.pry
     #ToDo: need a better way to identify special plan
     plan = Plan.find(2)
     user = current_user
@@ -126,7 +131,7 @@ class Dashboard::AccountController < DashboardController
     respond_to do |format|
       if @subscription.errors.count == 0
         format.html  { render action: 'index' }
-        format.json { render :json => @subscription.to_json }
+        format.json { render :json => user.account.to_json }
       else
         format.html { render action: 'index' }
         format.json { render json: @subscription.errors, status: :bad_request }

@@ -1,7 +1,7 @@
-class Dashboard::LaunchController < ApplicationController
+class Dashboard::LaunchController < DashboardController
   layout 'dashboard'
 
   def index
-    @user = current_user
+    
   end
 end
