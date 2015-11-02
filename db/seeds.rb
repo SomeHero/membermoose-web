@@ -61,17 +61,17 @@ mm_paid_plan = CreatePlan.call({
     :terms_and_conditions => "Be cool"
 }, ENV["STRIPE_SECRET_KEY"])
 
-larkin_stripe_key = "sk_test_4WpPOcDVttWDL9zuwUzGIivr"
+larkin_stripe_key = ENV["BULL_STRIPE_SECRET_KEY"]
 larkin_account = Account.create!({
   :user => User.create!({
-    :email => 'contact@804RVA.com',
+    :email => 'bull@membermoose.com',
     :password => 'password'
   }),
-  :first_name => "Larkin",
-  :last_name => "Garbee",
-  :company_name => "804RVA",
-  :subdomain => "804rva",
-  :site_url => (Rails.env.production? ? "https://804rva.membermoose-ng.com" : "http://804rva.mmoose-ng.localhost:3000/")
+  :first_name => "Ima",
+  :last_name => "Bull",
+  :company_name => "IMA Bull LLC",
+  :subdomain => "IMABull",
+  :site_url => (Rails.env.production? ? "https://ima-bull.membermoose-ng.com" : "http://ima-bull.mmoose-ng.localhost:3000/")
   #logo =>
 })
 
