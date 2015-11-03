@@ -2,7 +2,6 @@ class Dashboard::AccountController < DashboardController
   layout 'dashboard'
 
   def upload_logo
-    binding.pry
     user = current_user
 
     user.account.logo = params[:file]

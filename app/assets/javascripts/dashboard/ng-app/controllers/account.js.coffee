@@ -55,7 +55,7 @@
 
     $scope.upload_logo_clicked = () ->
       if !upload_logo_modal
-        upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal(options)
+        upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal($scope.options)
 
       upload_logo_modal.open();
 
@@ -84,24 +84,27 @@
       console.log("submit logo clicked")
 
       if !$scope.file
-        window.modal.close()
+        upload_logo_modal.close()
 
         return
 
       Upload.upload(
         url: 'dashboard/account/upload_logo'
         data:
-          file: $scope.file).then ((resp) ->
-        console.log 'Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data
-
-        $scope.getAccount()
+          file: $scope.file).then ((response) ->
+        $scope.set_user(response.data)
         AccountServiceChannel.accountUpdated()
 
-        window.modal.close()
+        message = "You successfully uploaded your logo."
+        $scope.display_success_message(message)
+
+        upload_logo_modal.close()
 
         return
       ), ((resp) ->
-        console.log 'Error status: ' + resp.status
+        message = resp.status
+        $scope.display_error_message(message)
+
         return
       ), (evt) ->
         progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
@@ -110,13 +113,13 @@
 
     $scope.upgrade_plan_clicked = () ->
       if !upgrade_plan_modal
-        upload_logo_modal = $('[data-remodal-id=upgrade-plan-modal]').remodal(options)
+        upgrade_plan_modal = $('[data-remodal-id=upgrade-plan-modal]').remodal($scope.options)
 
       upgrade_plan_modal.open();
 
     $scope.changePasswordClicked = () ->
       if !change_password_modal
-        change_password_modal = $('[data-remodal-id=change-password-modal]').remodal(options)
+        change_password_modal = $('[data-remodal-id=change-password-modal]').remodal($scope.options)
 
       change_password_modal.open();
 
@@ -140,7 +143,7 @@
             $scope.dismiss_loading()
             $scope.form_submitted = false
 
-            message = "Your account was successfully updated."
+            message = "Your successfully updated your password."
             $scope.display_success_message(message)
 
             $scope.change_password = {}
