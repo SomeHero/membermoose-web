@@ -226,13 +226,18 @@
       console.log("upgrade plan")
 
       stripe.setPublishableKey("pk_test_5Km0uUASqaRvRu1JTx8Iiefx")
+      $scope.loading.show_spinner = true
+      $scope.form_submitted = true
+
       stripe.card.createToken($scope.credit_card).then((token) ->
         console.log 'token created for card ending in ', token.card.last4
         params = {
           stripe_token: token
         }
         $http.post('/dashboard/account/' + $scope.user.id  + '/upgrade_plan', params).then(
-          () ->
+          (response) ->
+            $scope.user.account = response.data
+            
             $scope.loading.show_spinner = false
             $scope.form_submitted = false
 

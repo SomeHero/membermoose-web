@@ -7,6 +7,7 @@ class CancelSubscription
       customer = Stripe::Customer.retrieve(stripe_customer_id)
       customer.subscriptions.retrieve(stripe_subscription_id).delete
     rescue Stripe::StripeError => e
+      binding.pry
       throw e
     end
 

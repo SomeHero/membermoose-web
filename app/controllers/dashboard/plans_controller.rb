@@ -26,7 +26,7 @@ class Dashboard::PlansController < DashboardController
   def create
     account = current_user.account
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).first
+    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
     @plan = CreatePlan.call({
         :account => account,
@@ -80,11 +80,12 @@ class Dashboard::PlansController < DashboardController
 
     account = current_user.account
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).first
+    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
     plan = Plan.find(params["id"])
     @plan = DeletePlan.call(plan, stripe.secret_token)
 
+    binding.pry
     respond_to do |format|
       if @plan.errors.count == 0 && @plan.delete
         format.html  { render action: 'index' }
