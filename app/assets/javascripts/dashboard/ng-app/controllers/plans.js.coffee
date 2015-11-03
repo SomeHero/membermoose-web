@@ -84,6 +84,10 @@
 
       return ""
 
+    $scope.goToPreviousSection = () ->
+      $scope.newPlanSection = $scope.newPlanSection - 1
+      $scope.form_submitted = false
+
     $scope.nextSection = (form) ->
       if form.$valid
         $scope.newPlanSection = $scope.newPlanSection + 1

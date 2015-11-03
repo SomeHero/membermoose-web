@@ -143,6 +143,10 @@
 
       return ""
 
+    $scope.goToPreviousSection = () ->
+      $scope.newPlanSection = $scope.newPlanSection - 1
+      $scope.form_submitted = false
+
     $scope.nextSection = (form) ->
       if form.$valid
         $scope.newPlanSection = $scope.newPlanSection + 1
@@ -237,7 +241,7 @@
         $http.post('/dashboard/account/' + $scope.user.id  + '/upgrade_plan', params).then(
           (response) ->
             $scope.user.account = response.data
-            
+
             $scope.loading.show_spinner = false
             $scope.form_submitted = false
 

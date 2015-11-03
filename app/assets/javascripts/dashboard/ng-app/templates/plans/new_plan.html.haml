@@ -53,6 +53,8 @@
               %span{"ng-show" => "planBillingForm['plan[billing_cycle]'].$error.required"}
                 Billing cycle is required.
           %footer
+            %button.previous{"ng-click"=>"goToPreviousSection()"}
+              Back
             %button.continue{"ng-click"=>"nextSection(planBillingForm)"}
               Next
               %i.fa-arrow-right
@@ -70,6 +72,8 @@
               %span{"ng-show" => "planTrialPeriod['plan[free_trial_period]'].$error.required"}
                 Free Trial Period is required.
           %footer
+            %button.previous{"ng-click"=>"goToPreviousSection()"}
+              Back
             %button.continue{"ng-click"=>"nextSection(planTrialPeriod)"}
               Next
               %i.fa-arrow-right
@@ -84,6 +88,8 @@
               Terms and Conditions
             %textarea#terms_and_conditions{:autofocus => "", :rows => 5, :name => "plan[terms_and_conditions]", :placeholder => "Terms and Conditions", "ng-modal"=>"plan.terms_and_conditions"}
           %footer
+            %button.previous{"ng-click"=>"goToPreviousSection()"}
+              Back
             %button.continue{"ng-click"=>"createPlan(planTermsForm)"}
               Create Plan
               %i.fa-arrow-right
