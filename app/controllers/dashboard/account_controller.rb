@@ -2,13 +2,14 @@ class Dashboard::AccountController < DashboardController
   layout 'dashboard'
 
   def upload_logo
+    binding.pry
     user = current_user
 
     user.account.logo = params[:file]
     user.account.has_uploaded_logo = true
 
     if user.save
-      render json: user.account.to_json
+      render json: user.to_json
     else
       render json: user.errors, status: :unprocessable_entity
     end
@@ -21,7 +22,7 @@ class Dashboard::AccountController < DashboardController
     user.account.has_setup_subdomain = true
 
     if user.save
-      render json: user.account.to_json
+      render json: user.to_json
     else
       render json: user.errors, status: :unprocessable_entity
     end
@@ -37,13 +38,15 @@ class Dashboard::AccountController < DashboardController
   end
 
   def update
+    user = current_user
+
     respond_to do |format|
-      if current_user.update(permitted_params)
+      if user.update(permitted_params)
         format.html  { render action: 'edit' }
-        format.json { head :no_content }
+        format.json { render :json => user.to_json }
       else
         format.html { render action: 'edit' }
-        format.json { render json: current_user.errors, status: :unprocessable_entity }
+        format.json { render json: user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -131,7 +134,7 @@ class Dashboard::AccountController < DashboardController
     respond_to do |format|
       if @subscription.errors.count == 0
         format.html  { render action: 'index' }
-        format.json { render :json => user.account.to_json }
+        format.json { render :json => user.to_json }
       else
         format.html { render action: 'index' }
         format.json { render json: @subscription.errors, status: :bad_request }

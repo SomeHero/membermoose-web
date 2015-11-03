@@ -71,7 +71,7 @@
                 %span.fa.fa-chevron-right.fa-left
         .col-sm-12.col-lg-6
           .browser-lg
-            %a.browser-render.theme-line{:href => "{{user.account.site_url}}", :target => "_blank"}
+            %a.browser-render.theme-line{:href => "{{user.account.siteUrl}}", :target => "_blank"}
               / ngIf: project.appearance.theme == 'line'
               .window{"ng-if" => "project.appearance.theme == 'line'"}
                 .el-header
@@ -86,7 +86,7 @@
                 .zoom
                   .fa.fa-external-link-square>
                   Visit Your Site
-            %a.visit-site{:href => "{{user.account.site_url}}", :target => "_blank"}
+            %a.visit-site{:href => "{{user.account.siteUrl}}", :target => "_blank"}
               .fa.fa-external-link-square
               %strong Visit Your Site
 %div{"loading-screen" => "loading.show_spinner"}

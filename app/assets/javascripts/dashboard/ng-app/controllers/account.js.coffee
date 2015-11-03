@@ -9,17 +9,11 @@
   'AccountServiceChannel',
   '$http'
   ($scope, Account, $stateParams, window, $timeout, fileReader, Upload, AccountServiceChannel, $http) ->
-
-    $scope.loading = {
-      show_spinner: false
-    }
+    window.scope = $scope
+    $scope.loading.show_spinner = false
     $scope.form_submitted = false
     $scope.image = {
       tempImage: {}
-    }
-    options = {
-      "hashTracking": false,
-      "closeOnOutsideClick": false
     }
     change_password_modal = null
     upload_logo_modal = null
@@ -29,29 +23,28 @@
     $scope.show_error_message = false
     $scope.error_message = ""
 
-    $scope.getAccount = () ->
-      Account.get($stateParams.id).then (result) ->
-        $scope.user = result.data
-
-        $scope.isLoading = false
-
     $scope.updateAccount = (user, form) ->
       console.log "updating user"
 
       if form.$valid
+        $scope.display_loading()
         user.update().then(
-          (updated_user) ->
-            $scope.$parent.success_message = "Your account was successfully updated."
-            $scope.$parent.show_success_message = true
-            $scope.clear_messages()
+          (response) ->
+            $scope.user = new Account(response.data)
 
-            console.log("account updated")
+            message = "Your account was successfully updated."
+            $scope.display_success_message(message)
+
+            $scope.dismiss_loading()
+
+            AccountServiceChannel.accountUpdated()
           (http)  ->
-            console.log("error updating account")
             errors = http.data
 
-            $scope.parent.error_message = error.message
-            $scope.$parent.show_error_message = true
+            message = error.message
+            $scope.display_error_message(message)
+
+            $scope.dismiss_loading()
         )
 
     $scope.get_logo = () ->
@@ -135,7 +128,8 @@
       $scope.form_submitted = true
 
       if form.$valid
-        $scope.loading.show_spinner = true
+        $scope.display_loading()
+
         params = {
             current_password: $scope.change_password.current_password,
             new_password: $scope.change_password.new_password,
@@ -143,31 +137,22 @@
         }
         $http.post('/dashboard/account/' + $scope.user.user_id  + '/change_password', params).then(
           () ->
-            $scope.loading.show_spinner = false
+            $scope.dismiss_loading()
             $scope.form_submitted = false
-            
-            $scope.$parent.success_message = "Your account was successfully updated."
-            $scope.$parent.show_success_message = true
-            $scope.clear_messages()
+
+            message = "Your account was successfully updated."
+            $scope.display_success_message(message)
 
             $scope.change_password = {}
 
             change_password_modal.close();
 
           (http)  ->
-            $scope.loading.show_spinner = false
+            $scope.dismiss_loading()
 
-            $scope.error_message = http.statusText
-            $scope.show_error_message = true
+            message = http.statusText
+            $scope.display_error_message(message)
         )
-
-    $scope.clear_messages = () ->
-      $timeout(remove_messages, 4000);
-
-    remove_messages = () ->
-      $scope.$parent.show_success_message = false
-
-    $scope.getAccount()
 
     return
 ]

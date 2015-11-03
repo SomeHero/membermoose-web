@@ -78,24 +78,31 @@
     			$scope.image.tempImage.file_name = $scope.file
 
     $scope.submitLogo = () ->
-      console.log("submit logo clicked")
-
       if !$scope.file
         upload_logo_modal.close()
 
         return
 
+      $scope.display_loading()
       Upload.upload(
         url: 'dashboard/account/upload_logo'
         data:
           file: $scope.file).then ((response) ->
             $scope.user.account = response.data
 
+            $scope.dismiss_loading()
+
+            message = "You successfully uploaded your logo."
+            $scope.display_success_message(message)
+
             AccountServiceChannel.accountUpdated()
 
             upload_logo_modal.close()
       ), ((resp) ->
-        console.log 'Error status: ' + resp.status
+        message = resp.status
+        $scope.display_error_message(message)
+
+        $scope.dismiss_loading()
       ), (evt) ->
         progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
         console.log 'progress: ' + progressPercentage + '% ' + evt.config.data.file.name
@@ -110,31 +117,29 @@
       console.log "updating subdomain"
 
       if form.$valid
-        subdomain = $scope.setup_subdomain.subdomain
+        $scope.display_loading()
 
-        $scope.loading.show_spinner = true
+        subdomain = $scope.setup_subdomain.subdomain
         params = {
             subdomain: $scope.setup_subdomain.subdomain
         }
         $http.post('/dashboard/account/' + $scope.user.id  + '/change_subdomain', params).then(
           (response) ->
-            $scope.user.account = response.data
-            $scope.loading.show_spinner = false
+            $scope.set_user(response.data)
             $scope.form_submitted = false
 
-            $scope.success_message = "Your successfully setup your subdomain."
-            $scope.show_success_message = true
-            $scope.clear_messages()
+            message = "You successfully setup your subdomain."
+            $scope.display_success_message(message)
 
             AccountServiceChannel.accountUpdated()
 
+            $scope.dismiss_loading()
             setup_subdomain_modal.close();
-
           (http)  ->
-            $scope.loading.show_spinner = false
+            $scope.dismiss_loading()
 
-            $scope.error_message = http.statusText
-            $scope.show_error_message = true
+            message = http.statusText
+            $scope.display_error_message(message)
         )
 
     $scope.isActiveSection = (section) ->
@@ -162,8 +167,9 @@
 
     $scope.createPlan = (form) ->
       if form.$valid
+        $scope.display_loading()
+
         Plan.setUrl('/dashboard/plans')
-        $scope.loading.show_spinner = true
         $scope.form_submitted = true
 
         new Plan({
@@ -178,21 +184,25 @@
           (response) ->
             #$scope.user.account = response.data
 
-            $scope.loading.show_spinner = false
             $scope.newPlanSection = 1
 
             $scope.user.account.hasCreatedPlan = true
             AccountServiceChannel.accountUpdated()
             PlansServiceChannel.plansUpdated()
 
+            message = "You successfully created a plan!"
+            $scope.display_success_message(message)
+
+            $scope.dismiss_loading()
+
             create_plan_modal.close()
           (http)  ->
-            console.log("error creating plan; we should show something")
-            $scope.errors = http.data
+            errors = http.data
 
-            $scope.loading.show_spinner = false
+            message = errors
+            $scope.display_error_message(message)
 
-            $scope.clear_messages()
+            $scope.dismiss_loading()
         )
       else
         console.log "Failed to Create a Plan"
@@ -230,7 +240,7 @@
       console.log("upgrade plan")
 
       stripe.setPublishableKey("pk_test_5Km0uUASqaRvRu1JTx8Iiefx")
-      $scope.loading.show_spinner = true
+      $scope.display_loading()
       $scope.form_submitted = true
 
       stripe.card.createToken($scope.credit_card).then((token) ->
@@ -242,28 +252,21 @@
           (response) ->
             $scope.user.account = response.data
 
-            $scope.loading.show_spinner = false
+            $scope.dismiss_loading()
             $scope.form_submitted = false
 
-            $scope.$parent.success_message = "Your successfully upgraded your plan. You're awesome."
-            $scope.$parent.show_success_message = true
-            $scope.clear_messages()
+            message = "Your successfully upgraded your plan. You're awesome."
+            $scope.display_success_message(message)
 
             upgrade_plan_modal.close();
 
           (http)  ->
-            $scope.loading.show_spinner = false
+            $scope.dismiss_loading()
 
-            $scope.error_message = http.statusText
-            $scope.show_error_message = true
+            message = http.statusText
+            $scope.display_error_message(message)
         )
       )
-
-    $scope.clear_messages = () ->
-      $timeout(remove_messages, 4000);
-
-    remove_messages = () ->
-      $scope.$parent.show_success_message = false
 
     onAccountUpdated = () ->
       $scope.project.steps.step1 = $scope.user.account.hasUploadedLogo && $scope.user.account.hasSetupSubdomain

@@ -12,19 +12,12 @@
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
     $scope.isLoading = true
-    $scope.loading = {
-      show_spinner: false
-    }
     $scope.display_search = false
     $scope.statuses = [
         {text: 'Active', value: '0'},
         {text: 'InActive', value: '1'},
     ]
     $scope.edit_panel_open = false
-    options = {
-      "hashTracking": false,
-      "closeOnOutsideClick": false
-    }
     billing_history_modal = null
     next_invoice_modal = false
 
@@ -90,29 +83,25 @@
             )
             $scope.closeEditBar()
 
-            $scope.$parent.success_message = "Member, " + member.firstName + " " + member.lastName + ", was successfully updated."
-            $scope.$parent.show_success_message = true
-            $scope.clear_messages()
-
-            console.log("member updated")
+            message = "Member, " + member.firstName + " " + member.lastName + ", was successfully updated."
+            $scope.display_success_message(message)
           (http)  ->
             console.log("error updating member")
             errors = http.data
 
-            $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
-            $scope.$parent.show_error_message = true
-            $scope.clear_messages()
+            message = errors
+            $scope.display_error_message(message)
         )
 
     $scope.billing_history_clicked = () ->
       if !billing_history_modal
-        billing_history_modal = $('[data-remodal-id=billing-history-modal]').remodal(options)
+        billing_history_modal = $('[data-remodal-id=billing-history-modal]').remodal($scope.options)
 
       billing_history_modal.open();
 
     $scope.next_invoice_clicked = () ->
       if !next_invoice_modal
-        next_invoice_modal = $('[data-remodal-id=next-invoice-modal]').remodal(options)
+        next_invoice_modal = $('[data-remodal-id=next-invoice-modal]').remodal($scope.options)
 
       next_invoice_modal.open()
 
@@ -122,17 +111,11 @@
     $scope.closeEditBar = () ->
       $scope.edit_panel_open = false
 
-    $scope.clear_messages = () ->
-      $timeout(remove_messages, 4000);
-
     $scope.toggle_search = () ->
       if $scope.display_search
         $scope.display_search = false
       else
         $scope.display_search = true
-
-    remove_messages = () ->
-      $scope.$parent.show_success_message = false
 
     $scope.getMembers()
 

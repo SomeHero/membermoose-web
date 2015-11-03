@@ -13,9 +13,6 @@
     $scope.currentPage = 1
     $scope.itemsPerPage = 10
     $scope.isLoading = true
-    $scope.loading = {
-      show_spinner: false
-    }
     $scope.display_search = false
     $scope.search = {
       from_date: null,
@@ -26,10 +23,6 @@
       max: 1000,
       ceil: 1000,
       floor: 0
-    }
-    options = {
-      "hashTracking": false,
-      "closeOnOutsideClick": false
     }
     refund_payment_modal = null
     payment_history_modal = null
@@ -97,7 +90,7 @@
 
     $scope.refund_payment_clicked = () ->
       if !refund_payment_modal
-        refund_payment_modal = $('[data-remodal-id=refund-payment-modal]').remodal(options)
+        refund_payment_modal = $('[data-remodal-id=refund-payment-modal]').remodal($scope.options)
 
       refund_payment_modal.open()
 
@@ -106,35 +99,22 @@
       $http.post('/dashboard/payments/' + $scope.selected_payment.id  + '/refund').then(
         () ->
           $scope.closeEditBar()
-
-          $scope.$parent.success_message = "The payment was successfully refunded."
-          $scope.$parent.show_success_message = true
-          $scope.clear_messages()
-
-          $scope.loading.show_spinner = false
-          window.modal.close()
-
           $scope.selected_subscription.status = "Cancelled"
-          $scope.closeEditBar()
 
-          console.log("payment refunded")
+          message = "The payment was successfully refunded."
+          $scope.display_success_message(message)
+
+          $scope.dismiss_loading()
+          refund_payment_modal.close()
         (http)  ->
-          console.log("error refunding payment")
           errors = http.data
 
-          $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
-          $scope.$parent.show_error_message = true
-          $scope.clear_messages()
+          message = "Sorry, an unexpected error ocurred.  Please try again."
+          $scope.display_error_message(message)
 
-          $scope.loading.show_spinner = false
-          window.modal.close()
+          $scope.dismiss_loading()
+          refund_payment_modal.close()
       )
-
-    $scope.clear_messages = () ->
-      $timeout(remove_messages, 4000);
-
-    remove_messages = () ->
-      $scope.$parent.show_success_message = false
 
     $scope.getPayments()
 

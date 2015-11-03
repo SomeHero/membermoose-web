@@ -41,10 +41,6 @@
         {text: 'year', value: 'year'}
       ]
     }
-    options = {
-      "hashTracking": false,
-      "closeOnOutsideClick": false
-    }
     $scope.newPlanSection = 1
     create_plan_modal  = null
     delete_plan_modal = null
@@ -60,8 +56,6 @@
         sortPlans()
 
     $scope.editPlan = (plan) ->
-      console.log("edit plan")
-
       $scope.edit_panel_open = true
       $scope.selected_plan = angular.copy(plan)
 
@@ -69,14 +63,6 @@
       $scope.$parent.show_success_message = false
 
       sortPlans()
-
-    $scope.newPlanClicked = () ->
-      console.log("create plan")
-
-      if !create_plan_modal
-        create_plan_modal = $('[data-remodal-id=new-plan-modal]').remodal(options)
-
-      create_plan_modal.open();
 
     $scope.isActiveSection = (section) ->
       if section == $scope.newPlanSection
@@ -95,10 +81,16 @@
       else
         $scope.form_submitted = true
 
+    $scope.newPlanClicked = () ->
+      if !create_plan_modal
+        create_plan_modal = $('[data-remodal-id=new-plan-modal]').remodal($scope.options)
+
+      create_plan_modal.open();
+
     $scope.createPlan = (form)  ->
       if form.$valid
         Plan.setUrl('/dashboard/plans')
-        $scope.loading.show_spinner = true
+        $scope.display_loading()
         $scope.form_submitted = true
 
         new Plan({
@@ -114,26 +106,30 @@
 
             PlansServiceChannel.plansUpdated()
 
-            $scope.loading.show_spinner = false
+            message = "You successfully created a plan!"
+            $scope.display_success_message(message)
+
+            $scope.dismiss_loading()
             $scope.newPlanSection = 1
 
             create_plan_modal.close()
 
           (http)  ->
+            errors = http.data
 
-            console.log("error creating plan; we should show something")
-            $scope.errors = http.data
+            $scope.dismiss_loading()
 
-            $scope.loading.show_spinner = false
-
-            $scope.clear_messages()
+            message = errors
+            $scope.display_error_message(message)
         )
       else
-        console.log "Failed to Create a Plan"
+        message = "Failed to Create a Plan"
+        $scope.display_error_message(message)
 
     $scope.updatePlan = (plan, form) ->
       Plan.setUrl('/dashboard/plans')
       if form.$valid
+        $scope.display_loading()
         plan.update().then(
           (updated_plan) ->
             angular.forEach($scope.plans, (value,index) =>
@@ -142,60 +138,52 @@
             )
             $scope.closeEditBar()
 
-            $scope.$parent.success_message = "Your plan, " + plan.name + ", was successfully updated."
-            $scope.$parent.show_success_message = true
-            $scope.clear_messages()
+            message = "Your plan, " + plan.name + ", was successfully updated."
+            $scope.display_success_message(message)
+
+            $scope.dismiss_loading()
 
             PlansServiceChannel.onPlansUpdated()
-
-            console.log("plan updated")
           (http)  ->
-            console.log("error updating plan")
             errors = http.data
 
-            $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
-            $scope.$parent.show_error_message = true
-            $scope.clear_messages()
+            message = errors
+            $scope.display_error_message(message)
         )
 
     $scope.delete_plan_clicked = () ->
       if !delete_plan_modal
-        delete_plan_modal = $('[data-remodal-id=delete-plan-modal]').remodal(options)
+        delete_plan_modal = $('[data-remodal-id=delete-plan-modal]').remodal($scope.options)
 
       delete_plan_modal.open();
 
     $scope.deletePlan = () ->
-      $scope.loading.show_spinner = true
+      $scope.display_loading()
 
       Plan.setUrl('/dashboard/plans')
       $scope.selected_plan.delete().then(
         (response) ->
-          $scope.loading.show_spinner = false
+          $scope.dismiss_loading()
           $scope.closeEditBar()
 
-          $scope.$parent.success_message = "Your plan, " + $scope.plan.name + ", was successfully deleted."
-          $scope.$parent.show_success_message = true
-          $scope.clear_messages()
-
-          delete_plan_modal.close()
+          message = "Your plan, " + $scope.plan.name + ", was successfully deleted."
+          $scope.display_success_message(message)
 
           $scope.getPlans()
 
-          console.log("plan deleted")
+          delete_plan_modal.close()
         (http)  ->
-          console.log("error deleting plan")
-          $scope.loading.show_spinner = false
+          $scope.dismiss_loading()
 
           errors = http.data
 
-          $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
-          $scope.$parent.show_error_message = true
-          $scope.clear_messages()
+          message = errors
+          $scope.display_error_message(message)
       )
 
     $scope.share_plan_clicked = () ->
       if !share_plan_modal
-        share_plan_modal = $('[data-remodal-id=share-plan-modal]').remodal(options)
+        share_plan_modal = $('[data-remodal-id=share-plan-modal]').remodal($scope.options)
 
       share_plan_modal.open();
 
