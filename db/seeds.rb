@@ -70,7 +70,7 @@ larkin_account = Account.create!({
   :first_name => "Ima",
   :last_name => "Bull",
   :company_name => "IMA Bull LLC",
-  :subdomain => "IMABull",
+  :subdomain => "ima-bull",
   :site_url => (Rails.env.production? ? "https://ima-bull.membermoose-ng.com" : "http://ima-bull.mmoose-ng.localhost:3000/")
   #logo =>
 })
