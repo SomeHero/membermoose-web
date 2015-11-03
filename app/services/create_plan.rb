@@ -8,6 +8,7 @@ class CreatePlan
       return plan
     end
     if !stripe_secret_key
+      plan.needs_sync = true
       plan.save #just go ahead and save the plan unsync'ed
       return plan
     end

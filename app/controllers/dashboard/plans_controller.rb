@@ -39,7 +39,7 @@ class Dashboard::PlansController < DashboardController
         :trial_period_days => params["plan"]["free_trial_period"],
         :terms_and_conditions => params["plan"]["terms_and_conditions"],
         :public => true
-    }, stripe.secret_token)
+    }, (stripe ? stripe.secret_token : nil))
 
     if @plan.errors.count == 0
       account.has_created_plan = true
