@@ -8,6 +8,11 @@ class Bulls::SubscriptionsController < ApplicationController
 
   def create
     plan = Plan.find(params["subscription"]["plan_id"])
+    account = plan.account
+
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
+
     first_name = params["subscription"]["first_name"]
     last_name = params["subscription"]["last_name"]
     email = params["subscription"]["email"]
@@ -29,7 +34,8 @@ class Bulls::SubscriptionsController < ApplicationController
       card_brand,
       card_last4,
       exp_month,
-      exp_year
+      exp_year,
+      stripe.secret_token
     )
 
     begin

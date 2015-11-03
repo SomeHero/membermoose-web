@@ -1,6 +1,6 @@
 class CreateSubscription
   def self.call(plan, first_name, last_name, email_address, token,
-    stripe_card_id, card_brand, card_last4, exp_month, exp_year)
+    stripe_card_id, card_brand, card_last4, exp_month, exp_year, stripe_secret_key)
 
     account, raw_token = CreateUser.call(first_name, last_name, email_address)
 
@@ -27,6 +27,8 @@ class CreateSubscription
     )
 
     begin
+      Stripe.api_key =  stripe_secret_key
+
       stripe_sub = nil
       if account.stripe_customer_id.blank?
         customer = Stripe::Customer.create(
@@ -38,39 +40,39 @@ class CreateSubscription
         account.save!
 
         stripe_sub = customer.subscriptions.first
+
+        subscription.payments.new({
+            :account => plan.account,
+            :account_payment_processor => AccountPaymentProcessor.new({
+              :account => account,
+              :payment_processor => payment_processor,
+              :active => true
+            }),
+            :amount => plan.amount,
+            :payment_processor_fee => plan.amount*0.01+0.30,
+            :payment_method => "Credit Card",
+            :payment_type => "Recurring",
+            :status => "Pending",
+            :card => card,
+            :comments => "Recurring Payment for #{subscription.plan.name} (test)"
+        })
+
+        subscription.stripe_id = stripe_sub.id
+
+        #ToDo: create method on Plan that will calculate the next invoice date
+        next_invoice_date = Date.today + 30.days
+        subscription.save!
       else
         customer = Stripe::Customer.retrieve(account.stripe_customer_id)
         stripe_sub = customer.subscriptions.create(
           plan: plan.stripe_id
         )
       end
-
-      subscription.payments.new({
-          :account => plan.account,
-          :account_payment_processor => AccountPaymentProcessor.new({
-            :account => account,
-            :payment_processor => payment_processor,
-            :active => false
-          }),
-          :amount => plan.amount,
-          :payment_processor_fee => plan.amount*0.01+0.30,
-          :payment_method => "Credit Card",
-          :payment_type => "Recurring",
-          :status => "Pending",
-          :card => card,
-          :comments => "Recurring Payment for #{subscription.plan.name} (test)"
-      })
-
-      subscription.stripe_id = stripe_sub.id
     rescue Stripe::StripeError => e
       subscription.errors[:base] << e.message
 
       return account, subscription, card, raw_token
     end
-
-    #ToDo: create method on Plan that will calculate the next invoice date
-    next_invoice_date = Date.today + 30.days
-    subscription.save!
 
     return account, subscription, card, raw_token
   end

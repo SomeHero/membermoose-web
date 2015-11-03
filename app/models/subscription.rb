@@ -18,7 +18,7 @@ class Subscription < ActiveRecord::Base
     :guid => self.guid,
     :plan => self.plan,
     :subscriber => self.account,
-    :status => self.status,
+    :status => self.status.titlecase,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }
