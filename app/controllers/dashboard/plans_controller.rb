@@ -82,10 +82,14 @@ class Dashboard::PlansController < DashboardController
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
-    plan = Plan.find(params["id"])
-    @plan = DeletePlan.call(plan, stripe.secret_token)
+    @plan = Plan.find(params["id"])
 
-    binding.pry
+    #ToDo: might need to refactor
+    #only delete from stripe if the plan is synced
+    if !@plan.needs_sync && stripe
+      @plan = DeletePlan.call(@plan, stripe.secret_token)
+    end
+
     respond_to do |format|
       if @plan.errors.count == 0 && @plan.delete
         format.html  { render action: 'index' }
