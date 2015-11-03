@@ -63,8 +63,14 @@ class Dashboard::SubscriptionsController < DashboardController
   end
 
   def destroy
+    account = current_user.account
+
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
+
+
     @subscription = Subscription.find(params[:id])
-    @subscription = CancelSubscription.call(@subscription)
+    @subscription = CancelSubscription.call(@subscription, stripe.secret_token)
 
     respond_to do |format|
       format.html  { render action: 'show' }

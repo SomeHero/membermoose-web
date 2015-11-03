@@ -91,6 +91,7 @@
       $scope.display_loading()
       $scope.selected_subscription.delete().then(
         () ->
+          $scope.selected_subscription.status = "Cancelled"
           $scope.closeEditBar()
 
           message = "The subscription was successfully deleted."
@@ -98,8 +99,6 @@
 
           $scope.dismiss_loading()
           cancel_subscription_modal.close()
-
-          $scope.selected_subscription.status = "Cancelled"
         (http)  ->
           errors = http.data
 

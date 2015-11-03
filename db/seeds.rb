@@ -71,10 +71,20 @@ larkin_account = Account.create!({
   :last_name => "Bull",
   :company_name => "IMA Bull LLC",
   :subdomain => "ima-bull",
-  :site_url => (Rails.env.production? ? "https://ima-bull.membermoose-ng.com" : "http://ima-bull.mmoose-ng.localhost:3000/")
-  #logo =>
+  :site_url => (Rails.env.production? ? "https://ima-bull.membermoose-ng.com" : "http://ima-bull.mmoose-ng.localhost:3000/"),
+  :has_connected_stripe => true
 })
-
+larkin_account_payment_processor = AccountPaymentProcessor.create!({
+  account: larkin_account,
+  payment_processor: payment_processor,
+  oauth_user_id: "1",
+  name: larkin_account.first_name + " " + larkin_account.last_name,
+  email: larkin_account.user.email,
+  api_key: "",
+  secret_token: larkin_stripe_key,
+  refresh_token: "",
+  active: true
+})
 card = {
   number: valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)],
   brand: "Visa",
