@@ -22,7 +22,7 @@
                 Plan description is required.
           %footer
             %button.continue{:type=>"submit", "ng-click"=>"nextSection(planNameForm)"}
-              Billing
+              Next
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
       %section{"ng-class"=>"isActiveSection(2)"}
@@ -54,7 +54,7 @@
                 Billing cycle is required.
           %footer
             %button.continue{"ng-click"=>"nextSection(planBillingForm)"}
-              Trial Period
+              Next
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
       %section{"ng-class"=>"isActiveSection(3)"}
@@ -71,7 +71,7 @@
                 Free Trial Period is required.
           %footer
             %button.continue{"ng-click"=>"nextSection(planTrialPeriod)"}
-              Terms and Conditions
+              Next
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
       %section{"ng-class"=>"isActiveSection(4)"}
