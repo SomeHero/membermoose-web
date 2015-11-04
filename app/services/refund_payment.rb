@@ -11,7 +11,7 @@ class RefundPayment
       throw e
     end
 
-    payment.status = "Cancelled"
+    payment.status = "Refunded"
     payment.save
 
     return payment

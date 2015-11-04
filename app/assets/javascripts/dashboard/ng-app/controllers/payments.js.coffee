@@ -97,15 +97,16 @@
     $scope.refund_payment_submit = () ->
       $scope.loading.show_spinner = true
       $http.post('/dashboard/payments/' + $scope.selected_payment.id  + '/refund').then(
-        () ->
-          $scope.closeEditBar()
-          $scope.selected_subscription.status = "Cancelled"
+        (response) ->
+          $scope.selected_payment.status = "Refunded"
 
           message = "The payment was successfully refunded."
           $scope.display_success_message(message)
 
           $scope.dismiss_loading()
           refund_payment_modal.close()
+
+          $scope.closeEditBar()
         (http)  ->
           errors = http.data
 
