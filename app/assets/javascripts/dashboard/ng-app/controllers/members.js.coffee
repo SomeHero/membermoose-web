@@ -118,6 +118,7 @@
         $scope.display_search = true
 
     $scope.getMembers()
+    $scope.init()
 
     return
 ]

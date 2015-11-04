@@ -278,6 +278,8 @@
 
     AccountServiceChannel.onAccountUpdated($scope, onAccountUpdated);
 
+    $scope.init()
+
     return
 ]
 

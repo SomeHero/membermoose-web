@@ -118,6 +118,7 @@
       console.log "subscription changed"
 
     $scope.getSubscriptions()
+    $scope.init()
 
     return
 ]

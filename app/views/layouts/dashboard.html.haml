@@ -52,7 +52,7 @@
     #content-wrapper.container-fluid.fill-height
       .row-fluid.row-offcanvas.row-offcanvas-left
         .row-same-height
-          #sidebar.col-sm-3.col-xs-height.col-top.col-md-2.sidebar-offcanvas{"role" => "navigation"}
+          %aside#left-panel.col-sm-3.col-xs-height.col-top.col-md-2.sidebar-offcanvas{"role" => "navigation"}
             #profile-block.text-center
               %img.logo{"ng-src"=>"{{user.account.logo.url}}", "alt"=>"user.account.companyName","ng-show"=>"user.account.logo.url.length > 0"}
               %h4.user-name

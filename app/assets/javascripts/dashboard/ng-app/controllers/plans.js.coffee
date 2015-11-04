@@ -233,7 +233,8 @@
     PlansServiceChannel.onPlansUpdated($scope, onPlansUpdated);
 
     $scope.getPlans()
-
+    $scope.init()
+    
     return
 ]
 

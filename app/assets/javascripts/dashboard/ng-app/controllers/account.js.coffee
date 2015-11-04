@@ -157,6 +157,8 @@
             $scope.display_error_message(message)
         )
 
+    $scope.init()
+
     return
 ]
 

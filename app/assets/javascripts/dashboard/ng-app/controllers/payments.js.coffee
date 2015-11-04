@@ -96,7 +96,7 @@
 
     $scope.refundPaymentCancel = () ->
       refund_payment_modal.close()
-      
+
     $scope.refundPaymentSubmit = () ->
       $scope.loading.show_spinner = true
       $http.post('/dashboard/payments/' + $scope.selected_payment.id  + '/refund').then(
@@ -121,6 +121,7 @@
       )
 
     $scope.getPayments()
+    $scope.init()
 
     return
 ]

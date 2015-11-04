@@ -23,6 +23,9 @@
     $scope.show_error_message = false
     $scope.error_message = ""
 
+    $scope.init = () ->
+      nav_page_height()
+      
     $scope.set_user = (user) ->
       $scope.user = new Account(user)
 
