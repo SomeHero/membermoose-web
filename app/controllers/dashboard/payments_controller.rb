@@ -70,7 +70,6 @@ class Dashboard::PaymentsController < DashboardController
     @payment = RefundPayment.call(@payment, stripe.secret_token)
 
     respond_to do |format|
-      format.html  { render action: 'show' }
       format.json { render :json => {:subscription => @subscription}, status: 200 }
     end
   end
