@@ -183,7 +183,7 @@
         }).create().then(
           (response) ->
             #$scope.set_user(response.data)
-            
+
             $scope.newPlanSection = 1
 
             $scope.user.account.hasCreatedPlan = true
@@ -257,6 +257,8 @@
 
             message = "Your successfully upgraded your plan. You're awesome."
             $scope.display_success_message(message)
+
+            AccountServiceChannel.accountUpdated()
 
             upgrade_plan_modal.close();
 
