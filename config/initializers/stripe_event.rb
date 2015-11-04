@@ -118,10 +118,13 @@ StripeEvent.configure do |events|
   events.subscribe 'charge.succeeded' do |event|
     Rails.logger.debug "Received charge.succeeded stripe-event"
 
+    binding.pry
     data = event.data.object
 
-    card = Card.find_by(:external_id => data.card.id)
-
+    if data.card
+      card = Card.find_by(:external_id => data.card.id)
+    end
+    
     charge = Charge.create!({
       :external_id => data.id,
       :external_invoice_id => data.invoice,
