@@ -88,7 +88,7 @@
         url: 'dashboard/account/upload_logo'
         data:
           file: $scope.file).then ((response) ->
-            $scope.user.account = response.data
+            $scope.set_user(response.data)
 
             $scope.dismiss_loading()
 
@@ -182,8 +182,8 @@
           terms_and_conditions: $scope.plan.terms_and_conditions
         }).create().then(
           (response) ->
-            #$scope.user.account = response.data
-
+            #$scope.set_user(response.data)
+            
             $scope.newPlanSection = 1
 
             $scope.user.account.hasCreatedPlan = true
@@ -250,7 +250,7 @@
         }
         $http.post('/dashboard/account/' + $scope.user.id  + '/upgrade_plan', params).then(
           (response) ->
-            $scope.user.account = response.data
+            $scope.set_user(response.data)
 
             $scope.dismiss_loading()
             $scope.form_submitted = false
