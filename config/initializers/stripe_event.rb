@@ -120,9 +120,7 @@ StripeEvent.configure do |events|
 
     data = event.data.object
 
-    if data.card
-      card = Card.find_by(:external_id => data.card.id)
-    end
+    card = Card.find_by(:external_id => data.source.id)
 
     charge = Charge.create!({
       :external_id => data.id,
