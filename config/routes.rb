@@ -23,33 +23,33 @@ Rails.application.routes.draw do
     resources :plans, :controller => "dashboard/plans"
     resources :members, :controller => "dashboard/members" do
       collection do
-        get :count
+        get :count, defaults: { format: 'json' }
       end
     end
     resources :subscriptions, :controller => "dashboard/subscriptions" do
       collection do
-        get :count
+        get :count, defaults: { format: 'json' }
       end
       member do
-        post :change
+        post :change, defaults: { format: 'json' }
       end
     end
     resources :payments, :controller => "dashboard/payments" do
       collection do
-        get :count
+        get :count, defaults: { format: 'json' }
       end
       member do
-        post :refund
+        post :refund, defaults: { format: 'json' }
       end
     end
     resources :account, :controller => "dashboard/account" do
       collection do
-        post :upload_logo
+        post :upload_logo, defaults: { format: 'json' }
       end
       member do
-        post :change_password
-        post :change_subdomain
-        post :upgrade_plan
+        post :change_password, defaults: { format: 'json' }
+        post :change_subdomain, defaults: { format: 'json' }
+        post :upgrade_plan, defaults: { format: 'json' }
       end
     end
   end
