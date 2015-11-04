@@ -7,7 +7,9 @@
         %h4
           Are your sure you want to refund {{selected_payment.amount | currency}} to {{selected_payment.payee.fullName}}?
       %footer
-        %button.continue{"ng-click"=>"refund_payment_submit()"}
+        %button.previous{"ng-click"=>"refundPaymentCancel()"}
+          Cancel
+        %button.continue{"ng-click"=>"refundPaymentSubmit()"}
           Refund
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}
