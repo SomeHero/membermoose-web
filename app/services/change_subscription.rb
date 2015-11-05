@@ -1,10 +1,12 @@
 class ChangeSubscription
-  def self.call(subscription, plan)
+  def self.call(subscription, plan, stripe_secret_key)
     stripe_customer_id = subscription.account.stripe_customer_id
     stripe_subscription_id = subscription.stripe_id
     stripe_plan_id = plan.stripe_id
 
     begin
+      Stripe.api_key = stripe_secret_key
+
       customer = Stripe::Customer.retrieve(stripe_customer_id)
       stripe_subscription = customer.subscriptions.retrieve(stripe_subscription_id)
 

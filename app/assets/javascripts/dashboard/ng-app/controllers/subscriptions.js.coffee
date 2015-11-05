@@ -1,12 +1,15 @@
 @SubscriptionsController = angular.module('dashboardApp').controller 'SubscriptionsController', [
   '$scope'
   'Subscription'
+  'Plan'
   '$window'
   '$timeout'
-  ($scope, Subscription, window, $timeout) ->
+  '$http'
+  ($scope, Subscription, Plan, window, $timeout, $http) ->
     window.scope = $scope
     $scope.selected_subscription = null
     $scope.subscriptions = []
+    $scope.plans = []
     $scope.totalItems = 0
     $scope.searchItems = 0
     $scope.currentPage = 1
@@ -30,6 +33,45 @@
       console.log('Page changed to: ' + $scope.currentPage);
       $scope.isLoading = true
       $scope.getSubscriptions()
+
+    $scope.getPlans = () ->
+      Plan.setUrl('/dashboard/plans?page={{page}}')
+      Plan.get({page: $scope.currentPage}).then (result) ->
+        $scope.plans = result.data
+        $scope.totalItems = result.originalData.total_items
+        $scope.isLoading = false
+
+        sortPlans()
+
+    $scope.myExpression = (plan) ->
+      plan.id != $scope.selected_subscription.plan.id
+
+    $scope.changePlanSelect = (plan) ->
+      $scope.loading.show_spinner = true
+
+      params = {
+          plan_id: plan.id
+      }
+      $http.post('/dashboard/subscriptions/' + $scope.selected_subscription.id  + '/change', params).then(
+        (response) ->
+          #$scope.selected_payment.status = "Refunded"
+
+          message = "The subscription was successfully changed."
+          $scope.display_success_message(message)
+
+          $scope.dismiss_loading()
+          change_plan_modal.close()
+
+          $scope.closeEditBar()
+        (http)  ->
+          errors = http.data
+
+          message = "Sorry, an unexpected error ocurred.  Please try again."
+          $scope.display_error_message(message)
+
+          $scope.dismiss_loading()
+          refund_payment_modal.close()
+      )
 
     $scope.getSubscriptions = () ->
       Subscription.setUrl('/dashboard/subscriptions?page={{page}}')
@@ -118,9 +160,10 @@
       console.log "subscription changed"
 
     $scope.getSubscriptions()
+    $scope.getPlans()
     $scope.init()
 
     return
 ]
 
-SubscriptionsController.$inject = ['$scope', 'Subscription', 'window', '$timeout']
+SubscriptionsController.$inject = ['$scope', 'Subscription', 'Plan', 'window', '$timeout', '$http']

@@ -5,3 +5,9 @@
         Change Plan?
       %h4
         {{selected_subscription.plan.name}}
+      %p
+        .container-fluid
+          .row-fluid
+            .col-md-4{"ng-repeat"=>"plan in plans | filter: myExpression"}
+              .plan.thumbnail{"ng-click"=>"changePlanSelect(plan)"}
+                {{plan.name}}
