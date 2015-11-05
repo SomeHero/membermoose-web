@@ -54,7 +54,14 @@
       }
       $http.post('/dashboard/subscriptions/' + $scope.selected_subscription.id  + '/change', params).then(
         (response) ->
-          #$scope.selected_payment.status = "Refunded"
+          new_subscription = new Subscription(response.data)
+
+          angular.forEach $scope.subscriptions, ((subscription, index) ->
+            if subscription.id == new_subscription.id
+              scope.subscriptions[index] = new_subscription
+
+              return
+          )
 
           message = "The subscription was successfully changed."
           $scope.display_success_message(message)
