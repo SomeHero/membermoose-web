@@ -10,6 +10,7 @@
     $scope.selected_subscription = null
     $scope.subscriptions = []
     $scope.plans = []
+    $scope.selected_plan = null
     $scope.totalItems = 0
     $scope.searchItems = 0
     $scope.currentPage = 1
@@ -46,11 +47,18 @@
     $scope.myExpression = (plan) ->
       plan.id != $scope.selected_subscription.plan.id
 
+
     $scope.changePlanSelect = (plan) ->
+      $scope.selected_plan = plan
+
+    $scope.changePlanSubmit = () ->
+      if $scope.selected_plan == null
+        return
+
       $scope.loading.show_spinner = true
 
       params = {
-          plan_id: plan.id
+          plan_id: $scope.selected_plan.id
       }
       $http.post('/dashboard/subscriptions/' + $scope.selected_subscription.id  + '/change', params).then(
         (response) ->
