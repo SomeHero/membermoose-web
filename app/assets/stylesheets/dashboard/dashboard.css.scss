@@ -14,7 +14,8 @@ $table-header-color: #6a6c6f;
 $table-data-color: #98a2b6;
 $label-color: #34495e;
 $button-color: #1abc9c;
-$asideWidth: 220px;
+$asideWidth: 200px;
+$smart-navbar-height: 51px;
 
 // Grays
 // -------------------------
@@ -114,6 +115,7 @@ body {
   .navbar {
     background-color: #ffffff;
     border-bottom: solid 1px $border-color;
+    box-sizing: content-box;
     .navbar-toggle .icon-bar {
       display: block;
       width: 22px;
@@ -126,10 +128,12 @@ body {
     background-color: #f7f9fa;
     padding: 0px;
     text-align: center;
+    width: $asideWidth
   }
   #navbar-menu {
-    margin-left: -14px;
-    margin-right: -15px;
+    position: absolute;
+    top: 0px;
+    left: $asideWidth+1;
     .navbar-collapse {
       box-shadow: -2px 0 3px rgba(0, 0, 0, 0.05);
       border-left: 1px solid #d3d0d0;
@@ -142,6 +146,7 @@ body {
     width: 100%;
   }
   #top-nav {
+    margin-left: 100px;
     margin-right: 38px;
     li a {
       font-size: 18px;
@@ -386,10 +391,15 @@ body {
   background-color: $white;
 	padding-right: 0px;
   padding-left: 0px;
+	position: absolute;
+	top: $smart-navbar-height;
+	left: 0px;
+  width: $asideWidth;
   [class^="linecons-"], [class*=" linecons-"] {
     font-size: 14px;
   }
   #profile-block {
+    width: 100%;
     img.logo {
       width: 120px;
     }
@@ -412,6 +422,7 @@ body {
   }
   ul {
     margin-left: 0px;
+    margin-bottom: 0px;
     padding-left: 0px;
     li.top-nav-item {
       border-top-width: 1px;
@@ -428,6 +439,12 @@ body {
       a {
         color: $subnav-link-color;
         padding: 0px 15px;
+        text-decoration: none;
+        display: block;
+      }
+      a:hover {
+        text-decoration: none;
+        background-color: #eeeeee;
       }
   	}
     li.selected:after {
@@ -466,10 +483,13 @@ body {
   }
 }
 #content {
+  position: relative;
   background-color: $background-color;
   border-left: solid 1px $border-color;
-  min-height: 100%;
-  height: 100%;
+  display: block;
+  margin-left: $asideWidth;
+  padding: 0;
+  min-height:500px;
 }
 #brand-header {
   padding-left: 0px;;
@@ -1382,8 +1402,17 @@ body {
 .browser-render.theme-line.theme-line .el-header .el-paragraph {
   background-color: #919191;
 }
-
-
+.minified {
+  #navbar-header {
+    width: 45px;
+    .navbar-brand-wrapper {
+      display: none;
+    }
+  }
+  #navbar-menu {
+    left: 46px;
+  }
+}
 .minified .inbox-badge {
   border-radius: 50%;
   font-size: 9px;
@@ -1394,45 +1423,29 @@ body {
   background: #ED1C24;
   min-width: 13px;
 }
-.minified #powered-by-wrapper {
+.minified #profile-block {
   display: none;
 }
 .minifyme {
-	border-bottom: 1px solid #302F2F;
-	background: #454545;
-	color: #A8A8A8;
-	text-align: center;
+  background-color: #f7f9fa;
+	border-right: solid 1px #e5e7eb;
+  text-align: center;
 	padding: 0;
-	width: 36px;
-	height: 28px;
+	width: $smart-navbar-height - 1;
+	height: $smart-navbar-height - 1;
+  line-height: $smart-navbar-height - 1;
 	display: block;
+  box-sizing: content-box;
 	position: absolute;
-	right: -3px;
-	border-radius: 5px 0px 0px 5px;
 	cursor: pointer;
-	margin-top: 5px;
 	font-size: 19px;
 	transition: all 0.1s linear 0s;
+  a {
+    color: #34495e;
+  }
 }
 .minifyme:hover {
-	background:#646464;
-	color:#E4E4E4;
-	right: 0px;
-}
-
-.minified .minifyme {
-	right: 0px;
-	color: #A8A8A8;
-	position: relative;
-	width: 100%;
-	border-radius: 0px;
-	margin: 0;
-	height: 34px;
-	font-size: 23px;
-}
-
-.minified .minifyme .fa:before {
-	content:"\f0a9";
+	background-color:#eeeeee;
 }
 
 .minified .login-info a {
@@ -1457,7 +1470,7 @@ body {
 	width: 45px;
 }
 
-.minified #main {
+.minified #content {
 	margin-left: 45px;
 }
 
@@ -1465,11 +1478,16 @@ body {
  * Minified NAV
  */
 
-.minified #left-panel, .minified nav > ul > li {
-	overflow: visible;
+.minified {
+  #left-panel, #left-panel nav > ul > li {
+	   overflow: visible;
+  }
+  #left-panel nav > ul > li.top-nav-item {
+    border-top:  none;
+  }
 }
 
-.minified nav > ul > ul {
+.minified #left-panel nav > ul > ul {
 	min-height: 100px !important;
 	max-height: 180px !important;
 	overflow-y: scroll;
@@ -1477,61 +1495,63 @@ body {
 	background: #ed1c24 !important;
 }
 
-.minified nav > ul > li, .minified nav > ul > li a {
+.minified #left-panel nav > ul > li, .minified nav > ul > li a {
 	position: relative;
+  height: 55px;
+  line-height: 55px;
 }
 
-.minified nav ul > li > a {
-	padding: 10px 11px;
-	display:block
+.minified #left-panel nav ul > li > a {
+	display:block;
+  padding: 0px 0px;
 }
 
-.minified nav > ul > li > a .fa.fa-fw {
+.minified #left-panel nav > ul > li > a .fa.fa-fw {
 	display: block;
 	width: auto;
 	text-align: center;
 	padding:0;
 }
 
-.minified nav > ul > li > a > i {
+.minified #left-panel nav > ul > li > a > i {
 	text-align:center;
 	margin:0;
 	display:block;
 }
 
-.minified nav > ul > li.active > a::before {
+.minified #left-panel nav > ul > li.active > a::before {
 	content: "\f0d9";
 }
 
-.minified nav ul ul li a {
+.minified #left-panel nav ul ul li a {
 	padding-left: 14px;
 }
-.minified nav ul ul li li a {
+.minified #left-panel nav ul ul li li a {
 	padding-left: 25px;
 }
 
-.minified nav > ul ul li::before {
+.minified #left-panel nav > ul ul li::before {
 	left: 12px;
 }
-.minified nav > ul > li > ul::before {
+.minified #left-panel nav > ul > li > ul::before {
 	left: 12px;
 }
 
-.minified nav > ul > li > a .menu-item-parent, .minified nav > ul > li > a > b {
+.minified #left-panel nav > ul > li > a .menu-item-parent, .minified #left-panel nav > ul > li > a > b {
 	display: none;
 }
 
-.minified nav > ul > li > a > .menu-item-parent {
+.minified #left-panel nav > ul > li > a > .menu-item-parent {
 	display: none;
 	position: absolute;
 	left: 40px;
 	top: -3px;
 	width: $asideWidth - 34px;
+  z-index: 1000;
 	height: 38px;
 	line-height: 38px;
 	background-color: whiteSmoke;
 	color: $gray-dark;
-	z-index: 3;
 	-webkit-box-shadow: 2px 1px 2px 0 rgba(red($black), green($black), blue($black), 0.2);
 	-moz-box-shadow: 2px 1px 2px 0 rgba(red($black), green($black), blue($black),0.2);
 	box-shadow: 2px 1px 2px 0 rgba(red($black), green($black), blue($black), 0.2);
@@ -1541,7 +1561,7 @@ body {
 	padding-left: 12px;
 }
 
-.minified nav > ul > li > ul {
+.minified #left-panel nav > ul > li > ul {
 	display: none !important;
 	position: absolute;
 	left: 40px;
@@ -1557,36 +1577,23 @@ body {
 }
 
 
-.minified nav ul > li > ul > li > ul {
+.minified #left-panel nav ul > li > ul > li > ul {
 	position: relative;
 	left: 13px;
 	border: none;
-	width: auto;
 	margin-left: -12px;
 	width: $asideWidth - 23px;
 }
 
-.minified nav > ul > li:hover > a > .menu-item-parent, .minified nav > ul > li:hover > ul {
+.minified #left-panel nav > ul > li:hover > a > .menu-item-parent, .minified nav > ul > li:hover > ul {
 	display: block !important;
 }
 
-.minified nav > ul > li > ul > li {
-	background-color: rgba(69, 69, 69, .9);
-}
-.minified nav > ul > li > ul > li > ul > li {
-	background-color: #484B50;
-}
-
-.minified nav > ul > li {
-	border-bottom: 1px solid #1A1817;
-	border-top: 1px solid #525151;
-}
-
-.minified nav > ul > li > ul::before {
+.minified #left-panel nav > ul > li > ul::before {
 	border-left: none;
 }
 
-.minified nav > ul ul li::before {
+.minified #left-panel nav > ul ul li::before {
 	border: none;
 }
 
@@ -1594,35 +1601,35 @@ body {
 	overflow: hidden;
 }
 
-.minified .slimScrollDiv, .minified .slimScrollDiv > :first-child {
+.minified #left-panel .slimScrollDiv, .minified .slimScrollDiv > :first-child {
 	overflow: visible !important;
 }
 
-.minified .slimScrollBar, .minified .slimScrollRail {
+.minified #left-panel .slimScrollBar, .minified .slimScrollRail {
 	display: none;
 }
 
-.minified nav > ul > li > ul > li > a {
+.minified #left-panel nav > ul > li > ul > li > a {
 	padding-top: 7px;
 	padding-bottom: 7px;
 }
 
-.minified nav > ul > li > ul > li > ul > li > a {
+.minified #left-panel nav > ul > li > ul > li > ul > li > a {
 	padding-top: 7px;
 	padding-bottom: 7px;
 }
 
-.minified nav > ul > li > ul > li > ul > li a {
+.minified #left-panel nav > ul > li > ul > li > ul > li a {
 	padding-top: 6px;
 	padding-bottom: 6px;
 }
 
 /* Fourth Level: A */
-.minified nav ul ul ul ul li a {
+.minified #left-panel nav ul ul ul ul li a {
 	padding-left: 45px;
 }
 
 /* Fifth Level: A */
-.minified nav ul ul ul ul ul li a {
+.minified #left-panel nav ul ul ul ul ul li a {
 	padding-left: 62px;
 }
