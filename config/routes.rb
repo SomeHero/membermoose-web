@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resource :dashboard do
     resources :launch, :controller => "dashboard/launch"
     resources :plans, :controller => "dashboard/plans"
+    resources :cards, :controller => "dashboard/cards"
     resources :members, :controller => "dashboard/members" do
       collection do
         get :count, defaults: { format: 'json' }

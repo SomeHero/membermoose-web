@@ -1,6 +1,7 @@
 @AccountController = angular.module('dashboardApp').controller 'AccountController', [
   '$scope'
   'Account'
+  'Card'
   '$stateParams'
   '$window'
   '$timeout'
@@ -8,7 +9,8 @@
   'Upload'
   'AccountServiceChannel',
   '$http'
-  ($scope, Account, $stateParams, window, $timeout, fileReader, Upload, AccountServiceChannel, $http) ->
+  'stripe'
+  ($scope, Account, Card, $stateParams, window, $timeout, fileReader, Upload, AccountServiceChannel, $http, stripe) ->
     window.scope = $scope
     $scope.loading.show_spinner = false
     $scope.form_submitted = false
@@ -18,10 +20,17 @@
     change_password_modal = null
     upload_logo_modal = null
     upgrade_account_modal = null
+    add_credit_card_modal = null
+    update_credit_card_modal = null
+    delete_credit_card_modal = null
+    current_modal = null
+    $scope.credit_card = {}
+    $scope.selected_credit_card = null
     $scope.isLoading = true
     $scope.change_password = {}
     $scope.show_error_message = false
     $scope.error_message = ""
+    $scope.active_step = 1
 
     $scope.updateAccount = (user, form) ->
       console.log "updating user"
@@ -58,6 +67,7 @@
         upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal($scope.options)
 
       upload_logo_modal.open();
+      current_modal = upload_logal_modal
 
     	$scope.onFileSelect = ($files) ->
 
@@ -84,7 +94,7 @@
       console.log("submit logo clicked")
 
       if !$scope.file
-        upload_logo_modal.close()
+        $scope.dismissModal()
 
         return
 
@@ -98,7 +108,7 @@
         message = "You successfully uploaded your logo."
         $scope.display_success_message(message)
 
-        upload_logo_modal.close()
+        $scope.dismissModal()
 
         return
       ), ((resp) ->
@@ -115,16 +125,18 @@
       if !upgrade_plan_modal
         upgrade_plan_modal = $('[data-remodal-id=upgrade-plan-modal]').remodal($scope.options)
 
-      upgrade_plan_modal.open();
+      upgrade_plan_modal.open()
+      current_modal = upgrade_plan_modal
 
     $scope.changePasswordClicked = () ->
       if !change_password_modal
         change_password_modal = $('[data-remodal-id=change-password-modal]').remodal($scope.options)
 
-      change_password_modal.open();
+      change_password_modal.open()
+      current_modal = change_password_modal
 
     $scope.changePasswordCancelled = (form) ->
-      change_password_modal.close();
+      $scope.dismissModal()
 
     $scope.updatePassword = (form) ->
       console.log "updating user"
@@ -148,7 +160,7 @@
 
             $scope.change_password = {}
 
-            change_password_modal.close();
+            $scope.dismissModal()
 
           (http)  ->
             $scope.dismiss_loading()
@@ -157,9 +169,155 @@
             $scope.display_error_message(message)
         )
 
+    $scope.addCreditCardClicked = () ->
+      if !add_credit_card_modal
+        add_credit_card_modal = $('[data-remodal-id=add-card-modal]').remodal($scope.options)
+
+      add_credit_card_modal.open()
+      current_modal = add_credit_card_modal
+
+    $scope.addCreditCardSubmit = () ->
+      stripe_key = $scope.getPublishableKey()
+
+      stripe.setPublishableKey(stripe_key)
+
+      $scope.display_loading()
+      $scope.form_submitted = true
+
+      stripe.card.createToken($scope.credit_card).then((token) ->
+        new Card({
+          card_brand: $scope.credit_card.card_brand,
+          card_last4: $scope.credit_card.card_last4,
+          exp_month: $scope.credit_card.exp_month,
+          exp_year: $scope.credit_card.exp_year,
+          stripe_token: token
+        }).create().then(
+          (response) ->
+            new_card = new Card(response.data)
+            $scope.user.account.cards.push(new_card)
+
+            $scope.credit_card = {}
+
+            $scope.dismiss_loading()
+            $scope.form_submitted = false
+
+            message = "Your credit card was successfully added. You're awesome."
+            $scope.display_success_message(message)
+
+            AccountServiceChannel.accountUpdated()
+
+            $scope.dismissModal()
+
+          (http)  ->
+            $scope.dismiss_loading()
+
+            message = http.statusText
+            $scope.display_error_message(message)
+        )
+      )
+
+    $scope.updateCreditCardClicked = () ->
+      $scope.selected_credit_card = null
+      $scope.active_step = 1
+      if !update_credit_card_modal
+        update_credit_card_modal = $('[data-remodal-id=update-card-modal]').remodal($scope.options)
+
+      update_credit_card_modal.open();
+      current_modal = update_credit_card_modal
+
+    $scope.updateCreditCardSubmit = () ->
+      scope.display_loading()
+
+      Card.setUrl('/dashboard/cards')
+      card = new Card($scope.selected_credit_card)
+      card.update().then(
+        (response) ->
+          $scope.dismiss_loading()
+          $scope.closeEditBar()
+
+          message = "Your card, " + $scope.selected_credit_card.last4 + ", was successfully updated."
+          $scope.display_success_message(message)
+
+          angular.forEach($scope.user.account.cards, (value,index) =>
+            if value.id == $scope.selected_credit_card.id
+              $scope.user.account.cards[index] = $scope.selected_credit_card
+
+              return
+          )
+          $scope.selected_credit_card = null
+
+          $scope.dismissModal()
+        (http)  ->
+          $scope.dismiss_loading()
+
+          errors = http.data
+
+          message = errors
+          $scope.display_error_message(message)
+      )
+
+    $scope.deleteCreditCardClicked = () ->
+      $scope.selected_credit_card = null
+      $scope.active_step = 1
+
+      if !delete_credit_card_modal
+        delete_credit_card_modal = $('[data-remodal-id=delete-card-modal]').remodal($scope.options)
+
+      delete_credit_card_modal.open();
+      current_modal = delete_credit_card_modal
+
+    $scope.deleteCreditCardSubmit = () ->
+      $scope.display_loading()
+
+      Card.setUrl('/dashboard/cards')
+      card = new Card($scope.selected_credit_card)
+      card.delete().then(
+        (response) ->
+          $scope.dismiss_loading()
+          $scope.closeEditBar()
+
+          message = "Your card, " + $scope.selected_credit_card.last4 + ", was successfully deleted."
+          $scope.display_success_message(message)
+
+          angular.forEach($scope.user.account.cards, (value,index) =>
+            if value.id == $scope.selected_credit_card.id
+              $scope.user.account.cards.splice(index, 1)
+          )
+          $scope.selected_credit_card = null
+
+          $scope.dismissModal()
+        (http)  ->
+          $scope.dismiss_loading()
+
+          errors = http.data
+
+          message = errors
+          $scope.display_error_message(message)
+      )
+
+    $scope.setActiveStep = (step) ->
+      if step == $scope.active_step
+        return "active"
+
+    $scope.setSelectedCard = (card) ->
+      $scope.selected_credit_card = card
+
+    $scope.isSelectedCard = (card) ->
+      if card == $scope.selected_credit_card
+        return "selected"
+
+    $scope.nextStep = () ->
+      $scope.active_step += 1
+
+    $scope.previousStep = () ->
+      $scope.active_step -= 1
+
+    $scope.dismissModal = () ->
+      current_modal.close()
+
     $scope.init()
 
     return
 ]
 
-AccountController.$inject = ['$scope', 'Account', '$stateParams', 'window', '$timeout', 'fileReader', 'Upload', 'AccountServiceChannel', '$http']
+AccountController.$inject = ['$scope', 'Account', 'Card', '$stateParams', 'window', '$timeout', 'fileReader', 'Upload', 'AccountServiceChannel', '$http', 'stripe']

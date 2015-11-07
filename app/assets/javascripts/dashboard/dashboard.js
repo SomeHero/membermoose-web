@@ -74,6 +74,12 @@ var app = angular.module('dashboardApp', [
             }
         });
     }]);
+    angular.module('dashboardApp').factory('Card', ['railsResourceFactory', function (railsResourceFactory) {
+        return railsResourceFactory({
+            url: '/dashboard/cards',
+            name: 'card'
+        });
+    }]);
     angular.module('dashboardApp').factory('Plan', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
             url: '/dashboard/plans',

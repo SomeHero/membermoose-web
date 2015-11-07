@@ -237,9 +237,9 @@
       upgrade_plan_modal.open();
 
     $scope.upgradePlanSubmit = () ->
-      console.log("upgrade plan")
+      stripe_key = $scope.getPublishableKey()
 
-      stripe.setPublishableKey("pk_test_5Km0uUASqaRvRu1JTx8Iiefx")
+      stripe.setPublishableKey(stripe_key)
       $scope.display_loading()
       $scope.form_submitted = true
 

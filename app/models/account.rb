@@ -65,6 +65,7 @@ class Account < ActiveRecord::Base
       :hasCreatedPlan => self.has_created_plan,
       :hasConnectedStripe => self.has_connected_stripe,
       :hasUpgradedPlan => self.has_upgraded_plan,
+      :cards => (self.cards.active ? self.cards.active : nil),
       :createdAt => self.created_at,
       :updatedAt	=> self.updated_at
     }

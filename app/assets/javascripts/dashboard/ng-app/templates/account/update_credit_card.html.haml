@@ -1,0 +1,45 @@
+.remodal-overlay{"style"=>"display: none;"}
+  .remodal.action-form{"data-remodal-id"=>"update-card-modal", "data-remodal-options"=>"hashTracking: false" }
+    %section{"ng-class"=>"setActiveStep(1)"}
+      %header
+        %h2
+          Select a Card to Update
+      %p
+        .col-md-4{"ng-repeat"=>"card in user.account.cards"}
+          .card.thumbnail{"ng-click"=>"setSelectedCard(card)", "ng-class"=>"isSelectedCard(card)"}
+            .card-info
+              %h2.card-name
+                {{card.brand}} {{card.last4}}
+              %h3.card-expiration
+                {{card.expirationMonth }}/{{card.expirationYear}}
+      %footer
+        %button.previous{"ng-click"=>"dismissModal()"}
+          Cancel
+        %button.continue{"ng-click"=>"nextStep()"}
+          Next
+          %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}
+    %section{"ng-class"=>"setActiveStep(2)"}
+      %header
+        %h2
+          Update Credit Card
+        %form{"name"=>"updateCreditCardForm", "novalidate"=>""}
+          %p.error-message-block{"ng-show"=>"show_error_message"}
+            {{error_message}}
+          .form-group
+            %label{:for => "expiry_date"}
+              Expiry Date
+            %input#expiry_date_month{:name => "expiry_date_month", :placeholder => "MM", :required => "", :type => "text", "ng-model"=>"selected_credit_card.expirationMonth", :style => "width: 120px;"}/
+            %span{:style=>"display: inline;"}
+              \/
+            %input#expiry_date_year{:name => "expiry_date_year", :placeholder => "YYYY", :required => "", :type => "text", "ng-model"=>"selected_credit_card.expirationYear", :style => "width: 180px;"}/
+            %span{"ng-show" => "form_submitted && addCreditCardForm['expiry_date_month'].$invalid", :style => "color:red"}
+              %span{"ng-show" => "addCreditCardForm['expiry_date_month'].$error.required"}
+                Card Expiration month is required.
+          %footer
+            %button.previous{"ng-click"=>"previousStep()"}
+              Back
+            %button.continue{"ng-click"=>"updateCreditCardSubmit(addCreditCardForm)"}
+              Update Card
+              %i.fa-arrow-right
+        %div{"loading-screen" => "loading.show_spinner"}

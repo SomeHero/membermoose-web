@@ -15,6 +15,8 @@
       user =
       != @user ? @user.to_json : nil
 
+      config =
+      != @config ? @config.to_json : nil
     %base{"href"=>"/dashboard"}
   %body{"ng-app"=>"dashboardApp", "ng-controller"=>"DashboardController"}
     .success-message.animate-show.alert.alert-success{"role"=>"alert", "ng-show"=>"show_success_message"}

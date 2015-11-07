@@ -8,6 +8,7 @@
   'AccountServiceChannel'
   ($scope, Account, Plan, window, $modal, $timeout, AccountServiceChannel) ->
     $scope.user = new Account(user)
+    $scope.config = config
     $scope.plans = []
 
     $scope.loading = {
@@ -25,13 +26,18 @@
 
     $scope.init = () ->
       nav_page_height()
-      
+
     $scope.set_user = (user) ->
       $scope.user = new Account(user)
 
     $scope.getPlans = () ->
       Plan.get().then (response) ->
         $scope.plans = response.data
+    $scope.getPublishableKey = () ->
+      if $scope.user.account.paymentProcessors
+        return $scope.config.publishableKey
+      else
+        return ""
 
     $scope.setMenuItemSelected = (url) ->
       if url == window.location.pathname
@@ -57,6 +63,12 @@
       $scope.show_error_message = true
 
       $scope.clear_messages()
+
+    $scope.showEditBar = () ->
+      $scope.edit_panel_open = true
+
+    $scope.closeEditBar = () ->
+      $scope.edit_panel_open = false
 
     $scope.close_error_message = () ->
       $scope.show_error_message = false

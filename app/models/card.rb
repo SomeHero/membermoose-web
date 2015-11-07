@@ -1,6 +1,8 @@
 class Card < ActiveRecord::Base
   belongs_to :account
 
+  scope :active, -> { where(deleted: false) }
+
   def as_json(options={})
   {
     :id => self.id,

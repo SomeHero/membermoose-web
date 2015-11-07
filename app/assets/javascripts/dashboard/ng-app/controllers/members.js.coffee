@@ -105,12 +105,6 @@
 
       next_invoice_modal.open()
 
-    $scope.showEditBar = () ->
-      $scope.edit_panel_open = true
-
-    $scope.closeEditBar = () ->
-      $scope.edit_panel_open = false
-
     $scope.toggle_search = () ->
       if $scope.display_search
         $scope.display_search = false
