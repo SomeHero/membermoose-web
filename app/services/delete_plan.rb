@@ -8,6 +8,8 @@ class DeletePlan
       stripe_plan.delete
 
     rescue Stripe::StripeError => e
+      Rails.logger.info("Stripe Error when delete card #{e.message}")
+
       plan.errors[:base] << e.message
       return plan
     end
