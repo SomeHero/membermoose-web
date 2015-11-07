@@ -2,13 +2,17 @@
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3 text-center">
 
-      <!-- Errors container -->
-      <div class="errors-container"></div>
 
       <%= link_to(root_path) do %>
         <%= image_tag('logo-black.png', width: "300", style:"margin-bottom: 20px;") %>
       <% end %>
       <%= form_for(resource, :as => resource_name, :html => { :class => 'login-form'}, :url => session_path(resource_name)) do |f| %>
+      <!-- Errors container -->
+        <div class="errors-container">
+          <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+          <% end %>
+        </div>
         <div class="form-group">
           <% f.label :email, class: 'control-label' %>
           <%= f.email_field :email, { placeholder: 'you@example.com', :autofocus => true, :class => 'form-control input-dark input-lg' } %>
