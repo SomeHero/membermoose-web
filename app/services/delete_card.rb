@@ -8,6 +8,8 @@ class DeleteCard
       customer = Stripe::Customer.retrieve(stripe_customer_id)
       customer.sources.retrieve(stripe_card_id).delete
     rescue Stripe::StripeError => e
+      Rails.logger.debug("Stripe Error when delete card: #{e.message}")
+
       card.errors[:base] << e.message
       return card
     end
@@ -15,5 +17,7 @@ class DeleteCard
     card.deleted = true
     card.deleted_at = Time.now
     card.save!
+
+    return card
   end
 end
