@@ -82,15 +82,20 @@ StripeEvent.configure do |events|
   end
   events.subscribe 'invoice.created' do |event|
     Rails.logger.debug "Received invoice.created stripe-event"
+
     invoice = event.data.object
     subscription = Subscription.find_by(:stripe_id => invoice.subscription)
 
+    status = "Unpaid"
+    if subscription.payments.count > 0
+      status = "Paid"
+    end
     new_invoice = subscription.invoices.create!({
         :external_id => invoice.id,
         :total => invoice.total/100,
         :subtotal => invoice.subtotal/100,
         :subscription => subscription,
-        :status => "Unpaid"
+        :status => status
     })
 
     begin
@@ -99,6 +104,38 @@ StripeEvent.configure do |events|
       puts "Error #{$!}"
     end
 
+  end
+  events.subscribe 'invoice.payment_succeeded' do |event|
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+
+    stripe_invoice = event.data.object
+    invoice = Invoice.find_by(external_id: stripe_invoice.id)
+    account = Account.find_by(stripe_customer_id: stripe_invoice.customer)
+
+    invoice_sub = stripe_invoice.lines.data.select { |i| i.type == 'subscription' }.first.id
+    subscription = Subscription.find_by(stripe_id: invoice_sub)
+
+    charge = Stripe::Charge.retrieve(stripe_invoice.charge)
+    card = card = Card.find_by(:external_id => charge.source.id)
+    stripe_balance_txn = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+
+    Payment.create!({
+        :payment_processor => stripe_payment_processor,
+        :account => subscription.plan.account,
+        :payee => account,
+        :amount => stripe_invoice.total/100,
+        :payment_processor_fee => stripe_balance_txn.fee/100,
+        :payment_method => "Credit Card",
+        :payment_type => "Recurring",
+        :status => "Paid",
+        :subscription => subscription,
+        :card => card,
+        :comments => "Recurring Payment for #{subscription.plan.name} (test)"
+    })
+    if invoice
+      invoice.status = "Paid"
+      invoice.save
+    end
   end
   events.subscribe 'charge.dispute.created' do |event|
     charge = event.data.object

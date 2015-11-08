@@ -56,7 +56,7 @@
     %td{"data-title"=>"'Transaction Date'"}
       {{payment.createdAt | date:'medium'}}
     %td{"data-title"=>"'Payee Name/Subscriber Name'"}
-      {{payment.payee.fullName}}
+      {{payment.payee.firstName}} {{payment.payee.lastName}}
     %td{"data-title"=>"'Amount'"}
       {{payment.amount | currency}}
     %td{"data-title"=>"'Fees'"}
@@ -64,7 +64,7 @@
     %td{"data-title"=>"'Net Amount'"}
       {{payment.netAmount | currency}}
     %td{"data-title"=>"'Payment Processor'"}
-      {{payment.accountPaymentProcessor.paymentProcessor.name}}
+      {{payment.paymentProcessor.name}}
     %td.payment-method{"data-title"=>"'Payment Method'"}
       {{payment.paymentMethod}}<br />
       {{payment.card.brand}} ending in {{payment.card.last4}}

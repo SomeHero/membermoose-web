@@ -72,18 +72,7 @@ larkin_account = Account.create!({
   :company_name => "IMA Bull LLC",
   :subdomain => "ima-bull",
   :site_url => (Rails.env.production? ? "https://ima-bull.membermoose-ng.com" : "http://ima-bull.mmoose-ng.localhost:3000/"),
-  :has_connected_stripe => true
-})
-larkin_account_payment_processor = AccountPaymentProcessor.create!({
-  account: larkin_account,
-  payment_processor: payment_processor,
-  oauth_user_id: "1",
-  name: larkin_account.first_name + " " + larkin_account.last_name,
-  email: larkin_account.user.email,
-  api_key: "",
-  secret_token: larkin_stripe_key,
-  refresh_token: "",
-  active: true
+  :has_connected_stripe => false
 })
 card = {
   number: valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)],
@@ -108,7 +97,8 @@ CreateSubscription.call(
   token.card.brand,
   token.card.last4,
   token.card.exp_month,
-  token.card.exp_year
+  token.card.exp_year,
+  ENV["STRIPE_SECRET_KEY"]
 )
 
 coworking_fulltime_plan = CreatePlan.call({
@@ -165,7 +155,10 @@ for i in 0..250
     :company_name => ""
   })
 
-  token = CreateToken.call(valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)], rand(1..12), 2020, rand(100..999), ENV["STRIPE_SECRET_KEY"])
+  token = CreateToken.call(valid_credit_card_nums[rand(0..valid_credit_card_nums.length-1)],
+    rand(1..12), 2020,
+    rand(100..999),
+    larkin_stripe_key)
   plan = wolfpack_plans[rand(0..2)]
 
   card = {
@@ -191,7 +184,8 @@ for i in 0..250
     token.card.brand,
     token.card.last4,
     token.card.exp_month,
-    token.card.exp_year
+    token.card.exp_year,
+    larkin_stripe_key
   )
 
 end

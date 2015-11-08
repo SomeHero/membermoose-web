@@ -41,22 +41,6 @@ class CreateSubscription
 
         stripe_sub = customer.subscriptions.first
 
-        subscription.payments.new({
-            :account => plan.account,
-            :account_payment_processor => AccountPaymentProcessor.new({
-              :account => account,
-              :payment_processor => payment_processor,
-              :active => true
-            }),
-            :amount => plan.amount,
-            :payment_processor_fee => plan.amount*0.01+0.30,
-            :payment_method => "Credit Card",
-            :payment_type => "Recurring",
-            :status => "Pending",
-            :card => card,
-            :comments => "Recurring Payment for #{subscription.plan.name} (test)"
-        })
-
         subscription.stripe_id = stripe_sub.id
 
         #ToDo: create method on Plan that will calculate the next invoice date

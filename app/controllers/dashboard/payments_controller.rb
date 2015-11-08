@@ -3,7 +3,6 @@ class Dashboard::PaymentsController < DashboardController
 
   def index
     query = current_user.account.payments
-      .joins(:account_payment_processor => :account )
 
     if params[:from_date]
       query = query.where("payments.created_at >= ?", params["from_date"])
@@ -38,7 +37,6 @@ class Dashboard::PaymentsController < DashboardController
 
   def count
     query = current_user.account.payments
-      .joins(:account_payment_processor => :account )
 
     if params[:from_date]
       query = query.where("created_at >= ?", params["from_date"])
@@ -69,7 +67,7 @@ class Dashboard::PaymentsController < DashboardController
 
     @payment = RefundPayment.call(@payment, stripe.secret_token)
 
-    render :json => {:payment => @payment.to_json}, status: 200 
+    render :json => {:payment => @payment.to_json}, status: 200
   end
 
 end

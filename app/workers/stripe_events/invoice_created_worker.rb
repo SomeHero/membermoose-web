@@ -4,22 +4,5 @@ class InvoiceCreatedWorker
   def self.perform(invoice_id)
     invoice = Invoice.find(invoice_id)
 
-    charge = Charge.find_by(:external_invoice_id => invoice.external_id)
-
-    if charge
-      subscription = invoice.subscription
-      payment = subscription.payments.where(:status => "Pending").first
-
-      if payment
-        payment.charge = charge
-        payment.status = "Complete"
-        payment.save!
-
-        invoice.status = "Paid"
-        invoice.save!
-      else
-        #we should create a new payment object
-      end
-    end
   end
 end

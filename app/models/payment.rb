@@ -1,6 +1,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :account
-  belongs_to :account_payment_processor
+  belongs_to :payment_processor
+  belongs_to :payee, :class_name => 'Account', :foreign_key => 'payee_id'
   belongs_to :card
   belongs_to :subscription
   has_one :charge
@@ -21,13 +22,9 @@ class Payment < ActiveRecord::Base
     :net_amount => self.net_amount,
     :payment_type => self.payment_type,
     :payment_method => self.payment_method,
+    :payment_processor => self.payment_processor,
     :status => self.status,
-    :payee => {
-      "guid" => self.account_payment_processor.account.guid,
-      "full_name" => self.account_payment_processor.account.full_name,
-      "email_address" => self.account_payment_processor.account.user.email
-    },
-    :account_payment_processor => self.account_payment_processor,
+    :payee => self.payee,
     :card => self.card,
     :comments => self.comments,
     :created_at => self.created_at,
