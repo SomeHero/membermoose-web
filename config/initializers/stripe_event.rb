@@ -92,8 +92,8 @@ StripeEvent.configure do |events|
     end
     new_invoice = subscription.invoices.create!({
         :external_id => invoice.id,
-        :total => invoice.total/100,
-        :subtotal => invoice.subtotal/100,
+        :total => invoice.total.to_f/100,
+        :subtotal => invoice.subtotal.to_f/100,
         :subscription => subscription,
         :status => status
     })
@@ -123,8 +123,8 @@ StripeEvent.configure do |events|
         :payment_processor => stripe_payment_processor,
         :account => subscription.plan.account,
         :payee => account,
-        :amount => stripe_invoice.total/100,
-        :payment_processor_fee => stripe_balance_txn.fee/100,
+        :amount => stripe_invoice.total.to_f/100,
+        :payment_processor_fee => stripe_balance_txn.fee.to_f/100,
         :payment_method => "Credit Card",
         :payment_type => "Recurring",
         :status => "Paid",
@@ -163,7 +163,7 @@ StripeEvent.configure do |events|
       :external_id => data.id,
       :external_invoice_id => data.invoice,
       :status => data.status,
-      :amount => data.amount/100,
+      :amount => data.amount.to_f/100,
       :currency => data.currency,
       :card => card
     })
