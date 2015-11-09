@@ -1,15 +1,16 @@
 @SubscribeController = angular.module('bullsApp').controller 'SubscribeController', [
   '$scope'
+  '$stateParams'
+  '$state'
   'Plan'
   'Subscription'
-  'account',
-  'plan'
-  '$modalInstance'
   'stripe'
   '$window'
-  ($scope, Plan, Subscription, account, plan, $modalInstance, stripe, window) ->
+  ($scope, $stateParams, $state, Plan, Subscription, stripe, window) ->
     window.scope = $scope
 
+    $scope.plan = $stateParams.plan
+    $scope.account = account
     stripe.setPublishableKey(account.payment_processors[0].api_key)
     $scope.loading = {
       show_spinner: false
@@ -46,9 +47,8 @@
         id: '1', year: i
       })
       i++
-    $scope.plan = plan
 
-    $scope.charge = (form)  ->
+    $scope.subscribe = (form)  ->
       $scope.credit_card_valid = stripe.card.validateCardNumber($scope.payment.card.number)
       if !$scope.credit_card_valid
         $scope.form_submitted = true
@@ -75,9 +75,7 @@
           }).create().then(
             (response) ->
               $scope.loading.show_spinner = false
-
-              $modalInstance.close();
-
+              $state.go('success', {"plan_name": $scope.plan.name, "id": $scope.plan.id })
             (http)  ->
               $scope.loading.show_spinner = false
 
@@ -102,4 +100,4 @@
         console.log "subsciption form is invalid"
 ]
 
-SubscribeController.$inject = ['$scope', 'Plan', 'Subscription', 'account', 'plan', '$modalInstance', 'stripe', 'window']
+SubscribeController.$inject = ['$scope', '$stateParams', '$state', 'Plan', 'Subscription', '$modalInstance', 'stripe', 'window']

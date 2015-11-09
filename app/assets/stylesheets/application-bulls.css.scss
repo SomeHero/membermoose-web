@@ -11,6 +11,10 @@
  * file per style scope.
  *
  *= require bootstrap-import
+ *= require fontawesome-import
+ *= require_tree ./linecons
  *= require ajax-spinner
-  *= require_tree ./bulls
+ *= require_tree ./bulls
+ *= require remodal
+ *= require remodal-overlay
  */

@@ -1,16 +1,19 @@
 .container-fluid
-  .row{"ng-repeat"=>"row in rows", :style=>"margin-bottom: 20px;"}
-    .col-md-3{"ng-repeat"=>"plan in row"}
-      .plan{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
-        .plan-image{:style=>"height:70px;"}
-          .overlay
-            %div.view-project
-              %a{"ng-href"=>"/plans/{{plan.id}}"}
-        .plan-info
-          %h2.plan-name
-            {{plan.name}}
-          %h3.plan-amount
-            {{plan.amount | currency }}
-        %button.btn.btn-lg.btn-success{"ng-click"=>"subscribe(plan)"}
-          Subscribe
+  .row
+    .col-sm-12.col-md-10.col-md-offset-1
+      .container-fluid.plans{"style"=>"min-height: 400px;"}
+        .row{"ng-repeat"=>"row in rows", :style=>"margin-bottom: 20px;"}
+          .col-md-4{"ng-repeat"=>"plan in row"}
+            .plan{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
+              .plan-image{:style=>"height:70px;"}
+                .overlay
+                  %div.view-project
+                    %a{"ng-href"=>"/plans/{{plan.id}}"}
+              .plan-info
+                %h2.plan-name
+                  {{plan.name}}
+                %h3.plan-amount
+                  {{plan.amount | currency }}
+              %button.btn.btn-lg.btn-success{"ui-sref"=>"subscribe({plan: {{plan}}, id: '{{plan.guid}}'})"}
+                Subscribe
 %div{"loading-screen" => "loading.show_spinner"}

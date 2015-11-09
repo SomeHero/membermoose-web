@@ -13,6 +13,18 @@ var app = angular.module('bullsApp', [
             templateUrl: 'bulls/ng-app/templates/plans.html',
             controller: 'PlansController'
         })
+        .state('subscribe', {
+            url: '/subscribe/:id',
+            templateUrl: 'bulls/ng-app/templates/subscribe.html',
+            controller: 'SubscribeController',
+            params: {plan: null, id: "0"}
+        })
+        .state('success', {
+            url: '/success',
+            templateUrl: 'bulls/ng-app/templates/success.html',
+            controller: 'SuccessController',
+            params: {plan_name: ""}
+        })
 
         // default fall back route
         $urlRouterProvider.otherwise('/');
