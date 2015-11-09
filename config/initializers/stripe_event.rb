@@ -115,11 +115,19 @@ StripeEvent.configure do |events|
     invoice_sub = stripe_invoice.lines.data.select { |i| i.type == 'subscription' }.first.id
     subscription = Subscription.find_by(stripe_id: invoice_sub)
 
-    charge = Stripe::Charge.retrieve(stripe_invoice.charge)
-    card = card = Card.find_by(:external_id => charge.source.id)
-    stripe_balance_txn = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+    stripe_charge = Stripe::Charge.retrieve(stripe_invoice.charge)
+    card = card = Card.find_by(:external_id => stripe_charge.source.id)
+    stripe_balance_txn = Stripe::BalanceTransaction.retrieve(stripe_charge.balance_transaction)
 
     Payment.create!({
+        :charge => Charge.create!({
+          :external_id => stripe_charge.id,
+          :external_invoice_id => stripe_invoice.id,
+          :status => stripe_charge.status,
+          :amount => stripe_charge.amount.to_f/100,
+          :currency => stripe_charge.currency,
+          :card => card
+        }),
         :payment_processor => stripe_payment_processor,
         :account => subscription.plan.account,
         :payee => account,

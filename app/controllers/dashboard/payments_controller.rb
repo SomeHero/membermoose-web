@@ -61,9 +61,11 @@ class Dashboard::PaymentsController < DashboardController
   end
 
   def refund
+    account = current_user.account
+
     @payment = Payment.find(params[:id])
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = @payment.account.account_payment_processors.where(:payment_processor => stripe_payment_processor).first
+    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
     @payment = RefundPayment.call(@payment, stripe.secret_token)
 

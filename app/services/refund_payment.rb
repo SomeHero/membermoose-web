@@ -2,9 +2,9 @@ class RefundPayment
   def self.call(payment, stripe_secret_key)
     stripe_charge_id = payment.charge.external_id
 
-    Stripe.api_key = stripe_secret_key
-
     begin
+      Stripe.api_key = stripe_secret_key
+
       stripe_charge = Stripe::Charge.retrieve(stripe_charge_id)
       refund = stripe_charge.refund
     rescue Stripe::StripeError => e
