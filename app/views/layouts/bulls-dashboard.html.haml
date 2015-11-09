@@ -18,12 +18,7 @@
   %body
     %header.text-center{:role => "banner", :style => "background: #{@dominant_color}"}
       %nav{:role => "primary"}
-        %a.login{:href => "/dashboard"}
-          Login
-        - if @bull.account.logo.exists?
-          = image_tag @bull.account.logo.url
-        %h1
-          = @bull.account.company_name
+        
     %div{"ng-app"=>"bullsApp", "style"=>"text-align: center;"}
       = yield
     %footer.text-center

@@ -17,6 +17,12 @@ body {
     background-color: #393c45;
     margin-bottom: 20px;
     padding: 20px 0px;
+    nav {
+      width: 70%;
+      max-width: 1024px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
   }
   #main {
     margin: 20px 50px;

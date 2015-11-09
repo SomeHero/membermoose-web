@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+
   get 'dashboard/index'
 
   #get 'home/index'
@@ -13,7 +14,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   constraints(Subdomain) do
-    get "/" => "bulls/home#index", as: "home", :constraints => { :subdomain => /.+/ }
+    get "/" => "bulls/home#index", as: "home", :constraints => { :subdomain => /^(?!www)(\w+)/ }
+    resources :dashboard, :controller => "bulls/dashboard"
   end
 
   root 'home#index'

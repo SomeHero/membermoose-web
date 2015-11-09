@@ -11,6 +11,8 @@
  * file per style scope.
  *
  *= require bootstrap-import
+ *= require ajax-spinner
+ *= require common
  *= require_tree ./public
  *= require remodal
  */

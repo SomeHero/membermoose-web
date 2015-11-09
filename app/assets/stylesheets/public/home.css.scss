@@ -28,41 +28,7 @@ input[type=range]::-webkit-slider-runnable-track {
     color: #ff0000;
   }
 }
-// ABSTRACTS
-%ghost-button {
-	color: #fefefe;
-	text-transform: uppercase;
-	border: #fefefe solid 2px;
-	border-radius: 8px;
-	padding: 0.4rem 1rem;
 
-	&:hover, &:focus {
-		text-decoration: none;
-	}
-}
-
-%default-button {
-	position: relative;
-	display: block;
-  color: #fefefe;
-  text-transform: uppercase;
-	background: linear-gradient(to bottom, #2A92E5 0%, darken(#2A92E5, 3%) 100%);
-	border-top: lighten(#2A92E5, 5%) solid 1px;
-	border-bottom: darken(#2A92E5, 5%) solid 2px;
-  border-radius: 0.7rem;
-	margin: 0 auto;
-  padding: 0.5rem 2rem;
-
-	&:hover, &:focus {
-		text-decoration: none;
-	}
-
-	&:focus {
-		top: 1px;
-		border-bottom: none;
-		border-top: darken(#2A92E5, 7%) solid 1px;
-	}
-}
 
 // HOMEPAGE
 .homepage .pitch, .homepage .overview, .homepage .how-it-works, .homepage .get-started, .homepage header nav, .homepage .how-it-works .wrapper {
@@ -93,13 +59,6 @@ input[type=range]::-webkit-slider-runnable-track {
 		img {
 			max-width: 100%;
 		}
-	}
-
-	.login {
-		@extend %ghost-button;
-		position: relative;
-		top: 8px;
-		float: right;
 	}
 
 	.pitch {
