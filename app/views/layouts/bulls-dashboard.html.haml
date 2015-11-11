@@ -15,11 +15,11 @@
       account =
       != @bull ? @bull.account.to_json : nil
     %base{"href"=>"/"}
-  %body
+  %body{"ng-app"=>"dashboardApp"}
     %header.text-center{:role => "banner", :style => "background: #{@dominant_color}"}
       %nav{:role => "primary"}
-        
-    %div{"ng-app"=>"bullsApp", "style"=>"text-align: center;"}
+
+    %div{"style"=>"text-align: center;"}
       = yield
     %footer.text-center
       .powered-by Powered by
