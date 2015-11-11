@@ -22,7 +22,6 @@ class Bulls::SubscriptionsController < ApplicationController
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
-    binding.pry
     first_name = params["subscription"]["first_name"]
     last_name = params["subscription"]["last_name"]
     email = params["subscription"]["email"]
@@ -71,7 +70,7 @@ class Bulls::SubscriptionsController < ApplicationController
     end
 
     sign_in account.user
-    
+
     respond_to do |format|
       if @subscription.errors.count == 0
         format.html  { render action: 'new' }

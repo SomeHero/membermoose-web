@@ -15,7 +15,7 @@
               %div{"ng-hide"=>"subscription.status == 'Cancelled'"}
                 %button.btn.btn-lg.btn-primary{"ng-click"=>"cancelSubscriptionClicked(subscription)"}
                   Unsubscribe
-                %button.btn.btn-lg.btn-primary{"ui-sref"=>"subscribe({plan: {{plan}}, id: '{{plan.guid}}'})"}
+                %button.btn.btn-lg.btn-primary{"ng-click"=>"changeSubscriptionClicked(subscription)"}
                   Change Plan
               %div{"ng-show"=>"subscription.status == 'Cancelled'"}
                 %h2
@@ -23,3 +23,4 @@
 
 %div{"loading-screen" => "loading.show_spinner"}
 %div{"ng-include"=>"'bulls/ng-dashboard-app/templates/modals/unsubscribe.html'"}
+%div{"ng-include"=>"'bulls/ng-dashboard-app/templates/modals/change_plan.html'"}

@@ -6,6 +6,7 @@
   ($scope, $stateParams, Subscription, window) ->
     window.scope = $scope
     cancelSubscriptionModal = null
+    changeSubscriptionModal = null
     $scope.selectedSubscription = {}
 
     $scope.cancelSubscriptionClicked = (subscription) ->
@@ -37,6 +38,14 @@
 
           #$scope.dismiss_loading()
       )
+
+    $scope.changeSubscriptionClicked = (subscription) ->
+      $scope.selectedSubscription = subscription
+
+      if !changeSubscriptionModal
+        changeSubscriptionModal = $('[data-remodal-id=change-subscription-modal]').remodal($scope.options)
+
+      changeSubscriptionModal.open()
 
     $scope.getSubscriptions = () ->
       Subscription.get().then((response) ->
