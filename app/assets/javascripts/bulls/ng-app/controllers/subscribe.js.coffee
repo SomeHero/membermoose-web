@@ -71,6 +71,7 @@
             first_name: $scope.subscription.first_name,
             last_name: $scope.subscription.last_name
             email: $scope.subscription.email,
+            password: $scope.subscription.password,
             stripe_token: token
           }).create().then(
             (response) ->

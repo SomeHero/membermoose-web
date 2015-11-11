@@ -4,12 +4,10 @@ class Bulls::DashboardController < ApplicationController
   layout 'bulls-dashboard'
 
   def index
-    account = Account.where("LOWER(subdomain) = ?", request.subdomain).first
+    bull = Account.where("LOWER(subdomain) = ?", request.subdomain).first
+    user = current_user
 
-    #ToDo:if account is null we should return a 404
-    session[:account_id] = account.id
-
-    @bull = account.user
-
+    @bull = bull.user
+    @user = user
   end
 end

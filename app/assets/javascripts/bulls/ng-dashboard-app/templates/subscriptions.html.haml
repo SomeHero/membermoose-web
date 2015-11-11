@@ -1,2 +1,25 @@
-%h2
-  Your Subscriptions
+.container-fluid
+  .row
+    .col-sm-12.col-md-10.col-md-offset-1
+      %h2.text-left
+        Your Subscriptions
+      .container-fluid.plans{"style"=>"min-height: 400px;"}
+        .row{:style=>"margin-bottom: 20px;"}
+          .col-md-4{"ng-repeat"=>"subscription in subscriptions"}
+            .plan
+              .plan-info
+                %h2.plan-name
+                  {{subscription.plan.name}}
+                %h3.plan-amount
+                  {{subscription.plan.amount | currency }}
+              %div{"ng-hide"=>"subscription.status == 'Cancelled'"}
+                %button.btn.btn-lg.btn-primary{"ng-click"=>"cancelSubscriptionClicked(subscription)"}
+                  Unsubscribe
+                %button.btn.btn-lg.btn-primary{"ui-sref"=>"subscribe({plan: {{plan}}, id: '{{plan.guid}}'})"}
+                  Change Plan
+              %div{"ng-show"=>"subscription.status == 'Cancelled'"}
+                %h2
+                  Cancelled
+
+%div{"loading-screen" => "loading.show_spinner"}
+%div{"ng-include"=>"'bulls/ng-dashboard-app/templates/modals/unsubscribe.html'"}

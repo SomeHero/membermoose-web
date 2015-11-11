@@ -12,6 +12,16 @@ var dashboardApp = angular.module('dashboardApp', [
             templateUrl: 'bulls/ng-dashboard-app/templates/subscriptions.html',
             controller: 'SubscriptionsController'
         })
+        .state('cards', {
+            url: '/cards',
+            templateUrl: 'bulls/ng-dashboard-app/templates/cards.html',
+            controller: 'CardsController'
+        })
+        .state('billingHistory', {
+            url: '/billing',
+            templateUrl: 'bulls/ng-dashboard-app/templates/billingHistory.html',
+            controller: 'BillingHistoryController'
+        })
 
         // default fall back route
         $urlRouterProvider.otherwise('/');
@@ -23,3 +33,9 @@ var dashboardApp = angular.module('dashboardApp', [
       //RailsResourceProvider.rootWrapping(false);
       RailsResourceProvider.fullResponse(true);
     });
+    angular.module('dashboardApp').factory('Subscription', ['railsResourceFactory', function (railsResourceFactory) {
+        return railsResourceFactory({
+            url: '/bulls/subscriptions',
+            name: 'subscription'
+        });
+    }]);

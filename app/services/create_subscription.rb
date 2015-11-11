@@ -1,8 +1,8 @@
 class CreateSubscription
-  def self.call(plan, first_name, last_name, email_address, token,
+  def self.call(plan, first_name, last_name, email_address, password, token,
     stripe_card_id, card_brand, card_last4, exp_month, exp_year, stripe_secret_key)
 
-    account, raw_token = CreateUser.call(first_name, last_name, email_address)
+    account, raw_token = CreateUser.call(first_name, last_name, email_address, password)
 
     payment_processor = PaymentProcessor.find_by(:name => "Stripe")
 

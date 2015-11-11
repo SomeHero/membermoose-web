@@ -12,13 +12,25 @@
       _test_env =
       != (Rails.env == 'production' ? nil : 'testing' ).to_json
 
-      account =
+      bull =
       != @bull ? @bull.account.to_json : nil
+      account =
+      != @user ? @user.account.to_json : nil
     %base{"href"=>"/"}
-  %body{"ng-app"=>"dashboardApp"}
-    %header.text-center{:role => "banner", :style => "background: #{@dominant_color}"}
+  %body{"ng-app"=>"dashboardApp", "ng-controller"=>"DashboardController"}
+    %header
+      %img.logo{"ng-src"=>"{{bull.logo.url}}"}
       %nav{:role => "primary"}
-
+        %ul.nav.nav-pills
+          %li
+            %a{"ui-sref"=>"subscriptions"}
+              Subscriptions
+          %li
+            %a{"ui-sref"=>"cards"}
+              Payment Methods
+          %li
+            %a{"ui-sref"=>"billingHistory"}
+              Billing History
     %div{"style"=>"text-align: center;"}
       = yield
     %footer.text-center

@@ -1,6 +1,15 @@
 class Bulls::SubscriptionsController < ApplicationController
   layout 'bulls'
 
+  def index
+    @subscriptions = current_user.account.subscriptions
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => { :subscriptions => @subscriptions }}
+    end
+  end
+
   def new
     @bull = current_user
     @plans = current_user.account.plans
@@ -13,9 +22,11 @@ class Bulls::SubscriptionsController < ApplicationController
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
+    binding.pry
     first_name = params["subscription"]["first_name"]
     last_name = params["subscription"]["last_name"]
     email = params["subscription"]["email"]
+    password = params["subscription"]["password"]
     stripe_token = params["subscription"]["stripe_token"]["id"]
     type = params["subscription"]["stripe_token"]["type"]
     stripe_card_id = params["subscription"]["stripe_token"]["card"]["id"]
@@ -29,6 +40,7 @@ class Bulls::SubscriptionsController < ApplicationController
       first_name,
       last_name,
       email,
+      password,
       stripe_token,
       stripe_card_id,
       card_brand,
@@ -58,6 +70,8 @@ class Bulls::SubscriptionsController < ApplicationController
       end
     end
 
+    sign_in account.user
+    
     respond_to do |format|
       if @subscription.errors.count == 0
         format.html  { render action: 'new' }
@@ -66,6 +80,22 @@ class Bulls::SubscriptionsController < ApplicationController
         format.html { render action: 'new' }
         format.json { render json: @subscription.errors, status: :bad_request }
       end
+    end
+  end
+
+  def destroy
+    @subscription = Subscription.find(params[:id])
+
+    account = current_user.account
+
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+    stripe = @subscription.plan.account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
+
+    @subscription = CancelSubscription.call(@subscription, stripe.secret_token)
+
+    respond_to do |format|
+      format.html  { render action: 'show' }
+      format.json { render :json => {}, status: 200 }
     end
   end
 end
