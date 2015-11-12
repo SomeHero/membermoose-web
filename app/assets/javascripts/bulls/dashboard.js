@@ -39,3 +39,9 @@ var dashboardApp = angular.module('dashboardApp', [
             name: 'subscription'
         });
     }]);
+    angular.module('dashboardApp').factory('Plan', ['railsResourceFactory', function (railsResourceFactory) {
+        return railsResourceFactory({
+            url: '/bulls/plans',
+            name: 'plan'
+        });
+    }]);

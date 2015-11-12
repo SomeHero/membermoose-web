@@ -82,6 +82,23 @@ class Bulls::SubscriptionsController < ApplicationController
     end
   end
 
+  def change
+    @subscription = Subscription.find(params[:id])
+    @plan = Plan.find(params[:plan_id])
+
+    account = current_user.account
+
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+    stripe = @subscription.plan.account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
+
+    @subscription = ChangeSubscription.call(@subscription, @plan, stripe.secret_token)
+
+    respond_to do |format|
+      format.html  { render action: 'show' }
+      format.json { render :json => {:subscription => @subscription}, status: 200 }
+    end
+  end
+
   def destroy
     @subscription = Subscription.find(params[:id])
 

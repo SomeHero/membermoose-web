@@ -59,7 +59,11 @@ Rails.application.routes.draw do
 
   resource :bulls do
     resources :plans, :controller => "bulls/plans"
-    resources :subscriptions, :controller => "bulls/subscriptions"
+    resources :subscriptions, :controller => "bulls/subscriptions" do
+      member do
+        post :change, defaults: { format: 'json' }
+      end
+    end
   end
 
   # Example of regular route:

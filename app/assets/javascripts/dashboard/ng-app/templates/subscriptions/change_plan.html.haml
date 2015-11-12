@@ -9,7 +9,7 @@
       %p
         .container-fluid
           .row-fluid
-            .col-md-4{"ng-repeat"=>"plan in plans | filter: myExpression"}
+            .col-md-4{"ng-repeat"=>"plan in plans | filter: filterSubscribedPlane"}
               .plan.thumbnail{"ng-click"=>"changePlanSelect(plan)"}
                 {{plan.name}}
       %footer

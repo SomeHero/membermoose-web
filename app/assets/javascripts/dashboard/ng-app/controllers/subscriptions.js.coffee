@@ -44,9 +44,8 @@
 
         sortPlans()
 
-    $scope.myExpression = (plan) ->
+    $scope.filterSubscribedPlan = (plan) ->
       plan.id != $scope.selected_subscription.plan.id
-
 
     $scope.changePlanSelect = (plan) ->
       $scope.selected_plan = plan
@@ -85,7 +84,7 @@
           $scope.display_error_message(message)
 
           $scope.dismiss_loading()
-          refund_payment_modal.close()
+          change_plan_modal.close()
       )
 
     $scope.getSubscriptions = () ->
