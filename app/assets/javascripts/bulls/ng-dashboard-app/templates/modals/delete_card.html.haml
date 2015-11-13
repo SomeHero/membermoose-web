@@ -1,0 +1,15 @@
+.remodal-overlay{"style"=>"display: none;"}
+  .remodal.action-form{"data-remodal-id"=>"delete-card-modal", "data-remodal-options"=>"hashTracking: false" }
+    %section.active
+      %header
+        %h2
+          Delete a Credit Card
+        %h4
+          Are you sure your want to delete your {{selectedCard.brand}} card ending in {{selectedCard.last4}}?
+        %footer
+          %button.previous{"ng-click"=>"dismissModal()"}
+            Cancel
+          %button.continue{"ng-click"=>"deleteCardSubmit()"}
+            Yes, Delete Card
+            %i.fa-arrow-right
+        %div{"loading-screen" => "loading.show_spinner"}

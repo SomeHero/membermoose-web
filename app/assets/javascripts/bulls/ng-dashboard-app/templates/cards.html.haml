@@ -1,2 +1,20 @@
-%h2
-  Cards
+.container-fluid
+  .row
+    .col-sm-12.col-md-10.col-md-offset-1
+      %h2.text-left
+        Payment Methods
+      .container-fluid.plans{"style"=>"min-height: 400px;"}
+        .row{:style=>"margin-bottom: 20px;"}
+          .col-md-4{"ng-repeat"=>"card in account.cards"}
+            .card.thumbnail
+              .card-info
+                %h2.card-brand
+                  {{card.brand}}
+                %h3.plan-amount
+                  {{card.last4}}
+              %button.btn.btn-lg.btn-primary{"ng-click"=>"updateCardClicked(card)"}
+                Update Card
+              %button.btn.btn-lg.btn-alert{"ng-click"=>"deleteCardClicked(card)"}
+                Delete Card
+%div{"ng-include"=>"'bulls/ng-dashboard-app/templates/modals/update_card.html'"}
+%div{"ng-include"=>"'bulls/ng-dashboard-app/templates/modals/delete_card.html'"}

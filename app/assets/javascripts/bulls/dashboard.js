@@ -3,6 +3,7 @@ var dashboardApp = angular.module('dashboardApp', [
         'ui.router',
         'templates',
         'rails',
+        'angular-stripe',
         'ui.bootstrap'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -43,5 +44,11 @@ var dashboardApp = angular.module('dashboardApp', [
         return railsResourceFactory({
             url: '/bulls/plans',
             name: 'plan'
+        });
+    }]);
+    angular.module('dashboardApp').factory('Card', ['railsResourceFactory', function (railsResourceFactory) {
+        return railsResourceFactory({
+            url: '/bulls/cards',
+            name: 'card'
         });
     }]);

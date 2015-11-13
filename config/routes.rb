@@ -58,10 +58,11 @@ Rails.application.routes.draw do
   end
 
   resource :bulls do
-    resources :plans, :controller => "bulls/plans"
-    resources :subscriptions, :controller => "bulls/subscriptions" do
+    resources :plans, :controller => "bulls/plans", defaults: { format: 'json' }
+    resources :cards, :controller => "bulls/cards", defaults: { format: 'json' }
+    resources :subscriptions, :controller => "bulls/subscriptions", defaults: { format: 'json' } do
       member do
-        post :change, defaults: { format: 'json' }
+        post :change
       end
     end
   end
