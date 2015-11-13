@@ -64,6 +64,8 @@ gem 'rails-angular-motion'
 gem 'angularjs-file-upload-rails', '~> 1.1.6'
 gem 'faker'
 gem 'will_paginate'
+gem  'money'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

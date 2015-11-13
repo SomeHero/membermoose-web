@@ -1,3 +1,5 @@
+require 'money'
+
 class CreatePlan
   def self.call(options={}, stripe_secret_key)
 
@@ -16,9 +18,11 @@ class CreatePlan
     begin
       Stripe.api_key =  stripe_secret_key
 
+      amount = Money.from_amount(options[:amount].to_f, "USD")
+
       Stripe::Plan.create(
         id: options[:stripe_id],
-        amount: (options[:amount].to_f * 100).to_i,
+        amount: amount.cents,
         currency: 'usd',
         interval: options[:billing_cycle],
         interval_count: options[:billing_interval],
