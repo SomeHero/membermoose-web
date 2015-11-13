@@ -34,6 +34,12 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       @user.account.has_connected_stripe = true
       @user.account.save!
+
+      begin
+        Resque.enqueue(SyncPlansWorker, @user.account.id)
+      rescue
+        Rails.logger.error "Error sending User Subscribed email #{$!}"
+      end
     end
 
     if @account_payment_processor.errors.count == 0 && @account_payment_processor.save

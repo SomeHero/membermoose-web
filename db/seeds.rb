@@ -180,6 +180,7 @@ for i in 0..250
     account.first_name,
     account.last_name,
     account.user.email,
+    "",
     token.id,
     token.card.id,
     token.card.brand,
