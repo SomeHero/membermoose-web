@@ -5,6 +5,7 @@ class AddCard
     card = Card.new({
         :account => account,
         :external_id => stripe_token["card"]["id"],
+        :name_on_card => stripe_token["card"]["name"],
         :brand => stripe_token["card"]["brand"],
         :last4 => stripe_token["card"]["last4"],
         :expiration_month => stripe_token["card"]["exp_month"],

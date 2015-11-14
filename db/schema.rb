@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114125942) do
+ActiveRecord::Schema.define(version: 20151114132806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20151114125942) do
     t.string   "external_id"
     t.boolean  "deleted",          default: false
     t.datetime "deleted_at"
+    t.string   "name_on_card"
   end
 
   add_index "cards", ["account_id"], name: "index_cards_on_account_id", using: :btree

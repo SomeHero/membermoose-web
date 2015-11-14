@@ -8,6 +8,13 @@
           %p.error-message-block{"ng-show"=>"show_error_message"}
             {{error_message}}
           .form-group
+            %label{:for => "name_on_card"}
+              Name on Card
+            %input.col-lg-12#card_number{:autofocus => "", :name => "name_on_card", :placeholder => "Name on Card", :required => "", :type => "text", "ng-model"=>"creditCard.name"}/
+            %span{"ng-show" => "form_submitted && addCreditCardForm['name_on_card'].$invalid", :style => "color:red"}
+              %span{"ng-show" => "addCreditCardForm['name_on_card'].$error.required"}
+                Name on Card is required.
+          .form-group
             %label{:for => "card_number"}
               Card Number
             %input.col-lg-12#card_number{:autofocus => "", :name => "card_number", :placeholder => "Credit Card Number", :required => "", :type => "text", "ng-model"=>"creditCard.number"}/

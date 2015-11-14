@@ -9,9 +9,9 @@
             .card.thumbnail
               .card-info
                 %h2.card-brand
-                  {{card.brand}}
-                %h3.plan-amount
-                  {{card.last4}}
+                  {{card.name_on_card}}
+                %h4.plan-amount
+                  {{card.brand}} ****{{card.last4}}
               %button.btn.btn-lg.btn-primary{"ng-click"=>"updateCardClicked(card)"}
                 Update Card
               %button.btn.btn-lg.btn-alert{"ng-click"=>"deleteCardClicked(card)"}

@@ -6,6 +6,7 @@ class Card < ActiveRecord::Base
   def as_json(options={})
   {
     :id => self.id,
+    :name_on_card => self.name_on_card,
     :brand => self.brand,
     :last4 => self.last4,
     :expiration_month => self.expiration_month,
