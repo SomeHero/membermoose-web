@@ -60,4 +60,6 @@ Rails.application.configure do
     UserNotification::Notification::UNSUBSCRIBE_LINK => true,
   })
 
+  GA.tracker = "UA-xxxxxx-x"
+
 end

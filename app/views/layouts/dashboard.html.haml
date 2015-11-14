@@ -6,6 +6,7 @@
     = stylesheet_link_tag    'application-dashboard', media: 'all'
     = javascript_include_tag 'dashboard/application'
     = csrf_meta_tags
+    = analytics_init :local => Rails.env.development?
     %link{:href => "https://fonts.googleapis.com/css?family=Raleway:400,500,700", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "https://www.google.com/fonts#UsePlace:use/Collection:Lato:400,700,300,100", :rel => "stylesheet", :type => "text/css"}/
     %script
