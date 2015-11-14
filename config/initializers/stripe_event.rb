@@ -144,6 +144,14 @@ StripeEvent.configure do |events|
       invoice.status = "Paid"
       invoice.save
     end
+
+    #let's request the next invoice on a worker
+    begin
+      Resque.enqueue(GetNextCustomerInvoiceWorker, subscription.id)
+    rescue
+      puts "Error #{$!}"
+    end
+
   end
   events.subscribe 'charge.dispute.created' do |event|
     charge = event.data.object

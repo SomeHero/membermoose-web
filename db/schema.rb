@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108192338) do
+ActiveRecord::Schema.define(version: 20151114022213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20151108192338) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "subscription_id"
+    t.datetime "due_date"
   end
 
   add_index "invoices", ["subscription_id"], name: "index_invoices_on_subscription_id", using: :btree

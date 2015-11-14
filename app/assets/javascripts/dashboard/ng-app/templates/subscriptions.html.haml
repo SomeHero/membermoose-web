@@ -66,17 +66,17 @@
     %td.select-item
       %input{:type=>"checkbox", "ng-click"=>"selectSubscription($event, subscription)", "ng-checked"=>"selected_subscription == subscription"}
     %td{"data-title"=>"'Subscriber Name'"}
-      {{subscription.subscriber.firstName}} {{subscription.subscriber.lastName}}
+      {{subscription.subscriberName}}
     %td{"data-title"=>"'Plan Name'"}
       {{subscription.plan.name}}
-    %td{"data-title"=>"'Last Billed Date'"}
-      June 31, 2015
-    %td{"data-title"=>"'Last Billed Amount'"}
-      $100.00
+    %td{"data-title"=>"'Last Payment Date'"}
+      {{subscription.lastPaymentDate | date:'longDate'}}
+    %td{"data-title"=>"'Last Payment Amount'"}
+      {{subscription.lastPaymentAmount | currency}}
     %td{"data-title"=>"'Next Invoice Date'"}
-      August 31, 2015
+      {{subscription.nextInvoiceDate | date:'longDate'}}
     %td{"data-title"=>"'Next Invoice Amount'"}
-      $100.00
+      {{subscription.nextInvoiceAmount | currency}}
     %td{"data-title"=>"'Status'"}
       {{subscription.status}}
 %pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
@@ -101,7 +101,7 @@
     %p.label
       Subscriber Name:
     %p.data
-      {{selected_subscription.subscriber.firstName}} {{selected_subscription.subscriber.lastName}}
+      {{selected_subscription.subscriberName}}
     %p.label
       Subscriber Email:
     %p.data

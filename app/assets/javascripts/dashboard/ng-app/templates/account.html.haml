@@ -60,9 +60,9 @@
             #current-plan-wrapper
               #current-plan
                 .subscription-cost.text-center
-                  $0/month
+                  {{ user.account.subscriptions[0].plan.amount | currency:undefined:0 }}/{{ user.account.subscriptions[0].plan.billingCycle }}
                 .subscription-description
-                  You are currently subscribed to the Baby Moose Plan
+                  You are currently subscribed to the {{ user.account.subscriptions[0].plan.name }}
                 %ul.subscription-details
                   %li
                     forever free
@@ -70,7 +70,7 @@
                     unlimited plans
                   %li
                     up to 5 subscribers
-            #upgrade-plan-wrapper
+            #upgrade-plan-wrapper{{"ng-show"=>"!user.account.hasUpgradedPlan"}}
               %button.btn.btn-primary{:type=>"button", "ng-click"=>"upgrade_plan_clicked()"}
                 Upgrade Plan
             %p.label

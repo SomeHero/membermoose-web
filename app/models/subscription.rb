@@ -17,23 +17,35 @@ class Subscription < ActiveRecord::Base
     :id => self.id,
     :guid => self.guid,
     :plan => self.plan,
-    :subscriber => self.account,
+    :subscriberName => self.account.full_name,
+    :last_payment_date => self.last_payment_date,
+    :last_payment_amount => self.last_payment_amount,
+    :next_invoice_date => self.next_invoice_date,
+    :next_invoice_amount => self.next_invoice_amount,
     :status => self.status.titlecase,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }
   end
 
-  def last_invoice_date
+  def last_payment_date
+    payments.order("created_at desc").last.created_at if payments.count > 0
+  end
 
+  def last_payment_amount
+    payments.last.amount if payments.count > 0
+  end
+
+  def next_invoice
+    invoices.where(:external_id => "").order("created_at desc").first
   end
 
   def next_invoice_date
-
+    next_invoice.due_date if next_invoice
   end
 
   def next_invoice_amount
-
+    next_invoice.total if next_invoice
   end
 
   private

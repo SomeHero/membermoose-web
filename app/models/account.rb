@@ -57,6 +57,7 @@ class Account < ActiveRecord::Base
       :subdomain => self.subdomain,
       :site_url => self.site_url,
       :plan_names => self.plan_names,
+      :subscriptions => self.subscriptions,
       :payment_processors => self.account_payment_processors.active,
       :billing_history => self.bills,
       :status => self.status,
