@@ -12,7 +12,9 @@
               .plan.thumbnail{"ng-click"=>"changePlanSelect(plan)"}
                 {{plan.name}}
       %footer
+        %button.previous{"ng-click"=>"dismissModal()"}
+          Cancel
         %button.continue{"ng-click"=>"changePlanSubmit()"}
           Change Plan
           %i.fa-arrow-right
-      %div{"loading-screen" => "loading.show_spinner"}
+    %div{"loading-screen" => "loading.showSpinner"}

@@ -4,6 +4,7 @@ var app = angular.module('bullsApp', [
         'templates',
         'rails',
         'ui.bootstrap',
+        'loadingScreen',
         'angular-stripe'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

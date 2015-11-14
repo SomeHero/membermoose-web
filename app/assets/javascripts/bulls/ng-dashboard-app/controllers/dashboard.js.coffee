@@ -4,14 +4,24 @@
   'Plan'
   'Subscription'
   '$window'
-  ($scope, $stateParams, Plan, Subscription, window) ->
+  '$timeout'
+  ($scope, $stateParams, Plan, Subscription, window, $timeout) ->
     window.scope = $scope
     currentModal = null
 
+    $scope.loading = {
+      showSpinner: false
+    }
     $scope.options = {
       "hashTracking": false,
       "closeOnOutsideClick": false
     }
+    $scope.showSuccessMessage = false
+    $scope.successMessage = ""
+
+    $scope.showErrorMessage = false
+    $scope.errorMessage = ""
+
     $scope.bull = bull
     $scope.account = account
 
@@ -32,16 +42,35 @@
       currentModal = modal
 
     $scope.displayLoading = () ->
-      return
+      $scope.loading.showSpinner = true
 
     $scope.dismissLoading = () ->
-      return
+      $scope.loading.showSpinner = false
 
-    $scope.displaySuccessMessage = () ->
-      return
+    $scope.displaySuccessMessage = (message) ->
+      $scope.successMessage = message
+      $scope.showSuccessMessage = true
 
-    $scope.displayErrorMessage = () ->
-      return
+      $scope.clearMessages()
+
+    $scope.closeSuccessMessage = () ->
+      $scope.show_success_message = false
+
+    $scope.displayErrorMessage = (message) ->
+      $scope.errorMessage = message
+      $scope.showErrorMessage = true
+
+      $scope.clearMessages()
+
+    $scope.closeErrorMessage = () ->
+      $scope.showErrorMessage = false
+
+    $scope.clearMessages = () ->
+      $timeout(removeMessages, 4000);
+
+    removeMessages = () ->
+      $scope.showSuccessMessage = false
+      $scope.showErrorMessage = false
 
     $scope.dismissModal = () ->
       if currentModal

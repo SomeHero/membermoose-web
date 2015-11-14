@@ -17,28 +17,29 @@
       if !cancelSubscriptionModal
         cancelSubscriptionModal = $('[data-remodal-id=cancel-subscription-modal]').remodal($scope.options)
 
+      $scope.setCurrentModal(cancelSubscriptionModal)
       cancelSubscriptionModal.open()
 
     $scope.cancelSubscriptionSubmit = () ->
       Subscription.setUrl('/bulls/subscriptions')
-      #$scope.display_loading()
+
+      $scope.displayLoading()
       $scope.selectedSubscription.delete().then(
         () ->
           $scope.selectedSubscription.status = "Cancelled"
-          #$scope.closeEditBar()
 
-          #message = "The subscription was successfully deleted."
-          #$scope.display_success_message(message)
+          message = "The subscription was successfully deleted."
+          $scope.displaySuccessMessage(message)
 
-          #$scope.dismiss_loading()
+          $scope.dismissLoading()
           cancelSubscriptionModal.close()
         (http)  ->
           errors = http.data
 
-          #message = "Sorry, an unexpected error ocurred.  Please try again."
-          #$scope.display_error_message(message)
+          message = "Sorry, an unexpected error ocurred.  Please try again."
+          $scope.displayErrorMessage(message)
 
-          #$scope.dismiss_loading()
+          $scope.dismissLoading()
       )
 
     $scope.changeSubscriptionClicked = (subscription) ->
@@ -47,6 +48,7 @@
       if !changeSubscriptionModal
         changeSubscriptionModal = $('[data-remodal-id=change-subscription-modal]').remodal($scope.options)
 
+      $scope.setCurrentModal(changeSubscriptionModal)
       changeSubscriptionModal.open()
 
     $scope.changePlanSelect = (plan) ->
@@ -56,7 +58,7 @@
       if $scope.selected_plan == null
         return
 
-      #$scope.loading.show_spinner = true
+      $scope.loading.showSpinner = true
 
       params = {
           plan_id: $scope.selectedPlan.id
@@ -73,19 +75,18 @@
           )
 
           message = "The subscription was successfully changed."
-          #$scope.display_success_message(message)
+          $scope.displaySuccessMessage(message)
 
-          #$scope.dismiss_loading()
+          $scope.dismissLoading()
           changeSubscriptionModal.close()
 
         (http)  ->
           errors = http.data
 
           message = "Sorry, an unexpected error ocurred.  Please try again."
-          #$scope.display_error_message(message)
+          $scope.displayErrorMessage(message)
 
-          #$scope.dismiss_loading()
-          #changeSubscriptionModal.close()
+          $scope.dismissLoading()
       )
 
     $scope.filterSubscribedPlan = (plan) ->

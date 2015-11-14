@@ -7,6 +7,7 @@ var app = angular.module('dashboardApp', [
         'ngTable',
         'uiSwitch',
         'angularFileUpload',
+        'loadingScreen',
         'ngFileUpload',
         'rzModule',
         'angular-stripe'

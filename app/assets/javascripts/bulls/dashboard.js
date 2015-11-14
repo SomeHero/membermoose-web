@@ -4,6 +4,7 @@ var dashboardApp = angular.module('dashboardApp', [
         'templates',
         'rails',
         'angular-stripe',
+        'loadingScreen',
         'ui.bootstrap'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
