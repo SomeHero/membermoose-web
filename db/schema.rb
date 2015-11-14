@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114022213) do
+ActiveRecord::Schema.define(version: 20151114125942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,7 +179,6 @@ ActiveRecord::Schema.define(version: 20151114022213) do
 
   create_table "payments", force: true do |t|
     t.integer  "account_id"
-    t.integer  "account_payment_processor_id"
     t.decimal  "amount"
     t.decimal  "payment_processor_fee"
     t.string   "payment_type"
@@ -197,7 +196,6 @@ ActiveRecord::Schema.define(version: 20151114022213) do
   end
 
   add_index "payments", ["account_id"], name: "index_payments_on_account_id", using: :btree
-  add_index "payments", ["account_payment_processor_id"], name: "index_payments_on_account_payment_processor_id", using: :btree
   add_index "payments", ["card_id"], name: "index_payments_on_card_id", using: :btree
   add_index "payments", ["subscription_id"], name: "index_payments_on_subscription_id", using: :btree
 

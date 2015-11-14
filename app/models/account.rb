@@ -7,7 +7,6 @@ class Account < ActiveRecord::Base
   has_many :members, :through => :plans
   has_many :account_payment_processors
   has_many :payments
-  has_many :bills, :through => :account_payment_processors, :source => :payments
   has_many :cards
   has_attached_file :logo
   has_attached_file :photo
@@ -59,7 +58,7 @@ class Account < ActiveRecord::Base
       :plan_names => self.plan_names,
       :subscriptions => self.subscriptions,
       :payment_processors => self.account_payment_processors.active,
-      :billing_history => self.bills,
+      :billing_history => self.payments,
       :status => self.status,
       :hasUploadedLogo => self.has_uploaded_logo,
       :hasSetupSubdomain => self.has_setup_subdomain,
