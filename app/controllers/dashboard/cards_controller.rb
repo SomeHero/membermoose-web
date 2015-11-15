@@ -47,15 +47,14 @@ class Dashboard::CardsController < DashboardController
 
   def update
     Rails.logger.info("Attempting to Update Card")
-    @card = Card.find(params["id"])
 
-    @card = UpdateCard.call(@card, {
-      expiration_month: params["card"]["expiration_month"],
-      expiration_year: params["card"]["expiration_year"],
-      }, ENV["STRIPE_SECRET_KEY"])
+    card = Card.find(params["id"])
+    token = params["card"]["stripe_token"]
+
+    @card = UpdateCard.call(card, token, ENV["STRIPE_SECRET_KEY"])
 
     respond_to do |format|
-      if @card.errors.count == 0
+      if @card.errors.count == 0 && @card.save
         format.html  { render action: 'index' }
         format.json { render :json => @card.to_json }
       else

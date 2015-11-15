@@ -170,6 +170,7 @@
         )
 
     $scope.addCreditCardClicked = () ->
+      $scope.credit_card = {}
       if !add_credit_card_modal
         add_credit_card_modal = $('[data-remodal-id=add-card-modal]').remodal($scope.options)
 
@@ -218,6 +219,7 @@
 
     $scope.updateCreditCardClicked = () ->
       $scope.selected_credit_card = null
+      $scope.credit_card = {}
       $scope.active_step = 1
       if !update_credit_card_modal
         update_credit_card_modal = $('[data-remodal-id=update-card-modal]').remodal($scope.options)
@@ -226,34 +228,47 @@
       current_modal = update_credit_card_modal
 
     $scope.updateCreditCardSubmit = () ->
+      stripe_key = $scope.getPublishableKey()
+
+      stripe.setPublishableKey(stripe_key)
+
       scope.display_loading()
 
       Card.setUrl('/dashboard/cards')
-      card = new Card($scope.selected_credit_card)
-      card.update().then(
-        (response) ->
-          $scope.dismiss_loading()
-          $scope.closeEditBar()
+      stripe.card.createToken($scope.credit_card).then((token) ->
+        card = new Card({
+          id: $scope.selected_credit_card.id,
+          card_brand: $scope.credit_card.card_brand,
+          card_last4: $scope.credit_card.card_last4,
+          exp_month: $scope.credit_card.exp_month,
+          exp_year: $scope.credit_card.exp_year,
+          stripe_token: token
+        })
+        card.update().then(
+          (response) ->
+            $scope.dismiss_loading()
+            $scope.closeEditBar()
 
-          message = "Your card, " + $scope.selected_credit_card.last4 + ", was successfully updated."
-          $scope.display_success_message(message)
+            message = "Your credit card ending in " + $scope.selected_credit_card.last4 + " was successfully updated."
+            $scope.display_success_message(message)
 
-          angular.forEach($scope.user.account.cards, (value,index) =>
-            if value.id == $scope.selected_credit_card.id
-              $scope.user.account.cards[index] = $scope.selected_credit_card
+            angular.forEach($scope.user.account.cards, (value,index) =>
+              if value.id == $scope.selected_credit_card.id
+                $scope.user.account.cards[index] = new Card(response.data)
 
-              return
-          )
-          $scope.selected_credit_card = null
+                return
+            )
+            $scope.selected_credit_card = null
 
-          $scope.dismissModal()
-        (http)  ->
-          $scope.dismiss_loading()
+            $scope.dismissModal()
+          (http)  ->
+            $scope.dismiss_loading()
 
-          errors = http.data
+            errors = http.data
 
-          message = errors
-          $scope.display_error_message(message)
+            message = errors
+            $scope.display_error_message(message)
+        )
       )
 
     $scope.deleteCreditCardClicked = () ->

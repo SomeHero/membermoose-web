@@ -8,25 +8,32 @@
           %p.error-message-block{"ng-show"=>"show_error_message"}
             {{error_message}}
           .form-group
+            %label{:for => "name_on_card"}
+              Name on Card
+            %input.col-lg-12#card_number{:autofocus => "", :name => "name_on_card", :placeholder => "Name on Card", :required => "", :type => "text", "ng-model"=>"credit_card.name"}/
+            %span{"ng-show" => "form_submitted && addCreditCardForm['name_on_card'].$invalid", :style => "color:red"}
+              %span{"ng-show" => "addCreditCardForm['name_on_card'].$error.required"}
+                Name on Card is required.
+          .form-group
             %label{:for => "card_number"}
               Card Number
-            %input.col-lg-12#card_number{:autofocus => "", :name => "card_number", :placeholder => "Credit Card Number", :required => "", :type => "text", "ng-model"=>"credit_card.number"}/
+            %input.col-lg-12#card_number{:autofocus => "", :name => "card_number", :placeholder => "Credit Card Number", :required => "",  "maxlength"=>"16", :type => "text", "ng-model"=>"credit_card.number"}/
             %span{"ng-show" => "form_submitted && addCreditCardForm['card_number'].$invalid", :style => "color:red"}
               %span{"ng-show" => "addCreditCardForm['card_number'].$error.required"}
                 Card Number is required.
           .form-group
             %label{:for => "expiry_date"}
               Expiry Date
-            %input#expiry_date_month{:name => "expiry_date_month", :placeholder => "MM", :required => "", :type => "text", "ng-model"=>"credit_card.exp_month", :style => "width: 120px;"}/
+            %input#expiry_date_month{:name => "expiry_date_month", :placeholder => "MM", :required => "", "maxlength"=>"2", :type => "text", "ng-model"=>"credit_card.exp_month", :style => "width: 120px;"}/
             %span{:style=>"display: inline;"}
               \/
-            %input#expiry_date_year{:name => "expiry_date_year", :placeholder => "YYYY", :required => "", :type => "text", "ng-model"=>"credit_card.exp_year", :style => "width:180px;"}/
+            %input#expiry_date_year{:name => "expiry_date_year", :placeholder => "YYYY", :required => "", "maxlength"=>"4", :type => "text", "ng-model"=>"credit_card.exp_year", :style => "width:180px;"}/
             %span{"ng-show" => "form_submitted && addCreditCardForm['expiry_date_month'].$invalid", :style => "color:red"}
               %span{"ng-show" => "addCreditCardForm['expiry_date_month'].$error.required"}
                 Card Expiration month is required.
             %label{:for => "security_code"}
               Security Code
-            %input#security_code{:name => "security_code", :placeholder => "CVC Code", :required => "", :type => "text", "ng-model"=>"credit_card.cvc", :style => "width: 200px;"}/
+            %input#security_code{:name => "security_code", :placeholder => "CVC Code", :required => "", "maxlength"=>"4", :type => "text", "ng-model"=>"credit_card.cvc", :style => "width: 200px;"}/
             %span{"ng-show" => "form_submitted && addCreditCardForm['security_code'].$invalid", :style => "color:red"}
               %span{"ng-show" => "addCreditCardForm['security_code'].$error.required"}
                 Security Code is required.
