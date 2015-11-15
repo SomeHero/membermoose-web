@@ -60,14 +60,36 @@
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
       %section{"ng-class"=>"isActiveSection(3)"}
-        %form{"name"=>"planTrialPeriod", "novalidate"=>""}
+        %form{"name"=>"hasPlanTrialPeriod", "novalidate"=>""}
           %header
             %h1
               Do you offer new subscribers a free trial period?
           .group
             %label{:for => "free_trial_period"}
-              Free Trial Period (in days)
-            %input#free_trial_period{:autofocus => "", :name => "plan[free_trial_period]", :placeholder => "Free Trial Period (# of days)", :required => "", :type => "text", "ng-model"=>"plan.free_trial_period"}/
+              Free Trial Period
+            %input#free_trial_period{:autofocus => "", :name => "plan[free_trial_period_yes]", :required => "", :type => "radio", "ng-model"=>"plan.has_free_trial_period", "ng-value"=>"true"}
+              Yes
+            %input#free_trial_period{:autofocus => "", :name => "plan[free_trial_period_no]", :required => "", :type => "radio", "ng-model"=>"plan.has_free_trial_period", "ng-value"=>"false"}
+              No
+            %span{"ng-show" => "form_submitted && planTrialPeriod['plan[free_trial_period]'].$invalid", :style => "color:red"}
+              %span{"ng-show" => "planTrialPeriod['plan[free_trial_period]'].$error.required"}
+                Free Trial Period is required.
+          %footer
+            %button.previous{"ng-click"=>"goToPreviousSection()"}
+              Back
+            %button.continue{"ng-click"=>"hasFreeTrialPeriodClicked(hasPlanTrialPeriod)"}
+              Next
+              %i.fa-arrow-right
+          %div{"loading-screen" => "loading.show_spinner"}
+      %section{"ng-class"=>"isActiveSection(4)"}
+        %form{"name"=>"planTrialPeriod", "novalidate"=>""}
+          %header
+            %h1
+              How many days is your plan's free trial period?
+          .group
+            %label{:for => "free_trial_period"}
+              Free Trial Period
+            %input#free_trial_period{:autofocus => "", :name => "plan[free_trial_period_yes]", :placeholder => "Free Trial Period (# of days)", :required => "", :type => "text", "maxlength"=>"4", "ng-model"=>"plan.free_trial_period"}/
             %span{"ng-show" => "form_submitted && planTrialPeriod['plan[free_trial_period]'].$invalid", :style => "color:red"}
               %span{"ng-show" => "planTrialPeriod['plan[free_trial_period]'].$error.required"}
                 Free Trial Period is required.
@@ -78,7 +100,7 @@
               Next
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
-      %section{"ng-class"=>"isActiveSection(4)"}
+      %section{"ng-class"=>"isActiveSection(5)"}
         %form{"name"=>"planTermsForm", "novalidate"=>""}
           %header
             %h1

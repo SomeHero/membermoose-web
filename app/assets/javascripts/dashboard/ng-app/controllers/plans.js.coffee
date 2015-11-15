@@ -71,7 +71,10 @@
       return ""
 
     $scope.goToPreviousSection = () ->
-      $scope.newPlanSection = $scope.newPlanSection - 1
+      if $scope.newPlanSection == 5 && !$scope.plan.has_free_trial_period
+        $scope.newPlanSection = $scope.newPlanSection - 2
+      else
+        $scope.newPlanSection = $scope.newPlanSection - 1
       $scope.form_submitted = false
 
     $scope.nextSection = (form) ->
@@ -81,7 +84,18 @@
       else
         $scope.form_submitted = true
 
+    $scope.hasFreeTrialPeriodClicked = (form) ->
+      if $scope.plan.has_free_trial_period
+        $scope.newPlanSection = $scope.newPlanSection + 1
+      else
+        $scope.plan.free_trial_period = 0
+        $scope.newPlanSection = $scope.newPlanSection + 2
+      $scope.form_submitted = false
+
     $scope.newPlanClicked = () ->
+      $scope.plan = {
+        has_free_trial_period: true
+      }
       if !create_plan_modal
         create_plan_modal = $('[data-remodal-id=new-plan-modal]').remodal($scope.options)
 
@@ -234,7 +248,7 @@
 
     $scope.getPlans()
     $scope.init()
-    
+
     return
 ]
 
