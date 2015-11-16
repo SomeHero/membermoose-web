@@ -22,7 +22,7 @@
           Save
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}
-    %section{"ng-class"=>"{'active': !user.account.hasConnectedStripe}"}
+    %section{"ng-class"=>"{'active': user.account.hasConnectedStripe}"}
       %header
         %h2
           Success

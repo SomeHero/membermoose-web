@@ -28,16 +28,15 @@ class Dashboard::PlansController < DashboardController
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
-    binding.pry
     @plan = CreatePlan.call({
         :account => account,
         :name => params["plan"]["name"],
         :stripe_id => params["plan"]["name"],
         :description => params["plan"]["description"],
-        :feature_1 => params["plan"]["feature_1"],
-        :feature_2 => params["plan"]["feature_2"],
-        :feature_3 => params["plan"]["feature_3"],
-        :feature_4 => params["plan"]["feature_4"],
+        :feature_1 => params["plan"]["feature1"],
+        :feature_2 => params["plan"]["feature2"],
+        :feature_3 => params["plan"]["feature3"],
+        :feature_4 => params["plan"]["feature4"],
         :amount => params["plan"]["amount"],
         :billing_cycle => params["plan"]["billing_cycle"],
         :billing_interval => params["plan"]["billing_interval"],
@@ -107,7 +106,7 @@ class Dashboard::PlansController < DashboardController
   end
 
   def permitted_params
-    params.require(:plan).permit(:id, :name, :description, :amount, :billing_cycle, :billing_interval, :trial_period_days, :terms_and_conditions, :public)
+    params.require(:plan).permit(:id, :name, :description, :feature1, :feature2, :feature3, :feature4, :amount, :billing_cycle, :billing_interval, :trial_period_days, :terms_and_conditions, :public)
   end
 
 end

@@ -64,12 +64,14 @@
                 .subscription-description
                   You are currently subscribed to the {{ user.account.subscriptions[0].plan.name }}
                 %ul.subscription-details
-                  %li
-                    forever free
-                  %li
-                    unlimited plans
-                  %li
-                    up to 5 subscribers
+                  %li{"ng-show"=>"user.account.subscriptions[0].plan.feature1"}
+                    {{ user.account.subscriptions[0].plan.feature1 }}
+                  %li{"ng-show"=>"user.account.subscriptions[0].plan.feature2"}
+                    {{ user.account.subscriptions[0].plan.feature2 }}
+                  %li{"ng-show"=>"user.account.subscriptions[0].plan.feature3"}
+                    {{ user.account.subscriptions[0].plan.feature3 }}
+                  %li{"ng-show"=>"user.account.subscriptions[0].plan.feature4"}
+                    {{ user.account.subscriptions[0].plan.feature4 }}
             #upgrade-plan-wrapper{{"ng-show"=>"!user.account.hasUpgradedPlan"}}
               %button.btn.btn-primary{:type=>"button", "ng-click"=>"upgrade_plan_clicked()"}
                 Upgrade Plan

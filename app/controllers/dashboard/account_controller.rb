@@ -87,9 +87,6 @@ class Dashboard::AccountController < DashboardController
 
     account = user.account
 
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
-
     email = user.email
     stripe_token = params["stripe_token"]["id"]
     type = params["stripe_token"]["type"]
@@ -111,7 +108,7 @@ class Dashboard::AccountController < DashboardController
       card_last4,
       exp_month,
       exp_year,
-      stripe.secret_token
+      ENV["STRIPE_SECRET_KEY"]
     )
 
     begin

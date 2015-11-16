@@ -26,7 +26,7 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of :guid
 
   def full_name
-    self.first_name + " " + self.last_name
+    self.first_name.to_s + " " + self.last_name.to_s
   end
 
   def plan_names

@@ -101,6 +101,9 @@
 
       create_plan_modal.open();
 
+    $scope.showSuccessModal = () ->
+      false
+
     $scope.createPlan = (form)  ->
       if form.$valid
         Plan.setUrl('/dashboard/plans')
@@ -110,6 +113,10 @@
         new Plan({
           name: $scope.plan.name,
           description: $scope.plan.description,
+          feature_1: $scope.plan.feature_1,
+          feature_2: $scope.plan.feature_2,
+          feature_3: $scope.plan.feature_3,
+          feature_4: $scope.plan.feature_4,
           amount: $scope.plan.amount,
           billing_interval: 1,
           billing_cycle: $scope.plan.billing_cycle,

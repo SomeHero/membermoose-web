@@ -4,7 +4,6 @@ class CreatePlan
   def self.call(options={}, stripe_secret_key)
 
     plan = Plan.new(options)
-    #ToDo: Add something that indicates weather this is synced
 
     if !plan.valid?
       return plan

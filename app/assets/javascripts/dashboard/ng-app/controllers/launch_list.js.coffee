@@ -173,6 +173,10 @@
       $scope.form_submitted = false
 
     $scope.createPlanClicked = () ->
+      $scope.newPlanSection = 1
+      if $scope.user.account.hasCreatedPlan
+        $scope.newPlanSection = 7
+      $scope.form_submitted = false
       $scope.plan = {
         has_free_trial_period: true
       }
@@ -181,6 +185,9 @@
 
       create_plan_modal.open();
       $scope.setCurrentModal(create_plan_modal)
+
+    $scope.showSuccessModal = () ->
+      $scope.user.account.hasCreatedPlan
 
     $scope.createPlan = (form) ->
       if form.$valid
@@ -199,9 +206,7 @@
           terms_and_conditions: $scope.plan.terms_and_conditions
         }).create().then(
           (response) ->
-            #$scope.set_user(response.data)
-
-            $scope.newPlanSection = 1
+            $scope.newPlanSection += 1
 
             $scope.user.account.hasCreatedPlan = true
             AccountServiceChannel.accountUpdated()
