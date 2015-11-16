@@ -243,7 +243,7 @@
 
     $scope.handlePopupAuthentication = () ->
       scope.$apply ->
-        $scope.applyNetwork
+        $scope.applyNetwork()
 
     $scope.applyNetwork = () ->
       $scope.user.account.hasConnectedStripe = true

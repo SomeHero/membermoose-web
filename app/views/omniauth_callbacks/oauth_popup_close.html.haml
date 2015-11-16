@@ -6,6 +6,7 @@
       try {
         console.log("here")
         window.opener.$windowScope.handlePopupAuthentication();
+        window.close();
       } catch(err) {
         console.log(err)
       }
