@@ -68,32 +68,32 @@
               Your Moose Pack
           %nav.nav-sidebar
             %ul
-              %li.top-nav-item{"ng-class"=>"setMenuItemSelected('/dashboard/launch')"}
+              %li{"ng-hide"=>"hideLaunchList()", "ng-class"=>"{ 'selected': setMenuItemSelected('/dashboard/launch'), 'top-nav-item': !hideLaunchList()}"}
                 %a{"href"=>"/dashboard/launch"}
                   %i.linecons-paper-plane
                   %span.menu-item-parent
                     LAUNCH LIST
-              %li{"ng-class"=>"setMenuItemSelected('/dashboard/plans')"}
+              %li{"ng-class"=>"{'selected': setMenuItemSelected('/dashboard/plans'), 'top-nav-item': hideLaunchList()}"}
                 %a{"href"=>"/dashboard/plans"}
                   %i.linecons-heart
                   %span.menu-item-parent
                     PLANS
-              %li{"ng-class"=>"setMenuItemSelected('/dashboard/members')"}
+              %li{"ng-class"=>"{'selected': setMenuItemSelected('/dashboard/members') }"}
                 %a{"href"=>"/dashboard/members"}
                   %i.linecons-user
                   %span.menu-item-parent
                     MEMBERS
-              %li{"ng-class"=>"setMenuItemSelected('/dashboard/subscriptions')"}
+              %li{"ng-class"=>"{'selected': setMenuItemSelected('/dashboard/subscriptions') }"}
                 %a{"href"=>"/dashboard/subscriptions"}
                   %i.linecons-star
                   %span.menu-item-parent
                     SUBSCRIPTIONS
-              %li{"ng-class"=>"setMenuItemSelected('/dashboard/payments')"}
+              %li{"ng-class"=>"{'selected': setMenuItemSelected('/dashboard/payments') }"}
                 %a{"href"=>"/dashboard/payments"}
                   %i.linecons-money
                   %span.menu-item-parent
                     PAYMENTS
-              %li{"ng-class"=>"setMenuItemSelected('/dashboard/accounts')"}
+              %li{"ng-class"=>"{'selected': setMenuItemSelected('/dashboard/accounts') }"}
                 = link_to edit_dashboard_account_url(:id => current_user.id) do
                   %i.linecons-note
                   %span.menu-item-parent

@@ -50,11 +50,15 @@
       else
         return $scope.user.account.logo.url
 
+    $scope.showLogo = () ->
+      return $scope.user.account.logo.url.length > 0 || $scope.image.tempImage.url
+
     $scope.uploadLogoClicked = () ->
       if !upload_logo_modal
         upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal($scope.options)
 
       upload_logo_modal.open();
+      $scope.setCurrentModal(upload_logo_modal)
 
     	$scope.onFileSelect = ($files) ->
 
@@ -96,8 +100,6 @@
             $scope.display_success_message(message)
 
             AccountServiceChannel.accountUpdated()
-
-            upload_logo_modal.close()
       ), ((resp) ->
         message = resp.status
         $scope.display_error_message(message)
@@ -112,6 +114,7 @@
         setup_subdomain_modal = $('[data-remodal-id=subdomain-modal]').remodal($scope.options)
 
       setup_subdomain_modal.open();
+      $scope.setCurrentModal(setup_subdomain_modal)
 
     $scope.updateSubdomainClicked = (form) ->
       console.log "updating subdomain"
@@ -134,7 +137,6 @@
             AccountServiceChannel.accountUpdated()
 
             $scope.dismiss_loading()
-            setup_subdomain_modal.close();
           (http)  ->
             $scope.dismiss_loading()
 
@@ -149,7 +151,7 @@
       return ""
 
     $scope.goToPreviousSection = () ->
-      if $scope.newPlanSection == 5 && !$scope.plan.has_free_trial_period
+      if $scope.newPlanSection == 6 && !$scope.plan.has_free_trial_period
         $scope.newPlanSection = $scope.newPlanSection - 2
       else
         $scope.newPlanSection = $scope.newPlanSection - 1
@@ -178,6 +180,7 @@
         create_plan_modal = $('[data-remodal-id=new-plan-modal]').remodal($scope.options)
 
       create_plan_modal.open();
+      $scope.setCurrentModal(create_plan_modal)
 
     $scope.createPlan = (form) ->
       if form.$valid
@@ -208,8 +211,6 @@
             $scope.display_success_message(message)
 
             $scope.dismiss_loading()
-
-            create_plan_modal.close()
           (http)  ->
             errors = http.data
 
@@ -225,7 +226,8 @@
       if !connect_stripe_modal
         connect_stripe_modal = $('[data-remodal-id=stripe-modal]').remodal($scope.options)
 
-      connect_stripe_modal.open();
+      connect_stripe_modal.open()
+      $scope.setCurrentModal(connect_stripe_modal)
 
     $scope.stripe_connect = () ->
       openUrl = "/users/auth/stripe_connect"
@@ -242,13 +244,12 @@
       $scope.user.account.hasConnectedStripe = true
       AccountServiceChannel.accountUpdated()
 
-      connect_stripe_modal.close()
-
     $scope.upgradePlanClicked = () ->
       if !upgrade_plan_modal
         upgrade_plan_modal = $('[data-remodal-id=upgrade-plan-modal]').remodal($scope.options)
 
       upgrade_plan_modal.open();
+      $scope.setCurrentModal(upgrade_plan_modal)
 
     $scope.upgradePlanSubmit = () ->
       stripe_key = $scope.getPublishableKey()
@@ -273,8 +274,6 @@
             $scope.display_success_message(message)
 
             AccountServiceChannel.accountUpdated()
-
-            upgrade_plan_modal.close();
 
           (http)  ->
             $scope.dismiss_loading()

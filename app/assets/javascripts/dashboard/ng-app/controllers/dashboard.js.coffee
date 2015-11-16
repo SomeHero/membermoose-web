@@ -24,11 +24,16 @@
     $scope.show_error_message = false
     $scope.error_message = ""
 
+    currentModal = null
+
     $scope.init = () ->
       nav_page_height()
 
     $scope.set_user = (user) ->
       $scope.user = new Account(user)
+
+    $scope.setCurrentModal = (modal) ->
+      currentModal = modal
 
     $scope.getPlans = () ->
       Plan.get().then (response) ->
@@ -41,7 +46,7 @@
 
     $scope.setMenuItemSelected = (url) ->
       if url == window.location.pathname
-        return "selected"
+        return true
 
     $scope.display_loading = () ->
       $scope.loading.show_spinner = true
@@ -79,6 +84,12 @@
     remove_messages = () ->
       $scope.show_success_message = false
       $scope.show_error_message = false
+
+    $scope.dismissModal = () ->
+      currentModal.close()
+
+    $scope.hideLaunchList = () ->
+      return $scope.user.account.hasUploadedLogo && $scope.user.account.hasSetupSubdomain && $scope.user.account.hasCreatedPlan && $scope.user.account.hasConnectedStripe && $scope.user.account.hasUpgradedPlan
 
     onAccountUpdated = () ->
       console.log "Account Updated"

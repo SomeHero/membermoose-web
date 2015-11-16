@@ -26,6 +26,26 @@
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
       %section{"ng-class"=>"isActiveSection(2)"}
+        %form{"name"=>"planFeatureForm", "novalidate"=>""}
+          %header
+            %h1
+              What are the features of your new plan?
+          .group
+            %label{:for => "plan[features]"}
+              Features
+            %input#plan_features{:autofocus => "", :name => "plan[feature_1]", :placeholder => "Feature 1", :required => "", :type => "text", "ng-model"=>"plan.feature_1"}/
+            %input#plan_features{:autofocus => "", :name => "plan[feature_2]", :placeholder => "Feature 2", :type => "text", "ng-model"=>"plan.feature_2"}/
+            %input#plan_features{:autofocus => "", :name => "plan[feature_3]", :placeholder => "Feature 3", :type => "text", "ng-model"=>"plan.feature_3"}/
+            %input#plan_features{:autofocus => "", :name => "plan[feature_4]", :placeholder => "Feature 4", :type => "text", "ng-model"=>"plan.feature_4"}/
+            %span{"ng-show" => "form_submitted && planFeatureForm['plan[feature_1]'].$invalid", :style => "color:red"}
+              %span{"ng-show" => "planFeatureForm['plan[feature_1]'].$error.required"}
+                Please tell us one feature of your plan.
+          %footer
+            %button.continue{:type=>"submit", "ng-click"=>"nextSection(planNameForm)"}
+              Next
+              %i.fa-arrow-right
+          %div{"loading-screen" => "loading.show_spinner"}
+      %section{"ng-class"=>"isActiveSection(3)"}
         %form{"name"=>"planBillingForm", "novalidate"=>""}
           %header
             %h1
@@ -59,7 +79,7 @@
               Next
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
-      %section{"ng-class"=>"isActiveSection(3)"}
+      %section{"ng-class"=>"isActiveSection(4)"}
         %form{"name"=>"hasPlanTrialPeriod", "novalidate"=>""}
           %header
             %h1
@@ -81,7 +101,7 @@
               Next
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
-      %section{"ng-class"=>"isActiveSection(4)"}
+      %section{"ng-class"=>"isActiveSection(5)"}
         %form{"name"=>"planTrialPeriod", "novalidate"=>""}
           %header
             %h1
@@ -100,7 +120,7 @@
               Next
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
-      %section{"ng-class"=>"isActiveSection(5)"}
+      %section{"ng-class"=>"isActiveSection(6)"}
         %form{"name"=>"planTermsForm", "novalidate"=>""}
           %header
             %h1
@@ -116,3 +136,16 @@
               Create Plan
               %i.fa-arrow-right
           %div{"loading-screen" => "loading.show_spinner"}
+      %section
+        %header
+          %h2
+            Success
+          %h4
+            Congrats. Your first recurring subscription plan is setup.
+        .group
+          %img.trophy{:src => asset_path('trophy.jpg'), "ng-alt"=>"Your Gold Cup!"}
+        %footer
+          %button.done{"ng-click"=>"dismissModal()"}
+            Done
+            %i.fa-arrow-right
+        %div{"loading-screen" => "loading.show_spinner"}

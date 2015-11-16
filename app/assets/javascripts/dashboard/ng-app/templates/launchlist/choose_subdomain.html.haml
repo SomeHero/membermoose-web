@@ -1,6 +1,6 @@
 .remodal-overlay{"style"=>"display: none;"}
   .remodal.action-form{"data-remodal-id"=>"subdomain-modal", "data-remodal-options"=>"hashTracking: false" }
-    %section.active
+    %section{"ng-class"=>"{'active': !user.account.hasSetupSubdomain}"}
       %form{"name"=>"form", "novalidate"=>""}
         %header
           %h1
@@ -20,3 +20,16 @@
             Save
             %i.fa-arrow-right
         %div{"loading-screen" => "loading.show_spinner"}
+    %section{"ng-class"=>"{'active': user.account.hasSetupSubdomain}"}
+      %header
+        %h2
+          Success
+        %h4
+          Great job, you setup your custom sub-domain.
+      .group
+        %img.trophy{:src => asset_path('trophy.jpg'), "ng-alt"=>"Your Gold Cup!"}
+      %footer
+        %button.done{"ng-click"=>"dismissModal()"}
+          Done
+          %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}

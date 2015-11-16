@@ -1,6 +1,6 @@
 .remodal-overlay{"style"=>"display: none;"}
   .remodal{"data-remodal-id"=>"upgrade-plan-modal", "data-remodal-options"=>"hashTracking: false" }
-    %section.active
+    %section{"ng-class"=>"{'active': !user.account.hasUpgradedPlan}"}
       %header
         %h2
           Upgrade to Awesome-ness
@@ -55,5 +55,18 @@
       %footer
         %button.continue{"ng-click"=>"upgradePlanSubmit()"}
           Upgrade
+          %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}
+    %section{"ng-class"=>"{'active': user.account.hasUploadedLogo}"}
+      %header
+        %h2
+          Success
+        %h4
+          Your plan is upgraded.
+      .group
+        %img.trophy{:src => asset_path('trophy.jpg'), "ng-alt"=>"Your Gold Cup!"}
+      %footer
+        %button.done{"ng-click"=>"dismissModal()"}
+          Done
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}

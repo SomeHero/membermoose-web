@@ -71,7 +71,7 @@
       return ""
 
     $scope.goToPreviousSection = () ->
-      if $scope.newPlanSection == 5 && !$scope.plan.has_free_trial_period
+      if $scope.newPlanSection == 6 && !$scope.plan.has_free_trial_period
         $scope.newPlanSection = $scope.newPlanSection - 2
       else
         $scope.newPlanSection = $scope.newPlanSection - 1

@@ -41,3 +41,13 @@
   top: 8px;
   float: right;
 }
+
+.signup-button {
+	@extend %ghost-button;
+	text-align: center;
+	color: #2a92e5;
+	border-color: #2a92e5;
+	display: block;
+	max-width: 200px;
+	margin-top: 2rem;
+}

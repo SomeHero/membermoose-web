@@ -32,7 +32,7 @@
     border-radius: 10px;
     margin: 0 auto;
   }
-  
+
   .moose-dialog {
     position: absolute;
     top: -150px;
@@ -145,6 +145,22 @@
     color: #8dc63f;
     border-color: #8dc63f;
     float: right;
+    padding-right: 15px;
+
+    i {
+      margin-left: 10px;
+    }
+
+    &.disabled {
+      color: #ccc;
+      border-color: #ccc;
+    }
+  }
+
+  .done {
+    @extend %button;
+    color: #8dc63f;
+    border-color: #8dc63f;
     padding-right: 15px;
 
     i {

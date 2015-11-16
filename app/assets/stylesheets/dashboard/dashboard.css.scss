@@ -841,7 +841,10 @@ body {
     border-radius: 24px;
     padding: 13px 25px;
   }
-
+  .trophy {
+    margin-top: 20px;
+    height: 200px;
+  }
   .previous {
     @extend %button;
     float: left;
@@ -853,6 +856,22 @@ body {
     color: #8dc63f;
     border-color: #8dc63f;
     float: right;
+    padding-right: 15px;
+
+    i {
+      margin-left: 10px;
+    }
+
+    &.disabled {
+      color: #ccc;
+      border-color: #ccc;
+    }
+  }
+
+  .done {
+    @extend %button;
+    color: #8dc63f;
+    border-color: #8dc63f;
     padding-right: 15px;
 
     i {

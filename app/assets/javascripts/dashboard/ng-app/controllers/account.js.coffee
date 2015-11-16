@@ -67,7 +67,7 @@
         upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal($scope.options)
 
       upload_logo_modal.open();
-      current_modal = upload_logal_modal
+      $scope.setCurrentModal(upload_logal_modal)
 
     	$scope.onFileSelect = ($files) ->
 
@@ -126,14 +126,14 @@
         upgrade_plan_modal = $('[data-remodal-id=upgrade-plan-modal]').remodal($scope.options)
 
       upgrade_plan_modal.open()
-      current_modal = upgrade_plan_modal
+      $scope.setCurrentModal(upgrade_plan_modal)
 
     $scope.changePasswordClicked = () ->
       if !change_password_modal
         change_password_modal = $('[data-remodal-id=change-password-modal]').remodal($scope.options)
 
       change_password_modal.open()
-      current_modal = change_password_modal
+      $scope.setCurrentModal(change_password_modal)
 
     $scope.changePasswordCancelled = (form) ->
       $scope.dismissModal()
@@ -175,7 +175,7 @@
         add_credit_card_modal = $('[data-remodal-id=add-card-modal]').remodal($scope.options)
 
       add_credit_card_modal.open()
-      current_modal = add_credit_card_modal
+      $scope.setCurrentModal(add_credit_card_modal)
 
     $scope.addCreditCardSubmit = () ->
       stripe_key = $scope.getPublishableKey()
@@ -225,7 +225,7 @@
         update_credit_card_modal = $('[data-remodal-id=update-card-modal]').remodal($scope.options)
 
       update_credit_card_modal.open();
-      current_modal = update_credit_card_modal
+      $scope.setCurrentModal(update_credit_card_modal)
 
     $scope.updateCreditCardSubmit = () ->
       stripe_key = $scope.getPublishableKey()
@@ -279,7 +279,7 @@
         delete_credit_card_modal = $('[data-remodal-id=delete-card-modal]').remodal($scope.options)
 
       delete_credit_card_modal.open();
-      current_modal = delete_credit_card_modal
+      $scope.setCurrentModal(delete_credit_card_modal)
 
     $scope.deleteCreditCardSubmit = () ->
       $scope.display_loading()
@@ -326,9 +326,6 @@
 
     $scope.previousStep = () ->
       $scope.active_step -= 1
-
-    $scope.dismissModal = () ->
-      current_modal.close()
 
     $scope.init()
 

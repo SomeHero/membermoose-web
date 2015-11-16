@@ -1,6 +1,6 @@
 .remodal-overlay{"style"=>"display: none;"}
   .remodal.action-form{"data-remodal-id"=>"stripe-modal", "data-remodal-options"=>"hashTracking: false" }
-    %section.active
+    %section{"ng-class"=>"{'active': !user.account.hasConnectedStripe}"}
       %header
         %h1
           Connect your Stripe Account
@@ -20,5 +20,18 @@
       %footer
         %button.continue
           Save
+          %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}
+    %section{"ng-class"=>"{'active': !user.account.hasConnectedStripe}"}
+      %header
+        %h2
+          Success
+        %h4
+          Your Stripe account is setup!  You're ready to start accepting payments.
+      .group
+        %img.trophy{:src => asset_path('trophy.jpg'), "ng-alt"=>"Your Gold Cup!"}
+      %footer
+        %button.done{"ng-click"=>"dismissModal()"}
+          Done
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}
