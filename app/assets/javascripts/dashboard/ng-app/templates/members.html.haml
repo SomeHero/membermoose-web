@@ -69,7 +69,7 @@
       {{member.planNames}}
     %td{"data-title"=>"'Status'"}
       {{member.status}}
-%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
+%pagination.pagination{"total-items"=>"totalItems","max-size"=>"maxSize","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
 .no-results{"ng-show"=>"members.length == 0 && !isLoading"}
   %img{:alt => "Cards we support (visa, mastercard, discover, amex)", :src => asset_path('dead-moose.png')}/
   %p

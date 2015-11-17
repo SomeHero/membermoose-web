@@ -10,6 +10,7 @@
     $scope.user = new Account(user)
     $scope.config = config
     $scope.plans = []
+    $scope.maxSize = 10
 
     $scope.loading = {
       show_spinner: false

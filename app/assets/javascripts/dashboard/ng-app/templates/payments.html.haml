@@ -70,7 +70,7 @@
       {{payment.card.brand}} ending in {{payment.card.last4}}
     %td{"data-title"=>"'Status'"}
       {{payment.status}}
-%pagination{"total-items"=>"totalItems","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
+%pagination.pagination{"total-items"=>"totalItems","max-size"=>"maxSize","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
 .no-results{"ng-show"=>"payments.length == 0  && !isLoading"}
   %img{:alt => "You have no subscribers", :src => asset_path('dead-moose.png')}/
   %p

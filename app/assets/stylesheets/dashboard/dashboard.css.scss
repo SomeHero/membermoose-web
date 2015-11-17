@@ -73,6 +73,10 @@ html, body {
 .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
 .another-file-over-class { border: dotted 3px green; }
 .selected { border: solid 1px $blueStandard }
+.pagination {
+  margin-left: 20px;
+  margin-right: 20px;
+}
 canvas {
     background-color: #f3f3f3;
     -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
