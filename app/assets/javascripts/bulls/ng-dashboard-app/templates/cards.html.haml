@@ -8,6 +8,8 @@
           .col-md-4{"ng-repeat"=>"card in account.cards"}
             .card.thumbnail
               .card-info
+                .card-default{"ng-show"=>"card.default"}
+                  Default
                 %h2.card-brand
                   {{card.name_on_card}}
                 %h4.plan-amount

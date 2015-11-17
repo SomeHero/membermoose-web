@@ -11,6 +11,7 @@ class Card < ActiveRecord::Base
     :last4 => self.last4,
     :expiration_month => self.expiration_month,
     :expiration_year => self.expiration_year,
+    :default => self.default,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }

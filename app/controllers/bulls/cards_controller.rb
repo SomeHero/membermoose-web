@@ -16,6 +16,16 @@ class Bulls::CardsController < ApplicationController
 
     @card = UpdateCard.call(card, token, stripe.secret_token)
 
+    if @card.errors.count == 0
+      if params["card"]["default"]
+        @card = SetCustomerDefaultCard.call(current_user.account, @card, stripe.secret_token)
+        if @card.errors.count == 0
+          current_user.account.cards.update_all(:default => false)
+          @card.default = true
+        end
+      end
+    end
+
     respond_to do |format|
       if @card.errors.count == 0 && @card.save
         format.html  { render action: 'index' }

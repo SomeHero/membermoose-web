@@ -216,6 +216,9 @@ body {
       padding: 18px 18px 10px;
       outline: none;
     }
+    .checkbox-wrapper label, select {
+      display: inline;
+    }
     input[type="text"], input[type="password"], input[type="number"], select {
       text-align: center;
       color: #888888;
@@ -226,6 +229,25 @@ body {
       border-bottom: #ccc solid 2px;
       margin: 0 0 5px;
       padding: 18px 18px 10px;
+      outline: none;
+
+      &.error {
+        -webkit-animation-name: shake;
+        -webkit-animation-duration: 0.3s;
+        -webkit-transform-origin:50% 50%;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: linear;
+      }
+    }
+    .checkbox-wrapper label, select {
+      text-align: center;
+      color: #a9a9a9;
+      font-size: 24px;
+      font-weight: 400;
+      width: 100%;
+      background: none;
+      margin: 0 0 5px;
+      padding: 18px 4px 10px;
       outline: none;
 
       &.error {

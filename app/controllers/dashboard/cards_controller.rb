@@ -29,6 +29,16 @@ class Dashboard::CardsController < DashboardController
       stripe_token,
       ENV["STRIPE_SECRET_KEY"]
     )
+    binding.pry
+    if @card.errors.count == 0
+      if params["card"]["default"]
+        @card = SetCustomerDefaultCard.call(current_user.account, @card, ENV["STRIPE_SECRET_KEY"])
+        if @card.errors.count == 0
+          current_user.account.cards.update_all(:default => false)
+          @card.default = true
+        end
+      end
+    end
 
     respond_to do |format|
       if @card.errors.count == 0 && @card.save
@@ -52,6 +62,16 @@ class Dashboard::CardsController < DashboardController
     token = params["card"]["stripe_token"]
 
     @card = UpdateCard.call(card, token, ENV["STRIPE_SECRET_KEY"])
+
+    if @card.errors.count == 0
+      if params["card"]["default"]
+        @card = SetCustomerDefaultCard.call(current_user.account, @card, ENV["STRIPE_SECRET_KEY"])
+        if @card.errors.count == 0
+          current_user.account.cards.update_all(:default => false)
+          @card.default = true
+        end
+      end
+    end
 
     respond_to do |format|
       if @card.errors.count == 0 && @card.save

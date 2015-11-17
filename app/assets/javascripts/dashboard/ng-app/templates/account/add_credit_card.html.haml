@@ -37,6 +37,10 @@
             %span{"ng-show" => "form_submitted && addCreditCardForm['security_code'].$invalid", :style => "color:red"}
               %span{"ng-show" => "addCreditCardForm['security_code'].$error.required"}
                 Security Code is required.
+          .form-group.checkbox-wrapper
+            %input#default_card{:name => "default_card", "type"=>"checkbox", "ng-model"=>"credit_card_attr.default", "ng-true-value"=>"true", "ng-false-value"=>"false"}
+            %label{:for => "default_card"}
+              Make this my default payment method
           %footer
             %button.previous{"ng-click"=>"dismissModal()"}
               Cancel

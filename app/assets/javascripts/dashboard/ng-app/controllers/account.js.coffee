@@ -24,7 +24,6 @@
     update_credit_card_modal = null
     delete_credit_card_modal = null
     current_modal = null
-    $scope.credit_card = {}
     $scope.selected_credit_card = null
     $scope.isLoading = true
     $scope.change_password = {}
@@ -171,6 +170,9 @@
 
     $scope.addCreditCardClicked = () ->
       $scope.credit_card = {}
+      $scope.credit_card_attr = {
+        default: false
+      }
       if !add_credit_card_modal
         add_credit_card_modal = $('[data-remodal-id=add-card-modal]').remodal($scope.options)
 
@@ -191,7 +193,8 @@
           card_last4: $scope.credit_card.card_last4,
           exp_month: $scope.credit_card.exp_month,
           exp_year: $scope.credit_card.exp_year,
-          stripe_token: token
+          stripe_token: token,
+          default: $scope.credit_card_attr.default
         }).create().then(
           (response) ->
             new_card = new Card(response.data)
@@ -215,7 +218,14 @@
             message = http.statusText
             $scope.display_error_message(message)
         )
-      )
+      ).catch (err) ->
+        $scope.dismiss_loading()
+
+        if err.type and /^Stripe/.test(err.type)
+          console.log 'Stripe error: ', err.message
+        else
+          console.log 'Other error occurred, possibly with your API', err.message
+
 
     $scope.updateCreditCardClicked = () ->
       $scope.selected_credit_card = null
@@ -242,7 +252,8 @@
           card_last4: $scope.credit_card.card_last4,
           exp_month: $scope.credit_card.exp_month,
           exp_year: $scope.credit_card.exp_year,
-          stripe_token: token
+          stripe_token: token,
+          default: $scope.credit_card_attr.default
         })
         card.update().then(
           (response) ->

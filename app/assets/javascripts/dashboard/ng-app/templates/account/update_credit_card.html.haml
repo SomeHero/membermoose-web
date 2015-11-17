@@ -7,6 +7,8 @@
       %p
         .col-md-4{"ng-repeat"=>"card in user.account.cards"}
           .card.thumbnail{"ng-click"=>"setSelectedCard(card)", "ng-class"=>"isSelectedCard(card)"}
+            .card-default{"ng-show"=>"card.default"}
+              Default
             .card-info
               %h2.card-name
                 {{card.brand}} {{card.last4}}
@@ -50,10 +52,18 @@
             %span{"ng-show" => "form_submitted && addCreditCardForm['expiry_date_month'].$invalid", :style => "color:red"}
               %span{"ng-show" => "addCreditCardForm['expiry_date_month'].$error.required"}
                 Card Expiration month is required.
-          %footer
-            %button.previous{"ng-click"=>"previousStep()"}
-              Back
-            %button.continue{"ng-click"=>"updateCreditCardSubmit(addCreditCardForm)"}
-              Update Card
-              %i.fa-arrow-right
-        %div{"loading-screen" => "loading.show_spinner"}
+            %input#security_code{:name => "security_code", :placeholder => "CVC Code", :required => "", "maxlength"=>"4", :type => "text", "ng-model"=>"credit_card.cvc", :style => "width: 200px;"}/
+            %span{"ng-show" => "form_submitted && addCreditCardForm['security_code'].$invalid", :style => "color:red"}
+              %span{"ng-show" => "addCreditCardForm['security_code'].$error.required"}
+                Security Code is required.
+          .form-group.checkbox-wrapper
+            %input#default_card{:name => "default_card", "type"=>"checkbox", "ng-model"=>"credit_card_attr.default"}
+            %label{:for => "default_card"}
+              Make this my default payment method
+        %footer
+          %button.previous{"ng-click"=>"previousStep()"}
+            Back
+          %button.continue{"ng-click"=>"updateCreditCardSubmit(addCreditCardForm)"}
+            Update Card
+            %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}
