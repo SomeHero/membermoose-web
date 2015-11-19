@@ -248,13 +248,13 @@ ActiveRecord::Schema.define(version: 20151117014339) do
   create_table "subscriptions", force: true do |t|
     t.integer  "account_id"
     t.integer  "plan_id"
-    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "account_payment_processor_id"
     t.string   "guid"
     t.string   "stripe_id"
     t.integer  "card_id"
+    t.integer  "status",                       default: 1
     t.datetime "next_invoice_date"
   end
 

@@ -101,7 +101,7 @@
         url: 'dashboard/account/upload_logo'
         data:
           file: $scope.file).then ((response) ->
-        $scope.set_user(response.data)
+        $scope.setUser(response.data)
         AccountServiceChannel.accountUpdated()
 
         message = "You successfully uploaded your logo."

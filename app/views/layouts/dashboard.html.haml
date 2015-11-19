@@ -13,9 +13,6 @@
       _test_env =
       != (Rails.env == 'production' ? nil : 'testing' ).to_json
 
-      user =
-      != @user ? @user.to_json : nil
-
       config =
       != @config ? @config.to_json : nil
     %base{"href"=>"/dashboard"}
@@ -39,21 +36,26 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-        #navbar-menu
-          .navbar-collapse.collapse
-            .minifyme
-              %a{:href=>"#"}
-                = fa_icon "bars"
-            %ul#top-nav.nav.navbar-nav.navbar-right
-              %li
-                %a{:href=>"#"}
-                  = fa_icon "bell-o"
-              %li
-                %a{:href=>"#"}
-                  = fa_icon "envelope-o"
-              %li
-                = link_to destroy_user_session_path, :method => 'delete' do
-                  = fa_icon "sign-out"
+      #navbar-menu
+        .navbar-collapse.collapse
+          .minifyme
+            %a{:href=>"#"}
+              = fa_icon "bars"
+      #nav-bar-right
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            %a{:href=>"#"}
+              = fa_icon "bell-o"
+          %li
+            %a{:href=>"#"}
+              = fa_icon "envelope-o"
+          %li
+            %a.visit-site{:href => "{{user.account.siteUrl}}", :target => "_blank"}
+              .fa.fa-external-link-square
+          %li.dropdown.profile.hidden-xs
+            %a{:title=>"Account Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/account-menu.html'"}
+              %i.fa.fa-chevron-down{"ng-click"=>"openMenu()"}
+              {{user.account.firstName}} {{user.account.lastName}}
     #content-wrapper
       .row-offcanvas.row-offcanvas-left
         %aside#left-panel.sidebar-offcanvas{"role" => "navigation"}
@@ -93,10 +95,5 @@
                   %i.linecons-money
                   %span.menu-item-parent
                     PAYMENTS
-              %li{"ng-class"=>"{'selected': setMenuItemSelected('/dashboard/accounts') }"}
-                = link_to edit_dashboard_account_url(:id => current_user.id) do
-                  %i.linecons-note
-                  %span.menu-item-parent
-                    ACCOUNT
         #content{"role"=>"main"}
           = yield

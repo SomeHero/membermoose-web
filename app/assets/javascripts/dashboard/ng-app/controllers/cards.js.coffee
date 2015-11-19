@@ -99,5 +99,7 @@
           message = errors
           $scope.displayErrorMessage(message)
       )
+
+    $scope.init()
 ]
 CardsController.$inject = ['$scope', '$stateParams', 'window']

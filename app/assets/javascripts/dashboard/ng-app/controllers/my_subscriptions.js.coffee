@@ -1,4 +1,4 @@
-@SubscriptionsController = angular.module('dashboardApp').controller 'SubscriptionsController', [
+@MySubscriptionsController = angular.module('dashboardApp').controller 'MySubscriptionsController', [
   '$scope'
   '$stateParams'
   'Subscription'
@@ -91,5 +91,7 @@
 
     $scope.filterSubscribedPlan = (plan) ->
       return plan.id != $scope.selectedSubscription.plan.id
+
+    $scope.init()
 ]
 SubscriptionsController.$inject = ['$scope', '$stateParams', 'Subscription', 'window', '$http']

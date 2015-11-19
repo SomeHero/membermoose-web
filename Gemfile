@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 source 'https://code.stripe.com'
+source "https://rails-assets.org"
 
 group :production do
   gem 'rails_12factor'
@@ -55,6 +56,7 @@ gem 'angularjs-rails-resource', '~> 2.0.0'
 gem 'angular_rails_csrf'
 gem 'angular-ui-bootstrap-rails'
 gem 'angular-ng-table-rails'
+gem "rails-assets-angular-devise"
 gem 'stripe', '~> 1.20.4'
 gem 'redis'
 gem "resque"

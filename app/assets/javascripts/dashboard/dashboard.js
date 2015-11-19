@@ -10,14 +10,30 @@ var app = angular.module('dashboardApp', [
         'loadingScreen',
         'ngFileUpload',
         'rzModule',
-        'angular-stripe'
+        'angular-stripe',
+        'Devise'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider
         .state('account', {
-            url: '/dashboard/account/:id/edit',
+            url: '/dashboard/account',
             templateUrl: 'dashboard/ng-app/templates/account.html',
             controller: 'AccountController'
+        })
+        .state('cards', {
+            url: '/dashboard/cards',
+            templateUrl: 'dashboard/ng-app/templates/cards.html',
+            controller: 'CardsController'
+        })
+        .state('billing_history', {
+            url: '/dashboard/billing',
+            templateUrl: 'dashboard/ng-app/templates/billingHistory.html',
+            controller: 'BillingHistoryController'
+        })
+        .state('my_subscriptions', {
+            url: '/dashboard/my_subscriptions',
+            templateUrl: 'dashboard/ng-app/templates/my_subscriptions.html',
+            controller: 'MySubscriptionsController'
         })
         .state('launch_list', {
             url: '/dashboard/launch',

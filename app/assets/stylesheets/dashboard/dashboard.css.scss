@@ -118,7 +118,7 @@ body {
     font-family: "Lato", Arial, sans-serif;
   }
   .navbar {
-    background-color: #ffffff;
+    background-color: #fdfcfb;
     border-bottom: solid 1px $border-color;
     box-sizing: content-box;
     .navbar-toggle .icon-bar {
@@ -142,6 +142,15 @@ body {
     .navbar-collapse {
       box-shadow: -2px 0 3px rgba(0, 0, 0, 0.05);
       border-left: 1px solid #d3d0d0;
+    }
+  }
+  #nav-bar-right {
+    .navbar-right {
+      margin-right: 45px;
+    }
+    .popover-content {
+      padding: 0px;
+      width: 180px;
     }
   }
   a.navbar-brand {
@@ -1474,7 +1483,8 @@ body {
 }
 .minifyme {
   background-color: #f7f9fa;
-	border-right: solid 1px #e5e7eb;
+  border-left: solid 1px #e5e7eb;
+  border-right: solid 1px #e5e7eb;
   text-align: center;
 	padding: 0;
 	width: $smart-navbar-height - 1;

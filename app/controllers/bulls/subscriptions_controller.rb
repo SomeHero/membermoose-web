@@ -19,6 +19,9 @@ class Bulls::SubscriptionsController < ApplicationController
     plan = Plan.find(params["subscription"]["plan_id"])
     account = plan.account
 
+    if !plan.can_subscribe?
+      return false
+      
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 

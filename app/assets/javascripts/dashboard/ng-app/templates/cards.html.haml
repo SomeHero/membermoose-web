@@ -1,0 +1,24 @@
+%header.content-title
+  %i.linecons-user.header-icon
+  .content-title-wrapper
+    %h4
+      Payment Methods
+    %h6
+      Here are the plans you've signed up for.
+.container-fluid.plans{"style"=>"min-height: 400px;"}
+  .row{:style=>"margin-bottom: 20px;"}
+    .col-md-4{"ng-repeat"=>"card in user.account.cards"}
+      .plan
+        .plan-info
+          .card-default{"ng-show"=>"card.default"}
+            Default
+          %h2.card-brand
+            {{card.name_on_card}}
+          %h4.plan-amount
+            {{card.brand}} ****{{card.last4}}
+        %button.btn.btn-lg.btn-primary{"ng-click"=>"updateCardClicked(card)"}
+          Update Card
+        %button.btn.btn-lg.btn-alert{"ng-click"=>"deleteCardClicked(card)"}
+          Delete Card
+%div{"ng-include"=>"'bulls/ng-dashboard-app/templates/modals/update_card.html'"}
+%div{"ng-include"=>"'bulls/ng-dashboard-app/templates/modals/delete_card.html'"}

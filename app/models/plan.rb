@@ -27,12 +27,26 @@ class Plan < ActiveRecord::Base
     :trial_period_days => self.trial_period_days,
     :terms_and_conditions => self.terms_and_conditions,
     :public => self.public,
+    :subscriber_limit => self.subscriber_limit,
+    :subscriber_count => self.subscriber_count,
     :stripe_id => self.stripe_id,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }
   end
 
+  def subscriber_limit
+    if self.account.has_upgraded_plan
+      return 0
+    else
+      return 5
+    end
+  end
+
+  def subscriber_count
+    members.count
+  end
+  
   private
 
   def populate_guid

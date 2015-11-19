@@ -92,7 +92,7 @@
         url: 'dashboard/account/upload_logo'
         data:
           file: $scope.file).then ((response) ->
-            $scope.set_user(response.data)
+            $scope.setUser(response.data)
 
             $scope.dismiss_loading()
 
@@ -128,7 +128,7 @@
         }
         $http.post('/dashboard/account/' + $scope.user.id  + '/change_subdomain', params).then(
           (response) ->
-            $scope.set_user(response.data)
+            $scope.setUser(response.data)
             $scope.form_submitted = false
 
             message = "You successfully setup your subdomain."
@@ -270,7 +270,7 @@
         }
         $http.post('/dashboard/account/' + $scope.user.id  + '/upgrade_plan', params).then(
           (response) ->
-            $scope.set_user(response.data)
+            $scope.setUser(response.data)
 
             $scope.dismiss_loading()
             $scope.form_submitted = false

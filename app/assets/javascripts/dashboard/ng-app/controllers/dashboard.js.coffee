@@ -5,9 +5,9 @@
   '$window',
   '$modal',
   '$timeout'
-  'AccountServiceChannel'
-  ($scope, Account, Plan, window, $modal, $timeout, AccountServiceChannel) ->
-    $scope.user = new Account(user)
+  'AccountServiceChannel',
+  'Auth'
+  ($scope, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth) ->
     $scope.config = config
     $scope.plans = []
     $scope.maxSize = 10
@@ -30,7 +30,31 @@
     $scope.init = () ->
       nav_page_height()
 
-    $scope.set_user = (user) ->
+      $scope.getCurrentUser()
+
+    $scope.getCurrentUser = () ->
+      Auth.currentUser().then ((user) ->
+        # User was logged in, or Devise returned
+        # previously authenticated session.
+        console.log user
+        $scope.user = new Account(user)
+
+        return
+      ), (error) ->
+        # unauthenticated error
+        return
+
+    $scope.logout = () ->
+      config = headers: 'X-HTTP-Method-Override': 'DELETE'
+
+      Auth.logout(config).then ((oldUser) ->
+        # alert(oldUser.name + "you're signed out now.");
+        return
+      ), (error) ->
+        # An error occurred logging out.
+        return
+
+    $scope.setUser = (user) ->
       $scope.user = new Account(user)
 
     $scope.setCurrentModal = (modal) ->
@@ -39,6 +63,7 @@
     $scope.getPlans = () ->
       Plan.get().then (response) ->
         $scope.plans = response.data
+
     $scope.getPublishableKey = () ->
       if $scope.user.account.paymentProcessors
         return $scope.config.publishableKey
@@ -90,7 +115,10 @@
       currentModal.close()
 
     $scope.hideLaunchList = () ->
-      return $scope.user.account.hasUploadedLogo && $scope.user.account.hasSetupSubdomain && $scope.user.account.hasCreatedPlan && $scope.user.account.hasConnectedStripe && $scope.user.account.hasUpgradedPlan
+      if $scope.user
+        return $scope.user.account.hasUploadedLogo && $scope.user.account.hasSetupSubdomain && $scope.user.account.hasCreatedPlan && $scope.user.account.hasConnectedStripe && $scope.user.account.hasUpgradedPlan
+      else
+        return true
 
     onAccountUpdated = () ->
       console.log "Account Updated"
