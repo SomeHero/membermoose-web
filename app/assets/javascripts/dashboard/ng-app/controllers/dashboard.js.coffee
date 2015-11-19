@@ -37,7 +37,6 @@
       Auth.currentUser().then ((user) ->
         # User was logged in, or Devise returned
         # previously authenticated session.
-        console.log user
         $scope.user = new Account(user)
 
         return

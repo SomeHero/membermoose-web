@@ -1,41 +1,43 @@
 @ChangePasswordController = angular.module('dashboardApp').controller 'ChangePasswordController', [
   '$scope'
-  'Account'
   '$stateParams'
+  '$http'
   '$window'
   '$timeout'
   'AccountServiceChannel'
-  ($scope, Account, $stateParams, window, $timeout, AccountServiceChannel) ->
+  ($scope, $stateParams, $http, window, $timeout, AccountServiceChannel) ->
 
-    $scope.updatePassword = (form) ->
-      console.log "updating user"
+    init = () ->
+      $scope.init()
 
+      $scope.change_password = {}
+
+    $scope.changePasswordSubmit = (form) ->
       if form.$valid
-        user.update().then(
-          (updated_user) ->
-            $scope.$parent.success_message = "Your account was successfully updated."
-            $scope.$parent.show_success_message = true
-            $scope.clear_messages()
+        $scope.display_loading()
 
-            console.log("account updated")
+        params = {
+          current_password: $scope.change_password.current_password,
+          new_password: $scope.change_password.new_password,
+          new_password_again: $scope.change_password.new_password_again
+        }
+        $http.post('/dashboard/account/' + $scope.user.id  + '/change_password', params).then(
+          () ->
+            $scope.dismiss_loading()
+            $scope.form_submitted = false
+
+            message = "You successfully updated your password."
+            $scope.display_success_message(message)
+
+            $scope.change_password = {}
           (http)  ->
-            console.log("error updating account")
-            errors = http.data
+            $scope.dismiss_loading()
 
-            $scope.$parent.error_message = "Sorry, an unexpected error ocurred.  Please try again."
-            $scope.$parent.show_error_message = true
-            $scope.clear_messages()
+            message = http.statusText
+            $scope.display_error_message(message)
         )
 
-    $scope.clear_messages = () ->
-      $timeout(remove_messages, 4000);
-
-    remove_messages = () ->
-      $scope.$parent.show_success_message = false
-
-    $scope.getAccount()
-
-    return
+    init()
 ]
 
-AccountController.$inject = ['$scope', 'Account', '$stateParams', 'window', '$timeout', 'AccountServiceChannel']
+ChangePasswordController.$inject = ['$scope', '$stateParams', '$http', 'window', '$timeout', 'AccountServiceChannel']
