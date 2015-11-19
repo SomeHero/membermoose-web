@@ -29,7 +29,7 @@ class Dashboard::CardsController < DashboardController
       stripe_token,
       ENV["STRIPE_SECRET_KEY"]
     )
-    binding.pry
+
     if @card.errors.count == 0
       if params["card"]["default"]
         @card = SetCustomerDefaultCard.call(current_user.account, @card, ENV["STRIPE_SECRET_KEY"])

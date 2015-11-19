@@ -1,5 +1,6 @@
 @DashboardController = angular.module('dashboardApp').controller 'DashboardController', [
   '$scope',
+  '$window',
   'Account',
   'Plan',
   '$window',
@@ -7,7 +8,7 @@
   '$timeout'
   'AccountServiceChannel',
   'Auth'
-  ($scope, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth) ->
+  ($scope, $window, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth) ->
     $scope.config = config
     $scope.plans = []
     $scope.maxSize = 10
@@ -49,7 +50,7 @@
 
       Auth.logout(config).then ((oldUser) ->
         # alert(oldUser.name + "you're signed out now.");
-        return
+        $window.location.href = "/users/sign_in"
       ), (error) ->
         # An error occurred logging out.
         return
