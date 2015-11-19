@@ -19,7 +19,7 @@
   %body
     %header.text-center{:role => "banner", :style => "background: #{@dominant_color}"}
       %nav{:role => "primary"}
-        %a.login{:href => "/dashboard"}
+        %a.login{:href => "/dashboard/my_subscriptions"}
           Login
         - if @bull.account.logo.exists?
           = image_tag @bull.account.logo.url

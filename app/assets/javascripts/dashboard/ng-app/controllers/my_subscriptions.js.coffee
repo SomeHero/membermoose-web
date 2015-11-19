@@ -94,4 +94,4 @@
 
     $scope.init()
 ]
-SubscriptionsController.$inject = ['$scope', '$stateParams', 'Subscription', 'window', '$http']
+MySubscriptionsController.$inject = ['$scope', '$stateParams', 'Subscription', 'window', '$http']

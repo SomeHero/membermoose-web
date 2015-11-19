@@ -4,6 +4,11 @@ class DashboardController < ApplicationController
   before_action :get_config
 
   def index
+    if current_user.account.is_bull?
+      render :layout => 'dashboard'
+    else
+      render :layout => 'calf-dashboard'
+    end
   end
 
   def get_user

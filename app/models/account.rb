@@ -19,6 +19,8 @@ class Account < ActiveRecord::Base
   SUBDOMAIN_MIN_LENGTH = 3
   SUBDOMAIN_MAX_LENGTH = 20
 
+  enum role: %w(calf bull superadmin)
+
   #validates :subdomain, :length => (SUBDOMAIN_MIN_LENGTH..SUBDOMAIN_MAX_LENGTH), :format => { :with => /^[\w-]+$/ }, :presence   => true, :uniqueness => true, :exclusion => { :in => DISALLOWED_SUBDOMAINS }
 
   before_update :update_site_url
@@ -35,6 +37,12 @@ class Account < ActiveRecord::Base
 
   def status
     self.subscriptions.where(:status => Subscription.statuses[:subscribed]).count > 0 ? "active" : "inactive"
+  end
+
+  def is_bull?
+    return true if self.role == "bull" || self.role == "superadmin"
+
+    return false
   end
 
   def as_json(options={})

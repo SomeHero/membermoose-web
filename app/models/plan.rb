@@ -46,7 +46,19 @@ class Plan < ActiveRecord::Base
   def subscriber_count
     members.count
   end
-  
+
+  def can_subscribe?
+    if subscriber_limit = 0
+      return true
+    end
+
+    if subscriber_count < subscriber_limit
+      return true
+    end
+
+    return false
+  end
+
   private
 
   def populate_guid

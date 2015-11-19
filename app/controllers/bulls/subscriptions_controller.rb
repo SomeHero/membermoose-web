@@ -21,7 +21,8 @@ class Bulls::SubscriptionsController < ApplicationController
 
     if !plan.can_subscribe?
       return false
-      
+    end
+
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 

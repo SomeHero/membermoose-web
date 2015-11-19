@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   constraints(Subdomain) do
     get "/" => "bulls/home#index", as: "home", :constraints => { :subdomain => /^(?!www)(\w+)/ }
-    resources :dashboard, :controller => "bulls/dashboard"
   end
 
   root 'home#index'
@@ -29,6 +28,7 @@ Rails.application.routes.draw do
         get :count, defaults: { format: 'json' }
       end
     end
+    resources :my_subscriptions, :controller => "dashboard"
     resources :subscriptions, :controller => "dashboard/subscriptions" do
       collection do
         get :count, defaults: { format: 'json' }
