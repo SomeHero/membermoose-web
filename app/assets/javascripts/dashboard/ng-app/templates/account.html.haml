@@ -20,7 +20,7 @@
               %label{:for=>"lastName"}
                 Last Name
               %input#lastName.form-control{:type=>"text",:name=>"user[account_attributes[last_name]]",:placeholder=>"Last Name","ng-model"=>"user.account.lastName" }
-          .row.form-group
+          .row.form-group{"ng-show"=>"isAuthorized('bull')"}
             .col-lg-8
               %label{:for=>"companyName"}
                 Company Name
@@ -30,12 +30,12 @@
               %label{:for=>"email"}
                 Email Address
               %input#email.form-control{:type=>"text",:name=>"user[email]",:placeholder=>"Email Address","ng-model"=>"user.email" }
-          .row.form-group
+          .row.form-group{"ng-show"=>"isAuthorized('bull')"}
             .col-lg-8
               %label{:for=>"subdomain"}
                 Subdomain
               %input#subdomain.form-control{:type=>"text",:name=>"user[account_attributes[subdomain]]",:placeholder=>"Subdomain","ng-model"=>"user.account.subdomain" }
-          .row.form-group
+          .row.form-group{"ng-show"=>"isAuthorized('bull')"}
             .col-lg-8
               %label{:for=>"logo", "style"=>"display: block;"}
                 Logo
@@ -46,7 +46,7 @@
             .col-lg-4
               %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateAccount(user, accountForm)"}
                 Submit
-        .edit-bar
+        .edit-bar{"ng-show"=>"isAuthorized('bull')"}
           .edit-controls
             %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
               %li{"style"=>"margin-right: 28px"}

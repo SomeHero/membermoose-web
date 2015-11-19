@@ -52,6 +52,7 @@ class Account < ActiveRecord::Base
     {
       :id => self.id,
       :guid => self.guid,
+      :role => self.role,
       :first_name => self.first_name,
       :last_name => self.last_name,
       :company_name => self.company_name,
