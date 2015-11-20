@@ -47,12 +47,12 @@
     $scope.isAuthorized = (role) ->
       if $scope.user.account.role == "superadmin"
         true
-      if $scope.user.account.role = "bull" && (role == 'calf' || role == 'calf')
+      if $scope.user.account.role == "bull" && (role == 'calf' || role == 'calf')
         true
-      if $scope.user.account.role = "calf" && role == 'calf'
+      if $scope.user.account.role == "calf" && role == 'calf'
         true
       false
-    
+
     $scope.logout = () ->
       config = headers: 'X-HTTP-Method-Override': 'DELETE'
 
