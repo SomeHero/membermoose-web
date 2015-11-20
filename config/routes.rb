@@ -21,7 +21,11 @@ Rails.application.routes.draw do
 
   resource :dashboard do
     resources :launch, :controller => "dashboard/launch"
-    resources :plans, :controller => "dashboard/plans"
+    resources :plans, :controller => "dashboard/plans" do
+      collection do
+        post :get_stripe_plans, defaults: { format: 'json' }
+      end
+    end
     resources :cards, :controller => "dashboard/cards"
     resources :members, :controller => "dashboard/members" do
       collection do

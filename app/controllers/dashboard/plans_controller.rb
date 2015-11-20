@@ -105,6 +105,19 @@ class Dashboard::PlansController < DashboardController
     end
   end
 
+  def get_stripe_plans
+    account = current_user.account
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
+
+    binding.pry
+    plans = GetPlans.call({}, stripe.secret_token)
+
+    respond_to do |format|
+      format.json { render :json => plans }
+    end
+  end
+
   def permitted_params
     params.require(:plan).permit(:id, :name, :description, :feature1, :feature2, :feature3, :feature4, :amount, :billing_cycle, :billing_interval, :trial_period_days, :terms_and_conditions, :public)
   end

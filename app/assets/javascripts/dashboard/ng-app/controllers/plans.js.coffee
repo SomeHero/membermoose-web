@@ -2,10 +2,11 @@
   '$scope'
   'Plan'
   '$modal'
+  '$http'
   '$window'
   '$timeout'
   'PlansServiceChannel'
-  ($scope,  Plan, $modal, window, $timeout, PlansServiceChannel) ->
+  ($scope,  Plan, $modal, $http, window, $timeout, PlansServiceChannel) ->
     window.scope = $scope
     $scope.totalItems = 0
     $scope.currentPage = 1
@@ -226,6 +227,23 @@
       else
         return ""
 
+    $scope.importPlansClicked = () ->
+      $scope.display_loading()
+
+      $http.post('/dashboard/plans/get_stripe_plans').then(
+        (response) ->
+          $scope.dismiss_loading()
+          $scope.form_submitted = false
+
+          message = "Your successfully updated your password."
+          $scope.display_success_message(message)
+        (http)  ->
+          $scope.dismiss_loading()
+
+          message = http.statusText
+          $scope.display_error_message(message)
+      )
+
     sortPlans = () ->
       $scope.plans_first_row = []
       $scope.rows = []
@@ -259,4 +277,4 @@
     return
 ]
 
-PlansController.$inject = ['$scope', 'Plan', '$modal', 'window', '$timeout', 'PlansServiceChannel']
+PlansController.$inject = ['$scope', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']

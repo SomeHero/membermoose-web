@@ -47,7 +47,12 @@
               %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updateAccount(user, accountForm)"}
                 Submit
         .edit-bar{"ng-show"=>"isAuthorized('bull')"}
-          .edit-form-wrapper{:style=>"padding: 20px 20px 60px 20px"}
+          .edit-controls
+            %ul.list-inline.pull-right{:style=>"list-style-type: none;"}
+              %li{"style"=>"margin-right: 28px"}
+                %a{:title=>"Plan Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/account.html'"}
+                  %i.fa.fa-cog{"ng-click"=>"openMenu()"}
+          .edit-form-wrapper{:style=>"padding: 0px 20px 60px 20px"}
             %h4
               Account Details
             %h6
