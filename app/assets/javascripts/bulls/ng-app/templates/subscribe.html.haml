@@ -4,7 +4,7 @@
       %h2
         {{plan.name}}
       %h4
-        {{plan.amount | currency}} a month
+        {{plan.amount | currency}}/{{plan.billingCycle }}
       %p#unscare
         {{account.company_name}} is using MemberMoose to manage their subscriptions, create an account below and you'll be able to cancel at any time!
       %div#subscribe-form-wrapper{"style"=>"margin: 30px 0px;"}

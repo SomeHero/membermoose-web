@@ -13,7 +13,7 @@
                 %h2.plan-name
                   {{plan.name}}
                 %h3.plan-amount
-                  {{plan.amount | currency }}
+                  {{plan.amount | currency }}/{{ plan.billingCycle }}
               %button.btn.btn-lg.btn-success{"ui-sref"=>"subscribe({plan: {{plan}}, id: '{{plan.guid}}'})"}
                 Subscribe
 %div{"loading-screen" => "loading.show_spinner"}
