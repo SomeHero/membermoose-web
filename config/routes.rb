@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :plans, :controller => "dashboard/plans" do
       collection do
         post :get_stripe_plans, defaults: { format: 'json' }
+        post :import_stripe_plans, defaults: { format: 'json' }
       end
     end
     resources :cards, :controller => "dashboard/cards"

@@ -81,12 +81,17 @@ class Dashboard::AccountController < DashboardController
   end
 
   def upgrade_plan
+    #ToDo: we should totally refactor
     #ToDo: need a better way to identify special plan
-    plan = Plan.find(2)
+    free_plan_id = ENV["MEMBERMOOSE_FREE_PLAN_ID"]
+    updated_plan_id = ENV["MEMBERMOOSE_UPGRADED_PLAN_ID"]
+
+    plan = Plan.find(upgrade_plan_id)
     user = current_user
 
     account = user.account
 
+    #ToDo: look for free MM subscription and update it to inactive
     email = user.email
     stripe_token = params["stripe_token"]["id"]
     type = params["stripe_token"]["type"]

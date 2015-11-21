@@ -6,7 +6,7 @@
     %h6
       Here are the plans you've signed up for.
 .container-fluid.plans{"style"=>"min-height: 400px;"}
-  .row{:style=>"margin-bottom: 20px;"}
+  .row{:style=>"margin-bottom: 20px;", "ng-show"=>"user.account.subscriptions.length > 0"}
     .col-md-4{"ng-repeat"=>"subscription in user.account.subscriptions"}
       .plan
         .plan-info
@@ -22,7 +22,12 @@
         %div{"ng-show"=>"subscription.status == 'Cancelled'"}
           %h2
             Cancelled
-
+  .row{:style=>"margin-bottom: 20px;", "ng-show"=>"user.account.subscriptions.length == 0"}
+    .col-md-12
+      .no-results
+        %img{:alt => "No Subscriptions", :src => asset_path('dead-moose.png')}/
+        %p
+          You don't have any subscription yet!
 %div{"loading-screen" => "loading.show_spinner"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/my_subscriptions/unsubscribe.html'"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/my_subscriptions/change_plan.html'"}

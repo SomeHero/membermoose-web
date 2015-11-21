@@ -48,7 +48,7 @@ class Plan < ActiveRecord::Base
   end
 
   def can_subscribe?
-    if subscriber_limit = 0
+    if subscriber_limit == 0
       return true
     end
 

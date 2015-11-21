@@ -4,6 +4,7 @@
     %title Member Moose - Dashboard
     %script{:src => "https://js.stripe.com/v2/", :type => "text/javascript"}
     = stylesheet_link_tag    'application-dashboard', media: 'all'
+    = stylesheet_link_tag    'calf-dashboard', media: 'all'
     = javascript_include_tag 'dashboard/application'
     = csrf_meta_tags
     = analytics_init :local => Rails.env.development?
@@ -16,38 +17,5 @@
       config =
       != @config ? @config.to_json : nil
     %base{"href"=>"/dashboard"}
-  %body{"ng-app"=>"dashboardApp", "ng-controller"=>"DashboardController"}
-    .success-message.animate-show.alert.alert-success{"role"=>"alert", "ng-show"=>"show_success_message"}
-      %a.close{"ng-click"=>"close_success_message()", "aria-label"=>"close"}
-        &times;
-      {{success_message}}
-    .error-message.animate-show.alert.alert-danger{"role"=>"alert", "ng-show"=>"show_error_message"}
-      %a.close{"ng-click"=>"close_error_message()", "aria-label"=>"close"}
-        &times;
-      {{error_message}}
-    %nav.navbar.navbar-fixed-top{:role => "navigation"}
-      #brand-header
-        #navbar-header
-          .navbar-brand-wrapper
-            %a.navbar-brand
-              MemberMoose
-          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-      #nav-bar-right
-        %ul.nav.navbar-nav.navbar-right
-          %li
-            %a{:href=>"#"}
-              = fa_icon "bell-o"
-          %li
-            %a{:href=>"#"}
-              = fa_icon "envelope-o"
-          %li.dropdown.profile.hidden-xs
-            %a{:title=>"Account Menu", "popover-placement"=>"bottom", "popover-template"=>"'dashboard/ng-app/templates/submenus/account-menu.html'"}
-              %i.fa.fa-chevron-down{"ng-click"=>"openMenu()"}
-              {{user.account.firstName}} {{user.account.lastName}}
-    #content-wrapper
-      #content{"role"=>"main", "style"=>"margin-left: 0px;"}
-        = yield
+  %body{"ng-app"=>"dashboardApp"}
+    %ui-view

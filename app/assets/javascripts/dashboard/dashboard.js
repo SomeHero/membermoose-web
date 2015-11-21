@@ -15,53 +15,64 @@ var app = angular.module('dashboardApp', [
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider
-        .state('account', {
-            url: '/dashboard/account',
+        .state('dashboard', {
+          abstract: true,
+          url: '/dashboard',
+          controller: 'DashboardController',
+          templateUrl: 'dashboard/ng-app/templates/dashboard.html',
+          resolve: {
+            user: function(Auth) {
+              return Auth.currentUser();
+            }
+          }
+        })
+        .state('dashboard.account', {
+            url: '/account',
             templateUrl: 'dashboard/ng-app/templates/account.html',
             controller: 'AccountController'
         })
-        .state('change_password', {
-            url: '/dashboard/account/change_password',
+        .state('dashboard.change_password', {
+            url: '/account/change_password',
             templateUrl: 'dashboard/ng-app/templates/change_password.html',
             controller: 'ChangePasswordController'
         })
-        .state('cards', {
-            url: '/dashboard/cards',
+        .state('dashboard.cards', {
+            url: '/cards',
             templateUrl: 'dashboard/ng-app/templates/cards.html',
             controller: 'CardsController'
         })
-        .state('billing_history', {
-            url: '/dashboard/billing',
+        .state('dashboard.billing_history', {
+            url: '/billing',
             templateUrl: 'dashboard/ng-app/templates/billingHistory.html',
             controller: 'BillingHistoryController'
         })
-        .state('my_subscriptions', {
-            url: '/dashboard/my_subscriptions',
+        .state('dashboard.my_subscriptions', {
+            url: '/my_subscriptions',
             templateUrl: 'dashboard/ng-app/templates/my_subscriptions.html',
             controller: 'MySubscriptionsController'
         })
-        .state('launch_list', {
-            url: '/dashboard/launch',
+        .state('dashboard.launch_list', {
+            url: '/launch',
             templateUrl: 'dashboard/ng-app/templates/launch_list.html',
             controller: 'LaunchListController'
         })
-        .state('members', {
-            url: '/dashboard/members',
+        .state('dashboard.members', {
+            url: '/members',
             templateUrl: 'dashboard/ng-app/templates/members.html',
             controller: 'MembersController'
         })
-        .state('payments', {
-            url: '/dashboard/payments',
+        .state('dashboard.payments', {
+            url: '/payments',
             templateUrl: 'dashboard/ng-app/templates/payments.html',
             controller: 'PaymentsController'
         })
-        .state('plans', {
-            url: '/dashboard/plans',
+        .state('dashboard.plans', {
+            url: '/plans',
             templateUrl: 'dashboard/ng-app/templates/plans.html',
             controller: 'PlansController'
         })
-        .state('subscriptions', {
-            url: '/dashboard/subscriptions',
+        .state('dashboard.subscriptions', {
+            url: '/subscriptions',
             templateUrl: 'dashboard/ng-app/templates/subscriptions.html',
             controller: 'SubscriptionsController'
         });

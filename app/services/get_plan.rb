@@ -1,14 +1,14 @@
-class GetPlans
-  def self.call(options={}, stripe_secret_key)
+class GetPlan
+  def self.call(plan_id, stripe_secret_key)
 
     begin
       Stripe.api_key =  stripe_secret_key
 
-      plans = Stripe::Plan.all()
+      plan = Stripe::Plan.retrieve(plan_id)
     rescue Stripe::StripeError => e
       return e.message
     end
 
-    return plans.data
+    return plan.data
   end
 end

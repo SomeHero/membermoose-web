@@ -7,8 +7,10 @@
   '$modal',
   '$timeout'
   'AccountServiceChannel',
-  'Auth'
-  ($scope, $window, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth) ->
+  'Auth',
+  'user'
+  ($scope, $window, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth, user) ->
+    $scope.user = new Account(user)
     $scope.config = config
     $scope.plans = []
     $scope.maxSize = 10
@@ -31,24 +33,11 @@
     $scope.init = () ->
       nav_page_height()
 
-      $scope.getCurrentUser()
-
-    $scope.getCurrentUser = () ->
-      Auth.currentUser().then ((user) ->
-        # User was logged in, or Devise returned
-        # previously authenticated session.
-        $scope.user = new Account(user)
-
-        return
-      ), (error) ->
-        # unauthenticated error
-        return
-
     $scope.isAuthorized = (role) ->
       if $scope.user.account.role == "superadmin"
         return true
       if $scope.user.account.role == "bull" && (role == 'bull' || role == 'calf')
-        retur true
+        return true
       if $scope.user.account.role == "calf" && role == 'calf'
         return true
       return false
@@ -139,4 +128,4 @@
     return
 ]
 
-AccountController.$inject = ['$scope', 'Account', 'Plan', 'window', '$modal', '$timeout', 'AccountServiceChannel']
+AccountController.$inject = ['$scope', 'Account', 'Plan', 'window', '$modal', '$timeout', 'AccountServiceChannel', 'user']

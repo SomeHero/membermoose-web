@@ -6,7 +6,7 @@
     %h6
       Here are the plans you've signed up for.
 .container-fluid.plans{"style"=>"min-height: 400px;"}
-  .row{:style=>"margin-bottom: 20px;"}
+  .row{:style=>"margin-bottom: 20px;", "ng-show"=>"user.account.cards.length > 0"}
     .col-md-4{"ng-repeat"=>"card in user.account.cards"}
       .plan
         .plan-info
@@ -20,5 +20,11 @@
           Update Card
         %button.btn.btn-lg.btn-alert{"ng-click"=>"deleteCardClicked(card)"}
           Delete Card
+  .row{:style=>"margin-bottom: 20px;", "ng-show"=>"user.account.cards.length == 0"}
+    .col-md-12
+      .no-results
+        %img{:alt => "No Payment Methods", :src => asset_path('dead-moose.png')}/
+        %p
+          You have not setup any payment methods yet!
 %div{"ng-include"=>"'dashboard/ng-app/templates/cards/update_card.html'"}
 %div{"ng-include"=>"'dashboard/ng-app/templates/cards/delete_card.html'"}

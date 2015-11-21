@@ -58,7 +58,7 @@
 
     $scope.editPlan = (plan) ->
       $scope.edit_panel_open = true
-      $scope.selected_plan = angular.copy(plan)
+      $scope.selected_plan = new Plan(angular.copy(plan))
 
       $scope.plans_per_row = 3
       $scope.$parent.show_success_message = false
@@ -152,7 +152,7 @@
       Plan.setUrl('/dashboard/plans')
       if form.$valid
         $scope.display_loading()
-        plan.update().then(
+        $scope.selected_plan.update().then(
           (updated_plan) ->
             angular.forEach($scope.plans, (value,index) =>
               if value.id == updated_plan.id
@@ -227,7 +227,7 @@
       else
         return ""
 
-    $scope.importPlansClicked = () ->
+    $scope.getPlansClicked = () ->
       $scope.display_loading()
 
       $http.post('/dashboard/plans/get_stripe_plans').then(
@@ -243,6 +243,34 @@
           message = http.statusText
           $scope.display_error_message(message)
       )
+
+    $scope.importPlansClicked = () ->
+      $scope.display_loading()
+
+      $http.post('/dashboard/plans/get_stripe_plans').then(
+        (response) ->
+          plans = response.data.plans
+          plan_ids = []
+          angular.forEach(plans, (plan,index) =>
+            plan_ids.push(plan.id)
+          )
+          params = {
+            plans: plan_ids
+          }
+          $http.post('/dashboard/plans/import_stripe_plans', params).then(
+            (response) ->
+              $scope.dismiss_loading()
+              $scope.form_submitted = false
+
+              message = "Your successfully updated your password."
+              $scope.display_success_message(message)
+            (http)  ->
+              $scope.dismiss_loading()
+
+              message = http.statusText
+              $scope.display_error_message(message)
+          )
+        )
 
     sortPlans = () ->
       $scope.plans_first_row = []

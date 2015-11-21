@@ -3,6 +3,7 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( application-dashboard.css )
+Rails.application.config.assets.precompile += %w( calf-dashboard.css )
 Rails.application.config.assets.precompile += %w( public/application.js dashboard/application.js bulls/application.js )
 Rails.application.config.assets.precompile += %w( application-bulls.css )
 Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
