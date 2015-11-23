@@ -30,7 +30,8 @@ module API
                 :password => SecureRandom.hex
               }),
               :first_name => first_name,
-              :last_name => last_name
+              :last_name => last_name,
+              :role => Account.roles[:bull]
           })
 
           session["account_id"] = account.id

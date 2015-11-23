@@ -7,45 +7,51 @@
   '$timeout'
   'PlansServiceChannel'
   ($scope,  Plan, $modal, $http, window, $timeout, PlansServiceChannel) ->
-    window.scope = $scope
-    $scope.totalItems = 0
-    $scope.currentPage = 1
-    $scope.itemsPerPage = 10
-    $scope.isLoading = true
-    $scope.plan = {}
-    $scope.selected_plan = null
-    $scope.plans_first_row = []
-    $scope.rows = []
-    $scope.row_plans = []
-    $scope.edit_panel_open = false
+    init = () ->
+      window.scope = $scope
+      $scope.totalItems = 0
+      $scope.currentPage = 1
+      $scope.itemsPerPage = 10
+      $scope.isLoading = true
+      $scope.plan = {}
+      $scope.selected_plan = null
+      $scope.plans_first_row = []
+      $scope.rows = []
+      $scope.row_plans = []
+      $scope.edit_panel_open = false
 
-    $scope.plans_per_row = 4
-    $scope.billing_cycles = [
-      'day',
-      'week',
-      'month',
-      'year'
-    ];
-    $scope.data = {
-      billing_interval:  [
-        {id: '1', value: '1'},
-        {id: '2', value: '2'},
-        {id: '3', value: '3'},
-        {id: '4', value: '4'},
-        {id: '5', value: '5'},
-        {id: '6', value: '6'}
-      ],
-      billing_cycle: [
-        {text: 'day', value: 'day'},
-        {text: 'month', value: 'month'},
-        {text: 'week', value: 'week'},
-        {text: 'year', value: 'year'}
-      ]
-    }
-    $scope.newPlanSection = 1
-    create_plan_modal  = null
-    delete_plan_modal = null
-    share_plan_modal = null
+      $scope.plans_per_row = 4
+      $scope.billing_cycles = [
+        'day',
+        'week',
+        'month',
+        'year'
+      ];
+      $scope.data = {
+        billing_interval:  [
+          {id: '1', value: '1'},
+          {id: '2', value: '2'},
+          {id: '3', value: '3'},
+          {id: '4', value: '4'},
+          {id: '5', value: '5'},
+          {id: '6', value: '6'}
+        ],
+        billing_cycle: [
+          {text: 'day', value: 'day'},
+          {text: 'month', value: 'month'},
+          {text: 'week', value: 'week'},
+          {text: 'year', value: 'year'}
+        ]
+      }
+      $scope.newPlanSection = 1
+      create_plan_modal  = null
+      delete_plan_modal = null
+      share_plan_modal = null
+
+      PlansServiceChannel.onPlansUpdated($scope, onPlansUpdated);
+
+      $scope.getPlans()
+      $scope.init()
 
     $scope.getPlans = () ->
       Plan.setUrl('/dashboard/plans?page={{page}}')
@@ -85,15 +91,7 @@
       else
         $scope.form_submitted = true
 
-    $scope.hasFreeTrialPeriodClicked = (form) ->
-      if $scope.plan.has_free_trial_period
-        $scope.newPlanSection = $scope.newPlanSection + 1
-      else
-        $scope.plan.free_trial_period = 0
-        $scope.newPlanSection = $scope.newPlanSection + 2
-      $scope.form_submitted = false
-
-    $scope.newPlanClicked = () ->
+    $scope.createPlanClicked = () ->
       $scope.plan = {
         has_free_trial_period: true
       }
@@ -105,112 +103,17 @@
     $scope.showSuccessModal = () ->
       false
 
-    $scope.createPlan = (form)  ->
-      if form.$valid
-        Plan.setUrl('/dashboard/plans')
-        $scope.display_loading()
-        $scope.form_submitted = true
-
-        new Plan({
-          name: $scope.plan.name,
-          description: $scope.plan.description,
-          feature_1: $scope.plan.feature_1,
-          feature_2: $scope.plan.feature_2,
-          feature_3: $scope.plan.feature_3,
-          feature_4: $scope.plan.feature_4,
-          amount: $scope.plan.amount,
-          billing_interval: 1,
-          billing_cycle: $scope.plan.billing_cycle,
-          free_trial_period: $scope.plan.free_trial_period,
-          terms_and_conditions: $scope.plan.terms_and_conditions
-        }).create().then(
-          (response) ->
-
-            PlansServiceChannel.plansUpdated()
-
-            message = "You successfully created a plan!"
-            $scope.display_success_message(message)
-
-            $scope.dismiss_loading()
-            $scope.newPlanSection = 1
-
-            create_plan_modal.close()
-
-          (http)  ->
-            errors = http.data
-
-            $scope.dismiss_loading()
-
-            message = errors
-            $scope.display_error_message(message)
-        )
-      else
-        message = "Failed to Create a Plan"
-        $scope.display_error_message(message)
-
-    $scope.updatePlan = (plan, form) ->
-      Plan.setUrl('/dashboard/plans')
-      if form.$valid
-        $scope.display_loading()
-        $scope.selected_plan.update().then(
-          (updated_plan) ->
-            angular.forEach($scope.plans, (value,index) =>
-              if value.id == updated_plan.id
-                $scope.plans[index] = updated_plan
-            )
-            $scope.closeEditBar()
-
-            message = "Your plan, " + plan.name + ", was successfully updated."
-            $scope.display_success_message(message)
-
-            $scope.dismiss_loading()
-
-            PlansServiceChannel.onPlansUpdated()
-          (http)  ->
-            errors = http.data
-
-            message = errors
-            $scope.display_error_message(message)
-        )
-
     $scope.delete_plan_clicked = () ->
       if !delete_plan_modal
         delete_plan_modal = $('[data-remodal-id=delete-plan-modal]').remodal($scope.options)
 
       delete_plan_modal.open();
 
-    $scope.deletePlan = () ->
-      $scope.display_loading()
-
-      Plan.setUrl('/dashboard/plans')
-      $scope.selected_plan.delete().then(
-        (response) ->
-          $scope.dismiss_loading()
-          $scope.closeEditBar()
-
-          message = "Your plan, " + $scope.plan.name + ", was successfully deleted."
-          $scope.display_success_message(message)
-
-          $scope.getPlans()
-
-          delete_plan_modal.close()
-        (http)  ->
-          $scope.dismiss_loading()
-
-          errors = http.data
-
-          message = errors
-          $scope.display_error_message(message)
-      )
-
     $scope.share_plan_clicked = () ->
       if !share_plan_modal
         share_plan_modal = $('[data-remodal-id=share-plan-modal]').remodal($scope.options)
 
       share_plan_modal.open();
-
-    $scope.deletePlanCancelled = () ->
-      delete_plan_modal.close()
 
     $scope.showEditBar = () ->
       $scope.edit_panel_open = true
@@ -227,50 +130,8 @@
       else
         return ""
 
-    $scope.getPlansClicked = () ->
-      $scope.display_loading()
-
-      $http.post('/dashboard/plans/get_stripe_plans').then(
-        (response) ->
-          $scope.dismiss_loading()
-          $scope.form_submitted = false
-
-          message = "Your successfully updated your password."
-          $scope.display_success_message(message)
-        (http)  ->
-          $scope.dismiss_loading()
-
-          message = http.statusText
-          $scope.display_error_message(message)
-      )
-
-    $scope.importPlansClicked = () ->
-      $scope.display_loading()
-
-      $http.post('/dashboard/plans/get_stripe_plans').then(
-        (response) ->
-          plans = response.data.plans
-          plan_ids = []
-          angular.forEach(plans, (plan,index) =>
-            plan_ids.push(plan.id)
-          )
-          params = {
-            plans: plan_ids
-          }
-          $http.post('/dashboard/plans/import_stripe_plans', params).then(
-            (response) ->
-              $scope.dismiss_loading()
-              $scope.form_submitted = false
-
-              message = "Your successfully updated your password."
-              $scope.display_success_message(message)
-            (http)  ->
-              $scope.dismiss_loading()
-
-              message = http.statusText
-              $scope.display_error_message(message)
-          )
-        )
+    $scope.showSuccessModal = () ->
+      false
 
     sortPlans = () ->
       $scope.plans_first_row = []
@@ -293,16 +154,10 @@
       )
 
     onPlansUpdated = () ->
-      console.log "Plans Updated"
-
       $scope.getPlans()
 
-    PlansServiceChannel.onPlansUpdated($scope, onPlansUpdated);
+    init()
 
-    $scope.getPlans()
-    $scope.init()
-
-    return
 ]
 
 PlansController.$inject = ['$scope', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']

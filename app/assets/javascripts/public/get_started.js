@@ -121,7 +121,7 @@ var ready = function() {
 
           // If user has reached the last step, redirect to app landing
           if($('form .active').data('action') == 'account') {
-            window.location.href = window.location.origin + "/dashboard/launch";
+            window.location.href = window.location.origin + "/dashboard/launch/upload_logo";
           // ...otherwise, skip to next form section
           } else {
             formHelpers.nextSection($('.active'));

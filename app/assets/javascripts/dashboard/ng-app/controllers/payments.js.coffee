@@ -5,27 +5,31 @@
   '$timeout'
   '$http'
   ($scope, Payment, window, $timeout, $http) ->
-    window.scope = $scope
-    $scope.selected_payment = null
-    $scope.payments = []
-    $scope.totalItems = 0
-    $scope.searchItems = 0
-    $scope.currentPage = 1
-    $scope.itemsPerPage = 10
-    $scope.isLoading = true
-    $scope.display_search = false
-    $scope.search = {
-      from_date: null,
-      to_date: null
-    }
-    $scope.price_slider = {
-      min: 0,
-      max: 1000,
-      ceil: 1000,
-      floor: 0
-    }
-    refund_payment_modal = null
-    payment_history_modal = null
+    init = () ->
+      window.scope = $scope
+      $scope.selected_payment = null
+      $scope.payments = []
+      $scope.totalItems = 0
+      $scope.searchItems = 0
+      $scope.currentPage = 1
+      $scope.itemsPerPage = 10
+      $scope.isLoading = true
+      $scope.display_search = false
+      $scope.search = {
+        from_date: null,
+        to_date: null
+      }
+      $scope.price_slider = {
+        min: 0,
+        max: 1000,
+        ceil: 1000,
+        floor: 0
+      }
+      refund_payment_modal = null
+      payment_history_modal = null
+
+      $scope.getPayments()
+      $scope.init()
 
     $scope.pageChanged = () ->
       console.log('Page changed to: ' + $scope.currentPage);
@@ -94,36 +98,7 @@
 
       refund_payment_modal.open()
 
-    $scope.refundPaymentCancel = () ->
-      refund_payment_modal.close()
-
-    $scope.refundPaymentSubmit = () ->
-      $scope.loading.show_spinner = true
-      $http.post('/dashboard/payments/' + $scope.selected_payment.id  + '/refund').then(
-        (response) ->
-          $scope.selected_payment.status = "Refunded"
-
-          message = "The payment was successfully refunded."
-          $scope.display_success_message(message)
-
-          $scope.dismiss_loading()
-          refund_payment_modal.close()
-
-          $scope.closeEditBar()
-        (http)  ->
-          errors = http.data
-
-          message = "Sorry, an unexpected error ocurred.  Please try again."
-          $scope.display_error_message(message)
-
-          $scope.dismiss_loading()
-          refund_payment_modal.close()
-      )
-
-    $scope.getPayments()
-    $scope.init()
-
-    return
+    init()
 ]
 
 PaymentController.$inject = ['$scope', 'Payment', 'window', '$timeout', '$http']

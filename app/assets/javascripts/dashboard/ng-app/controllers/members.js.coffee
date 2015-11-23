@@ -4,22 +4,26 @@
   '$window'
   '$timeout'
   ($scope, Member, window, $timeout) ->
-    window.scope = $scope
-    $scope.members = []
-    $scope.selected_member = null
-    $scope.totalItems = 0
-    $scope.searchItems = 0
-    $scope.currentPage = 1
-    $scope.itemsPerPage = 10
-    $scope.isLoading = true
-    $scope.display_search = false
-    $scope.statuses = [
-        {text: 'Active', value: '0'},
-        {text: 'InActive', value: '1'},
-    ]
-    $scope.edit_panel_open = false
-    billing_history_modal = null
-    next_invoice_modal = false
+    init = () ->
+      window.scope = $scope
+      $scope.members = []
+      $scope.selected_member = null
+      $scope.totalItems = 0
+      $scope.searchItems = 0
+      $scope.currentPage = 1
+      $scope.itemsPerPage = 10
+      $scope.isLoading = true
+      $scope.display_search = false
+      $scope.statuses = [
+          {text: 'Active', value: '0'},
+          {text: 'InActive', value: '1'},
+      ]
+      $scope.edit_panel_open = false
+      billing_history_modal = null
+      next_invoice_modal = false
+
+      $scope.getMembers()
+      $scope.init()
 
     $scope.setPage = (pageNo) ->
       $scope.currentPage = pageNo
@@ -111,10 +115,7 @@
       else
         $scope.display_search = true
 
-    $scope.getMembers()
-    $scope.init()
-
-    return
+    init()
 ]
 
 MembersController.$inject = ['$scope', 'Member', 'window', '$timeout']

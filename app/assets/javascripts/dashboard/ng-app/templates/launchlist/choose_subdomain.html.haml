@@ -1,35 +1,34 @@
-.remodal-overlay{"style"=>"display: none;"}
-  .remodal.action-form{"data-remodal-id"=>"subdomain-modal", "data-remodal-options"=>"hashTracking: false" }
-    %section{"ng-class"=>"{'active': !user.account.hasSetupSubdomain}"}
-      %form{"name"=>"form", "novalidate"=>""}
-        %header
-          %h1
-            Pick your subdomain.
-        .group
-          %label{:for => "subdomain"}
-            Subdomain
-          %input#plan_name{:autofocus => "", :name => "subdomain", :placeholder => "subdomain", :required => "", :type => "text", "ng-model"=>"setup_subdomain.subdomain"}/
-          %p.example
-            Your MemberMoose website url is https://{{user.account.subdomain}}.mmoose.localhost:3000
-          %p.notes
-            Pick the subdomain for your MemberMoose website.  Your MemberMoose website
-            will display all of your plans and will be site that you will direct customers to
-            subscribe to one of your plans.
-        %footer
-          %button.continue{"ng-click"=>"updateSubdomainClicked(form)"}
-            Save
-            %i.fa-arrow-right
-        %div{"loading-screen" => "loading.show_spinner"}
-    %section{"ng-class"=>"{'active': user.account.hasSetupSubdomain}"}
+.action-form{"data-remodal-id"=>"subdomain-modal", "data-remodal-options"=>"hashTracking: false" }
+  %section{"ng-class"=>"{'active': !user.account.hasSetupSubdomain}"}
+    %form{"name"=>"form", "novalidate"=>""}
       %header
-        %h2
-          Success
-        %h4
-          Great job, you setup your custom sub-domain.
+        %h1
+          Pick your subdomain.
       .group
-        %img.trophy{:src => asset_path('trophy.jpg'), "ng-alt"=>"Your Gold Cup!"}
+        %label{:for => "subdomain"}
+          Subdomain
+        %input#plan_name{:autofocus => "", :name => "subdomain", :placeholder => "subdomain", :required => "", :type => "text", "ng-model"=>"setup_subdomain.subdomain"}/
+        %p.example
+          Your MemberMoose website url is https://{{user.account.subdomain}}.mmoose.localhost:3000
+        %p.notes
+          Pick the subdomain for your MemberMoose website.  Your MemberMoose website
+          will display all of your plans and will be site that you will direct customers to
+          subscribe to one of your plans.
       %footer
-        %button.done{"ng-click"=>"dismissModal()"}
-          Done
+        %button.continue{"ng-click"=>"updateSubdomainClicked(form)"}
+          Save
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}
+  %section{"ng-class"=>"{'active': user.account.hasSetupSubdomain}"}
+    %header
+      %h2
+        Success
+      %h4
+        Great job, you setup your custom sub-domain.
+    .group
+      %img.trophy{:src => asset_path('trophy.jpg'), "ng-alt"=>"Your Gold Cup!"}
+    %footer
+      %button.done{"ng-click"=>"dismissModal()"}
+        Done
+        %i.fa-arrow-right
+    %div{"loading-screen" => "loading.show_spinner"}

@@ -4,8 +4,6 @@
     %p Close this window to continue
     :javascript
       try {
-        console.log("here")
-        window.opener.$windowScope.handlePopupAuthentication();
         window.close();
       } catch(err) {
         console.log(err)

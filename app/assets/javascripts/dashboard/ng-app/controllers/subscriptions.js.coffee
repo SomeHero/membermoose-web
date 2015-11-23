@@ -6,30 +6,35 @@
   '$timeout'
   '$http'
   ($scope, Subscription, Plan, window, $timeout, $http) ->
-    window.scope = $scope
-    $scope.selected_subscription = null
-    $scope.subscriptions = []
-    $scope.plans = []
-    $scope.selected_plan = null
-    $scope.totalItems = 0
-    $scope.searchItems = 0
-    $scope.currentPage = 1
-    $scope.itemsPerPage = 10
-    $scope.isLoading = true
-    $scope.display_search = false
-    $scope.statuses = [
-        {text: 'Subscribed', value: '0'},
-        {text: 'Cancelled', value: '1'},
-    ]
-    $scope.search = {
-      invoice_from_date: null,
-      invoice_to_date: null
-    }
+    init = () ->
+      window.scope = $scope
+      $scope.selected_subscription = null
+      $scope.subscriptions = []
+      $scope.plans = []
+      $scope.selected_plan = null
+      $scope.totalItems = 0
+      $scope.searchItems = 0
+      $scope.currentPage = 1
+      $scope.itemsPerPage = 10
+      $scope.isLoading = true
+      $scope.display_search = false
+      $scope.statuses = [
+          {text: 'Subscribed', value: '0'},
+          {text: 'Cancelled', value: '1'},
+      ]
+      $scope.search = {
+        invoice_from_date: null,
+        invoice_to_date: null
+      }
 
-    change_plan_modal = null
-    cancel_subscription_modal = null
-    credit_subscription_modal = null
+      change_plan_modal = null
+      cancel_subscription_modal = null
+      credit_subscription_modal = null
 
+      $scope.getSubscriptions()
+      $scope.getPlans()
+      $scope.init()
+      
     $scope.pageChanged = () ->
       console.log('Page changed to: ' + $scope.currentPage);
       $scope.isLoading = true
@@ -173,11 +178,8 @@
     $scope.change_plan_submit = () ->
       console.log "subscription changed"
 
-    $scope.getSubscriptions()
-    $scope.getPlans()
-    $scope.init()
+    init()
 
-    return
 ]
 
 SubscriptionsController.$inject = ['$scope', 'Subscription', 'Plan', 'window', '$timeout', '$http']

@@ -20,7 +20,15 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resource :dashboard do
-    resources :launch, :controller => "dashboard/launch"
+    resources :launch, :controller => "dashboard/launch" do
+      collection do
+        resources :upload_logo, :controller => "dashboard/launch"
+        resources :setup_subdomain, :controller => "dashboard/launch"
+        resources :plan, :controller => "dashboard/launch"
+        resources :connect_stripe, :controller => "dashboard/launch"
+        resources :upgrade, :controller => "dashboard/launch"
+      end
+    end
     resources :plans, :controller => "dashboard/plans" do
       collection do
         post :get_stripe_plans, defaults: { format: 'json' }

@@ -52,9 +52,37 @@ var app = angular.module('dashboardApp', [
             controller: 'MySubscriptionsController'
         })
         .state('dashboard.launch_list', {
-            url: '/launch',
-            templateUrl: 'dashboard/ng-app/templates/launch_list.html',
-            controller: 'LaunchListController'
+          url: '/launch',
+          templateUrl: 'dashboard/ng-app/templates/launch_list.html',
+          controller: 'LaunchListController'
+        })
+        .state('dashboard.launch_list.upload_logo', {
+          url: '/upload_logo',
+          templateUrl: 'dashboard/ng-app/templates/launchlist/upload_logo.html',
+          controller: 'UploadLogoController'
+        })
+        .state('dashboard.launch_list.setup_subdomain', {
+          url: '/setup_subdomain',
+          templateUrl: 'dashboard/ng-app/templates/launchlist/choose_subdomain.html',
+          controller: 'ChooseSubdomainController'
+        })
+        .state('dashboard.launch_list.create_plan', {
+          url: '/plan',
+          templateUrl: 'dashboard/ng-app/templates/plans/new_plan.html',
+          controller: 'CreatePlanController',
+          data: {
+            fromLaunch: true
+          }
+        })
+        .state('dashboard.launch_list.connect_stripe', {
+          url: '/connect_stripe',
+          templateUrl: 'dashboard/ng-app/templates/launchlist/connect_stripe.html',
+          controller: 'ConnectStripeController'
+        })
+        .state('dashboard.launch_list.upgrade_plan', {
+          url: '/upgrade',
+          templateUrl: 'dashboard/ng-app/templates/launchlist/upgrade_plan.html',
+          controller: 'UpgradePlanController'
         })
         .state('dashboard.members', {
             url: '/members',
@@ -78,7 +106,7 @@ var app = angular.module('dashboardApp', [
         });
 
         // default fall back route
-        $urlRouterProvider.otherwise('/dashboard');
+        $urlRouterProvider.otherwise('/dashboard/plans');
 
         // enable HTML5 Mode for SEO
         $locationProvider.html5Mode(true);

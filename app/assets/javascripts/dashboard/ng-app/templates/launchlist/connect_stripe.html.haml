@@ -1,37 +1,46 @@
-.remodal-overlay{"style"=>"display: none;"}
-  .remodal.action-form{"data-remodal-id"=>"stripe-modal", "data-remodal-options"=>"hashTracking: false" }
-    %section{"ng-class"=>"{'active': !user.account.hasConnectedStripe}"}
-      %header
-        %h1
-          Connect your Stripe Account
-      .group
-        #connect-stripe-wrapper{"style"=>"padding: 50px 0px;"}
-          %a.stripe-connect{"ng-click"=>"stripe_connect()"}
-            %span
-              Connect With Stripe
-        %p.notes{"ng-show"=>"user.account.payment_processors.length > 0"}
-          Your Stripe account with the email address <strong>{{user.account.payment_processors[0].email}}</strong> is already connected.  Click the "Connect With Stripe" button
-          above if you wish to change your connected Stripe account.
-        %p.notes
-          Get ready to start accepting payments from your customers.  All you need to do is set up a Stripe account and connect it to MemberMoose. If you don't already have a Stripe account, we'll help you set one up.
-          Click the <strong>Connect with Stripe</strong> button above. 
-        %p.notes
-          All payments made through Stripe are charged a 2.9% +.50 per transaction fee.
-      %footer
-        %button.continue
-          Save
-          %i.fa-arrow-right
-      %div{"loading-screen" => "loading.show_spinner"}
-    %section{"ng-class"=>"{'active': user.account.hasConnectedStripe}"}
-      %header
-        %h2
-          Success
-        %h4
-          Your Stripe account is setup!  You're ready to start accepting payments.
-      .group
-        %img.trophy{:src => asset_path('trophy.jpg'), "ng-alt"=>"Your Gold Cup!"}
-      %footer
-        %button.done{"ng-click"=>"dismissModal()"}
-          Done
-          %i.fa-arrow-right
-      %div{"loading-screen" => "loading.show_spinner"}
+.action-form{"data-remodal-id"=>"stripe-modal", "data-remodal-options"=>"hashTracking: false" }
+  %section{"ng-class"=>"{'active': !user.account.hasConnectedStripe}"}
+    %header
+      %h1
+        Connect your Stripe Account
+    .group
+      #connect-stripe-wrapper{"style"=>"padding: 50px 0px;"}
+        %a.stripe-connect{"ng-click"=>"stripe_connect()"}
+          %span
+            Connect With Stripe
+      %p.notes{"ng-show"=>"user.account.payment_processors.length > 0"}
+        Your Stripe account with the email address <strong>{{user.account.payment_processors[0].email}}</strong> is already connected.  Click the "Connect With Stripe" button
+        above if you wish to change your connected Stripe account.
+      %p.notes
+        Get ready to start accepting payments from your customers.  All you need to do is set up a Stripe account and connect it to MemberMoose. If you don't already have a Stripe account, we'll help you set one up.
+        Click the <strong>Connect with Stripe</strong> button above. 
+      %p.notes
+        All payments made through Stripe are charged a 2.9% +.50 per transaction fee.
+    %footer
+      %button.continue
+        Save
+        %i.fa-arrow-right
+    %div{"loading-screen" => "loading.show_spinner"}
+  %section
+    %header
+      %h1
+        Would you like to import any plans from your Stripe account?
+
+    %footer
+      %button.continue{"ng-click"=>"getPlansClicked()"}
+        Yes
+        %i.fa-arrow-right
+    %div{"loading-screen" => "loading.show_spinner"}
+  %section{"ng-class"=>"{'active': user.account.hasConnectedStripe}"}
+    %header
+      %h2
+        Success
+      %h4
+        Your Stripe account is setup!  You're ready to start accepting payments.
+    .group
+      %img.trophy{:src => asset_path('trophy.jpg'), "ng-alt"=>"Your Gold Cup!"}
+    %footer
+      %button.done{"ng-click"=>"dismissModal()"}
+        Done
+        %i.fa-arrow-right
+    %div{"loading-screen" => "loading.show_spinner"}

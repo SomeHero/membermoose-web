@@ -37,7 +37,7 @@ module API
         def warden
           env['warden']
         end
-        
+
         def current_user
           return nil if env['rack.session'][:user_id].nil?
           @current_user ||= User.get(env['rack.session'][:user_id])
@@ -49,7 +49,6 @@ module API
         end
       end
 
-      mount API::V1::Plans
       mount API::V1::Funnel
     end
   end

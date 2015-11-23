@@ -1,6 +1,7 @@
 @DashboardController = angular.module('dashboardApp').controller 'DashboardController', [
   '$scope',
   '$window',
+  '$state',
   'Account',
   'Plan',
   '$window',
@@ -9,26 +10,37 @@
   'AccountServiceChannel',
   'Auth',
   'user'
-  ($scope, $window, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth, user) ->
-    $scope.user = new Account(user)
-    $scope.config = config
-    $scope.plans = []
-    $scope.maxSize = 10
-
-    $scope.loading = {
-      show_spinner: false
-    }
-    $scope.options = {
-      "hashTracking": false,
-      "closeOnOutsideClick": false
-    }
-    $scope.show_success_message = false
-    $scope.success_message = ""
-
-    $scope.show_error_message = false
-    $scope.error_message = ""
-
+  ($scope, $window, $state, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth, user) ->
     currentModal = null
+
+    init = () ->
+      $scope.user = new Account(user)
+      $scope.config = config
+      $scope.plans = []
+      $scope.maxSize = 10
+
+      $scope.loading = {
+        show_spinner: false
+      }
+      $scope.options = {
+        "hashTracking": false,
+        "closeOnOutsideClick": false
+      }
+      $scope.show_success_message = false
+      $scope.success_message = ""
+
+      $scope.show_error_message = false
+      $scope.error_message = ""
+
+      AccountServiceChannel.onAccountUpdated($scope, onAccountUpdated);
+
+      $scope.getPlans()
+
+      $(document).on 'closed', '.remodal', (e) ->
+        # Reason: 'confirmation', 'cancellation'
+        if $state.current.name.indexOf("launch_list") > -1
+          $state.go('dashboard.launch_list')
+
 
     $scope.init = () ->
       nav_page_height()
@@ -121,11 +133,9 @@
     onAccountUpdated = () ->
       console.log "Account Updated"
 
-    AccountServiceChannel.onAccountUpdated($scope, onAccountUpdated);
-
-    $scope.getPlans()
+    init()
 
     return
 ]
 
-AccountController.$inject = ['$scope', 'Account', 'Plan', 'window', '$modal', '$timeout', 'AccountServiceChannel', 'user']
+AccountController.$inject = ['$scope', '$window', '$state', 'Account', 'Plan', 'window', '$modal', '$timeout', 'AccountServiceChannel', 'user']

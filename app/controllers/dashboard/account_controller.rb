@@ -84,9 +84,9 @@ class Dashboard::AccountController < DashboardController
     #ToDo: we should totally refactor
     #ToDo: need a better way to identify special plan
     free_plan_id = ENV["MEMBERMOOSE_FREE_PLAN_ID"]
-    updated_plan_id = ENV["MEMBERMOOSE_UPGRADED_PLAN_ID"]
+    upgraded_plan_id = ENV["MEMBERMOOSE_UPGRADED_PLAN_ID"]
 
-    plan = Plan.find(upgrade_plan_id)
+    plan = Plan.find(upgraded_plan_id)
     user = current_user
 
     account = user.account

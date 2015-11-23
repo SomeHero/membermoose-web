@@ -5,11 +5,13 @@
   'stripe'
   '$window'
   ($scope, $stateParams, Card, stripe, window) ->
-    window.scope = $scope
-    updateCardModal = null
-    deleteCardModal = null
-    $scope.selectedCard = null
-    $scope.creditCard = {}
+    init = () ->
+      window.scope = $scope
+      updateCardModal = null
+      deleteCardModal = null
+      $scope.selectedCard = null
+      $scope.creditCard = {}
+      $scope.init()
 
     $scope.updateCardClicked = (card) ->
       $scope.selectedCard = card
@@ -100,6 +102,6 @@
           $scope.displayErrorMessage(message)
       )
 
-    $scope.init()
+    init()
 ]
 CardsController.$inject = ['$scope', '$stateParams', 'window']

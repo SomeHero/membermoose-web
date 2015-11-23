@@ -14,7 +14,7 @@
         Get up to 10 subscribers per plan
         .middot>
         Test out all features for free
-      %a.skip-link{"ng-click"=>"upgradePlanClicked()", "ng-hide"=>"project.steps.step4"}
+      %a.skip-link{"ui-sref"=>"dashboard.launch_list.upgrade_plan", "ng-hide"=>"project.steps.step4"}
         %span Upgrade my account now!
         .fa.fa-chevron-circle-right.fa-left
     .padder
@@ -27,11 +27,11 @@
               %span> 1.
               Customize Your Site
             %p
-              %a.ng-binding{:href => "", "ng-click" => "uploadLogoClicked()"}
+              %a.ng-binding{"ui-sref"=>"dashboard.launch_list.upload_logo"}
                 Upload a logo
                 %span.fa.fa-chevron-right.fa-left
             %p
-              %a.ng-binding{:href => "", "ng-click" => "chooseSubDomainClicked()"}
+              %a.ng-binding{"ui-sref"=>"dashboard.launch_list.setup_subdomain"}
                 Setup your subdomain
                 %span.fa.fa-chevron-right.fa-left
           %hr/
@@ -42,7 +42,7 @@
               %span> 2.
               Create your first plan
             %p
-              %a{:href => "", "ng-click" => "createPlanClicked()"}
+              %a{"ui-sref"=>"dashboard.launch_list.create_plan"}
                 %span Create your first plan
                 %span.fa.fa-chevron-right.fa-left
           %hr/
@@ -53,7 +53,7 @@
               %span> 3.
               Setup a payment processor
             %p
-              %a{:href => "", "ng-click" => "connectStripeClicked()"}
+              %a{"ui-sref"=>"dashboard.launch_list.connect_stripe"}
                 %span
                   Connect your Stripe Account
                 %span.fa.fa-chevron-right.fa-left
@@ -65,7 +65,7 @@
               %span> 4.
               Upgrade your Plan
             %p
-              %a{:href => "", "ng-click" => "upgradePlanClicked()"}
+              %a{"ui-sref"=>"dashboard.launch_list.upgrade_plan"}
                 %span
                   Upgrade to Awesome-ness
                 %span.fa.fa-chevron-right.fa-left
@@ -90,8 +90,9 @@
               .fa.fa-external-link-square
               %strong Visit Your Site
 %div{"loading-screen" => "loading.show_spinner"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/upload_logo.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/choose_subdomain.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/plans/new_plan.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/connect_stripe.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/launchlist/upgrade_plan.html'"}
+%main.remodal-bg
+  .remodal{"data-remodal-id" => "modal"}
+    .moose-dialog
+      .fa.fa-heater
+    .remodal-overlay
+      %ui-view#modal

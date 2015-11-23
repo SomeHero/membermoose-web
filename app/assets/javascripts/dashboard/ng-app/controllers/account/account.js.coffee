@@ -11,25 +11,27 @@
   '$http'
   'stripe'
   ($scope, Account, Card, $stateParams, window, $timeout, fileReader, Upload, AccountServiceChannel, $http, stripe) ->
-    window.scope = $scope
-    $scope.loading.show_spinner = false
-    $scope.form_submitted = false
-    $scope.image = {
-      tempImage: {}
-    }
-    change_password_modal = null
-    upload_logo_modal = null
-    upgrade_account_modal = null
-    add_credit_card_modal = null
-    update_credit_card_modal = null
-    delete_credit_card_modal = null
-    current_modal = null
-    $scope.selected_credit_card = null
-    $scope.isLoading = true
-    $scope.change_password = {}
-    $scope.show_error_message = false
-    $scope.error_message = ""
-    $scope.active_step = 1
+    init = () ->
+      window.scope = $scope
+      $scope.loading.show_spinner = false
+      $scope.form_submitted = false
+      $scope.image = {
+        tempImage: {}
+      }
+      change_password_modal = null
+      upload_logo_modal = null
+      upgrade_account_modal = null
+      add_credit_card_modal = null
+      update_credit_card_modal = null
+      delete_credit_card_modal = null
+      current_modal = null
+      $scope.selected_credit_card = null
+      $scope.isLoading = true
+      $scope.change_password = {}
+      $scope.show_error_message = false
+      $scope.error_message = ""
+      $scope.active_step = 1
+      $scope.init()
 
     $scope.updateAccount = (user, form) ->
       console.log "updating user"
@@ -67,27 +69,6 @@
 
       upload_logo_modal.open();
       $scope.setCurrentModal(upload_logal_modal)
-
-    	$scope.onFileSelect = ($files) ->
-
-    		#$files: an array of files selected, each file has name, size, and type.
-    		i = 0
-
-    		while i < $files.length
-    			$file = $files[i]
-    			$scope.file = $file
-    			$scope.getFile()
-
-    			#upload.php script, node.js route, or servlet upload url
-    			# method: POST or PUT,
-    			# headers: {'headerKey': 'headerValue'}, withCredential: true,
-    			i++
-
-    	$scope.getFile = ->
-    		$scope.progress = 0
-    		fileReader.readAsDataUrl($scope.file, $scope).then (result) ->
-    			$scope.image.tempImage.url = result
-    			$scope.image.tempImage.file_name = $scope.file
 
     $scope.submitLogo = () ->
       console.log("submit logo clicked")
@@ -338,7 +319,7 @@
     $scope.previousStep = () ->
       $scope.active_step -= 1
 
-    $scope.init()
+    init()
 
     return
 ]
