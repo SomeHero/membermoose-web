@@ -4,7 +4,6 @@ class GetCustomerBillingHistoryWorker
   @queue = :get_customer_billing_history_worker_queue
 
   def self.perform(subscription_id)
-    binding.pry
     subscription = Subscription.find(subscription_id)
     account = subscription.account
     bull_account = subscription.plan.account

@@ -3,8 +3,11 @@
   '$stateParams'
   '$window'
   ($scope, $stateParams, window) ->
-    window.scope = $scope
+    init = () ->
+      window.scope = $scope
+      
+      $scope.init()
 
-    $scope.init()
+    init()
 ]
 BillingHistoryController.$inject = ['$scope', '$stateParams', 'window']

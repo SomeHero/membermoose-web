@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       end
     end
     resources :cards, :controller => "dashboard/cards"
+    resources :billing, :controller => "dashboard/cards"
     resources :members, :controller => "dashboard/members" do
       collection do
         get :count, defaults: { format: 'json' }
