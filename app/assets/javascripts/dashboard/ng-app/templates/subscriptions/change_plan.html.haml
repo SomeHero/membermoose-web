@@ -1,19 +1,18 @@
-.remodel-overlay{"style"=>"display: none;", "ng-controller"=>"ChangePlanController"}
-  .remodal.action-form{"data-remodal-id"=>"change-plan-modal", "data-remodal-options"=>"hashTracking: false" }
-    %section.active
-      %H2
-        Change Plan?
-      %h4
-        {{selected_subscription.subscriber.firstName}} {{selected_subscription.subscriber.lastName}} is currently subscribed to {{selected_subscription.plan.name}}.  To upgrade or downgrade
-        {{selected_subscription.subscriber.firstName}}'s subscription, pick another plan.
-      %p
-        .container-fluid
-          .row-fluid
-            .col-md-4{"ng-repeat"=>"plan in plans | filter: filterSubscribedPlane"}
-              .plan.thumbnail{"ng-click"=>"changePlanSelect(plan)"}
-                {{plan.name}}
-      %footer
-        %button.continue{"ng-click"=>"changePlanSubmit()"}
-          Change Plan
-          %i.fa-arrow-right
-      %div{"loading-screen" => "loading.show_spinner"}
+.action-form{"data-remodal-id"=>"change-plan-modal", "data-remodal-options"=>"hashTracking: false" }
+  %section.active
+    %H2
+      Change Plan?
+    %h4
+      {{selected_subscription.subscriber.firstName}} {{selected_subscription.subscriber.lastName}} is currently subscribed to {{selected_subscription.plan.name}}.  To upgrade or downgrade
+      {{selected_subscription.subscriber.firstName}}'s subscription, pick another plan.
+    %p
+      .container-fluid
+        .row-fluid
+          .col-md-4{"ng-repeat"=>"plan in plans | filter: filterSubscribedPlane"}
+            .plan.thumbnail{"ng-click"=>"changePlanSelect(plan)"}
+              {{plan.name}}
+    %footer
+      %button.continue{"ng-click"=>"changePlanSubmit()"}
+        Change Plan
+        %i.fa-arrow-right
+    %div{"loading-screen" => "loading.show_spinner"}

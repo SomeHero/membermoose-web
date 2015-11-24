@@ -85,6 +85,7 @@ class Dashboard::CardsController < DashboardController
   end
 
   def destroy
+    binding.pry
     Rails.logger.info("Attempting to Delete Card")
 
     @card = Card.find(params["id"])

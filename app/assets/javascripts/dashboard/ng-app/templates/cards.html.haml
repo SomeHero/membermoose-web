@@ -8,17 +8,18 @@
 .container-fluid.plans{"style"=>"min-height: 400px;"}
   .row{:style=>"margin-bottom: 20px;", "ng-show"=>"user.account.cards.length > 0"}
     .col-md-4{"ng-repeat"=>"card in user.account.cards"}
-      .plan
+      .plan{:style=>"padding: 20px 0px;"}
         .plan-info
           .card-default{"ng-show"=>"card.default"}
             Default
-          %h2.card-brand
-            {{card.name_on_card}}
-          %h4.plan-amount
+          %i.fa.fa-credit-card{:style=>"font-size: 48px;"}
+          %h4.card-name
+            {{card.nameOnCard}}
+          %h5.card-brand
             {{card.brand}} ****{{card.last4}}
-        %button.btn.btn-lg.btn-primary{"ng-click"=>"updateCardClicked(card)"}
+        %button.btn.btn-lg.btn-primary{"ui-sref"=>"dashboard.cards.update({card: {{card}} })"}
           Update Card
-        %button.btn.btn-lg.btn-alert{"ng-click"=>"deleteCardClicked(card)"}
+        %button.btn.btn-lg.btn-alert{"ui-sref"=>"dashboard.cards.destroy({card: {{card}} })"}
           Delete Card
   .row{:style=>"margin-bottom: 20px;", "ng-show"=>"user.account.cards.length == 0"}
     .col-md-12
@@ -26,5 +27,9 @@
         %img{:alt => "No Payment Methods", :src => asset_path('dead-moose.png')}/
         %p
           You have not setup any payment methods yet!
-%div{"ng-include"=>"'dashboard/ng-app/templates/cards/update_card.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/cards/delete_card.html'"}
+%main.remodal-bg
+  .remodal{"data-remodal-id" => "modal"}
+    .moose-dialog
+      .fa.fa-heater
+    .remodal-overlay
+      %ui-view#modal

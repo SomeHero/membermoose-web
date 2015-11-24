@@ -41,6 +41,18 @@ var app = angular.module('dashboardApp', [
             templateUrl: 'dashboard/ng-app/templates/cards.html',
             controller: 'CardsController'
         })
+        .state('dashboard.cards.destroy', {
+            url: '/destroy',
+            templateUrl: 'dashboard/ng-app/templates/cards/delete_card.html',
+            controller: 'DeleteCardController',
+            params: { card: null }
+        })
+        .state('dashboard.cards.update', {
+            url: '/update',
+            templateUrl: 'dashboard/ng-app/templates/cards/update_card.html',
+            controller: 'UpdateCardController',
+            params: { card: null }
+        })
         .state('dashboard.billing_history', {
             url: '/billing',
             templateUrl: 'dashboard/ng-app/templates/billingHistory.html',

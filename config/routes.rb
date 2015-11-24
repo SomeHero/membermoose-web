@@ -35,7 +35,12 @@ Rails.application.routes.draw do
         post :import_stripe_plans, defaults: { format: 'json' }
       end
     end
-    resources :cards, :controller => "dashboard/cards"
+    resources :cards, :controller => "dashboard/cards" do
+      collection do
+        resources :destroy, :controller => "dashboard/cards"
+        resources :update, :controller => "dashboard/cards"
+      end
+    end
     resources :billing, :controller => "dashboard/cards"
     resources :members, :controller => "dashboard/members" do
       collection do

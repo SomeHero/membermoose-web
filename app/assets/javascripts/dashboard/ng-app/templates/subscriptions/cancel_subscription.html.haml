@@ -1,13 +1,12 @@
-.remodal-overlay{"style"=>"display: none;", "ng-controller"=>"CancelSubscriptionController"}
-  .remodal.action-form{"data-remodal-id"=>"cancel-subscription-modal", "data-remodal-options"=>"hashTracking: false" }
-    %section.active
-      %header
-        %h2
-          Cancel Subscription?
-        %h4
-          Are your sure you want to cancel {{selected_subscription.subscriber.firstName}} {{selected_subscription.subscriber.lastName}} to your plan {{selected_subscription.plan.name}}?
-      %footer
-        %button.continue{"ng-click"=>"cancel_subscription_submit()"}
-          Cancel
-          %i.fa-arrow-right
-      %div{"loading-screen" => "loading.show_spinner"}
+.action-form{"data-remodal-id"=>"cancel-subscription-modal", "data-remodal-options"=>"hashTracking: false" }
+  %section.active
+    %header
+      %h2
+        Cancel Subscription?
+      %h4
+        Are your sure you want to cancel {{selected_subscription.subscriber.firstName}} {{selected_subscription.subscriber.lastName}} to your plan {{selected_subscription.plan.name}}?
+    %footer
+      %button.continue{"ng-click"=>"cancel_subscription_submit()"}
+        Cancel
+        %i.fa-arrow-right
+    %div{"loading-screen" => "loading.show_spinner"}
