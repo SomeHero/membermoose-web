@@ -33,35 +33,47 @@ var app = angular.module('dashboardApp', [
         })
         .state('dashboard.change_password', {
             url: '/account/change_password',
-            templateUrl: 'dashboard/ng-app/templates/change_password.html',
+            templateUrl: 'dashboard/ng-app/templates/account/change_password.html',
             controller: 'ChangePasswordController'
         })
         .state('dashboard.cards', {
             url: '/cards',
-            templateUrl: 'dashboard/ng-app/templates/cards.html',
+            templateUrl: 'dashboard/ng-app/templates/account/cards.html',
             controller: 'CardsController'
         })
         .state('dashboard.cards.destroy', {
             url: '/destroy',
-            templateUrl: 'dashboard/ng-app/templates/cards/delete_card.html',
+            templateUrl: 'dashboard/ng-app/templates/account/cards/delete_card.html',
             controller: 'DeleteCardController',
             params: { card: null }
         })
         .state('dashboard.cards.update', {
             url: '/update',
-            templateUrl: 'dashboard/ng-app/templates/cards/update_card.html',
+            templateUrl: 'dashboard/ng-app/templates/account/cards/update_card.html',
             controller: 'UpdateCardController',
             params: { card: null }
         })
         .state('dashboard.billing_history', {
             url: '/billing',
-            templateUrl: 'dashboard/ng-app/templates/billingHistory.html',
+            templateUrl: 'dashboard/ng-app/templates/account/billing_history.html',
             controller: 'BillingHistoryController'
         })
         .state('dashboard.my_subscriptions', {
             url: '/my_subscriptions',
-            templateUrl: 'dashboard/ng-app/templates/my_subscriptions.html',
+            templateUrl: 'dashboard/ng-app/templates/account/my_subscriptions.html',
             controller: 'MySubscriptionsController'
+        })
+        .state('dashboard.my_subscriptions.unsubscribe', {
+            url: '/unsubscribe',
+            templateUrl: 'dashboard/ng-app/templates/account/my_subscriptions/unsubscribe.html',
+            controller: 'UnsubscribeController',
+            params: { subscription: null }
+        })
+        .state('dashboard.my_subscriptions.upgrade', {
+            url: '/upgrade',
+            templateUrl: 'dashboard/ng-app/templates/account/my_subscriptions/change_plan.html',
+            controller: 'ChangeSubscriptionController',
+            params: { subscription: null }
         })
         .state('dashboard.launch_list', {
           url: '/launch',

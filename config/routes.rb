@@ -47,7 +47,12 @@ Rails.application.routes.draw do
         get :count, defaults: { format: 'json' }
       end
     end
-    resources :my_subscriptions, :controller => "dashboard"
+    resources :my_subscriptions, :controller => "dashboard" do
+      collection do
+        resources :unsubscribe, :controller => "dashboard"
+        resources :upgrade, :controller => "dashboard"
+      end
+    end
     resources :subscriptions, :controller => "dashboard/subscriptions" do
       collection do
         get :count, defaults: { format: 'json' }

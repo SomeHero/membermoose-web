@@ -1,0 +1,29 @@
+%header.content-title
+  %i.fa.fa-book.header-icon
+  .content-title-wrapper
+    %h4
+      Billing History
+    %h6
+      Here are the plans you've signed up for.
+%table.table{"ng-table"=>"", "ng-hide"=>"user.account.billingHistory.length == 0"}
+  %tr{"ng-repeat"=>"payment in user.account.billingHistory"}
+    %td.select-item
+      %input{:type=>"checkbox", "ng-click"=>"selectMember($event, member)", "ng-checked"=>"selected_member == member"}
+    %td{"data-title"=>"'Payment Date'"}
+      {{payment.createdAt | date:'medium'}}
+    %td{"data-title"=>"'Payment Type'"}
+      {{payment.paymentType}}
+    %td{"data-title"=>"'Amount'"}
+      {{payment.amount | currency}}
+    %td{"data-title"=>"'Payment Method'"}
+      {{payment.paymentMethod}}
+    %td{"data-title"=>"'Confirmation #'"}
+      {{payment.guid}}
+    %td{"data-title"=>"'Status'"}
+      {{payment.status}}
+%pagination.pagination{"total-items"=>"totalItems","max-size"=>"maxSize","ng-model"=>"currentPage","ng-change"=>"pageChanged()", "ng-show"=>"totalItems > 0 && !isLoading"}
+
+.no-results{"ng-show"=>"user.account.billingHistory.length == 0"}
+  %img{:alt => "No Billing History", :src => asset_path('dead-moose.png')}/
+  %p
+    You have no billing history yet!

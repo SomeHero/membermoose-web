@@ -15,9 +15,9 @@
           %h3.plan-amount
             {{subscription.plan.amount | currency }}/{{ subscription.plan.billingCycle }}
         %div{"ng-hide"=>"subscription.status == 'Cancelled'"}
-          %button.btn.btn-lg.btn-primary{"ng-click"=>"cancelSubscriptionClicked(subscription)"}
+          %button.btn.btn-lg.btn-primary{"ui-sref"=>"dashboard.my_subscriptions.unsubscribe({subscription: {{subscription}} })"}
             Unsubscribe
-          %button.btn.btn-lg.btn-primary{"ng-click"=>"changeSubscriptionClicked(subscription)"}
+          %button.btn.btn-lg.btn-primary{"ui-sref"=>"dashboard.my_subscriptions.upgrade({subscription: {{subscription}} })"}
             Change Plan
         %div{"ng-show"=>"subscription.status == 'Cancelled'"}
           %h2
@@ -29,5 +29,9 @@
         %p
           You don't have any subscription yet!
 %div{"loading-screen" => "loading.show_spinner"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/my_subscriptions/unsubscribe.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/my_subscriptions/change_plan.html'"}
+%main.remodal-bg
+  .remodal{"data-remodal-id" => "modal"}
+    .moose-dialog
+      .fa.fa-heater
+    .remodal-overlay
+      %ui-view#modal

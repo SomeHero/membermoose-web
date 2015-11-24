@@ -1,0 +1,19 @@
+.action-form{"data-remodal-id"=>"change-subscription-modal", "data-remodal-options"=>"hashTracking: false" }
+  %section.active
+    %H2
+      Change Plan?
+    %h4
+      To upgrade or downgrade your {{bull.companyName}} subscription, pick another plan.
+    %p
+      .container-fluid
+        .row-fluid
+          .col-md-4{"ng-repeat"=>"plan in bull.plans | filter: filterSubscribedPlan"}
+            .plan.thumbnail{"ng-click"=>"changePlanSelect(plan)"}
+              {{plan.name}}
+    %footer
+      %button.previous{"ng-click"=>"dismissModal()"}
+        Cancel
+      %button.continue{"ng-click"=>"changePlanSubmit()"}
+        Change Plan
+        %i.fa-arrow-right
+  %div{"loading-screen" => "loading.showSpinner"}
