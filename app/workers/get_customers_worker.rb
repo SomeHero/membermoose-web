@@ -89,7 +89,7 @@ class GetCustomersWorker
 
       customer_account.subscriptions.each do |subscription|
         begin
-          Resque.enqueue(GetCustomerBillingHistoryWorker, customer_account.id)
+          Resque.enqueue(GetCustomerBillingHistoryWorker, subscription.id)
         rescue
           puts "Error #{$!}"
         end
