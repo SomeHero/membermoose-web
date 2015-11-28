@@ -66,7 +66,7 @@
     %td.select-item
       %input{:type=>"checkbox", "ng-click"=>"selectSubscription($event, subscription)", "ng-checked"=>"selected_subscription == subscription"}
     %td{"data-title"=>"'Subscriber Name'"}
-      {{subscription.subscriberName}}
+      {{subscription.subscriberName }}
     %td{"data-title"=>"'Plan Name'"}
       {{subscription.plan.name}}
     %td{"data-title"=>"'Last Payment Date'"}
@@ -124,7 +124,7 @@
       %table.table
         %tr{"ng-repeat"=>"payment in selected_subscription.subscriber.billingHistory"}
           %td
-            {{payment.createdAt | date :'shortDate'}}
+            {{payment.transactionDate | date :'shortDate'}}
           %td
             {{payment.amount | currency}}
           %td

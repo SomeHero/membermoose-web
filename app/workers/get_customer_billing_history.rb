@@ -42,6 +42,7 @@ class GetCustomerBillingHistoryWorker
         :account => subscription.plan.account,
         :payee => account,
         :amount => Money.new(stripe_balance_txn["amount"], "USD").cents.to_f/100,
+        :transaction_date => stripe_charge["created"],
         :payment_processor_fee => Money.new(stripe_balance_txn["fee"], "USD").cents.to_f/100,
         :payment_method => "Credit Card",
         :payment_type => "Recurring",

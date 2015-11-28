@@ -17,6 +17,7 @@ class Payment < ActiveRecord::Base
   {
     :id => self.id,
     :guid => self.guid,
+    :transaction_date => self.transaction_date,
     :amount => self.amount,
     :fees => self.payment_processor_fee,
     :net_amount => self.net_amount,

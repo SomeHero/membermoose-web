@@ -54,7 +54,7 @@
     %td.select-item
       %input{:type=>"checkbox", "ng-click"=>"selectPayment($event, payment)", "ng-checked"=>"selected_payment == payment"}
     %td{"data-title"=>"'Transaction Date'"}
-      {{payment.createdAt | date:'medium'}}
+      {{payment.transactionDate | date:'medium'}}
     %td{"data-title"=>"'Payee Name/Subscriber Name'"}
       {{payment.payee.firstName}} {{payment.payee.lastName}}
     %td{"data-title"=>"'Amount'"}
@@ -92,7 +92,7 @@
     %p.label
       Transaction Date/Time
     %p.data
-      {{selected_payment.createdAt | date:'medium'}}
+      {{selected_payment.tranactionDate | date:'medium'}}
     %p.label
       Payee Name:
     %p.data

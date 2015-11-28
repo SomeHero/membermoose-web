@@ -10,7 +10,7 @@
     %td.select-item
       %input{:type=>"checkbox", "ng-click"=>"selectMember($event, member)", "ng-checked"=>"selected_member == member"}
     %td{"data-title"=>"'Payment Date'"}
-      {{payment.createdAt | date:'medium'}}
+      {{payment.transactionDate | date:'medium'}}
     %td{"data-title"=>"'Payment Type'"}
       {{payment.paymentType}}
     %td{"data-title"=>"'Amount'"}

@@ -132,6 +132,7 @@ StripeEvent.configure do |events|
         :account => subscription.plan.account,
         :payee => account,
         :amount => stripe_invoice.total.to_f/100,
+        :transaction_date => stripe_charge["created"],
         :payment_processor_fee => stripe_balance_txn.fee.to_f/100,
         :payment_method => "Credit Card",
         :payment_type => "Recurring",

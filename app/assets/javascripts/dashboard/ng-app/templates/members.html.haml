@@ -114,7 +114,7 @@
         %table.table
           %tr{"ng-repeat"=>"payment in selected_member.billingHistory"}
             %td
-              {{payment.createdAt | date :'shortDate'}}
+              {{payment.transactionDate | date :'shortDate'}}
             %td
               {{payment.amount | currency}}
             %td

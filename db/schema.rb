@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124121543) do
+ActiveRecord::Schema.define(version: 20151128173924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,6 +197,7 @@ ActiveRecord::Schema.define(version: 20151124121543) do
     t.integer  "subscription_id"
     t.integer  "payment_processor_id"
     t.integer  "payee_id"
+    t.datetime "transaction_date",      default: '2015-11-28 17:42:12'
   end
 
   add_index "payments", ["account_id"], name: "index_payments_on_account_id", using: :btree
