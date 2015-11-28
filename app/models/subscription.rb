@@ -29,7 +29,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def last_payment_date
-    payments.order("created_at desc").last.created_at if payments.count > 0
+    payments.order("transaction_date asc").last.transaction_date if payments.count > 0
   end
 
   def last_payment_amount

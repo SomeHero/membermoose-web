@@ -56,7 +56,7 @@
     %td{"data-title"=>"'Transaction Date'"}
       {{payment.transactionDate | date:'medium'}}
     %td{"data-title"=>"'Payee Name/Subscriber Name'"}
-      {{payment.payee.firstName}} {{payment.payee.lastName}}
+      {{payment.payee.fullName}}
     %td{"data-title"=>"'Amount'"}
       {{payment.amount | currency}}
     %td{"data-title"=>"'Fees'"}

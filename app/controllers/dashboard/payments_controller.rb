@@ -5,10 +5,10 @@ class Dashboard::PaymentsController < DashboardController
     query = current_user.account.payments
 
     if params[:from_date]
-      query = query.where("payments.created_at >= ?", params["from_date"])
+      query = query.where("payments.transaction_date >= ?", params["from_date"])
     end
     if params[:to_date]
-      query = query.where("payments.created_at <= ?", params["to_date"])
+      query = query.where("payments.transaction_date <= ?", params["to_date"])
     end
     if params[:first_name].present?
       query = query.where("LOWER(accounts.first_name) like ?", "%#{params["first_name"].downcase}%")
@@ -26,7 +26,7 @@ class Dashboard::PaymentsController < DashboardController
     @total_items = query.count
     @payments = query
       .paginate(:page => params[:page], :per_page => 10)
-      .order("created_at desc")
+      .order("transaction_date desc")
 
     respond_to do |format|
       format.html
