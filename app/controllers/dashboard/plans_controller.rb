@@ -1,5 +1,5 @@
 class Dashboard::PlansController < DashboardController
-  layout 'dashboard'
+  layout :determine_layout
 
   def index
     @plans = current_user.account.plans.paginate(:page => params[:page], :per_page => 10)
@@ -28,8 +28,7 @@ class Dashboard::PlansController < DashboardController
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
-    @plan = CreatePlan.call({
-        :account => account,
+    @plan = CreatePlan.call(account, {
         :name => params["plan"]["name"],
         :stripe_id => params["plan"]["name"],
         :description => params["plan"]["description"],
@@ -43,7 +42,7 @@ class Dashboard::PlansController < DashboardController
         :trial_period_days => params["plan"]["free_trial_period"],
         :terms_and_conditions => params["plan"]["terms_and_conditions"],
         :public => true
-    }, (stripe ? stripe.secret_token : nil))
+    })
 
     if @plan.errors.count == 0
       account.has_created_plan = true
@@ -91,7 +90,7 @@ class Dashboard::PlansController < DashboardController
     #ToDo: might need to refactor
     #only delete from stripe if the plan is synced
     if !@plan.needs_sync && stripe
-      @plan = DeletePlan.call(@plan, stripe.secret_token)
+      @plan = DeletePlan.call(@plan)
     end
 
     respond_to do |format|
@@ -119,14 +118,12 @@ class Dashboard::PlansController < DashboardController
 
   def import_stripe_plans
     account = current_user.account
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
     stripe_plans = params["plans"]
 
     plans = []
     stripe_plans.each do |stripe_id|
-      plan = ImportPlan.call(account, stripe_id, stripe.secret_token)
+      plan = ImportPlan.call(account, stripe_id)
       if plan.save
         plans.push(plan)
       end

@@ -1,5 +1,5 @@
 .action-form{"data-remodal-id"=>"stripe-modal", "data-remodal-options"=>"hashTracking: false" }
-  %section{"ng-class"=>"{'active': !user.account.hasConnectedStripe}"}
+  %section{"ng-class"=>"{'active': isActiveStep(1)}"}
     %header
       %h1
         Connect your Stripe Account
@@ -21,17 +21,35 @@
         Save
         %i.fa-arrow-right
     %div{"loading-screen" => "loading.show_spinner"}
-  %section
+  %section{"ng-class"=>"{'active': isActiveStep(2)}"}
     %header
       %h1
-        Would you like to import any plans from your Stripe account?
+        Would you like to import any existing plans from your Stripe account?
 
     %footer
       %button.continue{"ng-click"=>"getPlansClicked()"}
         Yes
         %i.fa-arrow-right
     %div{"loading-screen" => "loading.show_spinner"}
-  %section{"ng-class"=>"{'active': user.account.hasConnectedStripe}"}
+  %section{"ng-class"=>"{'active': isActiveStep(3)}"}
+    %header
+      %h1
+        Select the plans you wish to import.
+      .container-fluid
+        .row{:style=>"margin-bottom: 20px;"}
+          .col-md-3{"ng-repeat"=>"plan in plans"}
+            .plan.thumbnail{"ng-click"=>"selectPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
+              .plan-info
+                %h2.plan-name
+                  {{plan.name}}
+                %h3.plan-amount
+                  {{plan.amount/100 | currency }}/{{ plan.interval }}
+    %footer
+      %button.continue{"ng-click"=>"importPlansClicked()"}
+        Import Plans
+        %i.fa-arrow-right
+    %div{"loading-screen" => "loading.show_spinner"}
+  %section{"ng-class"=>"{'active': isActiveStep(4)}"}
     %header
       %h2
         Success

@@ -20,11 +20,8 @@ class Bulls::SubscriptionsController < ApplicationController
     account = plan.account
 
     if !plan.can_subscribe?
-      return false
+      #return false
     end
-
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
     first_name = params["subscription"]["first_name"]
     last_name = params["subscription"]["last_name"]
@@ -49,8 +46,7 @@ class Bulls::SubscriptionsController < ApplicationController
       card_brand,
       card_last4,
       exp_month,
-      exp_year,
-      stripe.secret_token
+      exp_year
     )
 
     begin
@@ -92,10 +88,7 @@ class Bulls::SubscriptionsController < ApplicationController
 
     account = current_user.account
 
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = @subscription.plan.account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
-
-    @subscription = ChangeSubscription.call(@subscription, @plan, stripe.secret_token)
+    @subscription = ChangeSubscription.call(@subscription, @plan)
 
     respond_to do |format|
       format.html  { render action: 'show' }
@@ -111,7 +104,7 @@ class Bulls::SubscriptionsController < ApplicationController
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = @subscription.plan.account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
-    @subscription = CancelSubscription.call(@subscription, stripe.secret_token)
+    @subscription = CancelSubscription.call(@subscription)
 
     respond_to do |format|
       format.html  { render action: 'show' }

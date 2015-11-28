@@ -1,5 +1,5 @@
 class Dashboard::SubscriptionsController < DashboardController
-  layout 'dashboard'
+  layout :determine_layout
 
   def index
     query = current_user.account.subscriptions_plans
@@ -59,7 +59,7 @@ class Dashboard::SubscriptionsController < DashboardController
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
-    @subscription = ChangeSubscription.call(@subscription, @plan, stripe.secret_token)
+    @subscription = ChangeSubscription.call(@subscription, @plan)
 
     respond_to do |format|
       format.html  { render action: 'show' }
@@ -70,11 +70,8 @@ class Dashboard::SubscriptionsController < DashboardController
   def destroy
     account = current_user.account
 
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
-
-    @subscription = Subscription.find(params[:id])
-    @subscription = CancelSubscription.call(@subscription, stripe.secret_token)
+    @subscription = account.subscriptions.find(params[:id])
+    @subscription = CancelSubscription.call(@subscription)
 
     respond_to do |format|
       format.html  { render action: 'show' }

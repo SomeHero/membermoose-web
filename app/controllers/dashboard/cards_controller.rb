@@ -1,5 +1,5 @@
 class Dashboard::CardsController < DashboardController
-  layout 'dashboard'
+  layout :determine_layout
 
   def index
     @cards = current_user.account.cards
@@ -26,13 +26,12 @@ class Dashboard::CardsController < DashboardController
 
     @card = AddCard.call(
       current_user.account,
-      stripe_token,
-      ENV["STRIPE_SECRET_KEY"]
+      stripe_token
     )
 
     if @card.errors.count == 0
       if params["card"]["default"]
-        @card = SetCustomerDefaultCard.call(current_user.account, @card, ENV["STRIPE_SECRET_KEY"])
+        @card = SetCustomerDefaultCard.call(current_user.account, @card)
         if @card.errors.count == 0
           current_user.account.cards.update_all(:default => false)
           @card.default = true
@@ -57,15 +56,16 @@ class Dashboard::CardsController < DashboardController
 
   def update
     Rails.logger.info("Attempting to Update Card")
+    account = current_user.account
 
-    card = Card.find(params["id"])
+    card = account.cards.find(params["id"])
     token = params["card"]["stripe_token"]
 
-    @card = UpdateCard.call(card, token, ENV["STRIPE_SECRET_KEY"])
+    @card = UpdateCard.call(card, token)
 
     if @card.errors.count == 0
       if params["card"]["default"]
-        @card = SetCustomerDefaultCard.call(current_user.account, @card, ENV["STRIPE_SECRET_KEY"])
+        @card = SetCustomerDefaultCard.call(current_user.account, @card)
         if @card.errors.count == 0
           current_user.account.cards.update_all(:default => false)
           @card.default = true
@@ -85,12 +85,11 @@ class Dashboard::CardsController < DashboardController
   end
 
   def destroy
-    binding.pry
     Rails.logger.info("Attempting to Delete Card")
 
     @card = Card.find(params["id"])
 
-    @card = DeleteCard.call(@card, ENV["STRIPE_SECRET_KEY"])
+    @card = DeleteCard.call(@card)
 
     respond_to do |format|
       if @card.errors.count == 0

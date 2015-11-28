@@ -1,5 +1,5 @@
 class Dashboard::MembersController < DashboardController
-  layout 'dashboard'
+  layout :determine_layout
 
   def index
     query = current_user.account.members

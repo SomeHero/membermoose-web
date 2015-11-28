@@ -1,5 +1,6 @@
 class Account < ActiveRecord::Base
   belongs_to :user
+  belongs_to :bull, class_name: "Account", foreign_key: "bull_id"
   has_one :address
   has_many :plans
   has_many :subscriptions, -> { includes :plan }
@@ -78,6 +79,17 @@ class Account < ActiveRecord::Base
       :createdAt => self.created_at,
       :updatedAt	=> self.updated_at
     }
+  end
+
+  def stripe_secret_key
+    return nil if !self.bull
+
+    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+    stripe_payment_processor = self.bull.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
+
+    return nil if !stripe_payment_processor
+
+    return stripe_payment_processor.first.secret_token
   end
 
   private

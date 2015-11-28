@@ -8,17 +8,14 @@ class Bulls::CardsController < ApplicationController
     account = Account.where("LOWER(subdomain) = ?", request.subdomain).first
     user = current_user
 
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
-
     card = Card.find(params["id"])
     token = params["card"]["stripe_token"]
 
-    @card = UpdateCard.call(card, token, stripe.secret_token)
+    @card = UpdateCard.call(card, token)
 
     if @card.errors.count == 0
       if params["card"]["default"]
-        @card = SetCustomerDefaultCard.call(current_user.account, @card, stripe.secret_token)
+        @card = SetCustomerDefaultCard.call(current_user.account, @card)
         if @card.errors.count == 0
           current_user.account.cards.update_all(:default => false)
           @card.default = true
@@ -47,7 +44,7 @@ class Bulls::CardsController < ApplicationController
 
     @card = Card.find(params["id"])
 
-    @card = DeleteCard.call(@card, stripe.secret_token)
+    @card = DeleteCard.call(@card)
 
     respond_to do |format|
       if @card.errors.count == 0

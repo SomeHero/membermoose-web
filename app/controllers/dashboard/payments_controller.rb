@@ -1,5 +1,5 @@
 class Dashboard::PaymentsController < DashboardController
-  layout 'dashboard'
+  layout :determine_layout
 
   def index
     query = current_user.account.payments
@@ -63,11 +63,8 @@ class Dashboard::PaymentsController < DashboardController
   def refund
     account = current_user.account
 
-    @payment = Payment.find(params[:id])
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
-
-    @payment = RefundPayment.call(@payment, stripe.secret_token)
+    @payment = account.payments.find(params[:id])
+    @payment = RefundPayment.call(@payment)
 
     render :json => {:payment => @payment.to_json}, status: 200
   end

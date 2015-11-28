@@ -1,5 +1,7 @@
 class ImportPlan
-  def self.call(account, stripe_id, stripe_secret_key)
+  def self.call(account, stripe_id)
+    stripe_secret_key = account.stripe_secret_key
+    
     begin
       Stripe.api_key =  stripe_secret_key
 

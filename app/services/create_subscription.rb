@@ -1,33 +1,16 @@
 class CreateSubscription
   def self.call(plan, first_name, last_name, email_address, password, token,
-    stripe_card_id, card_brand, card_last4, exp_month, exp_year, stripe_secret_key)
+    stripe_card_id, card_brand, card_last4, exp_month, exp_year)
 
-    account, raw_token = CreateUser.call(first_name, last_name, email_address, password)
+    bull = plan.account
+    account, raw_token = CreateUser.call(first_name, last_name, email_address, password, bull)
 
     payment_processor = PaymentProcessor.find_by(:name => "Stripe")
 
     card = account.cards.where(:external_id => stripe_card_id).first
 
-    if !card
-      card = Card.create!({
-          :account => account,
-          :external_id => stripe_card_id,
-          :brand => card_brand,
-          :last4 => card_last4,
-          :expiration_month => exp_month,
-          :expiration_year => exp_year
-      })
-    end
-
-    subscription = Subscription.new(
-      plan: plan,
-      account: account,
-      card: card,
-      status: Subscription.statuses[:subscribed]
-    )
-
     begin
-      Stripe.api_key =  stripe_secret_key
+      Stripe.api_key =  account.stripe_secret_key
 
       stripe_sub = nil
       if account.stripe_customer_id.blank?
@@ -40,11 +23,25 @@ class CreateSubscription
         account.save!
 
         stripe_sub = customer.subscriptions.first
+        stripe_card = customer.sources.first
 
-        subscription.stripe_id = stripe_sub.id
+        subscription = Subscription.new(
+          plan: plan,
+          account: account,
+          status: Subscription.statuses[:subscribed],
+          stripe_id: stripe_sub.id,
+          card: Card.new({
+              :account => account,
+              :brand => card_brand,
+              :last4 => card_last4,
+              :expiration_month => exp_month,
+              :expiration_year => exp_year,
+              :external_id => stripe_card.id
+          })
+        )
 
         #ToDo: create method on Plan that will calculate the next invoice date
-        next_invoice_date = Date.today + 30.days
+        #next_invoice_date = Date.today + 30.days
         subscription.save!
       else
         customer = Stripe::Customer.retrieve(account.stripe_customer_id)

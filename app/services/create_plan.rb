@@ -1,7 +1,8 @@
 require 'money'
 
 class CreatePlan
-  def self.call(options={}, stripe_secret_key)
+  def self.call(account, options={})
+    stripe_secret_key = account.stripe_secret_key
 
     plan = Plan.new(options)
 

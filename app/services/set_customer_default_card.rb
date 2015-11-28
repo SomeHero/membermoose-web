@@ -1,7 +1,8 @@
 class SetCustomerDefaultCard
 
-  def self.call(account, card, stripe_secret_key)
-    stripe_customer_id = account.stripe_customer_id
+  def self.call(account, card)
+    stripe_secret_key = account.stripe_secret_key
+    stripe_customer_id = card.account.stripe_customer_id
 
     card.default = true
 

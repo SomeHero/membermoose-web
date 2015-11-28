@@ -62,6 +62,7 @@
 
         stripe.card.createToken($scope.payment.card).then((token) ->
           console.log 'token created for card ending in ', token.card.last4
+          console.log token
           payment = angular.copy($scope.payment)
           payment.card = undefined
           payment.token = token.id

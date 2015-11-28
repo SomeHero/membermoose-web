@@ -1,5 +1,5 @@
 class CreateUser
-  def self.call(first_name, last_name, email_address, password)
+  def self.call(first_name, last_name, email_address, password, bull)
 
     user = User.find_by(email: email_address)
 
@@ -18,7 +18,8 @@ class CreateUser
         reset_password_sent_at: Time.now
       }),
       :first_name => first_name,
-      :last_name => last_name
+      :last_name => last_name,
+      :bull => bull
     })
 
     return account, raw_token

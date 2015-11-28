@@ -15,6 +15,11 @@
     oAuthModal = null
     init = () ->
       window.scope = $scope
+      $scope.currentStep = 1
+      if $scope.user.account.hasConnectedStripe
+          $scope.currentStep = 2
+      $scope.plans = []
+      $scope.plansToImport = []
 
       $scope.timer = null
       if !connect_stripe_modal
@@ -22,6 +27,16 @@
 
       connect_stripe_modal.open()
       $scope.setCurrentModal(connect_stripe_modal)
+
+    $scope.isActiveStep = (step) ->
+      if !$scope.user.account.hasConnectedStripe && step == 1 && $scope.currentStep == 1
+        return true
+      if $scope.user.account.hasConnectedStripe && step == 4 && $scope.currentStep == 4
+        return true
+      if step == $scope.currentStep
+        return true
+
+      return false
 
     $scope.stripe_connect = () ->
       openUrl = "/users/auth/stripe_connect"
@@ -45,6 +60,7 @@
 
     $scope.applyNetwork = () ->
       $scope.user.account.hasConnectedStripe = true
+      $scope.currentStep += 1
 
       AccountServiceChannel.accountUpdated()
 
@@ -56,40 +72,44 @@
           $scope.dismiss_loading()
           $scope.form_submitted = false
 
-          $scope.importPlans = response.data.plans
-          $scope.dismissModal()
+          $scope.plans = response.data.plans
+          $scope.currentStep += 1
         (http)  ->
           $scope.dismiss_loading()
 
       )
 
+    $scope.selectPlan = (plan) ->
+      $scope.plansToImport.push(plan)
+
     $scope.importPlansClicked = () ->
+      if $scope.plansToImport.length == 0
+        return false
+
       $scope.display_loading()
 
-      $http.post('/dashboard/plans/get_stripe_plans').then(
+      plan_ids = []
+      angular.forEach($scope.plansToImport, (plan,index) =>
+        plan_ids.push(plan.id)
+      )
+      params = {
+        plans: plan_ids
+      }
+      $http.post('/dashboard/plans/import_stripe_plans', params).then(
         (response) ->
-          plans = response.data.plans
-          plan_ids = []
-          angular.forEach(plans, (plan,index) =>
-            plan_ids.push(plan.id)
-          )
-          params = {
-            plans: plan_ids
-          }
-          $http.post('/dashboard/plans/import_stripe_plans', params).then(
-            (response) ->
-              $scope.dismiss_loading()
-              $scope.form_submitted = false
+          $scope.dismiss_loading()
+          $scope.form_submitted = false
 
-              message = "Your successfully updated your password."
-              $scope.display_success_message(message)
-            (http)  ->
-              $scope.dismiss_loading()
+          message = "Your successfully updated your password."
+          $scope.display_success_message(message)
 
-              message = http.statusText
-              $scope.display_error_message(message)
-          )
-        )
+          $scope.dismissModal()
+        (http)  ->
+          $scope.dismiss_loading()
+
+          message = http.statusText
+          $scope.display_error_message(message)
+      )
 
     init()
 ]

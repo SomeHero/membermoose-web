@@ -26,14 +26,8 @@
         (response) ->
           $scope.dismiss_loading()
 
-          message = "Your card, " + $scope.selectedCard.last4 + ", was successfully deleted."
-          $scope.displaySuccessMessage(message)
-
-          angular.forEach($scope.account.cards, (value,index) =>
-            if value.id == $scope.selectedCard.id
-              $scope.account.cards.splice(index, 1)
-          )
-          $scope.selectedCard = null
+          message = "Your card, " + $scope.card.last4 + ", was successfully deleted."
+          $scope.display_success_message(message)
 
           $scope.dismissModal()
         (http)  ->

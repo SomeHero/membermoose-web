@@ -1,5 +1,5 @@
 class Dashboard::AccountController < DashboardController
-  layout 'dashboard'
+  layout :determine_layout
 
   def upload_logo
     user = current_user
@@ -112,8 +112,7 @@ class Dashboard::AccountController < DashboardController
       card_brand,
       card_last4,
       exp_month,
-      exp_year,
-      ENV["STRIPE_SECRET_KEY"]
+      exp_year
     )
 
     begin

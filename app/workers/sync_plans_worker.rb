@@ -11,7 +11,7 @@ class SyncPlansWorker
 
     account.plans.each do |plan|
       if plan.needs_sync
-        SyncPlan.call(plan, stripe.secret_token)
+        SyncPlan.call(plan)
       end
     end
   end

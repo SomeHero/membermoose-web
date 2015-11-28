@@ -23,7 +23,7 @@
       Subscription.setUrl('/dashboard/subscriptions')
 
       $scope.display_loading()
-      $scope.subscription.delete().then(
+      new Subscription($scope.subscription).delete().then(
         () ->
           $scope.subscription.status = "Cancelled"
 

@@ -39,25 +39,5 @@ mm_account = Account.create!({
   :role => Account.roles[:bull]
   #logo =>
 })
-mm_free_plan = CreatePlan.call({
-    :account => mm_account,
-    :name => "Free Plan",
-    :stripe_id => "MM Free Plan",
-    :description => "Unlimited plans but only 5 subscribers per plan",
-    :amount => 0,
-    :billing_cycle => "month",
-    :billing_interval => "1",
-    :trial_period_days => 0,
-    :terms_and_conditions => "Be cool"
-}, ENV["STRIPE_SECRET_KEY"])
-mm_paid_plan = CreatePlan.call({
-    :account => mm_account,
-    :name => "Member Moose Awesomeness",
-    :stripe_id => "MM Paid Plan",
-    :description => "Unlimited plans, unlimited subscribers, unlimited members",
-    :amount => "30.00",
-    :billing_cycle => "month",
-    :billing_interval => "1",
-    :trial_period_days => 30,
-    :terms_and_conditions => "Be cool"
-}, ENV["STRIPE_SECRET_KEY"])
+mm_account.bull = mm_account
+mm_account.save
