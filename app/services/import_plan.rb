@@ -1,12 +1,14 @@
 class ImportPlan
   def self.call(account, stripe_id)
     stripe_secret_key = account.stripe_secret_key
-    
+
     begin
       Stripe.api_key =  stripe_secret_key
 
       stripe_plan = Stripe::Plan.retrieve(stripe_id)
     rescue Stripe::StripeError => e
+      Rails.logger.error "STRIPE ERROR:IMPORTING PLAN:#{e.to_s}"
+
       return e.message
     end
 

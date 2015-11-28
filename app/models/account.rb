@@ -29,7 +29,11 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of :guid
 
   def full_name
-    self.first_name.to_s + " " + self.last_name.to_s
+    if self.first_name && self.last_name
+      self.first_name.to_s + " " + self.last_name.to_s
+    else
+      self.user.email
+    end
   end
 
   def plan_names
@@ -82,10 +86,13 @@ class Account < ActiveRecord::Base
   end
 
   def stripe_secret_key
-    return nil if !self.bull
-
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe_payment_processor = self.bull.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
+    if self.role == "calf"
+      stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+      stripe_payment_processor = self.bull.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
+    else
+      stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+      stripe_payment_processor = self.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
+    end
 
     return nil if !stripe_payment_processor
 
