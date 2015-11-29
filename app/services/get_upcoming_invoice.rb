@@ -7,7 +7,7 @@ class GetUpcomingInvoice
 
     return false if !stripe_secret_key
     return false if !stripe_customer_id
-    
+
     begin
       Stripe.api_key = stripe_secret_key
 

@@ -26,6 +26,7 @@ class GetCustomersWorker
       if !user
         customer_account = Account.new({
           :stripe_customer_id => stripe_customer_id,
+          :bull => account,
           :user => User.new({
             email: email_address,
             password: password,

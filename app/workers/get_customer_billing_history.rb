@@ -15,7 +15,8 @@ class GetCustomerBillingHistoryWorker
       stripe_card_id = stripe_charge["source"]["id"]
       stripe_invoice_id = stripe_charge["invoice"]
       stripe_balance_txn_id = stripe_charge["balance_transaction"]
-
+      stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
+      
       stripe_balance_txn = GetBalanceTransaction.call(stripe_balance_txn_id, account.stripe_secret_key)
       stripe_invoice = GetInvoice.call(stripe_invoice_id, account.stripe_secret_key)
 
