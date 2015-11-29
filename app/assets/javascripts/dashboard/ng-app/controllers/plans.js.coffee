@@ -13,6 +13,7 @@
       $scope.currentPage = 1
       $scope.itemsPerPage = 10
       $scope.isLoading = true
+      $scope.formSubmitted = false
       $scope.plan = {}
       $scope.selected_plan = null
       $scope.plans_first_row = []
@@ -70,6 +71,35 @@
       $scope.$parent.show_success_message = false
 
       sortPlans()
+
+    $scope.updatePlan = (plan, form) ->
+      Plan.setUrl('/dashboard/plans')
+      $scope.formSubmitted = true
+      if form.$valid
+        $scope.display_loading()
+        $scope.selected_plan.update().then(
+          (updated_plan) ->
+            angular.forEach($scope.plans, (value,index) =>
+              if value.id == updated_plan.id
+                $scope.plans[index] = updated_plan
+            )
+            $scope.closeEditBar()
+
+            message = "Your plan, " + plan.name + ", was successfully updated."
+            $scope.display_success_message(message)
+
+            $scope.dismiss_loading()
+
+            PlansServiceChannel.onPlansUpdated()
+          (http)  ->
+            errors = http.data
+
+            message = errors
+            $scope.display_error_message(message)
+        )
+      else
+        message = "The form is invalid.  Fix the issues and try again."
+        $scope.display_error_message(message)
 
     $scope.isActiveSection = (section) ->
       if section == $scope.newPlanSection

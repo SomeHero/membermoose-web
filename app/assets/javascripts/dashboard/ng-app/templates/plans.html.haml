@@ -59,28 +59,28 @@
         %label{:for=>"planName"}
           Plan Name
         %input#planName.form-control.input{:type=>"text",:name=>"plan[name]",:placeholder=>"Plan Name","ng-model"=>"selected_plan.name", "required"=>""}
-        %span{"ng-show" => "plansForm['plan[name]'].$dirty && plansForm['plan[name]'].$invalid", :style => "color:red"}
+        %span{"ng-show" => "formSubmitted && plansForm['plan[name]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "plansForm['plan[name]'].$error.required"}
             Plan name is required.
       .form-group
         %label{:for=>"planDescription"}
           Plan Description
         %textarea#planDescription.form-control.input{:rows=>"5",:name=>"plan[description]",:placeholder=>"Description","ng-model"=>"selected_plan.description", "required"=>""}
-        %span{"ng-show" => "plansForm['plan[description]'].$dirty && plansForm['plan[description]'].$invalid", :style => "color:red"}
+        %span{"ng-show" => "formSubmitted && plansForm['plan[description]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "plansForm['plan[description]'].$error.required"}
             Plan description is required.
       .form-group
         %label{:for=>"planAmount"}
           Amount
         %input#planAmount.form-control.input{:type=>"text",:name=>"plan[amount]",:placeholder=>"Amount","ng-model"=>"selected_plan.amount", "required"=>""}
-        %span{"ng-show" => "plansForm['plan[amount]'].$invalid", :style => "color:red"}
+        %span{"ng-show" => "formSubmitted && plansForm['plan[amount]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "plansForm['plan[amount]'].$error.required"}
             Amount is required.  If this is a free plan, you must enter $0.
       .form-group
         %label{:for=>"planBillingCycle"}
           Billing Cycle
         %select.form-control{"ng-model"=>"selected_plan.billingCycle", "ng-options"=>"billing_cycle for billing_cycle in billing_cycles"}
-        %span{"ng-show" => "plansForm['plan[billing_cycle]'].$dirty && plansForm['plan[billing_cycle]'].$invalid", :style => "color:red"}
+        %span{"ng-show" => "formSubmitted && plansForm['plan[billing_cycle]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "plansForm['plan[billing_cycle]'].$error.required"}
             Billing Cycle is required.
       .form-group
