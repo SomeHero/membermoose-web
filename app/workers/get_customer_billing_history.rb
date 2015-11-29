@@ -6,14 +6,9 @@ class GetCustomerBillingHistoryWorker
   def self.perform(subscription_id)
     subscription = Subscription.find(subscription_id)
     account = subscription.account
-    bull_account = subscription.plan.account
 
     stripe_customer_id = account.stripe_customer_id
-
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = bull_account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
-
-    stripe_charges = GetCharges.call(stripe_customer_id, stripe.secret_token)
+    stripe_charges = GetCharges.call(stripe_customer_id, account.stripe_secret_key)
 
     stripe_charges.each do |stripe_charge|
       stripe_charge_id = stripe_charge["id"]
@@ -21,8 +16,8 @@ class GetCustomerBillingHistoryWorker
       stripe_invoice_id = stripe_charge["invoice"]
       stripe_balance_txn_id = stripe_charge["balance_transaction"]
 
-      stripe_balance_txn = GetBalanceTransaction.call(stripe_balance_txn_id, stripe.secret_token)
-      stripe_invoice = GetInvoice.call(stripe_invoice_id, stripe.secret_token)
+      stripe_balance_txn = GetBalanceTransaction.call(stripe_balance_txn_id, account.stripe_secret_key)
+      stripe_invoice = GetInvoice.call(stripe_invoice_id, account.stripe_secret_key)
 
       card = account.cards.find_by_external_id(stripe_card_id)
       charge = Charge.find_by_external_id(stripe_charge_id)
