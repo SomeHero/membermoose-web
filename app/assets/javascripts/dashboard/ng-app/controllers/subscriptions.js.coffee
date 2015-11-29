@@ -34,7 +34,7 @@
       $scope.getSubscriptions()
       $scope.getPlans()
       $scope.init()
-      
+
     $scope.pageChanged = () ->
       console.log('Page changed to: ' + $scope.currentPage);
       $scope.isLoading = true
@@ -100,7 +100,7 @@
         $scope.searchItems = $scope.totalItems
         $scope.isLoading = false
 
-    $scope.search = () ->
+    $scope.searchClicked = () ->
       Subscription.setUrl('/dashboard/subscriptions')
       Subscription.query({
           firstName: $scope.search.first_name,

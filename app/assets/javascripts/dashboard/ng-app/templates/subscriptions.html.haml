@@ -59,7 +59,7 @@
                   Matching results
                 .results-count
                   {{searchItems}}
-                %button.btn.btn-primary.btn-lg{"ng-click"=>"search()"}
+                %button.btn.btn-primary.btn-lg{"ng-click"=>"searchClicked()"}
                   Apply Search
 %table.table{"ng-table"=>"", "ng-hide"=>"subscriptions.length == 0"}
   %tr{"ng-repeat"=>"subscription in subscriptions"}
