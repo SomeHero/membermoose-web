@@ -1,6 +1,6 @@
 %ul.nav.submenu-nav
   %li
-    %a.top-nav-item{"ng-click"=>"refund_payment_clicked()"}
+    %a.top-nav-item{"ui-sref"=>"dashboard.payments.refund({payment: {{selected_payment}}})"}
       Refund Payment
     %a.top-nav-item{"ng-click"=>"billing_history_clicked()"}
       Payment History

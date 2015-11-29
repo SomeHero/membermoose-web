@@ -113,10 +113,20 @@ var app = angular.module('dashboardApp', [
             templateUrl: 'dashboard/ng-app/templates/members.html',
             controller: 'MembersController'
         })
+        .state('dashboard.members.next_invoice', {
+            url: '/next_invoice',
+            templateUrl: 'dashboard/ng-app/templates/members/next_invoice.html',
+            controller: 'NextInvoiceController'
+        })
         .state('dashboard.payments', {
             url: '/payments',
             templateUrl: 'dashboard/ng-app/templates/payments.html',
             controller: 'PaymentsController'
+        })
+        .state('dashboard.payments.refund', {
+            url: '/refund',
+            templateUrl: 'dashboard/ng-app/templates/payments/refund_payment.html',
+            controller: 'RefundPaymentsController'
         })
         .state('dashboard.plans', {
             url: '/plans',

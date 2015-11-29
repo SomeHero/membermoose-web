@@ -124,5 +124,9 @@
       %p.data
         September 14, 2015
 %div{"loading-screen" => "isLoading"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/members/billing_history.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/members/next_invoice.html'"}
+%main.remodal-bg
+  .remodal{"data-remodal-id" => "modal"}
+    .moose-dialog
+      .fa.fa-heater
+    .remodal-overlay
+      %ui-view#modal

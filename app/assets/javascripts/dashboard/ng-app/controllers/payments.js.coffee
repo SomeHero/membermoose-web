@@ -1,10 +1,11 @@
 @PaymentController = angular.module('dashboardApp').controller 'PaymentsController', [
   '$scope'
+  '$state'
   'Payment'
   '$window'
   '$timeout'
   '$http'
-  ($scope, Payment, window, $timeout, $http) ->
+  ($scope, $state, Payment, window, $timeout, $http) ->
     init = () ->
       window.scope = $scope
       $scope.selected_payment = null
@@ -27,6 +28,11 @@
       }
       refund_payment_modal = null
       payment_history_modal = null
+
+      $(document).on 'closed', '.remodal', (e) ->
+        # Reason: 'confirmation', 'cancellation'
+        if $state.current.name.indexOf("payments") > -1
+          $state.go('dashboard.payments')
 
       $scope.getPayments()
       $scope.init()
@@ -92,13 +98,7 @@
       else
         $scope.display_search = true
 
-    $scope.refund_payment_clicked = () ->
-      if !refund_payment_modal
-        refund_payment_modal = $('[data-remodal-id=refund-payment-modal]').remodal($scope.options)
-
-      refund_payment_modal.open()
-
     init()
 ]
 
-PaymentController.$inject = ['$scope', 'Payment', 'window', '$timeout', '$http']
+PaymentController.$inject = ['$scope', '$state', 'Payment', 'window', '$timeout', '$http']

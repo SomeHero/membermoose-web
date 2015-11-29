@@ -1,19 +1,17 @@
-@RefundPaymentsController = angular.module('dashboardApp').controller 'RefundPaymentsController', [
+@NextInvoiceController = angular.module('dashboardApp').controller 'NextInvoiceController', [
   '$scope'
-  'Payment'
   '$window'
   '$timeout'
   '$http'
-  ($scope, Payment, window, $timeout, $http) ->
+  ($scope, window, $timeout, $http) ->
     init = () ->
       window.scope = $scope
 
       if !modal
-        modal = $('[data-remodal-id=refund-payment-modal]').remodal($scope.options)
+        modal = $('[data-remodal-id=next-invoice-modal]').remodal($scope.options)
 
       modal.open()
       $scope.setCurrentModal(modal)
-
 
     $scope.refundPaymentCancel = () ->
       refund_payment_modal.close()
@@ -44,4 +42,4 @@
     init()
 ]
 
-RefundPaymentsController.$inject = ['$scope', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']
+NextInvoiceController.$inject = ['$scope', 'window', '$timeout', '$http']

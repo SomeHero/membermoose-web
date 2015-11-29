@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     resources :members, :controller => "dashboard/members" do
       collection do
         get :count, defaults: { format: 'json' }
+        resources :next_invoice, :controller => "dashboard"
       end
     end
     resources :my_subscriptions, :controller => "dashboard" do
@@ -63,10 +64,8 @@ Rails.application.routes.draw do
     end
     resources :payments, :controller => "dashboard/payments" do
       collection do
+        resources :refund, :controller => "dashboard"
         get :count, defaults: { format: 'json' }
-      end
-      member do
-        post :refund, defaults: { format: 'json' }
       end
     end
     resources :account, :controller => "dashboard/account" do

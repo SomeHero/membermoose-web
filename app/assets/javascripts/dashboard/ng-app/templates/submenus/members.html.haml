@@ -3,5 +3,5 @@
     %a.top-nav-item{"ng-click"=>"billing_history_clicked()"}
       Billing History
   %li
-    %a{"ng-click"=>"next_invoice_clicked()"}
+    %a{"ui-sref"=>"dashboard.members.next_invoice({member: {{selected_member}}})"}
       Next Invoice

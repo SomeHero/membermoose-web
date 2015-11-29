@@ -135,4 +135,9 @@
     %p.data
       {{selected_payment.comments}}
 %div{"loading-screen" => "isLoading"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/payments/refund_payment.html'"}
+%main.remodal-bg
+  .remodal{"data-remodal-id" => "modal"}
+    .moose-dialog
+      .fa.fa-heater
+    .remodal-overlay
+      %ui-view#modal

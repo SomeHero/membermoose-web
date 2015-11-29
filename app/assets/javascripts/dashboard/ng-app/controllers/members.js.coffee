@@ -1,9 +1,10 @@
 @MembersController = angular.module('dashboardApp').controller 'MembersController', [
   '$scope'
+  '$state'
   'Member'
   '$window'
   '$timeout'
-  ($scope, Member, window, $timeout) ->
+  ($scope, $state, Member, window, $timeout) ->
     init = () ->
       window.scope = $scope
       $scope.members = []
@@ -21,6 +22,11 @@
       $scope.edit_panel_open = false
       billing_history_modal = null
       next_invoice_modal = false
+
+      $(document).on 'closed', '.remodal', (e) ->
+        # Reason: 'confirmation', 'cancellation'
+        if $state.current.name.indexOf("members") > -1
+          $state.go('dashboard.members')
 
       $scope.getMembers()
       $scope.init()
@@ -118,4 +124,4 @@
     init()
 ]
 
-MembersController.$inject = ['$scope', 'Member', 'window', '$timeout']
+MembersController.$inject = ['$scope', '$state', 'Member', 'window', '$timeout']
