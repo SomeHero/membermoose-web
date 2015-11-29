@@ -8,7 +8,6 @@ class GetCustomers
       has_more = true
       starting_after_id = nil
 
-      binding.pry
       while has_more do
         response = Stripe::Customer.all(:limit=>100, :starting_after => starting_after_id)
         has_more = response["has_more"]
