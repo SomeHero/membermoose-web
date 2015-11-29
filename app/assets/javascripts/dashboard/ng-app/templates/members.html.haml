@@ -64,7 +64,7 @@
     %td{"data-title"=>"'Email'"}
       {{member.user.email}}
     %td{"data-title"=>"'Member Since'"}
-      December 12, 2012
+      {{member.memberSince | date:'medium'}}
     %td{"data-title"=>"'Plans'"}
       {{member.planNames}}
     %td{"data-title"=>"'Status'"}

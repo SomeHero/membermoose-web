@@ -27,6 +27,7 @@ class GetCustomersWorker
         customer_account = Account.new({
           :stripe_customer_id => stripe_customer_id,
           :bull => account,
+          :member_since => Time.at(stripe_customer["created"]),
           :user => User.new({
             email: email_address,
             password: password,
