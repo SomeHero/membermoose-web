@@ -26,7 +26,8 @@ class CreatePlan
         currency: 'usd',
         interval: options[:billing_cycle],
         interval_count: options[:billing_interval],
-        name: options[:name]
+        name: options[:name],
+        trial_period_days: options["trial_period_days"] || 0
       )
     rescue Stripe::StripeError => e
       plan.errors[:base] << e.message

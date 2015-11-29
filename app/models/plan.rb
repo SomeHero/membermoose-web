@@ -9,6 +9,7 @@ class Plan < ActiveRecord::Base
   scope :public_plans, -> { where(public: true) }
 
   before_save :populate_guid
+  after_update :save_to_stripe
   validates_uniqueness_of :guid, :allow_blank => true, :allow_nil => true
 
   def as_json(options={})
@@ -67,5 +68,9 @@ class Plan < ActiveRecord::Base
         self.guid = SecureRandom.random_number(1_000_000_000).to_s(36)
       end
     end
+  end
+
+  def save_to_stripe
+    #UpdatePlan.call(self)
   end
 end
