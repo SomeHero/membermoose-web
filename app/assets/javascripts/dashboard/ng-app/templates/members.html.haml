@@ -111,18 +111,18 @@
       %p.label
         Billing History:
       %p.data
-        %table.table
-          %tr{"ng-repeat"=>"payment in selected_member.billingHistory"}
-            %td
-              {{payment.transactionDate | date :'shortDate'}}
-            %td
-              {{payment.amount | currency}}
-            %td
-              {{payment.status}}
+      %table.table
+        %tr{"ng-repeat"=>"payment in selected_member.billingHistory"}
+          %td
+            {{payment.transactionDate | date :'shortDate'}}
+          %td
+            {{payment.amount | currency}}
+          %td
+            {{payment.status}}
       %p.label
         Next Billing Date:
       %p.data
-        September 14, 2015
+        {{selected_member.nextInvoiceDate | date :'longDate'}}
 %div{"loading-screen" => "isLoading"}
 %main.remodal-bg
   .remodal{"data-remodal-id" => "modal"}

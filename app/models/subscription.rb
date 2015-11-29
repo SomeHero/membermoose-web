@@ -18,6 +18,7 @@ class Subscription < ActiveRecord::Base
     :guid => self.guid,
     :plan => self.plan,
     :subscriberName => self.account.full_name,
+    :billing_history => self.billing_history,
     :last_payment_date => self.last_payment_date,
     :last_payment_amount => self.last_payment_amount,
     :next_invoice_date => self.next_invoice_date,
@@ -26,6 +27,17 @@ class Subscription < ActiveRecord::Base
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }
+  end
+
+  def billing_history
+    return payments.order("transaction_date desc").limit(6)
+      .select(:id, :transaction_date,  :amount, :status)
+      .map { |p| { id: p.id,
+                 transaction_date: p.transaction_date,
+                 amount: p.amount,
+                 status: p.status
+               }
+          }
   end
 
   def last_payment_date

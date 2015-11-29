@@ -31,6 +31,13 @@
       $scope.getMembers()
       $scope.init()
 
+    $scope.showEditBar = () ->
+      return $scope.edit_panel_open
+
+    $scope.closeEditBar = () ->
+      $scope.edit_panel_open = false
+      $scope.selected_member = null
+
     $scope.setPage = (pageNo) ->
       $scope.currentPage = pageNo
 

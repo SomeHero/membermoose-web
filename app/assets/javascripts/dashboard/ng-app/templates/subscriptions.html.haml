@@ -113,7 +113,7 @@
     %p.label
       Subscription Start Date
     %p.data
-      {{selected_subscription.subscriber.createdAt | date:'mediumDate'}}
+      {{selected_subscription.createdAt | date:'mediumDate'}}
     %p.label
       Subscription End Date
     %p.data
@@ -122,7 +122,7 @@
       Billing History
     %p.data
       %table.table
-        %tr{"ng-repeat"=>"payment in selected_subscription.subscriber.billingHistory"}
+        %tr{"ng-repeat"=>"payment in selected_subscription.billingHistory"}
           %td
             {{payment.transactionDate | date :'shortDate'}}
           %td
@@ -132,7 +132,7 @@
     %p.label
       Next Billing Date
     %p.data
-      September 14, 2015
+      {{selected_subscription.nextInvoiceDate | date:'longDate'}}
     %p.label
       Subscription status
     %p.data

@@ -73,7 +73,8 @@ class Account < ActiveRecord::Base
       :plan_names => self.plan_names,
       :subscriptions => self.subscriptions,
       :payment_processors => self.account_payment_processors.active,
-      :billing_history => self.payments,
+      :billing_history => self.billing_history,
+      :next_invoice_date => self.next_invoice_date,
       :status => self.status,
       :hasUploadedLogo => self.has_uploaded_logo,
       :hasSetupSubdomain => self.has_setup_subdomain,
@@ -99,6 +100,28 @@ class Account < ActiveRecord::Base
     return nil if !stripe_payment_processor
 
     return stripe_payment_processor.first.secret_token
+  end
+
+  def billing_history
+    results = []
+    self.subscriptions.each do |subscription|
+      results += subscription.billing_history
+    end
+
+    results.take(6)
+  end
+
+  def next_invoice_date
+    result = nil
+    self.subscriptions.each do |subscription|
+      if !result
+        result = subscription.next_invoice_date
+      elsif subscription.next_invoice_date < result
+        result = subscription.next_invoice_date
+      end
+    end
+
+    result
   end
 
   private
