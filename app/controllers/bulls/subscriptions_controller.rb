@@ -20,7 +20,8 @@ class Bulls::SubscriptionsController < ApplicationController
     account = plan.account
 
     if !plan.can_subscribe?
-      #return false
+      error(402, 1001, "Plan can't accept subscriptions at this time, please contact customer support.")
+      return
     end
 
     first_name = params["subscription"]["first_name"]

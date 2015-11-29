@@ -95,11 +95,9 @@
               $state.go('success', {"plan_name": $scope.plan.name, "id": $scope.plan.id })
             (http)  ->
               $scope.loading.show_spinner = false
-
-              console.log("error creating subscription we should show something")
               errors = http.data
 
-              $scope.errorMessage = 'Sorry an error occurred creating your subscription.  Please check your card information and try again.'
+              $scope.errorMessage = errors.message
           )
         ).then((subscription) ->
           $scope.loading.show_spinner = false

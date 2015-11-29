@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   respond_to :html, :json
 
+  def error(status, code, message)
+    render :js => {:response_type => "ERROR", :response_code => code, :message => message}.to_json, :status => status
+  end
+  
   def after_sign_in_path_for(resource)
     # return the path based on resource
     if resource.account.is_bull?
