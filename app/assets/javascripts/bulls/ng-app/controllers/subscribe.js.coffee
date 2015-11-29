@@ -47,6 +47,21 @@
         id: '1', year: i
       })
       i++
+    $scope.stripeErrors = []
+    obj = {}
+    obj['invalid_number'] = 'The card number is not a valid credit card number.'
+    obj['invalid_expiry_month'] = 'The card\'s expiration month is invalid.'
+    obj['invalid_expiry_year'] = 'The card\'s expiration year is invalid.'
+    obj['invalid_cvc'] = 'The card\'s security code is invalid.'
+    obj['incorrect_number'] = 'The card number is incorrect.'
+    obj['expired_card'] = 'The card has expired.'
+    obj['expired_card'] = 'The card has expired.'
+    obj['incorrect_cvc'] = 'The card\'s security code is incorrect.'
+    obj['incorrect_zip'] = 'The card\'s zip code failed validation.'
+    obj['card_declined'] = 'The card was declined.'
+    obj['missing'] = 'There is no card on a customer that is being charged.'
+    obj['processing_error'] = 'An error occurred while processing the card.'
+    $scope.stripeErrors = obj
 
     $scope.subscribe = (form)  ->
       $scope.credit_card_valid = stripe.card.validateCardNumber($scope.payment.card.number)
@@ -83,6 +98,8 @@
 
               console.log("error creating subscription we should show something")
               errors = http.data
+
+              $scope.errorMessage = 'Sorry an error occurred creating your subscription.  Please check your card information and try again.'
           )
         ).then((subscription) ->
           $scope.loading.show_spinner = false
@@ -91,6 +108,8 @@
           return
         ).catch (err) ->
           $scope.loading.show_spinner = false
+
+          $scope.errorMessage = $scope.stripeError[err.type]
 
           if err.type and /^Stripe/.test(err.type)
             console.log 'Stripe error: ', err.message

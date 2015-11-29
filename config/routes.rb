@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   constraints(Subdomain) do
     get "/" => "bulls/home#index", as: "home", :constraints => { :subdomain => /^(?!www)(\w+)/ }
+    get "/subscribe/:guid" => "bulls/home#index", as: "subscribe", :constraints => { :subdomain => /^(?!www)(\w+)/ }
   end
 
   root 'home#index'

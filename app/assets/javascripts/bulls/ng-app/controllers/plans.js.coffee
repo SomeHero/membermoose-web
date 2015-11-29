@@ -18,7 +18,7 @@
       "closeOnOutsideClick": false
     }
     $scope.active_step = 1
-    $scope.plans_per_row = 4
+    $scope.plans_per_row = 3
     $scope.plans = []
     $scope.rows = []
     $scope.row_plans = []
