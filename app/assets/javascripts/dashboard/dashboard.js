@@ -137,6 +137,18 @@ var app = angular.module('dashboardApp', [
             url: '/subscriptions',
             templateUrl: 'dashboard/ng-app/templates/subscriptions.html',
             controller: 'SubscriptionsController'
+        })
+        .state('dashboard.subscriptions.unsubscribe', {
+            url: '/unsubscribe',
+            templateUrl: 'dashboard/ng-app/templates/subscriptions/cancel_subscription.html',
+            controller: 'CancelSubscriptionController',
+            params: { subscription: null }
+        })
+        .state('dashboard.subscriptions.change_plan', {
+            url: '/change_plan',
+            templateUrl: 'dashboard/ng-app/templates/subscriptions/change_plan.html',
+            controller: 'ChangePlanController',
+            params: { subscription: null }
         });
 
         // default fall back route

@@ -70,12 +70,17 @@ class Dashboard::SubscriptionsController < DashboardController
   def destroy
     account = current_user.account
 
-    @subscription = account.subscriptions.find(params[:id])
+    @subscription = account.subscriptions_plans.find(params[:id])
     @subscription = CancelSubscription.call(@subscription)
 
     respond_to do |format|
-      format.html  { render action: 'show' }
-      format.json { render :json => {}, status: 200 }
+      if @subscription
+        format.html  { render action: 'show' }
+        format.json { render :json => {}, status: 200 }
+      else
+        format.html { render action: 'show' }
+        format.json { render json: {}, status: :bad_request }
+      end
     end
   end
 

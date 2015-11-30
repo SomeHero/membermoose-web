@@ -57,6 +57,8 @@ Rails.application.routes.draw do
     end
     resources :subscriptions, :controller => "dashboard/subscriptions" do
       collection do
+        resources :unsubscribe, :controller => "dashboard"
+        resources :change_plan, :controller => "dashboard"
         get :count, defaults: { format: 'json' }
       end
       member do

@@ -4,9 +4,9 @@
       %h2
         Cancel Subscription?
       %h4
-        Are your sure you want to cancel {{selected_subscription.subscriber.firstName}} {{selected_subscription.subscriber.lastName}} to your plan {{selected_subscription.plan.name}}?
+        Are your sure you want to cancel {{subscription.subscriberName}} from your plan {{subscription.plan.name}}?
     %footer
-      %button.continue{"ng-click"=>"cancel_subscription_submit()"}
-        Cancel
+      %button.continue{"ng-click"=>"cancelSubscriptionSubmit()"}
+        Yes, Cancel
         %i.fa-arrow-right
     %div{"loading-screen" => "loading.show_spinner"}

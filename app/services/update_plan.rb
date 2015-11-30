@@ -5,7 +5,6 @@ class UpdatePlan
     stripe_secret_key = plan.account.stripe_secret_key
     amount = Money.from_amount(plan.amount.to_f, "USD")
 
-    binding.pry
     begin
       Stripe.api_key =  stripe_secret_key
 

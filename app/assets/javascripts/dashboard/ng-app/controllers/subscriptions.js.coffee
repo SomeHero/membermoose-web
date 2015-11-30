@@ -1,11 +1,12 @@
 @SubscriptionsController = angular.module('dashboardApp').controller 'SubscriptionsController', [
   '$scope'
+  '$state'
   'Subscription'
   'Plan'
   '$window'
   '$timeout'
   '$http'
-  ($scope, Subscription, Plan, window, $timeout, $http) ->
+  ($scope, $state, Subscription, Plan, window, $timeout, $http) ->
     init = () ->
       window.scope = $scope
       $scope.selected_subscription = null
@@ -30,6 +31,11 @@
       change_plan_modal = null
       cancel_subscription_modal = null
       credit_subscription_modal = null
+
+      $(document).on 'closed', '.remodal', (e) ->
+        # Reason: 'confirmation', 'cancellation'
+        if $state.current.name.indexOf("subscriptions") > -1
+          $state.go('dashboard.subscriptions')
 
       $scope.getSubscriptions()
       $scope.getPlans()
@@ -141,34 +147,6 @@
       else
         $scope.display_search = true
 
-    $scope.cancel_subscription_clicked = () ->
-      if !cancel_subscription_modal
-        cancel_subscription_modal = $('[data-remodal-id=cancel-subscription-modal]').remodal($scope.options)
-
-      cancel_subscription_modal.open()
-
-    $scope.cancel_subscription_submit = () ->
-      Subscription.setUrl('/dashboard/subscriptions')
-      $scope.display_loading()
-      $scope.selected_subscription.delete().then(
-        () ->
-          $scope.selected_subscription.status = "Cancelled"
-          $scope.closeEditBar()
-
-          message = "The subscription was successfully deleted."
-          $scope.display_success_message(message)
-
-          $scope.dismiss_loading()
-          cancel_subscription_modal.close()
-        (http)  ->
-          errors = http.data
-
-          message = "Sorry, an unexpected error ocurred.  Please try again."
-          $scope.display_error_message(message)
-
-          $scope.dismiss_loading()
-      )
-
     $scope.change_plan_clicked = () ->
       if !change_plan_modal
         change_plan_modal = $('[data-remodal-id=change-plan-modal]').remodal($scope.options)
@@ -182,4 +160,4 @@
 
 ]
 
-SubscriptionsController.$inject = ['$scope', 'Subscription', 'Plan', 'window', '$timeout', '$http']
+SubscriptionsController.$inject = ['$scope', '$state', 'Subscription', 'Plan', 'window', '$timeout', '$http']

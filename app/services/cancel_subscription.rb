@@ -4,10 +4,11 @@ class CancelSubscription
     stripe_customer_id = subscription.account.stripe_customer_id
     stripe_subscription_id = subscription.stripe_id
 
+    binding.pry
     return false if !stripe_secret_key
     return false if !stripe_customer_id
     return false if !stripe_subscription_id
-    
+
     begin
       Stripe.api_key =  stripe_secret_key
 

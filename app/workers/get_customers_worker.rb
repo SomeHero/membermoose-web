@@ -64,15 +64,18 @@ class GetCustomersWorker
 
       stripe_subscriptions.each do |stripe_subscription|
         stripe_plan_id = stripe_subscription["plan"]["id"]
+        stripe_subscription_id = stripe_subscription["id"]
 
         plan = account.plans.find_by(:stripe_id => stripe_plan_id)
+        subscription = account.subscriptions.find_by(:stripe_id => stripe_subscription_id)
 
-        if plan
+        if plan && !subscription
           subscription = Subscription.new(
             plan: plan,
             account: customer_account,
             card: default_card,
-            status: Subscription.statuses[:subscribed]
+            status: Subscription.statuses[:subscribed],
+            stripe_id: stripe_subscription_id
           )
 
           customer_account.subscriptions << subscription

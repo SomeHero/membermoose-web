@@ -660,7 +660,7 @@ body {
     top: 0px;
     left: 10%;
     border-radius: 10px;
-    z-index: 10000;
+    z-index: 999999;
 }
 .success-message.animate-show, .error-message.animate-show {
   top: 0px;

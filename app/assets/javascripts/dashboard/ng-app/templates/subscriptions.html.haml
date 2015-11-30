@@ -138,5 +138,9 @@
     %p.data
       {{selected_subscription.status}}
 %div{"loading-screen" => "isLoading"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/subscriptions/cancel_subscription.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/subscriptions/change_plan.html'"}
+%main.remodal-bg
+  .remodal{"data-remodal-id" => "modal"}
+    .moose-dialog
+      .fa.fa-heater
+    .remodal-overlay
+      %ui-view#modal
