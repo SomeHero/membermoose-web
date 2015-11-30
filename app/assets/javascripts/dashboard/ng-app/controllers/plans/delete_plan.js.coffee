@@ -1,24 +1,39 @@
 @DeletePlanController = angular.module('dashboardApp').controller 'DeletePlanController', [
   '$scope'
+  '$state'
+  '$stateParams'
   'Plan'
   '$modal'
   '$http'
   '$window'
   '$timeout'
   'PlansServiceChannel'
-  ($scope,  Plan, $modal, $http, window, $timeout, PlansServiceChannel) ->
+  ($scope, $state, $stateParams, Plan, $modal, $http, window, $timeout, PlansServiceChannel) ->
 
     init = () ->
       window.scope = $scope
 
+      if !$stateParams.plan
+        $state.go('dashboard.plans')
+
+        return
+
+      $scope.plan = $stateParams.plan
+
+      if !modal
+        modal = $('[data-remodal-id=delete-plan-modal]').remodal($scope.options)
+
+      $scope.setCurrentModal(modal)
+      modal.open()
+
     $scope.deletePlanCancelled = () ->
-      delete_plan_modal.close()
+      $scope.dismissModal()
 
     $scope.deletePlan = () ->
       $scope.display_loading()
 
       Plan.setUrl('/dashboard/plans')
-      $scope.selected_plan.delete().then(
+      new Plan($scope.plan).delete().then(
         (response) ->
           $scope.dismiss_loading()
           $scope.closeEditBar()
@@ -28,7 +43,7 @@
 
           $scope.getPlans()
 
-          delete_plan_modal.close()
+          $scope.dismissModal()
         (http)  ->
           $scope.dismiss_loading()
 
@@ -41,4 +56,4 @@
     init()
 ]
 
-DeletePlanController.$inject = ['$scope', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']
+DeletePlanController.$inject = ['$scope', '$state', '$stateParams', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']

@@ -1,15 +1,14 @@
-.remodal-overlay{"style"=>"display: none;"}
-  .remodal.action-form{"data-remodal-id"=>"delete-plan-modal", "data-remodal-options"=>"hashTracking: false", "ng-controller"=>"DeletePlanController" }
-    %section.active
-      %header
-        %h2
-          Delete Plan {{selected_plan.name}}?
-        %h4
-          Are your sure you want to delete {{selected_plan.name}}?
-          %footer
-            %button.previous{"ng-click"=>"deletePlanCancelled()"}
-              Cancel
-            %button.continue{"ng-click"=>"deletePlan()"}
-              Delete
-              %i.fa-arrow-right
-        %div{"loading-screen" => "loading.show_spinner"}
+.action-form{"data-remodal-id"=>"delete-plan-modal", "data-remodal-options"=>"hashTracking: false" }
+  %section.active
+    %header
+      %h2
+        Delete Plan {{selected_plan.name}}?
+      %h4
+        Are your sure you want to delete {{selected_plan.name}}?
+        %footer
+          %button.previous{"ng-click"=>"deletePlanCancelled()"}
+            Cancel
+          %button.continue{"ng-click"=>"deletePlan()"}
+            Delete
+            %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}

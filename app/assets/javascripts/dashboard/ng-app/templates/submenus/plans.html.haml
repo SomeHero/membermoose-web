@@ -1,13 +1,7 @@
 %ul.nav.submenu-nav
   %li
-    %a.top-nav-item
-      Edit Plan
-  %li
-    %a{"ng-click"=>"delete_plan_clicked()"}
+    %a{"ui-sref"=>"dashboard.plans.delete({plan: {{selected_plan}}})"}
       Delete Plan
   %li
-    %a{"ng-click"=>"share_plan_clicked()"}
+    %a{"ui-sref"=>"dashboard.plans.share({plan: {{selected_plan}}})"}
       Share Plan
-  %li
-    %a
-      Subscribers

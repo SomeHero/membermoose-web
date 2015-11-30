@@ -1,12 +1,13 @@
 @PlansController = angular.module('dashboardApp').controller 'PlansController', [
   '$scope'
+  '$state'
   'Plan'
   '$modal'
   '$http'
   '$window'
   '$timeout'
   'PlansServiceChannel'
-  ($scope,  Plan, $modal, $http, window, $timeout, PlansServiceChannel) ->
+  ($scope, $state, Plan, $modal, $http, window, $timeout, PlansServiceChannel) ->
     init = () ->
       window.scope = $scope
       $scope.totalItems = 0
@@ -48,6 +49,11 @@
       create_plan_modal  = null
       delete_plan_modal = null
       share_plan_modal = null
+
+      $(document).on 'closed', '.remodal', (e) ->
+        # Reason: 'confirmation', 'cancellation'
+        if $state.current.name.indexOf("plans") > -1
+          $state.go('dashboard.plans')
 
       PlansServiceChannel.onPlansUpdated($scope, onPlansUpdated);
 
@@ -133,12 +139,6 @@
     $scope.showSuccessModal = () ->
       false
 
-    $scope.delete_plan_clicked = () ->
-      if !delete_plan_modal
-        delete_plan_modal = $('[data-remodal-id=delete-plan-modal]').remodal($scope.options)
-
-      delete_plan_modal.open();
-
     $scope.share_plan_clicked = () ->
       if !share_plan_modal
         share_plan_modal = $('[data-remodal-id=share-plan-modal]').remodal($scope.options)
@@ -190,4 +190,4 @@
 
 ]
 
-PlansController.$inject = ['$scope', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']
+PlansController.$inject = ['$scope', '$state', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']

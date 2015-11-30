@@ -103,6 +103,9 @@
       %button.btn.btn-primary{:type=>"submit", "ng-click"=>"updatePlan(plan, plansForm)"}
         Submit
 %div{"loading-screen" => "isLoading"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/plans/new_plan.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/plans/delete_plan.html'"}
-%div{"ng-include"=>"'dashboard/ng-app/templates/plans/share_plan.html'"}
+%main.remodal-bg
+  .remodal{"data-remodal-id" => "modal"}
+    .moose-dialog
+      .fa.fa-heater
+    .remodal-overlay
+      %ui-view#modal

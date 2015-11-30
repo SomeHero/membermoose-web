@@ -1,8 +1,9 @@
 class DeletePlan
   def self.call(plan)
-    stripe_secret_key = plan.stripe_secret_key
+    stripe_secret_key = plan.account.stripe_secret_key
 
-    return false if !stripe_secret_key 
+    return false if !stripe_secret_key
+    
     begin
       Stripe.api_key = stripe_secret_key
 

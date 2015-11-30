@@ -8,6 +8,7 @@
   ($scope, $state, $stateParams, Subscription, stripe, window) ->
     init = () ->
       window.scope = $scope
+
       if !$stateParams.subscription
         $state.go('dashboard.subscriptions')
 
@@ -41,8 +42,6 @@
 
           message = "Sorry, an unexpected error ocurred.  Please try again."
           $scope.display_error_message(message)
-
-          $scope.dismissLoading()
       )
 
     init()

@@ -94,7 +94,7 @@ class Dashboard::PlansController < DashboardController
     end
 
     respond_to do |format|
-      if @plan.errors.count == 0 && @plan.delete
+      if @plan && @plan.errors.count == 0 && @plan.delete
         format.html  { render action: 'index' }
         format.json { render json: {}, status: 200 }
       else

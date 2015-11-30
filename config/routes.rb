@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     end
     resources :plans, :controller => "dashboard/plans" do
       collection do
+        resources :create, :controller => "dashboard/plans"
+        resources :delete, :controller => "dashboard/plans"
+        resources :share, :controller => "dashboard/plans"
         post :get_stripe_plans, defaults: { format: 'json' }
         post :import_stripe_plans, defaults: { format: 'json' }
       end

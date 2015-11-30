@@ -133,6 +133,23 @@ var app = angular.module('dashboardApp', [
             templateUrl: 'dashboard/ng-app/templates/plans.html',
             controller: 'PlansController'
         })
+        .state('dashboard.plans.create', {
+            url: '/create',
+            templateUrl: 'dashboard/ng-app/templates/plans/new_plan.html',
+            controller: 'CreatePlanController'
+        })
+        .state('dashboard.plans.delete', {
+            url: '/delete',
+            templateUrl: 'dashboard/ng-app/templates/plans/delete_plan.html',
+            controller: 'DeletePlanController',
+            params: { plan: null }
+        })
+        .state('dashboard.plans.share', {
+            url: '/share',
+            templateUrl: 'dashboard/ng-app/templates/plans/share_plan.html',
+            controller: 'SharePlanController',
+            params: { plan: null }
+        })
         .state('dashboard.subscriptions', {
             url: '/subscriptions',
             templateUrl: 'dashboard/ng-app/templates/subscriptions.html',
