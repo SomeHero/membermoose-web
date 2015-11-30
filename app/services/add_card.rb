@@ -8,11 +8,6 @@ class AddCard
 
     card = Card.new({
         :account => account,
-        :name_on_card => stripe_token["card"]["name"],
-        :brand => stripe_token["card"]["brand"],
-        :last4 => stripe_token["card"]["last4"],
-        :expiration_month => stripe_token["card"]["exp_month"],
-        :expiration_year => stripe_token["card"]["exp_year"]
     })
 
     begin
@@ -20,12 +15,17 @@ class AddCard
 
       customer = Stripe::Customer.retrieve(stripe_customer_id)
       stripe_card = customer.sources.create(:source => stripe_token["id"])
-
-      card.external_id = stripe_card.id
     rescue Stripe::StripeError => e
       card.errors[:base] << e.message
       return card
     end
+
+    card.external_id = stripe_card.id
+    card.name_on_card = stripe_card.name
+    card.brand = stripe_card.brand
+    card.last4 = stripe_card.last4
+    card.expiration_month = stripe_card.exp_month
+    card.expiration_year = stripe_card.exp_year
 
     return card
   end

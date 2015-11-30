@@ -89,7 +89,7 @@ class Account < ActiveRecord::Base
   end
 
   def stripe_secret_key
-    if self.role == "calf"
+    if self.bull
       stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
       stripe_payment_processor = self.bull.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
     else
@@ -122,6 +122,47 @@ class Account < ActiveRecord::Base
     end
 
     result
+  end
+  def subscribe_to_mm_free
+    return if !is_bull?
+
+    free_plan = Plan.find_by_mm_identifier("MM_FREE")
+
+    bull = free_plan.account
+    payment_processor = PaymentProcessor.find_by(:name => "Stripe")
+
+    begin
+      Stripe.api_key =  bull.stripe_secret_key
+
+      stripe_sub = nil
+      if self.stripe_customer_id.blank?
+        customer = Stripe::Customer.create(
+          email: self.user.email,
+          plan: free_plan.stripe_id,
+        )
+        self.stripe_customer_id = customer.id
+        self.save!
+
+        stripe_sub = customer.subscriptions.first
+        stripe_card = customer.sources.first
+
+        subscription = Subscription.new(
+          plan: free_plan,
+          account: self,
+          status: Subscription.statuses[:subscribed],
+          stripe_id: stripe_sub.id,
+        )
+
+        subscription.save!
+      else
+        customer = Stripe::Customer.retrieve(account.stripe_customer_id)
+        stripe_sub = customer.subscriptions.create(
+          plan: free_plan.stripe_id
+        )
+      end
+    rescue Stripe::StripeError => e
+      #we should log error messages
+    end
   end
 
   private

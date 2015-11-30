@@ -15,6 +15,8 @@ module API
         post "/step1" do
           Rails.logger.debug "Step 1 of Funnel for #{params["personal_name"]}"
 
+          #ToDo:refactor
+          bull = Account.find_by_id(1)
           name_parts = params["personal_name"].split(" ")
 
           if(name_parts.length > 1)
@@ -31,7 +33,8 @@ module API
               }),
               :first_name => first_name,
               :last_name => last_name,
-              :role => Account.roles[:bull]
+              :role => Account.roles[:bull],
+              :bull => bull
           })
 
           session["account_id"] = account.id
@@ -79,6 +82,8 @@ module API
           user.email = params["email"]
           user.password = params["password"]
           user.save!
+
+          account.subscribe_to_mm_free
 
           sign_in :user, user
 

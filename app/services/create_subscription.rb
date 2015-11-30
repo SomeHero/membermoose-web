@@ -10,7 +10,7 @@ class CreateSubscription
     card = account.cards.where(:external_id => stripe_card_id).first
 
     begin
-      Stripe.api_key =  account.stripe_secret_key
+      Stripe.api_key =  bull.stripe_secret_key
 
       stripe_sub = nil
       if account.stripe_customer_id.blank?
@@ -45,8 +45,24 @@ class CreateSubscription
         subscription.save!
       else
         customer = Stripe::Customer.retrieve(account.stripe_customer_id)
+        stripe_card =customer.sources.create({:source => token})
         stripe_sub = customer.subscriptions.create(
           plan: plan.stripe_id
+        )
+
+        subscription = Subscription.new(
+          plan: plan,
+          account: account,
+          status: Subscription.statuses[:subscribed],
+          stripe_id: stripe_sub.id,
+          card: Card.new({
+              :account => account,
+              :brand => card_brand,
+              :last4 => card_last4,
+              :expiration_month => exp_month,
+              :expiration_year => exp_year,
+              :external_id => stripe_card.id
+          })
         )
       end
     rescue Stripe::StripeError => e

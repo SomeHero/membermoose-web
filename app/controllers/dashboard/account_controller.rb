@@ -83,45 +83,27 @@ class Dashboard::AccountController < DashboardController
   def upgrade_plan
     #ToDo: we should totally refactor
     #ToDo: need a better way to identify special plan
-    free_plan_id = ENV["MEMBERMOOSE_FREE_PLAN_ID"]
-    upgraded_plan_id = ENV["MEMBERMOOSE_UPGRADED_PLAN_ID"]
+    free_plan = Plan.find_by_mm_identifier("MM_FREE")
+    prime_plan = Plan.find_by_mm_identifier("MM_PRIME")
 
-    plan = Plan.find(upgraded_plan_id)
     user = current_user
 
     account = user.account
+    free_plan_subscription = account.subscriptions.where(:plan => free_plan).first
 
-    #ToDo: look for free MM subscription and update it to inactive
     email = user.email
-    stripe_token = params["stripe_token"]["id"]
-    type = params["stripe_token"]["type"]
-    stripe_card_id = params["stripe_token"]["card"]["id"]
-    card_brand = params["stripe_token"]["card"]["brand"]
-    card_last4 = params["stripe_token"]["card"]["last4"]
-    exp_month = params["stripe_token"]["card"]["exp_month"]
-    exp_year = params["stripe_token"]["card"]["exp_year"]
+    stripe_token = params["stripe_token"]
 
-    account, @subscription, card, raw_token = CreateSubscription.call(
-      plan,
-      "",
-      "",
-      email,
-      "",
-      stripe_token,
-      stripe_card_id,
-      card_brand,
-      card_last4,
-      exp_month,
-      exp_year
-    )
+    card = AddCard.call(account, stripe_token)
 
-    begin
-      @subscription.save
-    rescue => e
-      @subscription.errors[:base] << e.message
+    if !card.save
+      error(402, 402, 'Unable to save card.  Please try again')
+      return
     end
 
-    if @subscription.errors.count == 0
+    @subscription = ChangeSubscription.call(free_plan_subscription, prime_plan)
+
+    if @subscription
       user.account.has_upgraded_plan = true
       user.save
 

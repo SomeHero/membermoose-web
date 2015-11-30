@@ -1,5 +1,5 @@
 class Subscription < ActiveRecord::Base
-  enum status: %w(subscribed cancelled)
+  enum status: %w(subscribed cancelled upgraded)
 
   belongs_to :account
   belongs_to :plan
@@ -23,7 +23,7 @@ class Subscription < ActiveRecord::Base
     :last_payment_amount => self.last_payment_amount,
     :next_invoice_date => self.next_invoice_date,
     :next_invoice_amount => self.next_invoice_amount,
-    :status => self.status.titlecase,
+    :status => self.status,
     :created_at => self.created_at,
     :updated_at	=> self.updated_at
   }
