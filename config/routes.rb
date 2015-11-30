@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks",
+        :registrations => "dashboard/users/registrations"}
 
   get 'dashboard/index'
 
@@ -49,6 +50,9 @@ Rails.application.routes.draw do
     resources :members, :controller => "dashboard/members" do
       collection do
         get :count, defaults: { format: 'json' }
+        resources :add_card, :controller => "dashboard"
+        resources :update_card, :controller => "dashboard"
+        resources :delete_card, :controller => "dashboard"
         resources :next_invoice, :controller => "dashboard"
       end
     end

@@ -7,11 +7,15 @@ class ApplicationController < ActionController::Base
   def error(status, code, message)
     render :js => {:response_type => "ERROR", :response_code => code, :message => message}.to_json, :status => status
   end
-  
+
   def after_sign_in_path_for(resource)
     # return the path based on resource
     if resource.account.is_bull?
-      dashboard_plans_path
+      if resource.account.has_created_plan
+        dashboard_plans_path
+      else
+        dashboard_launch_index_path
+      end
     else
       dashboard_my_subscriptions_path
     end

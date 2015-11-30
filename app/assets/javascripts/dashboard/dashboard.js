@@ -118,6 +118,24 @@ var app = angular.module('dashboardApp', [
             templateUrl: 'dashboard/ng-app/templates/members/next_invoice.html',
             controller: 'NextInvoiceController'
         })
+        .state('dashboard.members.add_card', {
+            url: '/add_card',
+            templateUrl: 'dashboard/ng-app/templates/members/cards/add_card.html',
+            controller: 'MembrAddCardController',
+            params: { member: null }
+        })
+        .state('dashboard.members.update_card', {
+            url: '/update_card',
+            templateUrl: 'dashboard/ng-app/templates/members/cards/update_card.html',
+            controller: 'MemberUpdateCardController',
+            params: { member: null }
+        })
+        .state('dashboard.members.delete_card', {
+            url: '/delete_card',
+            templateUrl: 'dashboard/ng-app/templates/members/cards/delete_card.html',
+            controller: 'MemberDeleteCardController',
+            params: { member: null }
+        })
         .state('dashboard.payments', {
             url: '/payments',
             templateUrl: 'dashboard/ng-app/templates/payments.html',

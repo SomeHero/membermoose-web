@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
-  before_action :authenticate_user!
-  before_action :get_user
-  before_action :get_config
+  before_filter :authenticate_user!
+  before_filter :get_user
+  before_filter :get_config
 
   layout :determine_layout
 

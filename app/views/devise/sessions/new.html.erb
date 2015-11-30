@@ -1,8 +1,6 @@
 <div class="container-fluid login-container login-page" style="background-color: #edf0f5">
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3 text-center">
-
-
       <%= link_to(root_path) do %>
         <%= image_tag('logo-black.png', width: "300", style:"margin-bottom: 20px;") %>
       <% end %>
@@ -30,7 +28,7 @@
         <% end -%>
 
         <div class="form-group">
-          <%= f.submit "Login", class: 'btn btn-success  btn-block text-left' %>
+          <%= f.submit "Login", class: 'btn btn-success  btn-block text-center' %>
         </div>
 
         <div class="login-footer"><%= render "devise/shared/links" %></div>
