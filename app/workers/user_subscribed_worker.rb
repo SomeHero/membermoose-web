@@ -11,6 +11,15 @@ class UserSubscribedWorker
 
     self.send_subscribe_email subscription
 
+    notifier = Slack::Notifier.new "transferllc", "wi8oy1HpbfJLMIR693STWwEk",
+                         channel: '#random', username: 'notifier'
+
+    if subscription.plan.mm_identifier == "MM_FREE"
+      notifier.ping "#{subscription.account.full_name} (#{subscription.account.user.email}) just became a bull!"
+    end
+    if subscription.plan.mm_identifier == "MM_PRIME"
+      notifier.ping "#{subscription.account.full_name} (#{subscription.account.user.email}) just upgraded to MemberMoose Unlimited!"
+    end
     #return false unless Rails.env.production?
 
     #notifier = Slack::Notifier.new "transferllc", "wi8oy1HpbfJLMIR693STWwEk",

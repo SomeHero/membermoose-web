@@ -169,6 +169,13 @@ class Account < ActiveRecord::Base
     rescue Stripe::StripeError => e
       #we should log error messages
     end
+
+    begin
+      Resque.enqueue(UserSubscribedWorker, subscription.id)
+    rescue
+      Rails.logger.error "Error sending User Subscribed email #{$!}"
+    end
+
   end
 
   private
