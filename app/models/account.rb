@@ -126,10 +126,10 @@ class Account < ActiveRecord::Base
   def stripe_secret_key
     if self.bull
       stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-      stripe_payment_processor = self.bull.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
+      stripe_payment_processor = self.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
     else
       stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-      stripe_payment_processor = self.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
+      stripe_payment_processor = self.bull.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
     end
 
     return nil if !stripe_payment_processor
@@ -167,7 +167,7 @@ class Account < ActiveRecord::Base
   def subscribe_to_mm_free
     return if !is_bull?
 
-    free_plan = Plan.find_by_mm_identifier("MM_FREE")
+    free_plan = Plan.find_by_stripe_id("MM_FREE")
 
     bull = free_plan.account
     payment_processor = PaymentProcessor.find_by(:name => "Stripe")

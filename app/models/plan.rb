@@ -51,7 +51,7 @@ class Plan < ActiveRecord::Base
   end
 
   def can_subscribe?
-    return true if self.mm_identifier == "MM_FREE" || self.mm_identifier == "MM_PRIME"
+    return true if self.stripe_id == "MM_FREE" || self.stripe_id == "MM_PRIME"
     return true if subscriber_limit == 0
     return true if subscriber_count < subscriber_limit
 

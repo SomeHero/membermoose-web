@@ -83,8 +83,8 @@ class Dashboard::AccountController < DashboardController
   def upgrade_plan
     #ToDo: we should totally refactor
     #ToDo: need a better way to identify special plan
-    free_plan = Plan.find_by_mm_identifier("MM_FREE")
-    prime_plan = Plan.find_by_mm_identifier("MM_PRIME")
+    free_plan = Plan.find_by_stripe_id("MM_FREE")
+    prime_plan = Plan.find_by_stripe_id("MM_PRIME")
 
     user = current_user
 

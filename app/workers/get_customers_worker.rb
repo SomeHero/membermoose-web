@@ -20,7 +20,7 @@ class GetCustomersWorker
       #create account with sources and subscriptions
       raw_token, enc_token = Devise.token_generator.generate(
         User, :reset_password_token)
-      password = "password" #SecureRandom.hex(32)
+      password = SecureRandom.hex(32)
       user = User.find_by_email(email_address)
 
       if !user
@@ -46,20 +46,24 @@ class GetCustomersWorker
         if stripe_customer["default_source"] == stripe_source["id"]
           is_default = true
         end
-        card = Card.new({
-            :account => customer_account,
-            :external_id => stripe_source["id"],
-            :name_on_card => stripe_source["name"],
-            :brand => stripe_source["brand"],
-            :last4 => stripe_source["last4"],
-            :expiration_month => stripe_source["exp_month"],
-            :expiration_year => stripe_source["exp_year"],
-            :default => is_default
-        })
-        if is_default
-          default_card = card
+        card = Card.find_by_external_id(stripe_source["id"])
+
+        if !card
+          card = Card.new({
+              :account => customer_account,
+              :external_id => stripe_source["id"],
+              :name_on_card => stripe_source["name"],
+              :brand => stripe_source["brand"],
+              :last4 => stripe_source["last4"],
+              :expiration_month => stripe_source["exp_month"],
+              :expiration_year => stripe_source["exp_year"],
+              :default => is_default
+          })
+          if is_default
+            default_card = card
+          end
+          customer_account.cards << card
         end
-        customer_account.cards << card
       end
 
       stripe_subscriptions.each do |stripe_subscription|
@@ -67,7 +71,7 @@ class GetCustomersWorker
         stripe_subscription_id = stripe_subscription["id"]
 
         plan = account.plans.find_by(:stripe_id => stripe_plan_id)
-        subscription = account.subscriptions.find_by(:stripe_id => stripe_subscription_id)
+        subscription = customer_account.subscriptions.find_by(:stripe_id => stripe_subscription_id)
 
         if plan && !subscription
           subscription = Subscription.new(

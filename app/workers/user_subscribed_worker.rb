@@ -14,10 +14,10 @@ class UserSubscribedWorker
     notifier = Slack::Notifier.new "membermoose", "EhtDPEm71aIK2F0vzzM0aghS",
                          channel: '#membermoosechatter', username: 'mm-bot'
 
-    if subscription.plan.mm_identifier == "MM_FREE"
+    if subscription.plan.stripe_id == "MM_FREE"
       notifier.ping "#{subscription.account.full_name} (#{subscription.account.user.email}) just became a bull!"
     end
-    if subscription.plan.mm_identifier == "MM_PRIME"
+    if subscription.plan.stripe_id == "MM_PRIME"
       notifier.ping "#{subscription.account.full_name} (#{subscription.account.user.email}) just upgraded to MemberMoose Unlimited!"
     end
     #return false unless Rails.env.production?
