@@ -52,7 +52,7 @@ class Account < ActiveRecord::Base
 
   def logo_full_url
     if Rails.env.production?
-      prefix ="http://www.membermoose-ng.com"
+      prefix = ""
     else
       prefix = "http://www.mmoose-ng.localhost:3000"
     end
