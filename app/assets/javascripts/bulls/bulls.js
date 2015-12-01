@@ -18,7 +18,11 @@ var app = angular.module('bullsApp', [
             url: '/subscribe/:id',
             templateUrl: 'bulls/ng-app/templates/subscribe.html',
             controller: 'SubscribeController',
-            params: {plan: null, id: "0"}
+            resolve: {
+              plan: function($http, $stateParams) {
+                return $http.get('/bulls/plans/' + $stateParams.id)
+              }
+            }
         })
         .state('success', {
             url: '/success',

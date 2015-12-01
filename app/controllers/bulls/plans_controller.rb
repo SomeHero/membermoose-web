@@ -13,4 +13,16 @@ class Bulls::PlansController < ApplicationController
     end
   end
 
+  def show
+    account_id = session[:account_id]
+    account = Account.find(account_id)
+
+    @plan = account.plans.find_by_guid(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => { :plan => @plan }}
+    end
+  end
+
 end

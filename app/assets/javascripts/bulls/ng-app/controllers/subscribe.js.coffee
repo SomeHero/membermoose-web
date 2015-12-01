@@ -3,13 +3,14 @@
   '$stateParams'
   '$state'
   'Plan'
+  'plan'
   'Subscription'
   'stripe'
   '$window'
-  ($scope, $stateParams, $state, Plan, Subscription, stripe, window) ->
+  ($scope, $stateParams, $state, Plan, plan, Subscription, stripe, window) ->
     window.scope = $scope
 
-    $scope.plan = $stateParams.plan
+    $scope.plan = new Plan(plan.data)
     $scope.account = account
     stripe.setPublishableKey(account.payment_processors[0].api_key)
     $scope.loading = {
@@ -119,4 +120,4 @@
         console.log "subsciption form is invalid"
 ]
 
-SubscribeController.$inject = ['$scope', '$stateParams', '$state', 'Plan', 'Subscription', '$modalInstance', 'stripe', 'window']
+SubscribeController.$inject = ['$scope', '$stateParams', '$state', 'Plan', 'plan', 'Subscription', '$modalInstance', 'stripe', 'window']
