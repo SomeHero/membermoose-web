@@ -58,7 +58,7 @@ class Dashboard::CardsController < DashboardController
     Rails.logger.info("Attempting to Update Card")
     account = current_user.account
 
-    card = account.cards.find(params["id"])
+    card = Card.find(params["id"])
     token = params["card"]["stripe_token"]
 
     @card = UpdateCard.call(card, token)
@@ -92,7 +92,7 @@ class Dashboard::CardsController < DashboardController
     @card = DeleteCard.call(@card)
 
     respond_to do |format|
-      if @card.errors.count == 0
+      if @card
         format.html  { render action: 'index' }
         format.json { render json: {}, status: 200 }
       else

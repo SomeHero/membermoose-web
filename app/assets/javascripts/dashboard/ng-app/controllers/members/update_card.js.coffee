@@ -8,6 +8,8 @@
   ($scope, $stateParams, $state, Card, stripe, window) ->
     init = () ->
       window.scope = $scope
+      $scope.currentStep = 1
+      $scope.selectedCards = []
       $scope.form_submitted = false
       if !$stateParams.member
         $state.go('dashboard.members')
@@ -22,6 +24,30 @@
       $scope.setCurrentModal(updateCardModal)
       updateCardModal.open()
 
+    $scope.selectCard = (card) ->
+      $scope.selectedCards = []
+
+      $scope.selectedCards.push(card)
+
+    $scope.isSelected = (card) ->
+      if $scope.selectedCards.indexOf(card) > -1
+        return true
+
+      return false
+
+    $scope.nextStepClicked = () ->
+      card = $scope.selectedCards[0]
+
+      $scope.creditCard = {
+        name: card.nameOnCard,
+        exp_month: card.expirationMonth,
+        exp_year: card.expirationYear
+      }
+      $scope.currentStep += 1
+
+    $scope.previousStepClicked = () ->
+      $scope.currentStep -= 1
+
     $scope.updateCardSubmit = (form) ->
       if form.$valid
         stripeKey = $scope.getPublishableKey()
@@ -29,30 +55,29 @@
 
         $scope.display_loading()
         $scope.modalErrorMessage = null
-        #$scope.form_submitted = true
+        card = $scope.selectedCards[0]
 
         stripe.card.createToken($scope.creditCard).then((token) ->
           new Card({
-            id: $scope.card.id,
-            card_brand: $scope.creditCard.card_brand,
-            card_last4: $scope.creditCard.card_last4,
-            exp_month: $scope.creditCard.exp_month,
-            exp_year: $scope.creditCard.exp_year,
+            id: card.id,
+            card_brand: card.card_brand,
+            card_last4: card.card_last4,
+            exp_month: card.exp_month,
+            exp_year: card.exp_year,
             stripe_token: token
           }).update().then(
             (response) ->
               newCard = new Card(response.data)
 
-              angular.forEach($scope.user.account.cards, (value, index) =>
-                if value.id == $scope.card.id
-                  $scope.user.account.cards[index] = newCard
+              angular.forEach($scope.member.cards, (value, index) =>
+                if value.id == card.id
+                  $scope.member.cards[index] = newCard
 
                   return
               )
               $scope.dismiss_loading()
-              #$scope.form_submitted = false
 
-              message = "Your credit card was successfully added. You're awesome."
+              message = "The credit card was successfully updated."
               $scope.display_success_message(message)
 
               $scope.dismissModal()
@@ -66,7 +91,7 @@
         ).catch (err) ->
           $scope.dismiss_loading()
 
-          $scope.modalErrorMessage = err.message
+          $scope.display_error_message(err.message)
       else
         $scope.form_submitted = true
 
