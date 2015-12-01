@@ -31,16 +31,7 @@ class UserSignupWorker
 
   def self.send_welcome_email subscription
     #send welcome email
-    logo = "mm-logo.png"
-    if subscription.plan.account.logo.exists?
-      logo = subscription.plan.account.logo.url
-    end
-
-    host = "http://www.membermoose-ng.com"
-    if !Rails.env.production?
-      host = "http://localhost:3000"
-    end
-    logo_url = host + logo
+    logo_url = subscription.plan.account.logo_full_url
 
     UserNotification::UserNotificationRouter.instance.notify_user(UserNotification::Notification::USER_WELCOME,
     :from_address => subscription.plan.account.user.email,
@@ -53,8 +44,8 @@ class UserSignupWorker
       "merge_plan_name" =>  subscription.plan.name,
       "merge_bull_name" => subscription.plan.account.company_name,
       "merge_bull_email" => subscription.plan.account.user.email,
-      "merge_manage_account_url" => "http://localhost:3000",
-      "merge_create_plan_url" => "http://localhost:3000",
+      "merge_manage_account_url" => subscription.plan.account.manage_account_url,
+      "merge_create_plan_url" => subscription.plan.account.create_plan_url,
       "merge_plan_amount" => ActionController::Base.helpers.number_to_currency(subscription.plan.amount),
       "merge_billing_interval" => subscription.plan.billing_cycle
     })

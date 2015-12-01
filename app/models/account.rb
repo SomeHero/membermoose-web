@@ -50,6 +50,41 @@ class Account < ActiveRecord::Base
     return false
   end
 
+  def logo_full_url
+    if Rails.env.production?
+      prefix ="http://www.membermoose-ng.com"
+    else
+      prefix = "http://www.mmoose-ng.localhost:3000"
+    end
+    if self.logo.exists?
+      logo_url = prefix + self.logo.url
+    else
+      logo_url = prefix + "mm-logo.png"
+    end
+
+    logo_url
+  end
+
+  def manage_account_url
+    if Rails.env.production?
+      prefix ="http://www.membermoose-ng.com"
+    else
+      prefix = "http://www.mmoose-ng.localhost:3000"
+    end
+
+    return prefix + "/dashboard/plans"
+  end
+
+  def create_plan_url
+    if Rails.env.production?
+      prefix ="http://www.membermoose-ng.com"
+    else
+      prefix = "http://www.mmoose-ng.localhost:3000"
+    end
+
+    return prefix + "/dashboard/plans/create"
+  end
+
   def as_json(options={})
     protocol = "http://"
     domain_suffix = "mmoose-ng.localhost:3000"
