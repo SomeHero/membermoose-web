@@ -2,7 +2,7 @@ class Dashboard::PlansController < DashboardController
   layout :determine_layout
 
   def index
-    @plans = current_user.account.plans.paginate(:page => params[:page], :per_page => 100)
+    @plans = current_user.account.plans.active.paginate(:page => params[:page], :per_page => 100)
 
     respond_to do |format|
       format.html
@@ -94,8 +94,13 @@ class Dashboard::PlansController < DashboardController
       @plan = DeletePlan.call(@plan)
     end
 
+    @plan.deleted = true
+    @plan.deleted_at = Time.now
+
+    @plan.subscriptions.update_all(status => Subscription.statuses[:cancelled])
+
     respond_to do |format|
-      if @plan && @plan.errors.count == 0 && @plan.delete
+      if @plan && @plan.errors.count == 0 && @plan.save
         format.html  { render action: 'index' }
         format.json { render json: {}, status: 200 }
       else
