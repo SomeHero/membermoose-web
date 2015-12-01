@@ -12,7 +12,7 @@
     init = () ->
       $scope.fromLaunch = $state.current.data.fromLaunch
       $scope.newPlanSection = 1
-      if $scope.user.account.hasCreatedPlan
+      if $scope.fromLaunch && $scope.user.account.hasCreatedPlan
         $scope.newPlanSection = 7
       $scope.form_submitted = false
       $scope.plan = {
@@ -108,7 +108,7 @@
 
               AccountServiceChannel.accountUpdated()
 
-              create_plan_modal.close()
+              $scope.dismissModal()
 
           (http)  ->
             errors = http.data

@@ -154,7 +154,10 @@ var app = angular.module('dashboardApp', [
         .state('dashboard.plans.create', {
             url: '/create',
             templateUrl: 'dashboard/ng-app/templates/plans/new_plan.html',
-            controller: 'CreatePlanController'
+            controller: 'CreatePlanController',
+            data: {
+              fromLaunch: false
+            }
         })
         .state('dashboard.plans.delete', {
             url: '/delete',

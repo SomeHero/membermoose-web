@@ -9,7 +9,7 @@
   .container-fluid
     .row{:style=>"margin-bottom: 20px;"}
       .col-md-3
-        .plan.thumbnail{"ng-click"=>"createPlanClicked()", :style=>"position: relative;"}
+        .plan.thumbnail{"ui-sref"=>"dashboard.plans.create", :style=>"position: relative;"}
           .plan-image
             .overlay
               .view-project{:style=>"height: 100px; line-height: 100px; margin-top: 10px;"}
