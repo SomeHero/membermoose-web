@@ -11,8 +11,8 @@ class UserSubscribedWorker
 
     self.send_subscribe_email subscription
 
-    notifier = Slack::Notifier.new "transferllc", "wi8oy1HpbfJLMIR693STWwEk",
-                         channel: '#random', username: 'notifier'
+    notifier = Slack::Notifier.new "membermoose", "EhtDPEm71aIK2F0vzzM0aghS",
+                         channel: '#membermoosechatter', username: 'mm-bot'
 
     if subscription.plan.mm_identifier == "MM_FREE"
       notifier.ping "#{subscription.account.full_name} (#{subscription.account.user.email}) just became a bull!"
