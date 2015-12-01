@@ -27,8 +27,10 @@
         Would you like to import any existing plans from your Stripe account?
 
     %footer
+      %button.previous{"ng-click"=>"dismissModal()"}
+        No Thanks
       %button.continue{"ng-click"=>"getPlansClicked()"}
-        Yes
+        Yes, Import Plans
         %i.fa-arrow-right
     %div{"loading-screen" => "loading.show_spinner"}
   %section{"ng-class"=>"{'active': isActiveStep(3)}"}

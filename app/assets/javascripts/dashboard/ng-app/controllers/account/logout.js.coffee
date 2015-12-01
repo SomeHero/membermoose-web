@@ -19,7 +19,7 @@
 
     $scope.dismissClicked = () ->
       $scope.dismissModal()
-      
+
       $state.go($rootScope.previousState)
 
     $scope.logoutClicked = () ->
@@ -34,4 +34,4 @@
     init()
 ]
 
-DeletePlanController.$inject = ['$scope', 'rootScope', '$state', '$stateParams', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']
+LogoutCofirmationController.$inject = ['$scope', 'rootScope', '$state', '$stateParams', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']
