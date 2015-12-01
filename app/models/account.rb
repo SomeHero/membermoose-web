@@ -123,6 +123,12 @@ class Account < ActiveRecord::Base
 
     result
   end
+  def set_default_subdomain
+    subdomain = self.company_name.gsub(/\s+/, '-').downcase
+
+    #ToDo: we should check that this subdomain is available
+    self.subdomain = subdomain
+  end
   def subscribe_to_mm_free
     return if !is_bull?
 

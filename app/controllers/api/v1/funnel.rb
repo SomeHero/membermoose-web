@@ -56,6 +56,8 @@ module API
           error!('404 Not Found', 404) unless account
 
           account.company_name = params["company_name"]
+          account.set_default_subdomain
+
           account.save!
 
           account
