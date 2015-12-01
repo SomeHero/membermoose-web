@@ -31,6 +31,11 @@ var app = angular.module('dashboardApp', [
             templateUrl: 'dashboard/ng-app/templates/account.html',
             controller: 'AccountController'
         })
+        .state('dashboard.logout', {
+            url: '/logout',
+            templateUrl: 'dashboard/ng-app/templates/account/logout.html',
+            controller: 'LogoutConfirmationController'
+        })
         .state('dashboard.change_password', {
             url: '/account/change_password',
             templateUrl: 'dashboard/ng-app/templates/account/change_password.html',

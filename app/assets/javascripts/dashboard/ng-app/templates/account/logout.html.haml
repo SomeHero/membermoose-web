@@ -1,0 +1,14 @@
+.action-form{"data-remodal-id"=>"logout-modal", "data-remodal-options"=>"hashTracking: false" }
+  %section.active
+    %header
+      %h2
+        Don't Leave Us!
+      %h4
+        Are your sure you want to logout?
+        %footer
+          %button.previous{"ng-click"=>"dismissClicked()"}
+            Cancel
+          %button.continue{"ng-click"=>"logoutClicked()"}
+            Continue
+            %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}

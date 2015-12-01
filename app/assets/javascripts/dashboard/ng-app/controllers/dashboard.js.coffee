@@ -1,5 +1,6 @@
 @DashboardController = angular.module('dashboardApp').controller 'DashboardController', [
   '$scope',
+  '$rootScope',
   '$window',
   '$state',
   'Account',
@@ -10,7 +11,7 @@
   'AccountServiceChannel',
   'Auth',
   'user'
-  ($scope, $window, $state, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth, user) ->
+  ($scope, $rootScope, $window, $state, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth, user) ->
     currentModal = null
 
     init = () ->
@@ -41,6 +42,13 @@
         if $state.current.name.indexOf("launch_list") > -1
           $state.go('dashboard.launch_list')
 
+      $rootScope.previousState
+      $rootScope.currentState
+      $rootScope.$on '$stateChangeSuccess', (ev, to, toParams, from, fromParams) ->
+        $rootScope.previousState = from.name
+        $rootScope.currentState = to.name
+        console.log 'Previous state:' + $rootScope.previousState
+        console.log 'Current state:' + $rootScope.currentState
 
     $scope.init = () ->
       nav_page_height()
@@ -138,4 +146,4 @@
     return
 ]
 
-AccountController.$inject = ['$scope', '$window', '$state', 'Account', 'Plan', 'window', '$modal', '$timeout', 'AccountServiceChannel', 'user']
+AccountController.$inject = ['$scope', '$rootScope', '$window', '$state', 'Account', 'Plan', 'window', '$modal', '$timeout', 'AccountServiceChannel', 'user']
