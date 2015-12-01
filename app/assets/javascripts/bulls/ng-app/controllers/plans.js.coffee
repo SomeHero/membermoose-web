@@ -8,7 +8,8 @@
     window.scope = $scope
 
     $scope.account = account
-    stripe.setPublishableKey($scope.account.payment_processors[0].api_key)
+    if$scope.account.payment_processors.length > 0
+      stripe.setPublishableKey($scope.account.payment_processors[0].api_key)
     $scope.loading = {
       show_spinner: false
     }

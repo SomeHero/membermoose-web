@@ -14,14 +14,14 @@
         %span{:style=>"font-size: 24px;"}
           <%
           if Rails.env.production?
-            site_url =".membermoose-ng.com"
+            site_url =".membermoose.com"
           else
             site_url = ".mmoose-ng.localhost:3000/"
           end
           %>
           \<%= site_url %>
         %p.example
-          Your MemberMoose website url is https://{{user.account.subdomain}}.mmoose.localhost:3000
+          Your MemberMoose website url is https://{{user.account.subdomain}}<%= site_url %>
         %p.notes
           Pick the subdomain for your MemberMoose website.  Your MemberMoose website
           will display all of your plans and will be site that you will direct customers to
