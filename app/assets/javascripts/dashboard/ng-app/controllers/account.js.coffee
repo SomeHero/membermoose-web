@@ -135,7 +135,7 @@
             $scope.dismiss_loading()
             $scope.form_submitted = false
 
-            message = "Your successfully updated your password."
+            message = "You successfully updated your password."
             $scope.display_success_message(message)
 
             $scope.change_password = {}

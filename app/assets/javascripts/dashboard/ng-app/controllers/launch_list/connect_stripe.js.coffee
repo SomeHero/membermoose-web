@@ -106,7 +106,7 @@
           $scope.dismiss_loading()
           $scope.form_submitted = false
 
-          message = "Your successfully updated your password."
+          message = "Your plans are importing!"
           $scope.display_success_message(message)
 
           $scope.dismissModal()
