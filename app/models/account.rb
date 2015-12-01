@@ -67,7 +67,7 @@ class Account < ActiveRecord::Base
 
   def manage_account_url
     if Rails.env.production?
-      prefix ="http://www.membermoose-ng.com"
+      prefix ="http://www.membermoose.com"
     else
       prefix = "http://www.mmoose-ng.localhost:3000"
     end
@@ -77,7 +77,7 @@ class Account < ActiveRecord::Base
 
   def create_plan_url
     if Rails.env.production?
-      prefix ="http://www.membermoose-ng.com"
+      prefix ="http://www.membermoose.com"
     else
       prefix = "http://www.mmoose-ng.localhost:3000"
     end
@@ -224,7 +224,7 @@ class Account < ActiveRecord::Base
   end
   def build_site_url subdomain
     if Rails.env.production?
-      site_url ="https://#{subdomain}.membermoose-ng.com"
+      site_url ="https://#{subdomain}.membermoose.com"
     else
       site_url = "http://#{subdomain}.mmoose-ng.localhost:3000/"
     end
