@@ -40,7 +40,7 @@
       .container-fluid
         .row{:style=>"margin-bottom: 20px;"}
           .col-md-3{"ng-repeat"=>"plan in plans"}
-            .plan.thumbnail{"ng-click"=>"selectPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
+            .plan.thumbnail{"ng-click"=>"selectPlan(plan)", "ng-class"=>"{ 'selected': isPlanSelected(plan) }" }
               .plan-info
                 %h2.plan-name
                   {{plan.name}}

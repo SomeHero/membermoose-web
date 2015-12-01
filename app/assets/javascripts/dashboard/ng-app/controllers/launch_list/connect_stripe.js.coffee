@@ -82,6 +82,12 @@
     $scope.selectPlan = (plan) ->
       $scope.plansToImport.push(plan)
 
+    $scope.isPlanSelected = (plan) ->
+        if $scope.plansToImport.indexOf(plan) > -1
+          return true
+
+        return false
+
     $scope.importPlansClicked = () ->
       if $scope.plansToImport.length == 0
         return false
