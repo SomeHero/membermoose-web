@@ -1,4 +1,4 @@
-class Dashboard::CardsController < DashboardController
+class Dashboard::Account::CardsController < DashboardController
   layout :determine_layout
 
   def index
@@ -20,8 +20,7 @@ class Dashboard::CardsController < DashboardController
   end
 
   def create
-    bull = current_user.account
-    account = bull.members.find(params["member_id"])
+    account = current_user.account
     stripe_token = params["stripe_token"]
 
     @card = AddCard.call(
@@ -59,7 +58,7 @@ class Dashboard::CardsController < DashboardController
     account = current_user.account
 
     card = Card.find(params["id"])
-    token = params["card"]["stripe_token"]
+    token = params["stripe_token"]
 
     @card = UpdateCard.call(card, token)
 
@@ -87,7 +86,9 @@ class Dashboard::CardsController < DashboardController
   def destroy
     Rails.logger.info("Attempting to Delete Card")
 
-    @card = Card.find(params["id"])
+    account = current_user.account
+
+    @card = account.cards.find(params["id"])
 
     @card = DeleteCard.call(@card)
 

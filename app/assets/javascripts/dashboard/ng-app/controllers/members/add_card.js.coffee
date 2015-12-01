@@ -4,8 +4,9 @@
   '$state'
   'Card'
   'stripe'
+  '$http'
   '$window'
-  ($scope, $stateParams, $state, Card, stripe, window) ->
+  ($scope, $stateParams, $state, Card, stripe, $http, window) ->
     init = () ->
       window.scope = $scope
       $scope.form_submitted = false
@@ -14,13 +15,13 @@
 
         return
 
-      $scope.card = $stateParams.card
+      $scope.member = $stateParams.member
 
-      if !updateCardModal
-        updateCardModal = $('[data-remodal-id=update-card-modal]').remodal($scope.options)
+      if !modal
+        modal = $('[data-remodal-id=add-card-modal]').remodal($scope.options)
 
-      $scope.setCurrentModal(updateCardModal)
-      updateCardModal.open()
+      $scope.setCurrentModal(modal)
+      modal.open()
 
     $scope.addCardSubmit = (form) ->
       if form.$valid
@@ -28,29 +29,19 @@
         stripe.setPublishableKey(stripeKey)
 
         $scope.display_loading()
-        $scope.modalErrorMessage = null
-        #$scope.form_submitted = true
 
-        stripe.card.createToken($scope.creditCard).then((token) ->
-          new Card({
-            id: $scope.card.id,
-            card_brand: $scope.creditCard.card_brand,
-            card_last4: $scope.creditCard.card_last4,
-            exp_month: $scope.creditCard.exp_month,
-            exp_year: $scope.creditCard.exp_year,
-            stripe_token: token
-          }).create().then(
+        stripe.card.createToken($scope.credit_card).then((token) ->
+          params = {
+              stripe_token: token,
+              member_id: $scope.member.id,
+          }
+          $http.post('/dashboard/cards/', params).then(
             (response) ->
               newCard = new Card(response.data)
 
-              angular.forEach($scope.user.account.cards, (value, index) =>
-                if value.id == $scope.card.id
-                  $scope.user.account.cards[index] = newCard
+              $scope.member.cards.push(newCard)
 
-                  return
-              )
               $scope.dismiss_loading()
-              #$scope.form_submitted = false
 
               message = "Your credit card was successfully added. You're awesome."
               $scope.display_success_message(message)
@@ -66,11 +57,11 @@
         ).catch (err) ->
           $scope.dismiss_loading()
 
-          $scope.modalErrorMessage = err.message
+          $scope.display_error_message(err.message)
       else
         $scope.form_submitted = true
 
     init()
 ]
 
-MemberAddCardController.$inject = ['$scope', '$stateParams', '$state', 'Card', 'stripe', 'window']
+MemberAddCardController.$inject = ['$scope', '$stateParams', '$state', 'Card', 'stripe', '$http', 'window']

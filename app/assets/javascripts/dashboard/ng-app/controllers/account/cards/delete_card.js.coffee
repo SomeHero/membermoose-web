@@ -3,8 +3,9 @@
   '$stateParams'
   'Card'
   'stripe'
+  '$http'
   '$window'
-  ($scope, $stateParams, Card, stripe, window) ->
+  ($scope, $stateParams, Card, stripe, $http, window) ->
     init = () ->
       window.scope = $scope
       if !$stateParams.card
@@ -21,12 +22,11 @@
     $scope.deleteCardSubmit = () ->
       $scope.display_loading()
 
-      Card.setUrl('/dashboard/cards')
-      new Card($scope.card).delete().then(
+      $http.delete('/dashboard/account/' + $scope.user.account.id + '/cards/' + $scope.card.id).then(
         (response) ->
           $scope.dismiss_loading()
 
-          message = "Your card, " + $scope.card.last4 + ", was successfully deleted."
+          message = "Your card, ending in " + $scope.card.last4 + ", was successfully deleted."
           $scope.display_success_message(message)
 
           $scope.dismissModal()
@@ -35,7 +35,7 @@
 
           errors = http.data
 
-          $scope.modalErrorMessage = errors
+          $scope.display_error_message(errors)
       )
 
     init()

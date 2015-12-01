@@ -28,15 +28,16 @@
             %span{:style=>"display: inline;"}
               \/
             %input#expiry_date_year{:name => "expiry_date_year", :placeholder => "YYYY", :required => "", "maxlength"=>"4", :type => "text", "ng-model"=>"credit_card.exp_year", :style => "width:180px;"}/
-            %span{"ng-show" => "form_submitted && addCreditCardForm['expiry_date_month'].$invalid", :style => "color:red"}
-              %span{"ng-show" => "addCreditCardForm['expiry_date_month'].$error.required"}
-                Card Expiration month is required.
             %label{:for => "security_code"}
               Security Code
             %input#security_code{:name => "security_code", :placeholder => "CVC Code", :required => "", "maxlength"=>"4", :type => "text", "ng-model"=>"credit_card.cvc", :style => "width: 200px;"}/
-            %span{"ng-show" => "form_submitted && addCreditCardForm['security_code'].$invalid", :style => "color:red"}
-              %span{"ng-show" => "addCreditCardForm['security_code'].$error.required"}
-                Security Code is required.
+            %div
+              %span{"ng-show" => "form_submitted && addCreditCardForm['expiry_date_month'].$invalid", :style => "color:red"}
+                %span{"ng-show" => "addCreditCardForm['expiry_date_month'].$error.required"}
+                  Card Expiration month is required.
+              %span{"ng-show" => "form_submitted && addCreditCardForm['security_code'].$invalid", :style => "color:red"}
+                %span{"ng-show" => "addCreditCardForm['security_code'].$error.required"}
+                  Security Code is required.
           .form-group.checkbox-wrapper
             %input#default_card{:name => "default_card", "type"=>"checkbox", "ng-model"=>"credit_card_attr.default", "ng-true-value"=>"true", "ng-false-value"=>"false"}
             %label{:for => "default_card"}

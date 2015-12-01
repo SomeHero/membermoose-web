@@ -1,6 +1,9 @@
 %ul.nav.submenu-nav
   %li
-    %a.top-nav-item{"ui-sref"=>"dashboard.members.update_card({member: {{selected_member}}})"}
+    %a.top-nav-item{"ui-sref"=>"dashboard.members.add_card({member: {{selected_member}}})"}
+      Add Card
+  %li
+    %a{"ui-sref"=>"dashboard.members.update_card({member: {{selected_member}}})"}
       Update Card
   %li
     %a{"ui-sref"=>"dashboard.members.delete_card({member: {{selected_member}}})"}

@@ -1,12 +1,10 @@
 .action-form{"data-remodal-id"=>"delete-card-modal", "data-remodal-options"=>"hashTracking: false" }
-  #error-message.alert.alert-danger{:role => "alert", "ng-show"=>"modalErrorMessage"}
-    {{modalErrorMessage}}
   %section.active
     %header
       %h2
         Delete a Credit Card
       %h4
-        Are you sure your want to delete your {{selectedCard.brand}} card ending in {{selectedCard.last4}}?
+        Are you sure your want to delete your {{card.brand}} card ending in {{card.last4}}?
       %footer
         %button.previous{"ng-click"=>"dismissModal()"}
           Cancel

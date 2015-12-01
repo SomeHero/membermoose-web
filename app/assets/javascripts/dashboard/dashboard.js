@@ -121,7 +121,7 @@ var app = angular.module('dashboardApp', [
         .state('dashboard.members.add_card', {
             url: '/add_card',
             templateUrl: 'dashboard/ng-app/templates/members/cards/add_card.html',
-            controller: 'MembrAddCardController',
+            controller: 'MemberAddCardController',
             params: { member: null }
         })
         .state('dashboard.members.update_card', {

@@ -4,8 +4,9 @@
   '$state'
   'Card'
   'stripe'
+  '$http'
   '$window'
-  ($scope, $stateParams, $state, Card, stripe, window) ->
+  ($scope, $stateParams, $state, Card, stripe, $http, window) ->
     init = () ->
       window.scope = $scope
       $scope.form_submitted = false
@@ -13,7 +14,11 @@
         $state.go('dashboard.cards')
 
       $scope.card = $stateParams.card
-
+      $scope.creditCard = {
+        name: $scope.card.nameOnCard,
+        exp_month: $scope.card.expirationMonth,
+        exp_year: $scope.card.expirationYear
+      }
       if !updateCardModal
         updateCardModal = $('[data-remodal-id=update-card-modal]').remodal($scope.options)
 
@@ -30,14 +35,10 @@
         #$scope.form_submitted = true
 
         stripe.card.createToken($scope.creditCard).then((token) ->
-          new Card({
-            id: $scope.card.id,
-            card_brand: $scope.creditCard.card_brand,
-            card_last4: $scope.creditCard.card_last4,
-            exp_month: $scope.creditCard.exp_month,
-            exp_year: $scope.creditCard.exp_year,
-            stripe_token: token
-          }).update().then(
+          params = {
+              stripe_token: token,
+          }
+          $http.put('/dashboard/account/' + $scope.user.account.id + '/cards/' + $scope.card.id, params).then(
             (response) ->
               newCard = new Card(response.data)
 
@@ -50,7 +51,7 @@
               $scope.dismiss_loading()
               #$scope.form_submitted = false
 
-              message = "Your credit card was successfully added. You're awesome."
+              message = "Your card was successfully added. You're awesome."
               $scope.display_success_message(message)
 
               $scope.dismissModal()
@@ -64,11 +65,11 @@
         ).catch (err) ->
           $scope.dismiss_loading()
 
-          $scope.modalErrorMessage = err.message
+          $scope.display_error_message(err.message)
       else
         $scope.form_submitted = true
 
     init()
 ]
 
-UpdateCardController.$inject = ['$scope', '$stateParams', '$state', 'Card', 'stripe', 'window']
+UpdateCardController.$inject = ['$scope', '$stateParams', '$state', 'Card', 'stripe', '$http', 'window']
