@@ -67,7 +67,8 @@ class Dashboard::AccountController < DashboardController
       return
     end
     user.password = new_password
-
+    user.password_confirmation = new_password
+    
     if user.save
       sign_in(user, :bypass => true)
 
