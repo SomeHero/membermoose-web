@@ -4,16 +4,14 @@
       .container-fluid.plans{"style"=>"min-height: 400px;"}
         .row{"ng-repeat"=>"row in rows", :style=>"margin-bottom: 20px;"}
           .col-md-4{"ng-repeat"=>"plan in row"}
-            .plan{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
-              .plan-image{:style=>"height:70px;"}
-                .overlay
-                  %div.view-project
-                    %a{"ng-href"=>"/plans/{{plan.id}}"}
-              .plan-info
+            .plan.thumbnail{:style=>"position: relative;"}
+              .plan-info{:style=>"margin-top: 20px;"}
+                %h1.plan-description{:style=>"font-size: 22px; font-weight: 700;"}
+                  {{plan.description}}
                 %h2.plan-name
                   {{plan.name}}
                 %h3.plan-amount
                   {{plan.amount | currency }}/{{ plan.billingCycle }}
-              %button.btn.btn-lg.btn-success{"ui-sref"=>"subscribe({ id: '{{plan.guid}}'})"}
+              %button.btn.btn-lg.btn-success{"ui-sref"=>"subscribe({ id: '{{plan.guid}}'})", :style=>"width: 100%; border-radius: 0px; position: absolute; bottom: 0px; left: 0px; height: 50px;"}
                 Subscribe
 %div{"loading-screen" => "loading.show_spinner"}
