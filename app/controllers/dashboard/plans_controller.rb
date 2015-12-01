@@ -29,6 +29,7 @@ class Dashboard::PlansController < DashboardController
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
     @plan = CreatePlan.call(account, {
+        :account => account,
         :name => params["plan"]["name"],
         :stripe_id => params["plan"]["name"],
         :description => params["plan"]["description"],
