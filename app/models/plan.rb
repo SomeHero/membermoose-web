@@ -17,6 +17,7 @@ class Plan < ActiveRecord::Base
     :id => self.id,
     :guid => self.guid,
     :name => self.name,
+    :account => self.account,
     :description => self.description,
     :feature_1 => self.feature_1,
     :feature_2 => self.feature_2,

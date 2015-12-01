@@ -8,8 +8,11 @@
 .container-fluid.plans{"style"=>"min-height: 400px;"}
   .row{:style=>"margin-bottom: 20px;", "ng-show"=>"user.account.subscriptions.length > 0"}
     .col-md-4{"ng-repeat"=>"subscription in user.account.subscriptions"}
-      .plan
+      .plan.thumbnail
         .plan-info
+          %img.logo{"ng-src"=>"{{subscription.plan.account.logo.url}}", "alt"=>"subscription.plan.account.companyName","ng-show"=>"subscription.plan.account.logo.url.length > 0"}
+          %h1.company-name
+            {{subscription.plan.account.companyName}}
           %h2.plan-name
             {{subscription.plan.name}}
           %h3.plan-amount

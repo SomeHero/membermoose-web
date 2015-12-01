@@ -8,14 +8,14 @@
 .container-fluid.plans{"style"=>"min-height: 400px;"}
   .row{:style=>"margin-bottom: 20px;", "ng-show"=>"user.account.cards.length > 0"}
     .col-md-4{"ng-repeat"=>"card in user.account.cards"}
-      .plan{:style=>"padding: 20px 0px;"}
+      .plan.thumbnail
         .plan-info
           .card-default{"ng-show"=>"card.default"}
             Default
-          %i.fa.fa-credit-card{:style=>"font-size: 48px;"}
-          %h4.card-name
+          %i.fa.fa-credit-card{:style=>"font-size: 64px;"}
+          %h2.plan-name
             {{card.nameOnCard}}
-          %h5.card-brand
+          %h3.plan-amount
             {{card.brand}} ****{{card.last4}}
         %button.btn.btn-lg.btn-primary{"ui-sref"=>"dashboard.cards.update({card: {{card}} })"}
           Update Card
