@@ -69,6 +69,8 @@ class CreateSubscription
         )
       end
     rescue Stripe::StripeError => e
+      Rails.logger.error "CREATE SUBSCRIPTION ERROR #{e.message}"
+
       subscription.errors[:base] << e.message
 
       return account, subscription, card, raw_token
