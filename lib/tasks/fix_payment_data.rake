@@ -14,7 +14,8 @@ task :fix_payment_data=> [:environment] do
 
       stripe_charges.each do |stripe_charge|
         puts "Stripe Charge: #{stripe_charge["created"]}"
-
+        puts stripe_charge.to_json
+        
         begin
           stripe_charge_id = stripe_charge["id"]
 
@@ -60,6 +61,7 @@ task :fix_payment_data=> [:environment] do
 
           if !invoice
             puts "Creating a payment for charge #{stripe_charge_id}"
+            puts stripe_invoice.to_json
 
             invoice = Invoice.create!({
               :external_id => stripe_invoice["id"],
