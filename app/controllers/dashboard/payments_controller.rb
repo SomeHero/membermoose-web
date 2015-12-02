@@ -63,10 +63,14 @@ class Dashboard::PaymentsController < DashboardController
   def refund
     account = current_user.account
 
-    @payment = account.payments.find(params[:id])
-    @payment = RefundPayment.call(@payment)
+    payment = account.payments.find(params[:id])
+    @payment = RefundPayment.call(payment)
 
-    render :json => {:payment => @payment.to_json}, status: 200
+    if @payment.errors.count == 0 && @payment.save
+      render :json => {:payment => @payment.to_json}, status: 200
+    else
+      format.json { render json: @payment.errors, status: :bad_request }
+    end
   end
 
 end
