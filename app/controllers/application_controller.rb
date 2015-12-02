@@ -10,14 +10,19 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     # return the path based on resource
-    if resource.account.is_bull?
-      if resource.account.has_created_plan
-        dashboard_plans_path
-      else
-        dashboard_launch_index_path
-      end
+    binding.pry
+    if resource.is_a?(AdminUser)
+      admin_dashboard_path
     else
-      dashboard_my_subscriptions_path
+      if resource.account.is_bull?
+        if resource.account.has_created_plan
+          dashboard_plans_path
+        else
+          dashboard_launch_index_path
+        end
+      else
+        dashboard_my_subscriptions_path
+      end
     end
   end
 end
