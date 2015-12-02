@@ -58,7 +58,7 @@
                   Password is required
           .form-group
             .col-md-12
-              %input.form-control.input{:autofocus => "", :name => "name_on_card", :placeholder => "Name on Card", :required => "", :type => "text", "ng-model"=>"payment.name"}/
+              %input.form-control.input{:autofocus => "", :name => "name_on_card", :placeholder => "Name on Card", :required => "", :type => "text", "ng-model"=>"payment.card.name"}/
               %span{"ng-show" => "form_submitted && addCreditCardForm['name_on_card'].$invalid", :style => "color:red"}
                 %span{"ng-show" => "addCreditCardForm['name_on_card'].$error.required"}
                   Name on Card is required.
