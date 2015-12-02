@@ -6,7 +6,7 @@ class CreateSubscription
 
     return false if !stripe_secret_key
 
-    account, raw_token = CreateUser.call(first_name, last_name, email_address, password, bull)
+    account, raw_token = CreateUser.call(first_name, last_name, email_address, password, plan.account)
 
     payment_processor = PaymentProcessor.find_by(:name => "Stripe")
 
