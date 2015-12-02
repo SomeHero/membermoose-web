@@ -4,7 +4,7 @@ task :fix_payment_data=> [:environment] do
 
   puts "Found #{accounts.count} account"
   accounts.each do |account|
-    puts "Found #{account.payments.count} payments"
+    puts "Starting account #{account.company_name}"
     account.subscriptions.each do |subscription|
 
       stripe_customer_id = subscription.account.stripe_customer_id
@@ -28,6 +28,8 @@ task :fix_payment_data=> [:environment] do
         charge = Charge.find_by_external_id(stripe_charge_id)
 
         if !charge
+          puts "Creating a payment for charge #{stripe_charge_id}"
+
           Payment.create!({
             :charge => Charge.new({
               :external_id => stripe_charge_id,
@@ -55,6 +57,8 @@ task :fix_payment_data=> [:environment] do
         invoice = Invoice.find_by_external_id(stripe_invoice_id)
 
         if !invoice
+          puts "Creating a payment for charge #{stripe_charge_id}"
+          
           invoice = Invoice.create!({
             :external_id => stripe_invoice["id"],
             :total => Money.new(stripe_invoice["total"], "USD").cents.to_f/100,
