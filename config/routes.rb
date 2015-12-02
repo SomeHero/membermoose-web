@@ -77,6 +77,9 @@ Rails.application.routes.draw do
         resources :refund, :controller => "dashboard"
         get :count, defaults: { format: 'json' }
       end
+      member do
+        post :refund, defaults: { format: 'json' }
+      end
     end
     resources :account, :controller => "dashboard/account" do
       resources :cards, :controller => "dashboard/account/cards"
