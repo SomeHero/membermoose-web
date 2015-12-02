@@ -1,6 +1,6 @@
 class RefundPayment
   def self.call(payment)
-    stripe_secret_key = payment.stripe_secret_key
+    stripe_secret_key = payment.account.stripe_secret_key
     stripe_charge_id = payment.charge.external_id
 
     return false if !stripe_secret_key

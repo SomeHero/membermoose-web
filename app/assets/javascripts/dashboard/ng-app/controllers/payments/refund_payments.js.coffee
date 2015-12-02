@@ -16,7 +16,7 @@
 
 
     $scope.refundPaymentCancel = () ->
-      refund_payment_modal.close()
+      $scope.dismissModal()
 
     $scope.refundPaymentSubmit = () ->
       $scope.loading.show_spinner = true
@@ -28,7 +28,7 @@
           $scope.display_success_message(message)
 
           $scope.dismiss_loading()
-          refund_payment_modal.close()
+          $scope.dismissModal()
 
           $scope.closeEditBar()
         (http)  ->
@@ -38,7 +38,6 @@
           $scope.display_error_message(message)
 
           $scope.dismiss_loading()
-          refund_payment_modal.close()
       )
 
     init()

@@ -8,7 +8,7 @@ class GetCustomerBillingHistoryWorker
     account = subscription.plan.account
 
     stripe_customer_id = subscription.account.stripe_customer_id
-    stripe_charges = GetCharges.call(stripe_customer_id, account.stripe_secret_key)
+    stripe_charges = GetCharges.call(stripe_customer_id, subscription.plan.account.stripe_secret_key)
 
     stripe_charges.each do |stripe_charge|
       stripe_charge_id = stripe_charge["id"]
