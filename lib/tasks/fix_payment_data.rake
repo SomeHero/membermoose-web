@@ -15,7 +15,7 @@ task :fix_payment_data=> [:environment] do
       stripe_charges.each do |stripe_charge|
         puts "Stripe Charge: #{stripe_charge["created"]}"
         puts stripe_charge.to_json
-        
+
         begin
           stripe_charge_id = stripe_charge["id"]
 
@@ -25,7 +25,7 @@ task :fix_payment_data=> [:environment] do
           stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
 
           stripe_balance_txn = GetBalanceTransaction.call(stripe_balance_txn_id, account.stripe_secret_key)
-          stripe_invoice = GetInvoice.call(stripe_invoice_id, account.stripe_secret_key)
+          stripe_invoice = GetInvoice.call(stripe_invoice_id, subscription.plan.account.stripe_secret_key)
 
           card = account.cards.find_by_external_id(stripe_card_id)
           charge = Charge.find_by_external_id(stripe_charge_id)
