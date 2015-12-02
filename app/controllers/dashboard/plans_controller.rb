@@ -97,7 +97,7 @@ class Dashboard::PlansController < DashboardController
     @plan.deleted = true
     @plan.deleted_at = Time.now
 
-    @plan.subscriptions.update_all(status => Subscription.statuses[:cancelled])
+    @plan.subscriptions.update_all(:status => Subscription.statuses[:cancelled])
 
     respond_to do |format|
       if @plan && @plan.errors.count == 0 && @plan.save
