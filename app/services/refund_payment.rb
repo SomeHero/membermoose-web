@@ -3,14 +3,16 @@ class RefundPayment
     stripe_secret_key = payment.stripe_secret_key
     stripe_charge_id = payment.charge.external_id
 
-    if !stripe_secret_key
-      payment.errors[:base] << "Stripe Key Not Set"
-      return false
-    end if
-    if !stripe_charge_id
-      payment.errors[:base] << "Charge #{payment.charge.external_id} not found"
-      return false
-    end
+    return false if !stripe_secret_key
+    return false if !stripe_charge_id
+    # if !stripe_secret_key
+    #   payment.errors[:base] << "Stripe Key Not Set"
+    #   return false
+    # end if
+    # if !stripe_charge_id
+    #   payment.errors[:base] << "Charge #{payment.charge.external_id} not found"
+    #   return false
+    # end
 
     begin
       Stripe.api_key = stripe_secret_key
