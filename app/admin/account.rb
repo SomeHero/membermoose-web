@@ -3,4 +3,5 @@ ActiveAdmin.register Account do
   filter :first_name
   filter :last_name
   filter :company_name
+  filter :role, as: :select, collection: Account.roles
 end
