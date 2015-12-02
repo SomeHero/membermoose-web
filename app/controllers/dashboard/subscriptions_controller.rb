@@ -56,9 +56,6 @@ class Dashboard::SubscriptionsController < DashboardController
 
     account = current_user.account
 
-    stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
-    stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
-
     @subscription = ChangeSubscription.call(@subscription, @plan)
 
     respond_to do |format|
