@@ -71,7 +71,7 @@ task :fix_payment_data=> [:environment] do
             })
           end
         rescue => e
-          puts "Error #{e}"
+          puts "Error #{e} #{e.backtrace} "
         end
       end
     end
