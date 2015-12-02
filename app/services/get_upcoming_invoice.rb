@@ -2,7 +2,7 @@ require 'money'
 
 class GetUpcomingInvoice
   def self.call(subscription)
-    stripe_secret_key = subscription.plan.account.stripe_secret_key
+    stripe_secret_key = subscription.plan.account.bull.stripe_secret_key
     stripe_customer_id = subscription.account.stripe_customer_id
 
     return false if !stripe_secret_key

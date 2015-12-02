@@ -1,6 +1,6 @@
 class UpdateCard
   def self.call(card, stripe_token)
-    stripe_secret_key = card.account.stripe_secret_key
+    stripe_secret_key = card.account.bull.stripe_secret_key
     stripe_customer_id = card.account.stripe_customer_id
     stripe_card_id = card.external_id
 

@@ -2,7 +2,10 @@ class CreateSubscription
   def self.call(plan, first_name, last_name, email_address, password, token,
     stripe_card_id, card_brand, card_last4, exp_month, exp_year)
 
-    bull = plan.account
+    stripe_secret_key = plan.account.stripe_secret_key
+
+    return false if !stripe_secret_key
+
     account, raw_token = CreateUser.call(first_name, last_name, email_address, password, bull)
 
     payment_processor = PaymentProcessor.find_by(:name => "Stripe")
@@ -10,7 +13,7 @@ class CreateSubscription
     card = account.cards.where(:external_id => stripe_card_id).first
 
     begin
-      Stripe.api_key =  bull.stripe_secret_key
+      Stripe.api_key =  stripe_secret_key
 
       stripe_sub = nil
       if account.stripe_customer_id.blank?
