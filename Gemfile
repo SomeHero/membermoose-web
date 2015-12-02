@@ -22,6 +22,7 @@ gem 'pry-remote'
 gem 'stripe_event'
 gem 'newrelic_rpm'
 gem 'google-analytics-rails'
+gem 'airbrake'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
