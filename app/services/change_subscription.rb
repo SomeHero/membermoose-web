@@ -1,6 +1,6 @@
 class ChangeSubscription
   def self.call(subscription, plan)
-    stripe_secret_key = subscription.account.stripe_secret_key
+    stripe_secret_key = subscription.plan.account.stripe_secret_key
     stripe_customer_id = subscription.account.stripe_customer_id
     stripe_subscription_id = subscription.stripe_id
     stripe_plan_id = plan.stripe_id
@@ -9,7 +9,7 @@ class ChangeSubscription
     return false if !stripe_customer_id
     return false if !stripe_subscription_id
     return false if !stripe_plan_id
-    
+
     begin
       Stripe.api_key = stripe_secret_key
 
