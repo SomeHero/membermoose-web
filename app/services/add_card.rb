@@ -1,6 +1,6 @@
 class AddCard
   def self.call(account, stripe_token)
-    stripe_secret_key = account.stripe_secret_key
+    stripe_secret_key = account.bull.stripe_secret_key
     stripe_customer_id = account.stripe_customer_id
 
     return false if !stripe_secret_key

@@ -19,7 +19,7 @@ class ElasticEmailApi
         'api_key' => API_KEY,
         'from' => from_addr,
         'from_name' => from_name,
-        'to' => "james@somehero.com",
+        'to' => to_addr,
         'subject' => subject,
         'template' => template_name,
         'reply_to' => reply_to_email,
