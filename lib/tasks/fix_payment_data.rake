@@ -58,7 +58,9 @@ task :fix_payment_data=> [:environment] do
             end
             charge = Charge.find_by_external_id(stripe_charge_id)
 
-            if !charge
+            payment = charge.payment
+
+            if !payment
               puts "Creating a payment for charge #{stripe_charge_id}"
 
               Payment.create!({
@@ -87,7 +89,7 @@ task :fix_payment_data=> [:environment] do
               puts "Updating a payment"
 
               payment = charge.payment
-              payment.transaction_date =Time.at(stripe_charge["created"])
+              payment.transaction_date = Time.at(stripe_charge["created"])
               payment.payee = subscription.account
               payment.card = card
 
