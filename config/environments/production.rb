@@ -77,6 +77,16 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = { :host => "smtp25.elasticemail.com" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address              => 'smtp.elasticemail.com',
+      :port                 => 2525,
+      :domain               => 'elasticemail.com',
+      :user_name            => '8d2a63d3-afe0-47d1-84e8-54453b11eee3',
+      :password             => '8d2a63d3-afe0-47d1-84e8-54453b11eee3',
+      :authentication       => 'login',
+      :enable_starttls_auto => true
+  }
 
   config.paperclip_defaults = {
       storage: :s3,
