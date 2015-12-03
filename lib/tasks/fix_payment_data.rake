@@ -16,7 +16,7 @@ task :fix_payment_data=> [:environment] do
 
         stripe_charges.each do |stripe_charge|
           puts "Stripe Charge: #{stripe_charge["created"]}"
-          puts stripe_charge.to_json
+          #puts stripe_charge.to_json
 
           begin
             stripe_charge_id = stripe_charge["id"]
@@ -30,6 +30,11 @@ task :fix_payment_data=> [:environment] do
             stripe_invoice = GetInvoice.call(stripe_invoice_id, subscription.plan.account.stripe_secret_key)
 
             card = account.cards.find_by_external_id(stripe_card_id)
+            if !card
+
+            else
+
+            end
             charge = Charge.find_by_external_id(stripe_charge_id)
 
             if !charge
@@ -46,7 +51,7 @@ task :fix_payment_data=> [:environment] do
                 }),
                 :payment_processor => stripe_payment_processor,
                 :account => subscription.plan.account,
-                :payee => account,
+                :payee => subscription.account,
                 :amount => Money.new(stripe_balance_txn["amount"], "USD").cents.to_f/100,
                 :transaction_date => Time.at(stripe_charge["created"]),
                 :payment_processor_fee => Money.new(stripe_balance_txn["fee"], "USD").cents.to_f/100,
@@ -69,7 +74,7 @@ task :fix_payment_data=> [:environment] do
 
             if !invoice
               puts "Creating a payment for charge #{stripe_charge_id}"
-              puts stripe_invoice.to_json
+              #puts stripe_invoice.to_json
 
               invoice = Invoice.create!({
                 :external_id => stripe_invoice["id"],
