@@ -15,7 +15,7 @@ task :fix_payment_data=> [:environment] do
         puts "Found #{stripe_charges.count} stripe charges"
 
         stripe_charges.each do |stripe_charge|
-          puts "Stripe Charge: #{stripe_charge["created"]}"
+          puts "Stripe Charge: #{stripe_charge}"
           #puts stripe_charge.to_json
 
           begin
@@ -86,7 +86,7 @@ task :fix_payment_data=> [:environment] do
                 :comments => "Recurring Payment for #{subscription.plan.name}"
               })
             else
-              puts "Updating a payment"
+              puts "Updating a payment for charge #{stripe_charge_id}"
 
               payment = charge.payment
               payment.transaction_date = Time.at(stripe_charge["created"])
