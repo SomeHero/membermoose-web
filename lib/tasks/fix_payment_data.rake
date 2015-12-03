@@ -4,7 +4,7 @@ task :fix_payment_data=> [:environment] do
 
   puts "Found #{accounts.count} account"
   accounts.each do |account|
-    put "Found #{account.plans.count} Plans"
+    puts "Found #{account.plans.count} Plans"
     account.plans.each do |plan|
       puts "Starting account #{account.company_name}"
       plan.subscriptions.each do |subscription|
