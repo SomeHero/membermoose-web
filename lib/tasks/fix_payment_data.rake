@@ -85,10 +85,11 @@ task :fix_payment_data=> [:environment] do
               })
             else
               puts "Updating a payment"
-              
+
               payment = charge.payment
               payment.transaction_date =Time.at(stripe_charge["created"])
               payment.payee = subscription.account
+              payment.card = card
 
               payment.save
             end
