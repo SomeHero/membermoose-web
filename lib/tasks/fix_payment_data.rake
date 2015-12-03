@@ -65,7 +65,7 @@ task :fix_payment_data=> [:environment] do
             else
               payment = charge.payment
               payment.transaction_date =Time.at(stripe_charge["created"])
-              payment.payee = account
+              payment.payee = subscription.account
 
               payment.save
             end
