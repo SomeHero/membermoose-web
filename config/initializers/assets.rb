@@ -6,6 +6,7 @@ Rails.application.config.assets.precompile += %w( application-dashboard.css )
 Rails.application.config.assets.precompile += %w( calf-dashboard.css )
 Rails.application.config.assets.precompile += %w( public/application.js dashboard/application.js bulls/application.js )
 Rails.application.config.assets.precompile += %w( application-bulls.css )
+Rails.application.config.assets.precompile += %w( resize.js )
 Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 Rails.application.config.assets.paths << "#{Rails}/vendor/assets/fonts"
 # Precompile additional assets.

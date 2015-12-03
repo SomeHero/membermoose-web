@@ -40,9 +40,9 @@ $(document).ready(function() {
   // }
 
   // COLLAPSE LEFT NAV
-  $('.minifyme').click(function(e) {
+  $(document.body).on("click", ".minifyme", function(e){
     $('body').toggleClass("minified");
-    $(this).effect("highlight", {}, 500);
+    //$(this).effect("highlight", {}, 500);
     e.preventDefault();
   });
 

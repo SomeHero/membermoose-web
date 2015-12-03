@@ -16,6 +16,7 @@
 //= require jquery.validate.additional-methods
 //= require bootstrap-sprockets
 //= require remodal
+//= require resize
 //= require_directory ./xenon
 //= require angular
 //= require angular-animate
