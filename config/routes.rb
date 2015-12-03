@@ -83,6 +83,7 @@ Rails.application.routes.draw do
     end
     resources :account, :controller => "dashboard/account" do
       resources :cards, :controller => "dashboard/account/cards"
+      resources :upload_logo, :controller => "dashboard/account"
       collection do
         post :upload_logo, defaults: { format: 'json' }
       end

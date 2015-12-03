@@ -40,7 +40,7 @@
               %label{:for=>"logo", "style"=>"display: block;"}
                 Logo
               %img{"ng-src"=>"{{user.account.logo.url}}", "ng-alt"=>"{{user.account.companyName}}","ng-show"=>"user.account.logo.url.length > 0", "style"=>"margin: 20px 0px;"}
-              %button.btn.btn-primary{"ng-click"=>"upload_logo_clicked()", "type"=>"button"}
+              %button.btn.btn-primary{:type=>"button", "ui-sref"=>"dashboard.account.upload_logo"}
                 Upload Logo
           .row
             .col-lg-4
@@ -51,13 +51,13 @@
             %h4
               Account Details
             %h6
-              Member Since: 7/13/2014
+              Member Since: {{user.account.memberSince | date:'mediumDate'}}
             #current-plan-wrapper
               #current-plan
                 .subscription-cost.text-center
                   {{ user.account.subscriptions[0].plan.amount | currency:undefined:0 }}/{{ user.account.subscriptions[0].plan.billingCycle }}
                 .subscription-description
-                  You are currently subscribed to the {{ user.account.subscriptions[0].plan.name }}
+                  You are currently subscribed to the {{ user.account.subscriptions[0].plan.name }} plan.
                 %ul.subscription-details
                   %li{"ng-show"=>"user.account.subscriptions[0].plan.feature1"}
                     {{ user.account.subscriptions[0].plan.feature1 }}
@@ -68,12 +68,29 @@
                   %li{"ng-show"=>"user.account.subscriptions[0].plan.feature4"}
                     {{ user.account.subscriptions[0].plan.feature4 }}
             #upgrade-plan-wrapper{{"ng-show"=>"!user.account.hasUpgradedPlan"}}
-              %button.btn.btn-primary{:type=>"button", "ng-click"=>"upgrade_plan_clicked()"}
+              %button.btn.btn-primary{:type=>"button", "ui-sref"=>"dashboard.account.upgrade_plan"}
                 Upgrade Plan
-            %p.label
-              Next Billing Date:
-            %p.data
-              9/14/2015
-            %p.label
-              Billing History:
+            %div{"ng-show"=>"user.account.billingHistory.length > 0"}
+              %p.label
+                Billing History:
+              %p.data
+              %table.table
+                %tr{"ng-repeat"=>"payment in user,account.billingHistory"}
+                  %td
+                    {{payment.transactionDate | date :'shortDate'}}
+                  %td
+                    {{payment.amount | currency}}
+                  %td
+                    {{payment.status}}
+            %div{"ng-show"=>"user.account.nextInvoiceDate"}
+              %p.label
+                Next Billing Date:
+              %p.data
+                {{user.account.nextInvoiceDate | date :'longDate'}}
 %div{"loading-screen" => "loading.show_spinner"}
+%main.remodal-bg
+  .remodal{"data-remodal-id" => "modal"}
+    .moose-dialog
+      .fa.fa-heater
+    .remodal-overlay
+      %ui-view#modal

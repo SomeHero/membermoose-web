@@ -1,6 +1,10 @@
 class Dashboard::AccountController < DashboardController
   layout :determine_layout
 
+  def create
+    binding.pry
+  end
+
   def upload_logo
     user = current_user
 
@@ -68,7 +72,7 @@ class Dashboard::AccountController < DashboardController
     end
     user.password = new_password
     user.password_confirmation = new_password
-    
+
     if user.save
       sign_in(user, :bypass => true)
 
@@ -84,6 +88,8 @@ class Dashboard::AccountController < DashboardController
   def upgrade_plan
     #ToDo: we should totally refactor
     #ToDo: need a better way to identify special plan
+
+    binding.pry
     free_plan = Plan.find_by_stripe_id("MM_FREE")
     prime_plan = Plan.find_by_stripe_id("MM_PRIME")
 

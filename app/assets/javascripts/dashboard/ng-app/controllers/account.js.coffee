@@ -1,8 +1,9 @@
 @AccountController = angular.module('dashboardApp').controller 'AccountController', [
   '$scope'
+  '$state'
+  '$stateParams'
   'Account'
   'Card'
-  '$stateParams'
   '$window'
   '$timeout'
   'fileReader'
@@ -10,7 +11,7 @@
   'AccountServiceChannel',
   '$http'
   'stripe'
-  ($scope, Account, Card, $stateParams, window, $timeout, fileReader, Upload, AccountServiceChannel, $http, stripe) ->
+  ($scope, $state, $stateParams, Account, Card, window, $timeout, fileReader, Upload, AccountServiceChannel, $http, stripe) ->
     init = () ->
       window.scope = $scope
       $scope.loading.show_spinner = false
@@ -32,6 +33,12 @@
       $scope.error_message = ""
       $scope.active_step = 1
       $scope.init()
+
+      $(document).on 'closed', '.remodal', (e) ->
+        # Reason: 'confirmation', 'cancellation'
+        if $state.current.name.indexOf("account") > -1
+          $state.go('dashboard.account')
+
 
     $scope.updateAccount = (user, form) ->
       console.log "updating user"
@@ -324,4 +331,4 @@
     return
 ]
 
-AccountController.$inject = ['$scope', 'Account', 'Card', '$stateParams', 'window', '$timeout', 'fileReader', 'Upload', 'AccountServiceChannel', '$http', 'stripe']
+AccountController.$inject = ['$scope', '$state', '$stateParams', 'Account', 'Card', 'window', '$timeout', 'fileReader', 'Upload', 'AccountServiceChannel', '$http', 'stripe']

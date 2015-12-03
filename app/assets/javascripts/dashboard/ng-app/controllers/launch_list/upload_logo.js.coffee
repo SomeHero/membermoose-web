@@ -1,5 +1,6 @@
 @UploadLogoController = angular.module('dashboardApp').controller 'UploadLogoController', [
   '$scope'
+  '$state'
   'Plan'
   '$window'
   'Account'
@@ -10,11 +11,11 @@
   'AccountServiceChannel'
   'PlansServiceChannel'
   '$http'
-  ($scope, Plan, window, Account, $timeout, fileReader, stripe, Upload, AccountServiceChannel, PlansServiceChannel, $http) ->
+  ($scope, $state, Plan, window, Account, $timeout, fileReader, stripe, Upload, AccountServiceChannel, PlansServiceChannel, $http) ->
     init = () ->
       window.scope = $scope
 
-      $scope.test = "James"
+      $scope.fromLaunch = $state.current.data.fromLaunch
 
       if !upload_logo_modal
         upload_logo_modal = $('[data-remodal-id=upload-logo-modal]').remodal($scope.options)
@@ -63,6 +64,10 @@
             $scope.display_success_message(message)
 
             AccountServiceChannel.accountUpdated()
+
+            if !$scope.fromLaunch
+              $scope.dismissModal()
+
       ), ((resp) ->
         message = resp.status
         $scope.display_error_message(message)
@@ -75,4 +80,4 @@
     init()
 ]
 
-UploadLogoController.$inject = ['$scope', 'Plan', '$window', 'Account', '$timeout', 'fileReader', 'stripe', 'Upload', 'AccountServiceChannel', 'PlansServiceChannel', '$http']
+UploadLogoController.$inject = ['$scope', '$state', 'Plan', '$window', 'Account', '$timeout', 'fileReader', 'stripe', 'Upload', 'AccountServiceChannel', 'PlansServiceChannel', '$http']

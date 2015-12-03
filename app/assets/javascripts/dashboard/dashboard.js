@@ -31,6 +31,22 @@ var app = angular.module('dashboardApp', [
             templateUrl: 'dashboard/ng-app/templates/account.html',
             controller: 'AccountController'
         })
+        .state('dashboard.account.upload_logo', {
+            url: '/upload_logo',
+            templateUrl: 'dashboard/ng-app/templates/account/upload_logo.html',
+            controller: 'UploadLogoController',
+            data: {
+              fromLaunch: false
+            }
+        })
+        .state('dashboard.account.upgrade_plan', {
+            url: '/upgrade_plan',
+            templateUrl: 'dashboard/ng-app/templates/account/upgrade_plan.html',
+            controller: 'UpgradePlanController',
+            data: {
+              fromLaunch: false
+            }
+        })
         .state('dashboard.logout', {
             url: '/logout',
             templateUrl: 'dashboard/ng-app/templates/account/logout.html',
@@ -88,7 +104,10 @@ var app = angular.module('dashboardApp', [
         .state('dashboard.launch_list.upload_logo', {
           url: '/upload_logo',
           templateUrl: 'dashboard/ng-app/templates/launchlist/upload_logo.html',
-          controller: 'UploadLogoController'
+          controller: 'UploadLogoController',
+          data: {
+            fromLaunch: true
+          }
         })
         .state('dashboard.launch_list.setup_subdomain', {
           url: '/setup_subdomain',
@@ -111,7 +130,10 @@ var app = angular.module('dashboardApp', [
         .state('dashboard.launch_list.upgrade_plan', {
           url: '/upgrade',
           templateUrl: 'dashboard/ng-app/templates/launchlist/upgrade_plan.html',
-          controller: 'UpgradePlanController'
+          controller: 'UpgradePlanController',
+          data: {
+            fromLaunch: true
+          }
         })
         .state('dashboard.members', {
             url: '/members',
