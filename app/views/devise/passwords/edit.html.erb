@@ -1,27 +1,27 @@
 <div class="container-fluid login-container login-page" style="background-color: #edf0f5">
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3 text-center">
-      <h2>Change your password</h2>
+      <%= link_to(root_path) do %>
+        <%= image_tag('logo-black.png', width: "300", style:"margin-bottom: 20px;") %>
+      <% end %>
 
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), :html => { :class => 'login-form', method: :put }) do |f| %>
         <%= devise_error_messages! %>
         <%= f.hidden_field :reset_password_token %>
 
         <div class="form-group">
-          <%= f.label :password, class: 'control-label' %><br />
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em><br />
           <% end %>
-          <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+          <%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: 'password', class: 'form-control input-dark input-lg' %>
         </div>
 
         <div class="form-group">
-          <%= f.label :password_confirmation, class: 'control-label' %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'confirm password',  class: 'form-control input-dark input-lg' %>
         </div>
 
         <div class="actions">
-          <%= f.submit "Change my password", class: 'btn btn-success  btn-block text-center' %>
+          <%= f.submit "Change my password", class: 'btn btn-success btn-block text-center' %>
         </div>
       <% end %>
 
