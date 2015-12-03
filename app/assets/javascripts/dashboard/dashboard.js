@@ -273,6 +273,12 @@ var app = angular.module('dashboardApp', [
             name: 'subscription'
         });
     }]);
+    angular.module('dashboardApp').factory('MySubscription', ['railsResourceFactory', function (railsResourceFactory) {
+        return railsResourceFactory({
+            url: '/dashboard/my_subscriptions',
+            name: 'my_subscription'
+        });
+    }]);
     angular.module('dashboardApp').factory('Payment', ['railsResourceFactory', function (railsResourceFactory) {
         return railsResourceFactory({
             url: '/dashboard/payments',

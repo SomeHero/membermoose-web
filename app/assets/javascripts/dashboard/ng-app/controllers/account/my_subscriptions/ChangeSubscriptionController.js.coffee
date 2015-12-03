@@ -2,12 +2,12 @@
   '$scope'
   '$state'
   '$stateParams'
-  'Subscription'
+  'MySubscription'
   'BullPlan'
   'stripe'
   '$window'
   '$http'
-  ($scope, $state, $stateParams, Subscription, BullPlan, stripe, window, $http) ->
+  ($scope, $state, $stateParams, MySubscription, BullPlan, stripe, window, $http) ->
     init = () ->
       window.scope = $scope
       if !$stateParams.subscription
@@ -73,9 +73,9 @@
       params = {
           plan_id: $scope.selectedPlan.id
       }
-      $http.post('/dashboard/subscriptions/' + $scope.subscription.id  + '/change', params).then(
+      $http.post('/dashboard/my_subscriptions/' + $scope.subscription.id  + '/change', params).then(
         (response) ->
-          new_subscription = new Subscription(response.data)
+          new_subscription = new MySubscription(response.data)
 
           angular.forEach $scope.user.account.subscriptions, ((subscription, index) ->
             if subscription.id == new_subscription.id

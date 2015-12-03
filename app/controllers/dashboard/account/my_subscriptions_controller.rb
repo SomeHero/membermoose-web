@@ -1,4 +1,4 @@
-class Dashboard::SubscriptionsController < DashboardController
+class Dashboard::Account::MySubscriptionsController < DashboardController
   layout :determine_layout
 
   def index
@@ -51,23 +51,23 @@ class Dashboard::SubscriptionsController < DashboardController
   end
 
   def change
-    account = current_user.account
+    @subscription = Subscription.find(params[:id])
+    @plan = Plan.find(params[:plan_id])
 
-    @subscription = account.subscriptions_plans.find(params[:id])
-    @plan = account.plans.find(params[:plan_id])
+    account = current_user.account
 
     @subscription = ChangeSubscription.call(@subscription, @plan)
 
     respond_to do |format|
       format.html  { render action: 'show' }
-      format.json { render :json => {:subscription => @subscription}, status: 200 }
+      format.json { render :json => @subscription.to_json, status: 200 }
     end
   end
 
   def destroy
     account = current_user.account
 
-    @subscription = account.subscriptions_plans.find(params[:id])
+    @subscription = account.subscriptions.find(params[:id])
     @subscription = CancelSubscription.call(@subscription)
 
     respond_to do |format|

@@ -1,16 +1,20 @@
 .action-form{"data-remodal-id"=>"change-plan-modal", "data-remodal-options"=>"hashTracking: false" }
   %section.active
     %H2
-      Change Plan?
+      Upgrade/Downgrade Plan?
     %h4
-      {{selected_subscription.subscriber.firstName}} {{selected_subscription.subscriber.lastName}} is currently subscribed to {{selected_subscription.plan.name}}.  To upgrade or downgrade
-      {{selected_subscription.subscriber.firstName}}'s subscription, pick another plan.
+      {{subscription.subscriber.subscriberName}} is currently subscribed to {{subscription.plan.name}}.  To upgrade or downgrade
+      {{subscription.subscriber.subscriberName}}'s subscription, pick another plan.
     %p
       .container-fluid
         .row-fluid
-          .col-md-4{"ng-repeat"=>"plan in plans | filter: filterSubscribedPlane"}
-            .plan.thumbnail{"ng-click"=>"changePlanSelect(plan)"}
-              {{plan.name}}
+          .col-md-4{"ng-repeat"=>"plan in plans | filter: filterSubscribedPlan"}
+            .plan.thumbnail{"ng-click"=>"selectPlan(plan)", "ng-class"=>"{ 'selected': isPlanSelected(plan) }" }
+              .plan-info
+                %h2.plan-name
+                  {{plan.name}}
+                %h3.plan-amount
+                  {{plan.amount | currency }}/{{ plan.billingCycle }}
     %footer
       %button.continue{"ng-click"=>"changePlanSubmit()"}
         Change Plan

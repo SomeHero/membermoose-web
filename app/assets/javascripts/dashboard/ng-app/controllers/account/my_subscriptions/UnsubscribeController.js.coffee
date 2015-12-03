@@ -2,10 +2,10 @@
   '$scope'
   '$state'
   '$stateParams'
-  'Subscription'
+  'MySubscription'
   'stripe'
   '$window'
-  ($scope, $state, $stateParams, Subscription, stripe, window) ->
+  ($scope, $state, $stateParams, MySubscription, stripe, window) ->
     init = () ->
       window.scope = $scope
       if !$stateParams.subscription
@@ -20,14 +20,19 @@
       modal.open()
 
     $scope.cancelSubscriptionSubmit = () ->
-      Subscription.setUrl('/dashboard/subscriptions')
+      MySubscription.setUrl('/dashboard/my_subscriptions')
 
       $scope.display_loading()
-      new Subscription($scope.subscription).delete().then(
+      new MySubscription($scope.subscription).delete().then(
         () ->
-          $scope.subscription.status = "Cancelled"
+          $scope.subscription.status = "cancelled"
+          angular.forEach $scope.user.account.subscriptions, ((subscription, index) ->
+            if subscription.id == $scope.subscription.id
+              $scope.user.account.subscriptions[index] = $scope.subscription
 
-          message = "The subscription was successfully deleted."
+              return
+          )
+          message = "The subscription was successfully cancelled."
           $scope.display_success_message(message)
 
           $scope.dismiss_loading()
@@ -38,10 +43,10 @@
           message = "Sorry, an unexpected error ocurred.  Please try again."
           $scope.display_error_message(message)
 
-          $scope.dismissLoading()
+          $scope.dismiss_loading()
       )
 
     init()
 ]
 
-UnsubscribeController.$inject = ['$scope', '$state', '$stateParams', 'Subscription', 'stripe', 'window']
+UnsubscribeController.$inject = ['$scope', '$state', '$stateParams', 'MySubscription', 'stripe', 'window']

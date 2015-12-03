@@ -25,8 +25,14 @@
     $scope.filterSubscribedPlan = (plan) ->
       plan.id != $scope.selected_subscription.plan.id
 
-    $scope.changePlanSelect = (plan) ->
+    $scope.selectPlan = (plan) ->
       $scope.selected_plan = plan
+
+    $scope.isPlanSelected = (plan) ->
+        if $scope.selected_plan == plan
+          return true
+
+        return false
 
     $scope.changePlanSubmit = () ->
       if $scope.selected_plan == null

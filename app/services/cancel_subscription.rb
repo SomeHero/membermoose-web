@@ -14,7 +14,10 @@ class CancelSubscription
       customer = Stripe::Customer.retrieve(stripe_customer_id)
       customer.subscriptions.retrieve(stripe_subscription_id).delete
     rescue Stripe::StripeError => e
-      throw e
+      Rails.logger.error "Error Cancelling a Subscription #{e.message}:#{e.backtrace}"
+
+      return false
+      #throw e
     end
 
     subscription.status = Subscription.statuses[:cancelled]

@@ -28,13 +28,20 @@
       $scope.display_loading()
       new Subscription($scope.subscription).delete().then(
         () ->
-          $scope.subscription.status = "Cancelled"
+          $scope.subscription.status = "cancelled"
+          angular.forEach $scope.subscriptions, ((subscription, index) ->
+            if subscription.id == $scope.subscription.id
+              scope.subscriptions[index] = $scope.subscription
 
+              return
+          )
           message = "The subscription was successfully deleted."
           $scope.display_success_message(message)
 
           $scope.dismiss_loading()
           $scope.dismissModal()
+
+          $scope.closeEditBar()
         (http)  ->
           $scope.dismiss_loading()
 

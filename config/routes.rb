@@ -56,12 +56,6 @@ Rails.application.routes.draw do
         resources :next_invoice, :controller => "dashboard"
       end
     end
-    resources :my_subscriptions, :controller => "dashboard" do
-      collection do
-        resources :unsubscribe, :controller => "dashboard"
-        resources :upgrade, :controller => "dashboard"
-      end
-    end
     resources :subscriptions, :controller => "dashboard/subscriptions" do
       collection do
         resources :unsubscribe, :controller => "dashboard"
@@ -82,6 +76,7 @@ Rails.application.routes.draw do
       end
     end
     resources :account, :controller => "dashboard/account" do
+      resources :my_subscriptions, :controller => "dashboard/account/my_subscriptions"
       resources :cards, :controller => "dashboard/account/cards", :defaults => { :format => 'json' }
       resources :upload_logo, :controller => "dashboard/account"
       collection do
@@ -91,6 +86,17 @@ Rails.application.routes.draw do
         post :change_password, defaults: { format: 'json' }
         post :change_subdomain, defaults: { format: 'json' }
         post :upgrade_plan, defaults: { format: 'json' }
+      end
+    end
+    resources :my_subscriptions, :controller => "dashboard/account/my_subscriptions" do
+      resources :unsubscribe, :controller => "dashboard/account"
+      resources :upgrade, :controller => "dashboard/account"
+      collection do
+        post :upgrade_plan, defaults: { format: 'json' }
+        post :change_plan, default: { format: 'json'}
+      end
+      member do
+        post :change, defaults: { format: 'json' }
       end
     end
     resource :bulls do
