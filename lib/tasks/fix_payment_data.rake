@@ -57,6 +57,12 @@ task :fix_payment_data=> [:environment] do
                 :card => card,
                 :comments => "Recurring Payment for #{subscription.plan.name} (test)"
               })
+            else
+              payment = charge.payment
+              payment.transaction_date =Time.at(stripe_charge["created"])
+              payment.payee = account
+
+              payment.save
             end
 
             invoice = Invoice.find_by_external_id(stripe_invoice_id)
