@@ -93,6 +93,7 @@ class Account < ActiveRecord::Base
       :id => self.id,
       :guid => self.guid,
       :role => self.role,
+      :bull_id => self.bull.id,
       :first_name => self.first_name,
       :last_name => self.last_name,
       :full_name => self.full_name,

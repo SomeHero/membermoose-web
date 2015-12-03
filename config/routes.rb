@@ -93,6 +93,11 @@ Rails.application.routes.draw do
         post :upgrade_plan, defaults: { format: 'json' }
       end
     end
+    resource :bulls do
+      collection do
+        resources :plans, :controller => "dashboard/bulls/plans", defaults: { format: 'json' }
+      end
+    end
   end
 
   resource :bulls do

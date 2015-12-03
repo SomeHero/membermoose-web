@@ -279,6 +279,12 @@ var app = angular.module('dashboardApp', [
             name: 'payment'
         });
     }]);
+    angular.module('dashboardApp').factory('BullPlan', ['railsResourceFactory', function (railsResourceFactory) {
+        return railsResourceFactory({
+            url: '/dashboard/bulls/plans',
+            name: 'bullplan'
+        });
+    }]);
     angular.module('dashboardApp').service('PlansServiceChannel', function ($rootScope) {
         var PLANS_UPDATED_MESSAGE, plansUpdated, onPlansUpdated;
         PLANS_UPDATED_MESSAGE = 'plansUpdatedMessage';

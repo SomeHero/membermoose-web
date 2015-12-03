@@ -1,5 +1,5 @@
 .action-form{"data-remodal-id"=>"change-subscription-modal", "data-remodal-options"=>"hashTracking: false" }
-  %section.active
+  %section{"ng-class"=>"{ 'active': isCurrentStep(1) }" }
     %H2
       Change Plan?
     %h4
@@ -7,13 +7,29 @@
     %p
       .container-fluid
         .row-fluid
-          .col-md-4{"ng-repeat"=>"plan in bull.plans | filter: filterSubscribedPlan"}
-            .plan.thumbnail{"ng-click"=>"changePlanSelect(plan)"}
-              {{plan.name}}
+          .col-md-4{"ng-repeat"=>"plan in plans | filter: filterSubscribedPlan"}
+            .plan.thumbnail{"ng-click"=>"selectPlan(plan)", "ng-class"=>"{ 'selected': isPlanSelected(plan) }" }
+              .plan-info
+                %h2.plan-name
+                  {{plan.name}}
+                %h3.plan-amount
+                  {{plan.amount | currency }}/{{ plan.billingCycle }}
     %footer
       %button.previous{"ng-click"=>"dismissModal()"}
         Cancel
+      %button.continue{"ng-click"=>"nextStepClicked()"}
+        Change Plan
+        %i.fa-arrow-right
+    %div{"loading-screen" => "loading.showSpinner"}
+  %section{"ng-class"=>"{ 'active': isCurrentStep(2) }" }
+    %H2
+      Are your sure your want to upgrade/downgrade your plan?
+    %h4
+      To confirm, you want to upgrade/downgrade your subscription to {{subscription.plan.name}} to {{selectedPlan.name}}?
+    %footer
+      %button.previous{"ng-click"=>"previousStepClicked()"}
+        Go Back
       %button.continue{"ng-click"=>"changePlanSubmit()"}
         Change Plan
         %i.fa-arrow-right
-  %div{"loading-screen" => "loading.showSpinner"}
+    %div{"loading-screen" => "loading.show_spinner"}
