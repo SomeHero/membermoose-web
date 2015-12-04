@@ -63,10 +63,10 @@ task :fix_payment_data=> [:environment] do
             if !payment
               puts "Creating a payment for charge #{stripe_charge_id}"
 
-              paid = true
+              status = "Paid"
               comment = "Recurring Payment for #{subscription.plan.name}"
               if !stripe_charge["paid"]
-                paid = false
+                status = "Failed"
                 comment = "#{subscription["failure_code"]}: #{subscription["failure_message"]}"
               end
 
@@ -87,7 +87,7 @@ task :fix_payment_data=> [:environment] do
                 :payment_processor_fee => Money.new(stripe_balance_txn["fee"], "USD").cents.to_f/100,
                 :payment_method => "Credit Card",
                 :payment_type => "Recurring",
-                :status => paid,
+                :status => status,
                 :subscription => subscription,
                 :card => card,
                 :comments => comment
@@ -99,6 +99,8 @@ task :fix_payment_data=> [:environment] do
               payment.transaction_date = Time.at(stripe_charge["created"])
               payment.payee = subscription.account
               payment.card = card
+              payment.status = status
+              payment.comment = comment
 
               payment.save
             end
@@ -106,8 +108,8 @@ task :fix_payment_data=> [:environment] do
             invoice = Invoice.find_by_external_id(stripe_invoice_id)
 
             if !invoice
-              puts "Creating a payment for charge #{stripe_charge_id}"
-              #puts stripe_invoice.to_json
+              puts "Creating an invoice for invoice #{stripe_invoice["id"]}"
+              puts stripe_invoice.to_json
 
               invoice = Invoice.create!({
                 :external_id => stripe_invoice["id"],
@@ -115,7 +117,7 @@ task :fix_payment_data=> [:environment] do
                 :subtotal => Money.new(stripe_invoice["subtotal"], "USD").cents.to_f/100,
                 :due_date => Time.at(stripe_invoice["date"]),
                 :subscription => subscription,
-                :status => "Paid"
+                :status => status
               })
             end
           rescue => e
