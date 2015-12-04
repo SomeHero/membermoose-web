@@ -118,7 +118,7 @@ class Account < ActiveRecord::Base
       :hasConnectedStripe => self.has_connected_stripe,
       :hasUpgradedPlan => self.has_upgraded_plan,
       :cards => (self.cards.active ? self.cards.active : nil),
-      :member_count => self.members.count
+      :member_count => self.members.count,
       :member_since => self.member_since,
       :createdAt => self.created_at,
       :updatedAt	=> self.updated_at
