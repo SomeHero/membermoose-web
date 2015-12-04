@@ -6,8 +6,11 @@ class GetNextCustomerInvoiceWorker
 
   def self.perform(subscription_id)
     subscription = Subscription.find(subscription_id)
-    bull_account = subscription.plan.account
 
-    GetUpcomingInvoice.call(subscription)
+    result = GetUpcomingInvoice.call(subscription)
+
+    if !result[0]
+      raise "Error Getting Upcoming Invoices #{results[1]}"
+    end
   end
 end
