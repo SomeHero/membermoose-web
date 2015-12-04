@@ -15,7 +15,7 @@ task :fix_payment_data=> [:environment] do
         puts "Found #{stripe_charges.count} stripe charges"
 
         stripe_charges.each do |stripe_charge|
-          puts "Stripe Charge: #{stripe_charge}"
+          #puts "Stripe Charge: #{stripe_charge}"
           #puts stripe_charge.to_json
 
           begin
@@ -63,6 +63,13 @@ task :fix_payment_data=> [:environment] do
             if !payment
               puts "Creating a payment for charge #{stripe_charge_id}"
 
+              paid = true
+              comment = "Recurring Payment for #{subscription.plan.name}"
+              if !stripe_charge["paid"]
+                paid = false
+                comment = "#{subscription["failure_code"]}: #{subscription["failure_message"]}"
+              end
+
               Payment.create!({
                 :charge => Charge.new({
                   :external_id => stripe_charge_id,
@@ -80,10 +87,10 @@ task :fix_payment_data=> [:environment] do
                 :payment_processor_fee => Money.new(stripe_balance_txn["fee"], "USD").cents.to_f/100,
                 :payment_method => "Credit Card",
                 :payment_type => "Recurring",
-                :status => "Paid",
+                :status => paid,
                 :subscription => subscription,
                 :card => card,
-                :comments => "Recurring Payment for #{subscription.plan.name}"
+                :comments => comment
               })
             else
               puts "Updating a payment for charge #{stripe_charge_id}"
