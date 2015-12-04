@@ -53,7 +53,7 @@
         $scope.totalItems = result.originalData.total_items
         $scope.isLoading = false
 
-        sortPlans()
+        #sortPlans()
 
     $scope.filterSubscribedPlan = (plan) ->
       plan.id != $scope.selected_subscription.plan.id
