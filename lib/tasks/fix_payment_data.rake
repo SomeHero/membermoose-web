@@ -100,7 +100,7 @@ task :fix_payment_data=> [:environment] do
               payment.payee = subscription.account
               payment.card = card
               payment.status = status
-              payment.comment = comment
+              payment.comments = comment
 
               payment.save
             end
