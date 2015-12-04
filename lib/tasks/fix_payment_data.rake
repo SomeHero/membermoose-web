@@ -14,7 +14,7 @@ task :fix_payment_data=> [:environment] do
         stripe_charges = GetCharges.call(stripe_customer_id, subscription.plan.account.stripe_secret_key)
 
         next if !stripe_charges
-        puts "Found #{stripe_charges.count} stripe charges"
+        #puts "Found #{stripe_charges.count} stripe charges"
 
         stripe_charges.each do |stripe_charge|
           #puts "Stripe Charge: #{stripe_charge}"
