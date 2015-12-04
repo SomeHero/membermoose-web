@@ -8,8 +8,16 @@ class GetCustomerBillingHistoryWorker
     account = subscription.plan.account
 
     stripe_customer_id = subscription.account.stripe_customer_id
-    stripe_charges = GetCharges.call(stripe_customer_id, subscription.plan.account.stripe_secret_key)
+    results = GetCharges.call(stripe_customer_id, subscription.plan.account.stripe_secret_key)
 
+    if !results[0]
+      Rails.logger.error "Error Getting Charges #{results[1]}"
+
+      raise "Error Getting Charges #{results[1]}"
+    end
+
+    stripe_charges = results[1]
+    
     stripe_charges.each do |stripe_charge|
       stripe_charge_id = stripe_charge["id"]
       stripe_card_id = stripe_charge["source"]["id"]

@@ -5,9 +5,9 @@ class GetCharges
 
       stripe_charges = Stripe::Charge.all(:customer => stripe_customer_id, :limit => 100)
     rescue Stripe::StripeError => e
-      return e.message
+      return false, e.message
     end
 
-    return stripe_charges.data
+    return true, stripe_charges.data
   end
 end

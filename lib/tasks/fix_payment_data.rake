@@ -11,10 +11,16 @@ task :fix_payment_data=> [:environment] do
       plan.subscriptions.each do |subscription|
 
         stripe_customer_id = subscription.account.stripe_customer_id
-        stripe_charges = GetCharges.call(stripe_customer_id, subscription.plan.account.stripe_secret_key)
+        results = GetCharges.call(stripe_customer_id, subscription.plan.account.stripe_secret_key)
 
-        next if !stripe_charges
-        #puts "Found #{stripe_charges.count} stripe charges"
+        if !results[0]
+          puts "Error Getting Charges #{results[1]}"
+          next
+        end
+
+        stripe_charges = results[1]
+
+        puts "Found #{stripe_charges.count} stripe charges"
 
         stripe_charges.each do |stripe_charge|
           #puts "Stripe Charge: #{stripe_charge}"
@@ -60,7 +66,9 @@ task :fix_payment_data=> [:environment] do
             end
             charge = Charge.find_by_external_id(stripe_charge_id)
 
-            payment = charge.payment
+            if charge
+              payment = charge.payment
+            end
 
             if !payment
               puts "Creating a payment for charge #{stripe_charge_id}"
