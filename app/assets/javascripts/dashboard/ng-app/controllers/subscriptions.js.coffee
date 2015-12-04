@@ -28,10 +28,6 @@
         invoice_to_date: null
       }
 
-      change_plan_modal = null
-      cancel_subscription_modal = null
-      credit_subscription_modal = null
-
       $(document).on 'closed', '.remodal', (e) ->
         # Reason: 'confirmation', 'cancellation'
         if $state.current.name.indexOf("subscriptions") > -1
@@ -42,7 +38,6 @@
       $scope.init()
 
     $scope.pageChanged = () ->
-      console.log('Page changed to: ' + $scope.currentPage);
       $scope.isLoading = true
       $scope.getSubscriptions()
 
@@ -54,49 +49,8 @@
         $scope.isLoading = false
 
         #sortPlans()
-
-    $scope.filterSubscribedPlan = (plan) ->
-      plan.id != $scope.selected_subscription.plan.id
-
-    $scope.changePlanSelect = (plan) ->
-      $scope.selected_plan = plan
-
-    $scope.changePlanSubmit = () ->
-      if $scope.selected_plan == null
-        return
-
-      $scope.loading.show_spinner = true
-
-      params = {
-          plan_id: $scope.selected_plan.id
-      }
-      $http.post('/dashboard/subscriptions/' + $scope.selected_subscription.id  + '/change', params).then(
-        (response) ->
-          new_subscription = new Subscription(response.data)
-
-          angular.forEach $scope.subscriptions, ((subscription, index) ->
-            if subscription.id == new_subscription.id
-              scope.subscriptions[index] = new_subscription
-
-              return
-          )
-
-          message = "The subscription was successfully changed."
-          $scope.display_success_message(message)
-
-          $scope.dismiss_loading()
-          change_plan_modal.close()
-
-          $scope.closeEditBar()
-        (http)  ->
-          errors = http.data
-
-          message = "Sorry, an unexpected error ocurred.  Please try again."
-          $scope.display_error_message(message)
-
-          $scope.dismiss_loading()
-          change_plan_modal.close()
-      )
+      , (error) ->
+        $scope.isLoading = false
 
     $scope.getSubscriptions = () ->
       Subscription.setUrl('/dashboard/subscriptions?page={{page}}')
@@ -105,6 +59,13 @@
         $scope.totalItems = result.originalData.total_items
         $scope.searchItems = $scope.totalItems
         $scope.isLoading = false
+      , (error) ->
+        $scope.isLoading = false
+
+        errors = http.data
+
+        message = "Sorry an error occurred. #{errors.message}"
+        $scope.display_error_message(message)
 
     $scope.searchClicked = () ->
       Subscription.setUrl('/dashboard/subscriptions')
@@ -118,6 +79,13 @@
         $scope.totalItems = result.originalData.total_items
         $scope.searchItems = $scope.totalItems
         $scope.isLoading = false
+      , (error) ->
+        $scope.isLoading = false
+
+        errors = http.data
+
+        message = "Sorry an error occurred. #{errors.message}"
+        $scope.display_error_message(message)
 
     $scope.getSearchCount = () ->
       Subscription.setUrl('/dashboard/subscriptions/count')
@@ -128,6 +96,13 @@
           status: $scope.search.status
       }).then (result) ->
         $scope.searchItems = result.data.count
+      , (error) ->
+        $scope.isLoading = false
+
+        errors = http.data
+
+        message = "Sorry an error occurred. #{errors.message}"
+        $scope.display_error_message(message)
 
     $scope.selectSubscription = (event, subscription) ->
       if $scope.selected_subscription == subscription
@@ -147,17 +122,7 @@
       else
         $scope.display_search = true
 
-    $scope.change_plan_clicked = () ->
-      if !change_plan_modal
-        change_plan_modal = $('[data-remodal-id=change-plan-modal]').remodal($scope.options)
-
-      change_plan_modal.open()
-
-    $scope.change_plan_submit = () ->
-      console.log "subscription changed"
-
     init()
-
 ]
 
 SubscriptionsController.$inject = ['$scope', '$state', 'Subscription', 'Plan', 'window', '$timeout', '$http']
