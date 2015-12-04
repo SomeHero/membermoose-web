@@ -17,7 +17,7 @@ class GetCustomerBillingHistoryWorker
     end
 
     stripe_charges = results[1]
-    
+
     stripe_charges.each do |stripe_charge|
       stripe_charge_id = stripe_charge["id"]
       stripe_card_id = stripe_charge["source"]["id"]
@@ -25,8 +25,20 @@ class GetCustomerBillingHistoryWorker
       stripe_balance_txn_id = stripe_charge["balance_transaction"]
       stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
 
-      stripe_balance_txn = GetBalanceTransaction.call(stripe_balance_txn_id, account.stripe_secret_key)
-      stripe_invoice = GetInvoice.call(stripe_invoice_id, account.stripe_secret_key)
+      results = GetBalanceTransaction.call(stripe_balance_txn_id, account.stripe_secret_key)
+
+      if results[0]
+        stripe_balance_txn = results[1]
+      else
+        Rails.logger.info "Unable to get balance transaction #{stripe_balance_txn_id}: #{results[1]}"
+      end
+      results = GetInvoice.call(stripe_invoice_id, account.stripe_secret_key)
+
+      if results[0]
+        stripe_invoice = results[1]
+      else
+        Rails.logger.info "Unable to get invoice #{stripe_invoice_id}: #{results[1]}"
+      end
 
       card = account.cards.find_by_external_id(stripe_card_id)
       charge = Charge.find_by_external_id(stripe_charge_id)

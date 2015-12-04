@@ -7,8 +7,16 @@ class GetCustomersWorker
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
-    stripe_customers = GetCustomers.call({}, stripe.secret_token)
+    results = GetCustomers.call({}, stripe.secret_token)
 
+    if !results[0]
+      Rails.logger.error "Error Getting Customers from Stripe #{results[1]}"
+
+      raise "Error Getting Customers from Stripe #{results[1]}"
+    end
+
+    stripe_customers = results[1]
+    
     stripe_customers.each do |stripe_customer|
       stripe_customer_id = stripe_customer["id"]
       email_address = stripe_customer["email"]

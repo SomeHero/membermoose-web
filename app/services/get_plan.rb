@@ -6,9 +6,9 @@ class GetPlan
 
       plan = Stripe::Plan.retrieve(plan_id)
     rescue Stripe::StripeError => e
-      return e.message
+      return false, e.message
     end
 
-    return plan.data
+    return true, plan.data
   end
 end

@@ -34,8 +34,19 @@ task :fix_payment_data=> [:environment] do
             stripe_balance_txn_id = stripe_charge["balance_transaction"]
             stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
 
-            stripe_balance_txn = GetBalanceTransaction.call(stripe_balance_txn_id, account.stripe_secret_key)
-            stripe_invoice = GetInvoice.call(stripe_invoice_id, subscription.plan.account.stripe_secret_key)
+            results = GetBalanceTransaction.call(stripe_balance_txn_id, account.stripe_secret_key)
+            if results[0]
+              stripe_balance_txn = results[1]
+            else
+              Rails.logger.info "Unable to get balance transaction #{stripe_balance_txn_id}: #{results[1]}"
+            end
+
+            results = GetInvoice.call(stripe_invoice_id, subscription.plan.account.stripe_secret_key)
+            if results[0]
+              stripe_invoice = results[1]
+            else
+              Rails.logger.info "Unable to get invoice #{stripe_invoice_id}: #{results[1]}"
+            end
             stripe_source = stripe_charge["source"]
 
             card = account.cards.find_by_external_id(stripe_source["id"])
@@ -70,15 +81,15 @@ task :fix_payment_data=> [:environment] do
               payment = charge.payment
             end
 
+            status = "Paid"
+            comment = "Recurring Payment for #{subscription.plan.name}"
+            if !stripe_charge["paid"]
+              status = "Failed"
+              comment = "#{subscription["failure_code"]}: #{subscription["failure_message"]}"
+            end
+
             if !payment
               puts "Creating a payment for charge #{stripe_charge_id}"
-
-              status = "Paid"
-              comment = "Recurring Payment for #{subscription.plan.name}"
-              if !stripe_charge["paid"]
-                status = "Failed"
-                comment = "#{subscription["failure_code"]}: #{subscription["failure_message"]}"
-              end
 
               Payment.create!({
                 :charge => Charge.new({
@@ -117,7 +128,7 @@ task :fix_payment_data=> [:environment] do
 
             invoice = Invoice.find_by_external_id(stripe_invoice_id)
 
-            if !invoice
+            if !invoice && stripe_invoice
               puts "Creating an invoice for invoice #{stripe_invoice["id"]}"
               puts stripe_invoice.to_json
 

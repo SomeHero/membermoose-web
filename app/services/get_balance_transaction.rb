@@ -6,9 +6,9 @@ class GetBalanceTransaction
 
       balance_transaction = Stripe::BalanceTransaction.retrieve(balance_transaction_id)
     rescue Stripe::StripeError => e
-      return e.message
+      return false, e.message
     end
 
-    return balance_transaction
+    return true, balance_transaction
   end
 end

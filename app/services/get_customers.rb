@@ -19,9 +19,9 @@ class GetCustomers
         end
       end
     rescue Stripe::StripeError => e
-      return e.message
+      return false, e.message
     end
 
-    return all_customers
+    return true, all_customers
   end
 end

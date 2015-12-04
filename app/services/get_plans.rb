@@ -6,9 +6,9 @@ class GetPlans
 
       plans = Stripe::Plan.all(:limit => 100)
     rescue Stripe::StripeError => e
-      return e.message
+      return false, e.message
     end
 
-    return plans.data
+    return true, plans.data
   end
 end

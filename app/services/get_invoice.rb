@@ -6,9 +6,9 @@ class GetInvoice
 
       invoice = Stripe::Invoice.retrieve(stripe_invoice_id)
     rescue Stripe::StripeError => e
-      return e.message
+      return false, "Stripe Error:#{e.message}"
     end
 
-    return invoice
+    return true, invoice
   end
 end

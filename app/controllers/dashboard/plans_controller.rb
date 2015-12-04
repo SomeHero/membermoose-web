@@ -115,10 +115,14 @@ class Dashboard::PlansController < DashboardController
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
-    plans = GetPlans.call({}, stripe.secret_token)
+    results = GetPlans.call({}, stripe.secret_token)
 
     respond_to do |format|
-      format.json { render :json => { :plans => plans } }
+      if results[0]
+        format.json { render :json => { :plans => plans } }
+      else
+        format.json { render :json => {}, status: :bad_request }
+      end
     end
   end
 
@@ -129,17 +133,24 @@ class Dashboard::PlansController < DashboardController
 
     plans = []
     stripe_plans.each do |stripe_id|
-      plan = ImportPlan.call(account, stripe_id)
+      results = ImportPlan.call(account, stripe_id)
+
+      if !results[0]
+        Rails.logger.error "Unable to import plan #{stripe_id}: #{results[0]}"
+
+        next
+      end
+
+      plan = results[1]
       if plan.save
         plans.push(plan)
       end
     end
 
-
     begin
       Resque.enqueue(GetCustomersWorker, account.id)
     rescue
-      puts "Error #{$!}"
+      Rails.logger.error "Error Queuing GetCustomerWorker for #{account.id} #{$!}"
     end
 
     respond_to do |format|
