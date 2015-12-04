@@ -150,10 +150,12 @@ class Account < ActiveRecord::Base
   def next_invoice_date
     result = nil
     self.subscriptions.each do |subscription|
-      if !result
-        result = subscription.next_invoice_date
-      elsif subscription.next_invoice_date < result
-        result = subscription.next_invoice_date
+      if subscription.next_invoice_date
+        if !result
+          result = subscription.next_invoice_date
+        elsif subscription.next_invoice_date < result
+          result = subscription.next_invoice_date
+        end
       end
     end
 
