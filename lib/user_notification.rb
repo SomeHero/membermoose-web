@@ -38,6 +38,16 @@ module UserNotification
     #   :message => A custom message to include with the invite
     USER_INVITE = :user_invite
 
+    # Welcome a bull to the application. Params:
+    #   :bull => The User who owns the plan
+    #   :plan => The Plan the calf subscribed to
+    BULL_WELCOME = :bull_welcome
+
+    # Welcome a calf to the application. Params:
+    #   :bull => The User who owns the plan
+    #   :plan => The Plan the calf subscribed to
+    CALF_WELCOME = :calf_welcome
+
     # Welcome a new user to the application. Params:
     #   :bull => The User who owns the plan
     #   :plan => The Plan the calf subscribed to
@@ -60,6 +70,9 @@ module UserNotification
     #   :plan => The Plan the calf subscribed to
     #   :calf => The User we are welcoming
     UNSUBSCRIBE_LINK = :unsubscribe_link
+
+    # Confirmation when someone changes their password
+    CHANGE_PASSWORD = :change_password
 
   end
 

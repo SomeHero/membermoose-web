@@ -54,6 +54,8 @@ Rails.application.configure do
   #router.add_notifier(UserNotification::Channel::APP, UserNotification::AppUserNotifier.new)
 
   router.enable_notifications({
+    UserNotification::Notification::BULL_WELCOME => true,
+    UserNotification::Notification::CALF_WELCOME => true,
     UserNotification::Notification::USER_WELCOME => true,
     UserNotification::Notification::SOMEONE_SUBSCRIBED => true,
     UserNotification::Notification::SOMEONE_UNSUBSCRIBED => true,

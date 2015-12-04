@@ -33,21 +33,25 @@ class UserSignupWorker
     #send welcome email
     logo_url = subscription.plan.account.logo_full_url
 
-    UserNotification::UserNotificationRouter.instance.notify_user(UserNotification::Notification::USER_WELCOME,
-    :from_address => subscription.plan.account.user.email,
-    :from_name => "The #{subscription.plan.account.company_name} Team",
-    :subject => "Welcome to #{subscription.plan.account.company_name}",
-    :user => subscription.account.user,
-    :template_name => "Welcome",
-    :merge_fields => {
-      "merge_logo_url" => logo_url,
-      "merge_plan_name" =>  subscription.plan.name,
-      "merge_bull_name" => subscription.plan.account.company_name,
-      "merge_bull_email" => subscription.plan.account.user.email,
-      "merge_manage_account_url" => subscription.plan.account.manage_account_url,
-      "merge_create_plan_url" => subscription.plan.account.create_plan_url,
-      "merge_plan_amount" => ActionController::Base.helpers.number_to_currency(subscription.plan.amount),
-      "merge_billing_interval" => subscription.plan.billing_cycle
+    notification_type = UserNotification::Notification::CALF_WELCOME
+    if subscription.account.role == Account.roles[:bull]
+      notification_type = UserNotification::Notification::BULL_WELCOME
+    end
+
+    UserNotification::UserNotificationRouter.instance.notify_user(notification_type,
+      :from_address => subscription.plan.account.user.email,
+      :from_name => "The #{subscription.plan.account.company_name} Team",
+      :subject => "Welcome to #{subscription.plan.account.company_name}",
+      :user => subscription.account.user,
+      :merge_fields => {
+        "merge_logo_url" => logo_url,
+        "merge_plan_name" =>  subscription.plan.name,
+        "merge_bull_name" => subscription.plan.account.company_name,
+        "merge_bull_email" => subscription.plan.account.user.email,
+        "merge_manage_account_url" => subscription.plan.account.manage_account_url,
+        "merge_create_plan_url" => subscription.plan.account.create_plan_url,
+        "merge_plan_amount" => ActionController::Base.helpers.number_to_currency(subscription.plan.amount),
+        "merge_billing_interval" => subscription.plan.billing_cycle
     })
 
   end

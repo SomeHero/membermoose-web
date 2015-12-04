@@ -5,9 +5,28 @@ source "https://rails-assets.org"
 group :production do
   gem 'rails_12factor'
 end
+
+group :development do
+  gem 'guard-rspec'
+  gem 'rb-fsevent', '~> 0.9.1'
+  gem 'terminal-notifier'
+  gem 'quiet_assets'
+  gem 'letter_opener'
+  gem "meta_request"
+  gem "pry", "~> 0.9"
+  gem "pry-nav", "~> 0.2"
+  gem 'pry-rails'
+  gem 'pry-remote'
+  gem 'rb-readline'
+  gem 'awesome_print'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'ultrahook'
+end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass'
@@ -15,10 +34,6 @@ gem 'autoprefixer-rails'
 gem 'font-awesome-rails', '~> 4.1.0.0'
 gem 'haml'
 gem 'bootstrap_form'
-gem "pry", "~> 0.9"
-gem "pry-nav", "~> 0.2"
-gem 'pry-rails'
-gem 'pry-remote'
 gem 'stripe_event'
 gem 'newrelic_rpm'
 gem 'google-analytics-rails'
@@ -41,10 +56,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
-
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
-gem 'ultrahook',     group: :development
 
 gem 'devise'
 gem 'activeadmin', github: 'activeadmin'

@@ -47,6 +47,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     airbrake (4.1.0)
       builder
       multi_json
@@ -68,6 +69,7 @@ GEM
     autoprefixer-rails (6.0.1)
       execjs
       json
+    awesome_print (1.6.1)
     aws-sdk (1.66.0)
       aws-sdk-v1 (= 1.66.0)
     aws-sdk-v1 (1.66.0)
@@ -87,6 +89,9 @@ GEM
       thor
     bower-rails (0.10.0)
     builder (3.2.2)
+    callsite (0.0.11)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.7)
@@ -110,6 +115,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    diff-lcs (1.2.5)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
@@ -119,8 +125,10 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    ffi (1.9.8)
     font-awesome-rails (4.1.0.0)
       railties (>= 3.2, < 5.0)
+    formatador (0.2.5)
     formtastic (3.1.3)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.4.1)
@@ -135,6 +143,20 @@ GEM
       rack-accept
       rack-mount
       virtus (>= 1.0.0)
+    guard (2.12.5)
+      formatador (>= 0.2.4)
+      listen (~> 2.7)
+      lumberjack (~> 1.0)
+      nenv (~> 0.1)
+      notiffany (~> 0.0)
+      pry (>= 0.9.12)
+      shellany (~> 0.0)
+      thor (>= 0.18.1)
+    guard-compat (1.2.1)
+    guard-rspec (4.5.1)
+      guard (~> 2.1)
+      guard-compat (~> 1.1)
+      rspec (>= 2.99.0, < 4.0)
     haml (4.0.7)
       tilt
     has_scope (0.6.0)
@@ -142,6 +164,7 @@ GEM
       activesupport (>= 3.2, < 5)
     hashie (3.4.2)
     hike (1.2.3)
+    hitimes (1.2.2)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -168,8 +191,21 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
+    listen (2.10.0)
+      celluloid (~> 0.16.0)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+    lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    meta_request (0.3.4)
+      callsite (~> 0.0, >= 0.0.11)
+      rack-contrib (~> 1.1)
+      railties (>= 3.0.0, < 5.0.0)
     method_source (0.8.2)
     mime-types (2.6.1)
     mini_portile (0.6.2)
@@ -180,10 +216,14 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    nenv (0.2.0)
     netrc (0.10.3)
     newrelic_rpm (3.12.0.288)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    notiffany (0.0.6)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -221,9 +261,13 @@ GEM
     pry-remote (0.1.8)
       pry (~> 0.9)
       slop (~> 3.0)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.5.5)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rack-contrib (1.2.0)
+      rack (>= 0.9.1)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
     rack-protection (1.5.3)
@@ -263,6 +307,10 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
+    rb-fsevent (0.9.5)
+    rb-inotify (0.9.5)
+      ffi (>= 0.5.0)
+    rb-readline (0.5.2)
     rdoc (4.2.0)
       json (~> 1.4)
     redis (3.2.1)
@@ -280,6 +328,19 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rspec (3.2.0)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+    rspec-core (3.2.3)
+      rspec-support (~> 3.2.0)
+    rspec-expectations (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-mocks (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-support (3.2.2)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -289,6 +350,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    shellany (0.0.1)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -312,9 +374,12 @@ GEM
     stripe_event (1.5.0)
       activesupport (>= 3.1)
       stripe (~> 1.6)
+    terminal-notifier (1.6.3)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    timers (4.0.1)
+      hitimes
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -352,6 +417,7 @@ DEPENDENCIES
   angularjs-rails-resource (~> 2.0.0)
   animate-rails
   autoprefixer-rails
+  awesome_print
   aws-sdk (< 2.0)
   bootstrap-sass
   bootstrap_form
@@ -362,11 +428,14 @@ DEPENDENCIES
   font-awesome-rails (~> 4.1.0.0)
   google-analytics-rails
   grape
+  guard-rspec
   haml
   jasny_bootstrap_extension_rails
   jbuilder (~> 2.0)
   jquery-rails
   jquery-validation-rails
+  letter_opener
+  meta_request
   money
   newrelic_rpm
   omniauth-stripe-connect
@@ -376,10 +445,13 @@ DEPENDENCIES
   pry-nav (~> 0.2)
   pry-rails
   pry-remote
+  quiet_assets
   rails (= 4.1.8)
   rails-angular-motion
   rails-assets-angular-devise
   rails_12factor
+  rb-fsevent (~> 0.9.1)
+  rb-readline
   redis
   resque
   sass-rails (~> 4.0.3)
@@ -388,6 +460,7 @@ DEPENDENCIES
   spring
   stripe (~> 1.20.4)
   stripe_event
+  terminal-notifier
   turbolinks
   uglifier (>= 1.3.0)
   ultrahook

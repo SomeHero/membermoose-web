@@ -67,6 +67,12 @@ module UserNotification
           channel_type = channel_type ? channel_type : UserNotification::Channel::TEXT
           user = nil
           channel_address = (channel_type == UserNotification::Channel::TEXT) ? params_hash[:phone] : params_hash[:email]
+        when UserNotification::Notification::CALF_WELCOME
+          channel_type = channel_type ? channel_type : UserNotification::Channel::EMAIL
+          user = params_hash[:user]
+        when UserNotification::Notification::BULL_WELCOME
+          channel_type = channel_type ? channel_type : UserNotification::Channel::EMAIL
+          user = params_hash[:user]
         when UserNotification::Notification::USER_WELCOME
           channel_type = channel_type ? channel_type : UserNotification::Channel::EMAIL
           user = params_hash[:user]
