@@ -45,7 +45,7 @@
       Plan.setUrl('/dashboard/plans?page={{page}}')
       Plan.get({page: $scope.currentPage}).then (result) ->
         $scope.plans = result.data
-        $scope.totalItems = result.originalData.total_items
+        #$scope.totalItems = result.originalData.total_items
         $scope.isLoading = false
 
         #sortPlans()
