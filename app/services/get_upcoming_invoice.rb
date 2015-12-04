@@ -37,6 +37,6 @@ class GetUpcomingInvoice
       return false, e.message
     end
 
-    return return true, new_invoice
+    return true, new_invoice
   end
 end
