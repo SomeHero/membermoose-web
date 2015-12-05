@@ -2,7 +2,7 @@ class Dashboard::PaymentsController < DashboardController
   layout :determine_layout
 
   def index
-    query = current_user.account.payments
+    query = @user.account.payments
 
     if params[:from_date]
       query = query.where("payments.transaction_date >= ?", params["from_date"])
@@ -36,7 +36,7 @@ class Dashboard::PaymentsController < DashboardController
   end
 
   def count
-    query = current_user.account.payments
+    query = @user.account.payments
 
     if params[:from_date]
       query = query.where("created_at >= ?", params["from_date"])
@@ -61,7 +61,7 @@ class Dashboard::PaymentsController < DashboardController
   end
 
   def refund
-    account = current_user.account
+    account = @user.account
 
     payment = account.payments.find(params[:id])
     @payment = RefundPayment.call(payment)

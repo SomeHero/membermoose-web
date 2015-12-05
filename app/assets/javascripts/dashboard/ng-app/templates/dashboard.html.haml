@@ -10,14 +10,14 @@
   #brand-header
     #navbar-header
       .navbar-brand-wrapper
-        %a.navbar-brand
-          MemberMoose
+        %a.navbar-brand{:style=>"padding: 5px;"}
+          %img{"ng-src"=>"{{user.account.bull.logo.url}}", :style=>"height: 40px; margin: auto;"}
       %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
         %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-  #navbar-menu
+  #navbar-menu{"ng-show"=>"isAuthorized('bull')"}
     .navbar-collapse.collapse
       .minifyme
         %a{:href=>"#"}
@@ -30,7 +30,7 @@
       %li
         %a{:href=>"#"}
           .fa.fa-envelope.o
-      %li
+      %li{"ng-show"=>"isAuthorized('bull')"}
         %a.visit-site{:href => "{{user.account.siteUrl}}", :target => "_blank"}
           .fa.fa-external-link-square
       %li.dropdown.profile.hidden-xs

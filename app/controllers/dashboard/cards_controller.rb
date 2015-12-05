@@ -2,7 +2,7 @@ class Dashboard::CardsController < DashboardController
   layout :determine_layout
 
   def index
-    @cards = current_user.account.cards
+    @cards = @user.account.cards
 
     respond_to do |format|
       format.html
@@ -11,7 +11,7 @@ class Dashboard::CardsController < DashboardController
   end
 
   def show
-    @card = current_user.account.cards.find(params[:id])
+    @card = @user.account.cards.find(params[:id])
 
     respond_to do |format|
       format.html
@@ -20,7 +20,7 @@ class Dashboard::CardsController < DashboardController
   end
 
   def create
-    bull = current_user.account
+    bull = @user.account
     account = bull.members.find(params["member_id"])
     stripe_token = params["stripe_token"]
 
@@ -31,9 +31,9 @@ class Dashboard::CardsController < DashboardController
 
     if @card
       if params["card"]["default"]
-        @card = SetCustomerDefaultCard.call(current_user.account, @card)
+        @card = SetCustomerDefaultCard.call(@user.account, @card)
         if @card.errors.count == 0
-          current_user.account.cards.update_all(:default => false)
+          @user.account.cards.update_all(:default => false)
           @card.default = true
         end
       end
@@ -56,7 +56,7 @@ class Dashboard::CardsController < DashboardController
 
   def update
     Rails.logger.info("Attempting to Update Card")
-    account = current_user.account
+    account = @user.account
 
     card = Card.find(params["id"])
     token = params["card"]["stripe_token"]
@@ -65,9 +65,9 @@ class Dashboard::CardsController < DashboardController
 
     if @card.errors.count == 0
       if params["card"]["default"]
-        @card = SetCustomerDefaultCard.call(current_user.account, @card)
+        @card = SetCustomerDefaultCard.call(@user.account, @card)
         if @card.errors.count == 0
-          current_user.account.cards.update_all(:default => false)
+          @user.account.cards.update_all(:default => false)
           @card.default = true
         end
       end

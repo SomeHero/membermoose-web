@@ -2,7 +2,7 @@ class Dashboard::SubscriptionsController < DashboardController
   layout :determine_layout
 
   def index
-    query = current_user.account.subscriptions_plans
+    query = @user.account.subscriptions_plans
       .joins(:account)
 
     if params[:plan_id].present?
@@ -31,7 +31,7 @@ class Dashboard::SubscriptionsController < DashboardController
   end
 
   def count
-    query = current_user.account.subscriptions_plans
+    query = @user.account.subscriptions_plans
       .joins(:account)
 
     if params[:plan_id].present?
@@ -51,7 +51,7 @@ class Dashboard::SubscriptionsController < DashboardController
   end
 
   def change
-    account = current_user.account
+    account = @user.account
 
     @subscription = account.subscriptions_plans.find(params[:id])
     @plan = account.plans.find(params[:plan_id])
@@ -65,7 +65,7 @@ class Dashboard::SubscriptionsController < DashboardController
   end
 
   def destroy
-    account = current_user.account
+    account = @user.account
 
     @subscription = account.subscriptions_plans.find(params[:id])
     @subscription = CancelSubscription.call(@subscription)

@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks",
-        :registrations => "dashboard/users/registrations"}
+        :registrations => "dashboard/users/registrations",
+        :sessions => "dashboard/users/sessions"}
 
   get 'dashboard/index'
 

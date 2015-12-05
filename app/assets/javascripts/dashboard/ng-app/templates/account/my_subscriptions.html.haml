@@ -17,13 +17,13 @@
             {{subscription.plan.name}}
           %h3.plan-amount
             {{subscription.plan.amount | currency }}/{{ subscription.plan.billingCycle }}
-        %div{"ng-hide"=>"subscription.status == 'Cancelled'"}
+        %div{"ng-hide"=>"subscription.status == 'cancelled'"}
           %button.btn.btn-lg.btn-primary{"ui-sref"=>"dashboard.my_subscriptions.unsubscribe({subscription: {{subscription}} })"}
             Unsubscribe
           %button.btn.btn-lg.btn-primary{"ui-sref"=>"dashboard.my_subscriptions.upgrade({subscription: {{subscription}} })"}
             Change Plan
-        %div{"ng-show"=>"subscription.status == 'Cancelled'"}
-          %h2
+        %div{"ng-show"=>"subscription.status == 'cancelled'"}
+          %h2.alert
             Cancelled
   .row{:style=>"margin-bottom: 20px;", "ng-show"=>"user.account.subscriptions.length == 0"}
     .col-md-12

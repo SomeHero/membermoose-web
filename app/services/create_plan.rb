@@ -2,19 +2,20 @@ require 'money'
 
 class CreatePlan
   def self.call(account, options={})
-    stripe_secret_key = account.stripe_secret_key
-
     plan = Plan.new(options)
 
     if !plan.valid?
       return plan
     end
-    if !stripe_secret_key
+    if !account.has_connected_stripe
       plan.needs_sync = true
       plan.save #just go ahead and save the plan unsync'ed
       return plan
     end
 
+    stripe_secret_key = account.stripe_secret_key
+
+    return false if !stripe_secret_key
     begin
       Stripe.api_key =  stripe_secret_key
 

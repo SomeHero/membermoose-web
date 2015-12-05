@@ -2,7 +2,7 @@ class Dashboard::Bulls::PlansController < DashboardController
   layout :determine_layout
 
   def index
-    @plans = current_user.account.bull.plans.active.paginate(:page => params[:page], :per_page => 100)
+    @plans = @user.account.bull.plans.active.paginate(:page => params[:page], :per_page => 100)
 
     respond_to do |format|
       format.html
@@ -11,7 +11,7 @@ class Dashboard::Bulls::PlansController < DashboardController
   end
 
   def show
-    @plan = current_user.account.bull.plans.find(params[:id])
+    @plan = @user.account.bull.plans.find(params[:id])
 
     respond_to do |format|
       format.html

@@ -5,8 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable
 
-  has_one :account
-  accepts_nested_attributes_for :account, :update_only => true
+  has_many :accounts
+  attr_accessor :account
+  #accepts_nested_attributes_for :account, :update_only => true
 
   def as_json(options={})
   {

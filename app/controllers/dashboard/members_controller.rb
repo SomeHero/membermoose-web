@@ -2,7 +2,7 @@ class Dashboard::MembersController < DashboardController
   layout :determine_layout
 
   def index
-    query = current_user.account.members
+    query = @user.account.members
     .joins(:user)
 
     if params[:first_name].present?
@@ -18,7 +18,7 @@ class Dashboard::MembersController < DashboardController
       query = query.where("plans.id" => params["plan_id"])
     end
     if params[:status].present?
-      query = query.where("accounts.id in (Select subscriptions.account_id from subscriptions inner join plans on subscriptions.plan_id = plans.id where plans.account_id = #{current_user.account.id} and subscriptions.status = #{params[:status]})")
+      query = query.where("accounts.id in (Select subscriptions.account_id from subscriptions inner join plans on subscriptions.plan_id = plans.id where plans.account_id = #{@user.account.id} and subscriptions.status = #{params[:status]})")
     end
 
     @total_items = query.count
@@ -34,7 +34,7 @@ class Dashboard::MembersController < DashboardController
   end
 
   def count
-    query = current_user.account.members
+    query = @user.account.members
     .joins(:user)
 
     if params[:first_name].present?
@@ -50,7 +50,7 @@ class Dashboard::MembersController < DashboardController
       query = query.where("plans.id" => params["plan_id"])
     end
     if params[:status].present?
-      query = query.where("accounts.id in (Select subscriptions.account_id from subscriptions inner join plans on subscriptions.plan_id = plans.id where plans.account_id = #{current_user.account.id} and subscriptions.status = #{params[:status]})")
+      query = query.where("accounts.id in (Select subscriptions.account_id from subscriptions inner join plans on subscriptions.plan_id = plans.id where plans.account_id = #{@user.account.id} and subscriptions.status = #{params[:status]})")
     end
 
     render :json => { :count => query.count }
@@ -61,7 +61,7 @@ class Dashboard::MembersController < DashboardController
   end
 
   def update
-    account = current_user.account.members.find(permitted_params[:id])
+    account = @user.account.members.find(permitted_params[:id])
 
     # @user = current_user
     # begin

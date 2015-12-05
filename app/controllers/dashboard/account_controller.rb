@@ -2,50 +2,42 @@ class Dashboard::AccountController < DashboardController
   layout :determine_layout
 
   def upload_logo
-    user = current_user
+    @user.account.logo = params[:file]
+    @user.account.has_uploaded_logo = true
 
-    user.account.logo = params[:file]
-    user.account.has_uploaded_logo = true
-
-    if user.save
-      render json: user.to_json
+    if @user.account.save
+      render json: @user.to_json
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
   def change_subdomain
-    user = current_user
+    @user.account.subdomain = params[:subdomain]
+    @user.account.has_setup_subdomain = true
 
-    user.account.subdomain = params[:subdomain]
-    user.account.has_setup_subdomain = true
-
-    if user.save
-      render json: user.to_json
+    if @user.account.save
+      render json: @user.to_json
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
   def show
-      user = current_user
-
-      respond_to do |format|
-        format.html
-        format.json { render json: user.to_json }
-      end
+    respond_to do |format|
+      format.html
+        ormat.json { render json: @user.to_json }
+    end
   end
 
   def update
-    user = current_user
-
     respond_to do |format|
-      if user.update(permitted_params)
+      if @user.update(permitted_params)
         format.html  { render action: 'edit' }
-        format.json { render :json => user.to_json }
+        format.json { render :json => @user.to_json }
       else
         format.html { render action: 'edit' }
-        format.json { render json: user.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,9 +47,7 @@ class Dashboard::AccountController < DashboardController
     new_password = params["new_password"]
     new_password_again = params["new_password_again"]
 
-    user = current_user
-
-    if !user.valid_password?(current_password)
+    if !@user.valid_password?(current_password)
       payload = {
         statusText: "Invalid current password",
         statusCode: 1001
@@ -66,18 +56,18 @@ class Dashboard::AccountController < DashboardController
 
       return
     end
-    user.password = new_password
-    user.password_confirmation = new_password
+    @user.password = new_password
+    @user.password_confirmation = new_password
 
-    if user.save
-      sign_in(user, :bypass => true)
+    if @user.save
+      sign_in(@user, :bypass => true)
 
       payload = {
         statusCode: 200
       }
       render :json => payload, :status => 200
     else
-      render :json => user.errors, :status => :unprocessable_entity
+      render :json => @user.errors, :status => :unprocessable_entity
     end
   end
 
@@ -88,12 +78,10 @@ class Dashboard::AccountController < DashboardController
     free_plan = Plan.find_by_stripe_id("MM_FREE")
     prime_plan = Plan.find_by_stripe_id("MM_PRIME")
 
-    user = current_user
-
-    account = user.account
+    account = @user.account
     free_plan_subscription = account.subscriptions.where(:plan => free_plan).first
 
-    email = user.email
+    email = @user.email
     stripe_token = params["stripe_token"]
 
     card = AddCard.call(account, stripe_token)
@@ -106,8 +94,8 @@ class Dashboard::AccountController < DashboardController
     @subscription = ChangeSubscription.call(free_plan_subscription, prime_plan)
 
     if @subscription
-      user.account.has_upgraded_plan = true
-      user.save
+      @user.account.has_upgraded_plan = true
+      @user.account.save
 
       begin
         Resque.enqueue(UserSignupWorker, @subscription.id)
@@ -125,7 +113,7 @@ class Dashboard::AccountController < DashboardController
     respond_to do |format|
       if @subscription.errors.count == 0
         format.html  { render action: 'index' }
-        format.json { render :json => user.to_json }
+        format.json { render :json => @user.to_json }
       else
         format.html { render action: 'index' }
         format.json { render json: @subscription.errors, status: :bad_request }
@@ -135,9 +123,5 @@ class Dashboard::AccountController < DashboardController
 
   def permitted_params
     params.require(:user).permit(:email, :account_attributes =>[:first_name, :last_name, :company_name, :logo, :subdomain])
-  end
-
-  def validate_password
-
   end
 end

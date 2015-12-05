@@ -10,8 +10,9 @@
   '$timeout'
   'AccountServiceChannel',
   'Auth',
-  'user'
-  ($scope, $rootScope, $window, $state, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth, user) ->
+  'user',
+  'stripe'
+  ($scope, $rootScope, $window, $state, Account, Plan, window, $modal, $timeout, AccountServiceChannel, Auth, user, stripe) ->
     currentModal = null
 
     init = () ->
@@ -83,10 +84,13 @@
         $scope.plans = response.data
 
     $scope.getPublishableKey = () ->
-      if $scope.user.account.paymentProcessors
+      if $scope.user.account.bull.paymentProcessors
         return $scope.config.publishableKey
       else
         return ""
+
+    $scope.setStripePublishableKey = (paymentProcessors) ->
+      stripe.setPublishableKey(paymentProcessors[0].apiKey)
 
     $scope.setMenuItemSelected = (url) ->
       if url == window.location.pathname
@@ -146,4 +150,4 @@
     return
 ]
 
-AccountController.$inject = ['$scope', '$rootScope', '$window', '$state', 'Account', 'Plan', 'window', '$modal', '$timeout', 'AccountServiceChannel', 'user']
+AccountController.$inject = ['$scope', '$rootScope', '$window', '$state', 'Account', 'Plan', 'window', '$modal', '$timeout', 'AccountServiceChannel', 'user', 'stripe']

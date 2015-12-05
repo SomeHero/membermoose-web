@@ -13,6 +13,7 @@
     $scope.plan = new Plan(plan.data)
     $scope.account = account
     stripe.setPublishableKey(account.payment_processors[0].api_key)
+    
     $scope.loading = {
       show_spinner: false
     }

@@ -24,9 +24,8 @@
       $scope.setCurrentModal(upgrade_plan_modal)
 
     $scope.upgradePlanSubmit = (form) ->
-      stripe_key = $scope.getPublishableKey()
+      $scope.setStripePublishableKey($scope.user.account.bull.paymentProcessors)
 
-      stripe.setPublishableKey(stripe_key)
       $scope.form_submitted = true
 
       if form.$valid

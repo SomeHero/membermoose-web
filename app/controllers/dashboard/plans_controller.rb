@@ -2,7 +2,7 @@ class Dashboard::PlansController < DashboardController
   layout :determine_layout
 
   def index
-    @plans = current_user.account.plans.active.paginate(:page => params[:page], :per_page => 100)
+    @plans = @user.account.plans.active.paginate(:page => params[:page], :per_page => 100)
 
     respond_to do |format|
       format.html
@@ -11,7 +11,7 @@ class Dashboard::PlansController < DashboardController
   end
 
   def show
-    @plan = current_user.account.plans.find(params[:id])
+    @plan = @user.account.plans.find(params[:id])
 
     respond_to do |format|
       format.html
@@ -24,7 +24,7 @@ class Dashboard::PlansController < DashboardController
   end
 
   def create
-    account = current_user.account
+    account = @user.account
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
@@ -66,7 +66,7 @@ class Dashboard::PlansController < DashboardController
   end
 
   def update
-    plan = current_user.account.plans.find(permitted_params[:id])
+    plan = @user.account.plans.find(permitted_params[:id])
 
     respond_to do |format|
       if plan.update(permitted_params)
@@ -74,7 +74,7 @@ class Dashboard::PlansController < DashboardController
         format.json { render :json => plan.to_json }
       else
         format.html { render action: 'edit' }
-        format.json { render json: current_user.errors, status: :unprocessable_entity }
+        format.json { render json: plan.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -82,7 +82,7 @@ class Dashboard::PlansController < DashboardController
   def destroy
     Rails.logger.info("Attempting to Delete Plan")
 
-    account = current_user.account
+    account = @user.account
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
@@ -111,14 +111,16 @@ class Dashboard::PlansController < DashboardController
   end
 
   def get_stripe_plans
-    account = current_user.account
+    account = @user.account
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
+    #ToDo: check for stripe processor
     results = GetPlans.call({}, stripe.secret_token)
 
     respond_to do |format|
       if results[0]
+        plans = results[1]
         format.json { render :json => { :plans => plans } }
       else
         format.json { render :json => {}, status: :bad_request }
@@ -127,7 +129,7 @@ class Dashboard::PlansController < DashboardController
   end
 
   def import_stripe_plans
-    account = current_user.account
+    account = @user.account
 
     stripe_plans = params["plans"]
 

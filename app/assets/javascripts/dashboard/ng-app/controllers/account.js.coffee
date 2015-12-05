@@ -58,7 +58,7 @@
           (http)  ->
             errors = http.data
 
-            message = error.message
+            message = errors.message
             $scope.display_error_message(message)
 
             $scope.dismiss_loading()

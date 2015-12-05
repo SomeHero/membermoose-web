@@ -4,6 +4,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # Delete the code inside of this method and write your own.
     # The code below is to show you where to access the data.
     @user = current_user
+    account = @user.accounts.first
+
+    @user.account = account
 
     payment_processor = PaymentProcessor.where(:name => "Stripe").first
 

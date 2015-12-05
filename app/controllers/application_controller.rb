@@ -13,8 +13,9 @@ class ApplicationController < ActionController::Base
     if resource.is_a?(AdminUser)
       admin_dashboard_path
     else
-      if resource.account.is_bull?
-        if resource.account.has_created_plan
+      account = resource.accounts.find(session["account_id"])
+      if account.is_bull?
+        if account.has_created_plan
           dashboard_plans_path
         else
           dashboard_launch_index_path

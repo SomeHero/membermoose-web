@@ -2,7 +2,7 @@ class Dashboard::Account::CardsController < DashboardController
   layout :determine_layout
 
   def index
-    @cards = current_user.account.cards
+    @cards = @user.account.cards
 
     respond_to do |format|
       format.html
@@ -11,7 +11,7 @@ class Dashboard::Account::CardsController < DashboardController
   end
 
   def show
-    @card = current_user.account.cards.find(params[:id])
+    @card = @user.account.cards.find(params[:id])
 
     respond_to do |format|
       format.html
@@ -20,7 +20,7 @@ class Dashboard::Account::CardsController < DashboardController
   end
 
   def create
-    account = current_user.account
+    account = @user.account
     stripe_token = params["stripe_token"]
 
     @card = AddCard.call(
@@ -30,9 +30,9 @@ class Dashboard::Account::CardsController < DashboardController
 
     if @card
       if params["card"]["default"]
-        @card = SetCustomerDefaultCard.call(current_user.account, @card)
+        @card = SetCustomerDefaultCard.call(@user.account, @card)
         if @card.errors.count == 0
-          current_user.account.cards.update_all(:default => false)
+          @user.account.cards.update_all(:default => false)
           @card.default = true
         end
       end
@@ -55,7 +55,7 @@ class Dashboard::Account::CardsController < DashboardController
 
   def update
     Rails.logger.info("Attempting to Update Card")
-    account = current_user.account
+    account = @user.account
 
     card = Card.find(params["id"])
     token = params["stripe_token"]
@@ -64,9 +64,9 @@ class Dashboard::Account::CardsController < DashboardController
 
     if @card.errors.count == 0
       if params["card"]["default"]
-        @card = SetCustomerDefaultCard.call(current_user.account, @card)
+        @card = SetCustomerDefaultCard.call(@user.account, @card)
         if @card.errors.count == 0
-          current_user.account.cards.update_all(:default => false)
+          @user.account.cards.update_all(:default => false)
           @card.default = true
         end
       end
@@ -86,7 +86,7 @@ class Dashboard::Account::CardsController < DashboardController
   def destroy
     Rails.logger.info("Attempting to Delete Card")
 
-    account = current_user.account
+    account = @user.account
 
     @card = account.cards.find(params["id"])
 

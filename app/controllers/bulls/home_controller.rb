@@ -4,10 +4,16 @@ class Bulls::HomeController < ApplicationController
   def index
     account = Account.where("LOWER(subdomain) = ?", request.subdomain).first
 
-    #ToDo:if account is null we should return a 404
+    if !account
+      render :file => 'public/404.html', :status => :not_found, :layout => false
+
+      return
+    end
+
     session[:account_id] = account.id
 
     @bull = account.user
+    @bull.account = account
 
     respond_to do |format|
       format.html

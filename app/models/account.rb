@@ -94,6 +94,18 @@ class Account < ActiveRecord::Base
       :guid => self.guid,
       :role => self.role,
       :bull_id => self.bull.id,
+      :bull => {
+        :id => self.bull.id,
+        :guid => self.bull.guid,
+        :company_name => self.bull.company_name,
+        :logo => {
+          url: self.bull.logo.exists? ? self.bull.logo.url : ""
+        },
+        :subdomain => self.bull.subdomain,
+        :site_url => self.bull.site_url,
+        :plan_names => self.bull.plan_names,
+        :payment_processors => self.bull.account_payment_processors.active,
+      },
       :first_name => self.first_name,
       :last_name => self.last_name,
       :full_name => self.full_name,

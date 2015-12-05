@@ -27,8 +27,7 @@
 
     $scope.updateCardSubmit = (form) ->
       if form.$valid
-        stripeKey = $scope.getPublishableKey()
-        stripe.setPublishableKey(stripeKey)
+        $scope.setStripePublishableKey($scope.user.account.bull.paymentProcessors)
 
         $scope.display_loading()
         $scope.modalErrorMessage = null

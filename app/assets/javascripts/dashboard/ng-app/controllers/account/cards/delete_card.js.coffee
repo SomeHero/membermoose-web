@@ -29,6 +29,12 @@
           message = "Your card, ending in " + $scope.card.last4 + ", was successfully deleted."
           $scope.display_success_message(message)
 
+          angular.forEach($scope.user.account.cards, (value, index) =>
+            if value.id == $scope.card.id
+              $scope.user.account.cards.splice(index)
+
+              return
+          )
           $scope.dismissModal()
         (http)  ->
           $scope.dismiss_loading()

@@ -25,8 +25,7 @@
 
     $scope.addCardSubmit = (form) ->
       if form.$valid
-        stripeKey = $scope.getPublishableKey()
-        stripe.setPublishableKey(stripeKey)
+        $scope.setStripePublishableKey($scope.user.account.paymentProcessors)
 
         $scope.display_loading()
 
