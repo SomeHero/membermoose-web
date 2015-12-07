@@ -74,6 +74,16 @@ module UserNotification
     # Confirmation when someone changes their password
     CHANGE_PASSWORD = :change_password
 
+    # Confirmation Email to Bull when a calf's subscription is put on hold. Params:
+    #   :bull => The User who owns the plan
+    #   :plan => The Plan the calf subscribed to
+    BULL_HOLD_SUBSCRIPTION = :bull_hold_subscription
+
+    # Confirmation Email to Calf when subscription is put on hold. Params:
+    #   :calf => The User who is subscribed
+    #   :plan => The Plan the calf subscribed to
+    CALF_HOLD_SUBSCRIPTION = :calf_hold_subscription
+
   end
 
   # Notification channel types

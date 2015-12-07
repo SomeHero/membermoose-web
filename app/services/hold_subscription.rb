@@ -17,10 +17,7 @@ class HoldSubscription
       Rails.logger.error "Error Cancelling a Subscription #{e.message}:#{e.backtrace}"
 
       return false, "Error Cancelling a Subscription #{e.message}"
-      #throw e
     end
-
-    subscription.status = Subscription.statuses[:hold]
 
     return true, subscription
   end

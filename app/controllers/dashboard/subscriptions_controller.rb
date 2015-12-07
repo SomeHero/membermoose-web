@@ -89,12 +89,24 @@ class Dashboard::SubscriptionsController < DashboardController
     subscription = Subscription.find(params["id"])
 
     results = HoldSubscription.call(subscription)
-    if !result[0]
-      error(402, 402, 'Unable to hold subscription. #{results[1]}.')
+    if !results[0]
+      error(402, 402, "Unable to hold subscription. #{results[1]}.")
+
+      return
     end
 
+    subscription = results[1]
+
+    subscription.status = Subscription.statuses[:hold]
+
     if subscription.save
-      format.json { render :json => {:subscription => @subscription}, status: 200 }
+      begin
+        Resque.enqueue(HoldSubscriptionWorker, subscription.id)
+      rescue => e
+        Rails.logger.error "Unable to queue hold subscription job. #{e.message}"
+      end
+
+      render :json => {:subscription => subscription}
     else
       error(402, 402, 'Unable to hold subscription. Please try again.')
     end

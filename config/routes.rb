@@ -60,10 +60,12 @@ Rails.application.routes.draw do
       collection do
         resources :unsubscribe, :controller => "dashboard"
         resources :change_plan, :controller => "dashboard"
+        resources :hold, :controller => "dashboard"
         get :count, defaults: { format: 'json' }
       end
       member do
         post :change, defaults: { format: 'json' }
+        post :hold, defaults: { format: 'json' }
       end
     end
     resources :payments, :controller => "dashboard/payments" do

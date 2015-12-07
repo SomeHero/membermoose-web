@@ -116,6 +116,8 @@ Rails.application.configure do
     UserNotification::Notification::SOMEONE_SUBSCRIBED => true,
     UserNotification::Notification::SOMEONE_UNSUBSCRIBED => true,
     UserNotification::Notification::UNSUBSCRIBE_LINK => true,
+    UserNotification::Notification::BULL_HOLD_SUBSCRIPTION => true,
+    UserNotification::Notification::CALF_HOLD_SUBSCRIPTION => true,
   })
 
   GA.tracker = "UA-70096698-2"
