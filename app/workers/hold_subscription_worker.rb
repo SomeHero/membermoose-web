@@ -21,7 +21,7 @@ class HoldSubscriptionWorker
     :from_address => "contact@membermoose.com",
     :from_name => "The Member Moose Team",
     :subject => "Your subscription was put on Hold",
-    :user => user,
+    :user => subscription.account.user,
     :template_name => "Calf Hold Subscription",
     :merge_fields => {
       "merge_plan_name" => subscription.plan_name,
@@ -37,7 +37,7 @@ class HoldSubscriptionWorker
     :from_address => "contact@membermoose.com",
     :from_name => "The Member Moose Team",
     :subject => "A subscription was put on Hold",
-    :user => user,
+    :user => subscription.plan.account.user,
     :template_name => "Bull Hold Subscription",
     :merge_fields => {
       "merge_plan_name" => subscription.plan_name,
