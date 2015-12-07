@@ -81,4 +81,23 @@ class Dashboard::SubscriptionsController < DashboardController
     end
   end
 
+  def hold
+    account = current_user.account
+
+    Rails.logger.info "Holding Subscription #{params["id"]} for #{account.full_name}"
+
+    subscription = Subscription.find(params["id"])
+
+    results = HoldSubscription.call(subscription)
+    if !result[0]
+      error(402, 402, 'Unable to hold subscription. #{results[1]}.')
+    end
+
+    if subscription.save
+      format.json { render :json => {:subscription => @subscription}, status: 200 }
+    else
+      error(402, 402, 'Unable to hold subscription. Please try again.')
+    end
+  end
+
 end

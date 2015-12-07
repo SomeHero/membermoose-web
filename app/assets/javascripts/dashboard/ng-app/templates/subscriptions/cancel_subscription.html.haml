@@ -6,6 +6,8 @@
       %h4
         Are your sure you want to cancel {{subscription.subscriberName}} from your plan {{subscription.plan.name}}?
     %footer
+      %button.previous{"ng-click"=>"dismissModal()"}
+        Cancel
       %button.continue{"ng-click"=>"cancelSubscriptionSubmit()"}
         Yes, Cancel
         %i.fa-arrow-right
