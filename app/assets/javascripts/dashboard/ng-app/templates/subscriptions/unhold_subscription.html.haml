@@ -1,0 +1,14 @@
+.action-form{"data-remodal-id"=>"unhold-subscription-modal", "data-remodal-options"=>"hashTracking: false" }
+  %section.active
+    %header
+      %h2
+        Un-Hold Subscription?
+      %h4
+        Are your sure you want to un-hold and activate {{subscription.subscriberName}}'s subscription to the plan {{subscription.plan.name}}?
+    %footer
+      %button.previous{"ng-click"=>"dismissModal()"}
+        Cancel
+      %button.continue{"ng-click"=>"unholdSubscriptionSubmit()"}
+        Yes, Activate
+        %i.fa-arrow-right
+    %div{"loading-screen" => "loading.show_spinner"}

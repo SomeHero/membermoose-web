@@ -73,6 +73,18 @@ module UserNotification
         when UserNotification::Notification::BULL_WELCOME
           channel_type = channel_type ? channel_type : UserNotification::Channel::EMAIL
           user = params_hash[:user]
+        when UserNotification::Notification::CALF_HOLD_SUBSCRIPTION
+          channel_type = channel_type ? channel_type : UserNotification::Channel::EMAIL
+          user = params_hash[:user]
+        when UserNotification::Notification::BULL_HOLD_SUBSCRIPTION
+          channel_type = channel_type ? channel_type : UserNotification::Channel::EMAIL
+          user = params_hash[:user]
+        when UserNotification::Notification::CALF_UNHOLD_SUBSCRIPTION
+          channel_type = channel_type ? channel_type : UserNotification::Channel::EMAIL
+          user = params_hash[:user]
+        when UserNotification::Notification::BULL_UNHOLD_SUBSCRIPTION
+          channel_type = channel_type ? channel_type : UserNotification::Channel::EMAIL
+          user = params_hash[:user]
         when UserNotification::Notification::USER_WELCOME
           channel_type = channel_type ? channel_type : UserNotification::Channel::EMAIL
           user = params_hash[:user]

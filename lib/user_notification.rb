@@ -84,6 +84,16 @@ module UserNotification
     #   :plan => The Plan the calf subscribed to
     CALF_HOLD_SUBSCRIPTION = :calf_hold_subscription
 
+    # Confirmation Email to Bull when a calf's subscription is activated. Params:
+    #   :bull => The User who owns the plan
+    #   :plan => The Plan the calf subscribed to
+    BULL_UNHOLD_SUBSCRIPTION = :bull_unhold_subscription
+
+    # Confirmation Email to Calf when subscription is activated. Params:
+    #   :calf => The User who is subscribed
+    #   :plan => The Plan the calf subscribed to
+    CALF_UNHOLD_SUBSCRIPTION = :calf_unhold_subscription
+
   end
 
   # Notification channel types

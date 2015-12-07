@@ -103,13 +103,43 @@ class Dashboard::SubscriptionsController < DashboardController
       begin
         Resque.enqueue(HoldSubscriptionWorker, subscription.id)
       rescue => e
-        Rails.logger.error "Unable to queue hold subscription job. #{e.message}"
+        Rails.logger.error "Unable to queue unhold subscription job. #{e.message}"
       end
 
       render :json => {:subscription => subscription}
     else
-      error(402, 402, 'Unable to hold subscription. Please try again.')
+      error(402, 402, 'Unable to unhold subscription. Please try again.')
     end
   end
 
+  def unhold
+    account = current_user.account
+
+    subscription = Subscription.find(params["id"])
+
+    Rails.logger.info "Un-holding Subscription #{subscription.plan.name} for #{subscription.account.full_name}"
+
+    results = UnholdSubscription.call(subscription)
+    if !results[0]
+      error(402, 402, "Unable to unhold subscription. #{results[1]}.")
+
+      return
+    end
+
+    subscription = results[1]
+
+    subscription.status = Subscription.statuses[:subscribed]
+
+    if subscription.save
+      begin
+        Resque.enqueue(UnholdSubscriptionWorker, subscription.id)
+      rescue => e
+        Rails.logger.error "Unable to queue unhold subscription job. #{e.message}"
+      end
+
+      render :json => {:subscription => subscription}
+    else
+      error(402, 402, 'Unable to unhold subscription. Please try again.')
+    end
+  end
 end
