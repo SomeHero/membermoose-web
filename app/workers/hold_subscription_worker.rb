@@ -24,7 +24,7 @@ class HoldSubscriptionWorker
     :user => subscription.account.user,
     :template_name => "Calf Hold Subscription",
     :merge_fields => {
-      "merge_plan_name" => subscription.plan_name,
+      "merge_plan_name" => subscription.plan.name,
       "merge_calf_name" => subscription.account.full_name,
       "merge_calf_email" => subscription.account.user.email,
     })
@@ -40,7 +40,7 @@ class HoldSubscriptionWorker
     :user => subscription.plan.account.user,
     :template_name => "Bull Hold Subscription",
     :merge_fields => {
-      "merge_plan_name" => subscription.plan_name,
+      "merge_plan_name" => subscription.plan.name,
       "merge_plan_amount" => ActionController::Base.helpers.number_to_currency(subscription.plan.amount),
       "merge_billing_interval" => subscription.plan.billing_cycle,
       "merge_calf_name" => subscription.account.full_name,
