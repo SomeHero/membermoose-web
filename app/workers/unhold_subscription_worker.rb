@@ -24,7 +24,7 @@ class UnholdSubscriptionWorker
     :user => subscription.account.user,
     :template_name => "Calf UnHold Subscription",
     :merge_fields => {
-      "merge_plan_name" => subscription.plan_name,
+      "merge_plan_name" => subscription.plan.name,
       "merge_plan_amount" => ActionController::Base.helpers.number_to_currency(subscription.plan.amount),
       "merge_billing_cycle" => subscription.plan.billing_cycle,
       "merge_calf_name" => subscription.account.full_name,
@@ -44,7 +44,7 @@ class UnholdSubscriptionWorker
     :user => subscription.plan.account.user,
     :template_name => "Bull UnHold Subscription",
     :merge_fields => {
-      "merge_plan_name" => subscription.plan_name,
+      "merge_plan_name" => subscription.plan.name,
       "merge_plan_amount" => ActionController::Base.helpers.number_to_currency(subscription.plan.amount),
       "merge_billing_cycle" => subscription.plan.billing_cycle,
       "merge_calf_name" => subscription.account.full_name,
