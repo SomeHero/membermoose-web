@@ -215,6 +215,12 @@ var app = angular.module('dashboardApp', [
             controller: 'HoldSubscriptionController',
             params: { subscription: null }
         })
+        .state('dashboard.subscriptions.unhold', {
+            url: '/unhold',
+            templateUrl: 'dashboard/ng-app/templates/subscriptions/unhold_subscription.html',
+            controller: 'UnholdSubscriptionController',
+            params: { subscription: null }
+        })
         .state('dashboard.subscriptions.change_plan', {
             url: '/change_plan',
             templateUrl: 'dashboard/ng-app/templates/subscriptions/change_plan.html',
