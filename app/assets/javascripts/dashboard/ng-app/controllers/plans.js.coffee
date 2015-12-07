@@ -84,14 +84,17 @@
       if form.$valid
         $scope.display_loading()
         $scope.selected_plan.update().then(
-          (updated_plan) ->
+          (response) ->
+            updated_plan = new Plan(response.data)
             angular.forEach($scope.plans, (value,index) =>
               if value.id == updated_plan.id
                 $scope.plans[index] = updated_plan
             )
+
+            sortPlans()
             $scope.closeEditBar()
 
-            message = "Your plan, " + plan.name + ", was successfully updated."
+            message = "Your plan, " + $scope.updated_plan.name + ", was successfully updated."
             $scope.display_success_message(message)
 
             $scope.dismiss_loading()

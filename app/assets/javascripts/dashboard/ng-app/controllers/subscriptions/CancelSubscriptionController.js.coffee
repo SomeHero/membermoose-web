@@ -35,7 +35,7 @@
 
               return
           )
-          message = "The subscription was successfully deleted."
+          message = "The subscription was successfully cancelled."
           $scope.display_success_message(message)
 
           $scope.dismiss_loading()
