@@ -16,6 +16,8 @@
                 %h3.plan-amount
                   {{plan.amount | currency }}/{{ plan.billingCycle }}
     %footer
+      %button.previous{"ng-click"=>"dismissModal()"}
+        Cancel
       %button.continue{"ng-click"=>"changePlanSubmit()"}
         Change Plan
         %i.fa-arrow-right

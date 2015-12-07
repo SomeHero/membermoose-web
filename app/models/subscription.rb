@@ -1,5 +1,5 @@
 class Subscription < ActiveRecord::Base
-  enum status: %w(subscribed cancelled upgraded)
+  enum status: %w(subscribed cancelled hold)
 
   belongs_to :account
   belongs_to :plan

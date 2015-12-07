@@ -49,7 +49,7 @@
 
           angular.forEach $scope.subscriptions, ((subscription, index) ->
             if subscription.id == new_subscription.id
-              scope.subscriptions[index] = new_subscription
+              $scope.subscriptions[index] = new_subscription
 
               return
           )
