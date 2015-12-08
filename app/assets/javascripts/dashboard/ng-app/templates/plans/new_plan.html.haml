@@ -39,6 +39,8 @@
           %span{"ng-show" => "planFeatureForm['plan[feature_1]'].$error.required"}
             Please tell us one feature of your plan.
       %footer
+        %button.previous{"ng-click"=>"goToPreviousSection()"}
+          Back
         %button.continue{:type=>"submit", "ng-click"=>"nextSection(planNameForm)"}
           Next
           %i.fa-arrow-right
@@ -51,7 +53,7 @@
       .group
         %label{:for => "billing_interval"}
           My customers are billed every
-        %input#plan_amount{:autofocus => "", :name => "plan[amount]", :placeholder => "Amount", :required => "", :type => "text", "ng-model"=>"plan.amount"}/
+        %input#plan_amount{:autofocus => "", :name => "plan[amount]", :placeholder => "Amount", :required => "", :type => "text", "ng-model"=>"plan.amount",  "money"=>"", "precision"=>"2"}/
         %span{"ng-show" => "form_submitted && planBillingForm['plan[amount]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "planBillingForm['plan[amount]'].$error.required"}
             Amount is a required field.
@@ -165,7 +167,7 @@
       .group{"ng-show"=>"plan.discounted_trial_type == 'amount'"}
         %label{:for => "percentage_off_amount"}
           $ Amount Off
-        %input#planTrialPeriodPercentage{:autofocus => "", :name => "plan[discounted_trial_amount]", :placeholder => "Amount Off ($1.00 - {{plan.amount | currency}})", "ng-required"=>"plan.discounted_trial_type == 'amount'", :type => "text", "maxlength"=>"8", "ng-model"=>"plan.discounted_trail_amount", "ng-checked"=>"false"}/
+        %input#planTrialPeriodPercentage{:autofocus => "", :name => "plan[discounted_trial_amount]", :placeholder => "Amount Off ($1.00 - {{plan.amount | currency}})", "ng-required"=>"plan.discounted_trial_type == 'amount'", :type => "text", "maxlength"=>"8", "ng-model"=>"plan.discounted_trail_amount", "ng-checked"=>"false",  "money"=>"", "precision"=>"2"}/
         %span{"ng-show" => "form_submitted && planTrialPeriod['plan[discounted_trial_amount]'].$invalid", :style => "color:red"}
           %span{"ng-show" => "planTrialPeriod['plan[discounted_trial_amount]'].$error.required"}
             Please tell us the amount discount for your trial.

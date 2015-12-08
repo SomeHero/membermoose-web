@@ -6,8 +6,9 @@
   '$http'
   '$window'
   '$timeout'
+  '$filter'
   'PlansServiceChannel'
-  ($scope, $state, Plan, $modal, $http, window, $timeout, PlansServiceChannel) ->
+  ($scope, $state, Plan, $modal, $http, window, $timeout, $filter, PlansServiceChannel) ->
     init = () ->
       window.scope = $scope
       $scope.totalItems = 0
@@ -72,7 +73,7 @@
     $scope.editPlan = (plan) ->
       $scope.edit_panel_open = true
       $scope.selected_plan = new Plan(angular.copy(plan))
-
+      $scope.selected_plan.amount = $filter('currency')($scope.selected_plan.amount, '', 2)
       $scope.plans_per_row = 3
       $scope.$parent.show_success_message = false
 
@@ -94,7 +95,7 @@
             sortPlans()
             $scope.closeEditBar()
 
-            message = "Your plan, " + $scope.updated_plan.name + ", was successfully updated."
+            message = "Your plan, " + updated_plan.name + ", was successfully updated."
             $scope.display_success_message(message)
 
             $scope.dismiss_loading()
@@ -193,4 +194,4 @@
 
 ]
 
-PlansController.$inject = ['$scope', '$state', 'Plan', '$modal', '$http', 'window', '$timeout', 'PlansServiceChannel']
+PlansController.$inject = ['$scope', '$state', 'Plan', '$modal', '$http', 'window', '$timeout', '$filter', 'PlansServiceChannel']

@@ -11,7 +11,8 @@ var app = angular.module('dashboardApp', [
         'ngFileUpload',
         'rzModule',
         'angular-stripe',
-        'Devise'
+        'Devise',
+        'fiestah.money'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $stateProvider
