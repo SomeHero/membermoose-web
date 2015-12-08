@@ -119,6 +119,64 @@
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}
   %section{"ng-class"=>"isActiveSection(6)"}
+    %form{"name"=>"discountedTrialPeriod", "novalidate"=>""}
+      %header
+        %h1
+          Do you want to offer a discounted trial?
+      .group
+        %label{:for => "discounted_trial_yes"}
+          Discounted Trial?
+        %input#discounted_trial_yes{:autofocus => "", :name => "plan[discounted_trial_yes]", :required => "", :type => "radio", "ng-model"=>"plan.has_discounted_trial", "ng-value"=>"true"}
+          Yes
+        %input#discounted_trial_no{:autofocus => "", :name => "plan[discounted_trial_yes]", :required => "", :type => "radio", "ng-model"=>"plan.has_discounted_trial", "ng-value"=>"false"}
+          No
+        %span{"ng-show" => "form_submitted && planTrialPeriod['plan[discounted_trial]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "planTrialPeriod['plan[discounted_trial]'].$error.required"}
+            Please tell us if you would like to offer a discounted trial.
+      %footer
+        %button.previous{"ng-click"=>"goToPreviousSection()"}
+          Back
+        %button.continue{"ng-click"=>"nextSection(discountedTrialPeriod)"}
+          Next
+          %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}
+  %section{"ng-class"=>"isActiveSection(7)"}
+    %form{"name"=>"planTrialPeriod", "novalidate"=>""}
+      %header
+        %h1
+          Tell us about the type of discounted trial you would like to offer?
+      .group
+        %label{:for => "discounted_trial_type"}
+          Would you like offer an amount or percentage discount off the subscription cost to new subscriber?
+        %input#discounted_trial_yes{:autofocus => "", :name => "plan[discounted_trial_yes]", :required => "", :type => "radio", "ng-model"=>"plan.discounted_trial_type", "ng-value"=>"'amount'"}
+          Amount
+        %input#discounted_trial_no{:autofocus => "", :name => "plan[discounted_trial_yes]", :required => "", :type => "radio", "ng-model"=>"plan.discounted_trial_type", "ng-value"=>"'percentage'"}
+          Percentage
+        %span{"ng-show" => "form_submitted && planTrialPeriod['plan[discounted_trial]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "planTrialPeriod['plan[discounted_trial]'].$error.required"}
+            Please tell us whether you would like to discount using a fixed amount off or a percentage.
+      .group{"ng-show"=>"plan.discounted_trial_type == 'percentage'"}
+        %label{:for => "percentage_off_amount"}
+          Percentage Off Amount
+        %input#planTrialPeriodAmount{:autofocus => "", :name => "plan[discounted_trial_percentage]", :placeholder => "Percentage Off (1% - 100%)", "ng-required"=>"plan.discounted_trial_type == 'percentage'", :type => "text", "maxlength"=>"3", "ng-model"=>"plan.discounted_trail_percentage", "ng-checked"=>"false"}/
+        %span{"ng-show" => "form_submitted && planTrialPeriod['plan[discounted_trial_percentage]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "planTrialPeriod['plan[discounted_trial_percentage]'].$error.required"}
+            Please tell us the percentage discount for your trial.
+      .group{"ng-show"=>"plan.discounted_trial_type == 'amount'"}
+        %label{:for => "percentage_off_amount"}
+          $ Amount Off
+        %input#planTrialPeriodPercentage{:autofocus => "", :name => "plan[discounted_trial_amount]", :placeholder => "Amount Off ($1.00 - {{plan.amount | currency}})", "ng-required"=>"plan.discounted_trial_type == 'amount'", :type => "text", "maxlength"=>"8", "ng-model"=>"plan.discounted_trail_amount", "ng-checked"=>"false"}/
+        %span{"ng-show" => "form_submitted && planTrialPeriod['plan[discounted_trial_amount]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "planTrialPeriod['plan[discounted_trial_amount]'].$error.required"}
+            Please tell us the amount discount for your trial.
+      %footer
+        %button.previous{"ng-click"=>"goToPreviousSection()"}
+          Back
+        %button.continue{"ng-click"=>"nextSection(planTrialPeriod)"}
+          Next
+          %i.fa-arrow-right
+      %div{"loading-screen" => "loading.show_spinner"}
+  %section{"ng-class"=>"isActiveSection(8)"}
     %form{"name"=>"planTermsForm", "novalidate"=>""}
       %header
         %h1
@@ -134,7 +192,7 @@
           Create Plan
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}
-  %section{"ng-class"=>"isActiveSection(7)"}
+  %section{"ng-class"=>"isActiveSection(9)"}
     %header
       %h2
         Success

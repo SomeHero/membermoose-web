@@ -2,21 +2,24 @@
   '$scope'
   '$state'
   'Plan'
-  '$modal'
   '$http'
   '$window'
   '$timeout'
   'AccountServiceChannel'
   'PlansServiceChannel'
-  ($scope, $state, Plan, $modal, $http, window, $timeout, AccountServiceChannel, PlansServiceChannel) ->
+  ($scope, $state, Plan, $http, $window, $timeout, AccountServiceChannel, PlansServiceChannel) ->
     init = () ->
+      $window.scope = $scope
+
       $scope.fromLaunch = $state.current.data.fromLaunch
       $scope.newPlanSection = 1
       if $scope.fromLaunch && $scope.user.account.hasCreatedPlan
-        $scope.newPlanSection = 7
+        $scope.newPlanSection = 8
       $scope.form_submitted = false
       $scope.plan = {
-        has_free_trial_period: true
+        has_free_trial_period: false,
+        has_discounted_trial: false,
+        discounted_trial_type: ''
       }
       if !create_plan_modal
         create_plan_modal = $('[data-remodal-id=new-plan-modal]').remodal($scope.options)
@@ -58,7 +61,7 @@
     $scope.createPlanClicked = () ->
       $scope.newPlanSection = 1
       if $scope.user.account.hasCreatedPlan
-        $scope.newPlanSection = 7
+        $scope.newPlanSection = 8
       $scope.form_submitted = false
       $scope.plan = {
         has_free_trial_period: true
@@ -75,7 +78,7 @@
         $scope.display_loading()
         $scope.form_submitted = true
 
-        new Plan({
+        plan_params = {
           name: $scope.plan.name,
           description: $scope.plan.description,
           feature_1: $scope.plan.feature_1,
@@ -86,10 +89,35 @@
           billing_interval: 1,
           billing_cycle: $scope.plan.billing_cycle,
           free_trial_period: $scope.plan.free_trial_period,
-          terms_and_conditions: $scope.plan.terms_and_conditions
-        }).create().then(
-          (response) ->
+          terms_and_conditions: $scope.plan.terms_and_conditions,
+          discount_trial: $scope.plan.has_discounted_trial
+        }
 
+        if $scope.plan.has_discounted_trial
+          if $scope.plan.discounted_trial_type = 'amount'
+            discount_amount = $scope.plan.discounted_trail_amount
+          else
+            discount_amount = $scope.plan.discounted_trail_percentage
+
+          coupon_params = {
+            coupon_type: $scope.plan.discounted_trial_type,
+            discount_amount: discount_amount
+          }
+
+        params = {
+          plan: plan_params
+          coupon: coupon_params
+        }
+        $http({
+            method: 'POST',
+            url: '/dashboard/plans',
+            data: params,
+            headers: {
+                "content-type":"application/json",
+                "Accept" : "application/json"
+            }
+        }).then(
+          (response) ->
             PlansServiceChannel.plansUpdated()
 
             message = "You successfully created a plan!"
@@ -125,4 +153,4 @@
     init()
 ]
 
-CreatePlanController.$inject = ['$scope', '$state', 'Plan', '$modal', '$http', 'window', '$timeout', 'AccountServiceChannel', 'PlansServiceChannel']
+CreatePlanController.$inject = ['$scope', '$state', 'Plan', '$http', 'window', '$timeout', 'AccountServiceChannel', 'PlansServiceChannel']

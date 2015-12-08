@@ -5,6 +5,7 @@ class Plan < ActiveRecord::Base
   has_many :subscriptions
   has_many :members, :through => :subscriptions, :source => :account, class_name: "Account", foreign_key: "account_id"
   has_attached_file :photo
+  has_one :subscription_discount_coupon
 
   scope :public_plans, -> { where(public: true, deleted: false) }
   scope :active, -> { where(deleted: false) }

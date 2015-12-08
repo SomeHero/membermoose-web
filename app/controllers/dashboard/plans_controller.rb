@@ -28,7 +28,7 @@ class Dashboard::PlansController < DashboardController
     stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
     stripe = account.account_payment_processors.where(:payment_processor => stripe_payment_processor).active.first
 
-    @plan = CreatePlan.call(account, {
+    plan_options = {
         :account => account,
         :name => params["plan"]["name"],
         :stripe_id => params["plan"]["name"],
@@ -43,11 +43,45 @@ class Dashboard::PlansController < DashboardController
         :trial_period_days => params["plan"]["free_trial_period"],
         :terms_and_conditions => params["plan"]["terms_and_conditions"],
         :public => true
-    })
+    }
+    if params["plan"]["discount_trial"]
+      coupon_options = {
+        :coupon_type => params["coupon"]["coupon_type"],
+        :discount_amount => params["coupon"]["discount_amount"]
+      }
+    end
+    results = CreatePlan.call(account, plan_options, coupon_options)
 
-    if @plan.errors.count == 0
+    if !results[0]
+      error(402, 402, "Unable to create plan.  #{results[1]}")
+
+      return
+    end
+
+    @plan = results[1]
+
+    if @plan.save
       account.has_created_plan = true
       account.save
+
+      if results[2]
+        coupon = results[2]
+
+        if coupon.save
+          sub_discount_coupon = SubscriptionDiscountCoupon.create({
+            :plan => @plan,
+            :coupon => coupon
+          })
+        else
+          error(402, 402, 'Unable to create subscription discount coupon.  Please try again.')
+
+          return
+        end
+      end
+    else
+      error(402, 402, 'Unable to create plan.  Please try again.')
+
+      return
     end
 
     respond_to do |format|

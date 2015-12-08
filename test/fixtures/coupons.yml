@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  coupon_type: 
+  discount_amount: 
+  currency: 
+  duration: 
+  duration_repeating_monthes: MyString
+  integer,: MyString
+  max_redemptions: 
+  redeem_by: 
+  times_redeemed: 1
+
+two:
+  coupon_type: 
+  discount_amount: 
+  currency: 
+  duration: 
+  duration_repeating_monthes: MyString
+  integer,: MyString
+  max_redemptions: 
+  redeem_by: 
+  times_redeemed: 1

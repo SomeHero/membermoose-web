@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201073539) do
+ActiveRecord::Schema.define(version: 20151208021644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,21 @@ ActiveRecord::Schema.define(version: 20151201073539) do
 
   add_index "charges", ["card_id"], name: "index_charges_on_card_id", using: :btree
 
+  create_table "coupons", force: true do |t|
+    t.integer  "coupon_type"
+    t.decimal  "discount_amount"
+    t.string   "currency"
+    t.integer  "duration"
+    t.integer  "duration_repeating_monthes"
+    t.integer  "max_redemptions"
+    t.datetime "redeem_by"
+    t.integer  "times_redeemed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "guid"
+    t.string   "external_id"
+  end
+
   create_table "invoices", force: true do |t|
     t.string   "external_id"
     t.decimal  "subtotal"
@@ -241,6 +256,16 @@ ActiveRecord::Schema.define(version: 20151201073539) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "subscription_discount_coupons", force: true do |t|
+    t.integer  "plan_id"
+    t.integer  "coupon_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscription_discount_coupons", ["coupon_id"], name: "index_subscription_discount_coupons_on_coupon_id", using: :btree
+  add_index "subscription_discount_coupons", ["plan_id"], name: "index_subscription_discount_coupons_on_plan_id", using: :btree
 
   create_table "subscription_payments", force: true do |t|
     t.integer  "subscription_id"

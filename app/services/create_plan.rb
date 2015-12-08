@@ -1,21 +1,29 @@
 require 'money'
 
 class CreatePlan
-  def self.call(account, options={})
+  def self.call(account, options={}, coupon_options={})
     plan = Plan.new(options)
 
-    if !plan.valid?
-      return plan
+    if coupon_options
+      results = CreateCoupon.call(account, coupon_options)
+
+      return false, results[1] if !results[0]
+
+      coupon = results[1]
     end
+
+    return false, plan if !plan.valid?
+
     if !account.has_connected_stripe
       plan.needs_sync = true
       plan.save #just go ahead and save the plan unsync'ed
-      return plan
+      return true, plan, coupon
     end
 
     stripe_secret_key = account.stripe_secret_key
 
-    return false if !stripe_secret_key
+    return false, "Stripe key not provided" if !stripe_secret_key
+
     begin
       Stripe.api_key =  stripe_secret_key
 
@@ -31,13 +39,9 @@ class CreatePlan
         trial_period_days: options["trial_period_days"] || 0
       )
     rescue Stripe::StripeError => e
-      plan.errors[:base] << e.message
-      return plan
+      return false, e.message
     end
 
-    #ToDo: if we got this far update flag to incidate plan was synced
-    plan.save
-
-    return plan
+    return true, plan, coupon
   end
 end
