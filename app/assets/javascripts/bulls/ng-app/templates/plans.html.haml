@@ -12,6 +12,6 @@
                   {{plan.description}}
                 %h3.plan-amount
                   {{plan.amount | currency }}/{{ plan.billingCycle }}
-              %button.btn.btn-lg.btn-success{"ui-sref"=>"subscribe({ id: '{{plan.guid}}'})", :style=>"width: 100%; border-radius: 0px; position: absolute; bottom: 0px; left: 0px; height: 50px;"}
+              %button.btn.btn-lg.btn-success{"ui-sref"=>"subscribe({ id: '{{plan.guid}}'})", :style=>"width: 100%; border-radius: 0px; position: absolute; left: 0px; height: 50px;"}
                 Subscribe
 %div{"loading-screen" => "loading.show_spinner"}
