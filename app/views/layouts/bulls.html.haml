@@ -18,11 +18,11 @@
     %base{"href"=>"/"}
   %body
     %header.text-center{:role => "banner", :style => "background: #{@dominant_color}"}
+      %a.login{:href => "/dashboard/my_subscriptions"}
+        Login
       %nav{:role => "primary"}
-        %a.login{:href => "/dashboard/my_subscriptions"}
-          Login
         - if @bull.account.logo.exists?
-          = image_tag @bull.account.logo.url
+          = image_tag @bull.account.logo.url, :style=>"height: 180px;"
         - else
           %h1
             = @bull.account.company_name
