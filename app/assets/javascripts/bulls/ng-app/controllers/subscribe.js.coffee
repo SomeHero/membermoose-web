@@ -12,8 +12,10 @@
 
     $scope.plan = new Plan(plan.data)
     $scope.account = account
-    stripe.setPublishableKey(account.payment_processors[0].api_key)
-    
+
+    if $scope.account.payment_processors.length > 0
+      stripe.setPublishableKey(scope.account.payment_processors[0].api_key)
+
     $scope.loading = {
       show_spinner: false
     }
