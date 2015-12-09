@@ -22,7 +22,7 @@
         Login
       %nav{:role => "primary"}
         - if @bull.account.logo.exists?
-          = image_tag @bull.account.logo.url, :style=>"height: 180px;"
+          = image_tag @bull.account.logo.url
         - else
           %h1
             = @bull.account.company_name

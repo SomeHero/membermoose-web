@@ -146,6 +146,24 @@
     $scope.nextClicked = () =>
       $scope.active_step += 1
 
+    $scope.wrapperGridStyle = () ->
+      planLength = $scope.plans.length
+      if planLength > 3
+        planLength = 3
+
+      className =  "col-md-" + (4*planLength).toString() + " col-md-offset-" + ((12 - 4*planLength)/2).toString()
+
+      return className
+
+    $scope.planGridStyle = () ->
+      planLength = $scope.plans.length
+      if planLength > 3
+        planLength = 3
+
+      className =  "col-md-" + (12/planLength).toString()
+
+      return className
+
     $scope.getPlans()
 
     return

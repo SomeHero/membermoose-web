@@ -1,9 +1,9 @@
 .container-fluid
   .row
-    .col-sm-12.col-md-10.col-md-offset-1
+    .col-sm-12{"ng-class"=>"wrapperGridStyle()"}
       .container-fluid.plans{"style"=>"min-height: 400px;"}
         .row{"ng-repeat"=>"row in rows", :style=>"margin-bottom: 20px;"}
-          .col-md-4{"ng-repeat"=>"plan in row"}
+          %div{"ng-class"=>"planGridStyle()", "ng-repeat"=>"plan in row"}
             .plan.thumbnail{:style=>"position: relative;"}
               .plan-info{:style=>"margin-top: 20px;"}
                 %h1.plan-description{:style=>"font-size: 18px; font-weight: 700;"}
@@ -12,6 +12,6 @@
                   {{plan.description}}
                 %h3.plan-amount
                   {{plan.amount | currency }}/{{ plan.billingCycle }}
-              %button.btn.btn-lg.btn-success{"ui-sref"=>"subscribe({ id: '{{plan.guid}}'})", :style=>"width: 100%; border-radius: 0px; position: absolute; left: 0px; height: 50px;"}
+              %button.btn.btn-lg.btn-success{"ui-sref"=>"subscribe({ id: '{{plan.guid}}'})", :style=>"width: 100%; border-radius: 0px; position: absolute; left: 0px; bottom: -50px; height: 50px;"}
                 Subscribe
 %div{"loading-screen" => "loading.show_spinner"}

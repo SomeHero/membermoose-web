@@ -13,7 +13,7 @@
         %form.form-horizontal{"name"=>"subscriptionForm", "novalidate"=>""}
           .form-group
             .col-md-6
-              %input#firstName.form-control.input{:type=>"text",:name=>"subscription[first_name]",:placeholder=>"First Name","ng-model"=>"subscription.first_name", "required"=>""}
+              %input#firstName.form-control.input{:autofocus => "", :type=>"text",:name=>"subscription[first_name]",:placeholder=>"First Name","ng-model"=>"subscription.first_name", "required"=>""}
               %span{"ng-show" => "form_submitted && subscriptionForm['subscription[first_name]'].$invalid", :style => "color:red"}
                 %span{"ng-show" => "subscriptionForm['subscription[first_name]'].$error.required"}
                   First Name is required
@@ -58,7 +58,7 @@
                   Password is required
           .form-group
             .col-md-12
-              %input.form-control.input{:autofocus => "", :name => "name_on_card", :placeholder => "Name on Card", :required => "", :type => "text", "ng-model"=>"payment.card.name"}/
+              %input.form-control.input{:name => "name_on_card", :placeholder => "Name on Card", :required => "", :type => "text", "ng-model"=>"payment.card.name"}/
               %span{"ng-show" => "form_submitted && addCreditCardForm['name_on_card'].$invalid", :style => "color:red"}
                 %span{"ng-show" => "addCreditCardForm['name_on_card'].$error.required"}
                   Name on Card is required.
