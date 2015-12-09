@@ -17,6 +17,11 @@ body {
     background-color: #393c45;
     margin-bottom: 20px;
     padding: 20px 0px;
+    .login {
+      position: absolute;
+      top: 20px;
+      right: 100px;
+    }
     nav {
       width: 70%;
       max-width: 1024px;
@@ -33,7 +38,7 @@ body {
 }
 .plan {
   background-color: white;
-  height: 220px;
+  min-height: 220px;
   text-align: center;
   padding: 20px 20px;
   margin: 20px 0px;
@@ -42,7 +47,7 @@ body {
   color: #55acee;
   h2.plan-name {
     font-size: 16px;
-    margin-bottom: 0px;
+    margin-bottom: 24px;
   }
   h3.plan-amount {
     font-size: 14px;
