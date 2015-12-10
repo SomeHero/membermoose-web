@@ -18,14 +18,15 @@ class CreateCoupon
     begin
       Stripe.api_key =  stripe_secret_key
 
-
       amount = Money.from_amount(options[:amount].to_f, "USD")
 
+      if coupon.amount?
+        amount = Money.from_amount(coupon.discount_amount.to_i, "USD")
 
-      if coupon.coupon_type == Coupon.coupon_types[:amount]
         stripe_coupon = Stripe::Coupon.create(
-          :amount_off => coupon.discount_amount,
-          :duration => 'once'
+          :amount_off => amount.cents,
+          :duration => 'once',
+          :currency => 'usd'
         )
       else
         stripe_coupon = Stripe::Coupon.create(

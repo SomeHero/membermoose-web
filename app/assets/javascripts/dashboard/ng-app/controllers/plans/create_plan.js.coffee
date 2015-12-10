@@ -14,7 +14,7 @@
       $scope.fromLaunch = $state.current.data.fromLaunch
       $scope.newPlanSection = 1
       if $scope.fromLaunch && $scope.user.account.hasCreatedPlan
-        $scope.newPlanSection = 8
+        $scope.newPlanSection = 9
       $scope.form_submitted = false
       $scope.plan = {
         has_free_trial_period: false,
@@ -38,6 +38,8 @@
     $scope.goToPreviousSection = () ->
       if $scope.newPlanSection == 6 && !$scope.plan.has_free_trial_period
         $scope.newPlanSection = $scope.newPlanSection - 2
+      else if $scope.newPlanSection == 8 && !$scope.plan.has_discounted_trial
+          $scope.newPlanSection = $scope.newPlanSection - 2
       else
         $scope.newPlanSection = $scope.newPlanSection - 1
       $scope.form_submitted = false
@@ -55,6 +57,14 @@
         $scope.newPlanSection = $scope.newPlanSection + 1
       else
         $scope.plan.free_trial_period = 0
+        $scope.newPlanSection = $scope.newPlanSection + 2
+      $scope.form_submitted = false
+
+    $scope.hasDiscountedTrialPeriodClicked = (form) ->
+      if $scope.plan.has_discounted_trial
+        $scope.newPlanSection = $scope.newPlanSection + 1
+      else
+        $scope.plan.has_discounted_trial = 0
         $scope.newPlanSection = $scope.newPlanSection + 2
       $scope.form_submitted = false
 
@@ -89,8 +99,8 @@
           billing_interval: 1,
           billing_cycle: $scope.plan.billing_cycle,
           free_trial_period: $scope.plan.free_trial_period,
-          terms_and_conditions: $scope.plan.terms_and_conditions,
-          discount_trial: $scope.plan.has_discounted_trial
+          discounted_trial: $scope.plan.has_discounted_trial,
+          terms_and_conditions: $scope.plan.terms_and_conditions
         }
 
         if $scope.plan.has_discounted_trial

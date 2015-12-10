@@ -107,9 +107,9 @@
       .group
         %label{:for => "free_trial_period"}
           Free Trial Period
-        %input#free_trial_period{:autofocus => "", :name => "plan[free_trial_period_yes]", :placeholder => "Free Trial Period (# of days)", :required => "", :type => "text", "maxlength"=>"4", "ng-model"=>"plan.free_trial_period"}/
-        %span{"ng-show" => "form_submitted && planTrialPeriod['plan[free_trial_period]'].$invalid", :style => "color:red"}
-          %span{"ng-show" => "planTrialPeriod['plan[free_trial_period]'].$error.required"}
+        %input#free_trial_period{:autofocus => "", :name => "plan[free_trial_period_days]", :placeholder => "Free Trial Period (# of days)", :required => "", :type => "text", "maxlength"=>"4", "ng-model"=>"plan.free_trial_period"}/
+        %span{"ng-show" => "form_submitted && planTrialPeriod['plan[free_trial_period_days]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "planTrialPeriod['plan[free_trial_period_days]'].$error.required"}
             Free Trial Period is required.
       %footer
         %button.previous{"ng-click"=>"goToPreviousSection()"}
@@ -130,18 +130,18 @@
           Yes
         %input#discounted_trial_no{:autofocus => "", :name => "plan[discounted_trial_yes]", :required => "", :type => "radio", "ng-model"=>"plan.has_discounted_trial", "ng-value"=>"false"}
           No
-        %span{"ng-show" => "form_submitted && planTrialPeriod['plan[discounted_trial]'].$invalid", :style => "color:red"}
-          %span{"ng-show" => "planTrialPeriod['plan[discounted_trial]'].$error.required"}
+        %span{"ng-show" => "form_submitted && discountedTrialPeriod['plan[discounted_trial_yes]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "discountedTrialPeriod['plan[discounted_trial_yes]'].$error.required"}
             Please tell us if you would like to offer a discounted trial.
       %footer
         %button.previous{"ng-click"=>"goToPreviousSection()"}
           Back
-        %button.continue{"ng-click"=>"nextSection(discountedTrialPeriod)"}
+        %button.continue{"ng-click"=>"hasDiscountedTrialPeriodClicked(discountedTrialPeriod)"}
           Next
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}
   %section{"ng-class"=>"isActiveSection(7)"}
-    %form{"name"=>"planTrialPeriod", "novalidate"=>""}
+    %form{"name"=>"discountedTrialPeriodType", "novalidate"=>""}
       %header
         %h1
           Tell us about the type of discounted trial you would like to offer?
@@ -152,8 +152,8 @@
           Amount
         %input#discounted_trial_no{:autofocus => "", :name => "plan[discounted_trial_yes]", :required => "", :type => "radio", "ng-model"=>"plan.discounted_trial_type", "ng-value"=>"'percentage'"}
           Percentage
-        %span{"ng-show" => "form_submitted && planTrialPeriod['plan[discounted_trial]'].$invalid", :style => "color:red"}
-          %span{"ng-show" => "planTrialPeriod['plan[discounted_trial]'].$error.required"}
+        %span{"ng-show" => "form_submitted && discountedTrialPeriodType['plan[discounted_trial]'].$invalid", :style => "color:red"}
+          %span{"ng-show" => "discountedTrialPeriodType['plan[discounted_trial]'].$error.required"}
             Please tell us whether you would like to discount using a fixed amount off or a percentage.
       .group{"ng-show"=>"plan.discounted_trial_type == 'percentage'"}
         %label{:for => "percentage_off_amount"}
@@ -172,7 +172,7 @@
       %footer
         %button.previous{"ng-click"=>"goToPreviousSection()"}
           Back
-        %button.continue{"ng-click"=>"nextSection(planTrialPeriod)"}
+        %button.continue{"ng-click"=>"nextSection(discountedTrialPeriodType)"}
           Next
           %i.fa-arrow-right
       %div{"loading-screen" => "loading.show_spinner"}

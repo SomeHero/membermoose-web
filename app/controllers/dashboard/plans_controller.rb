@@ -44,7 +44,7 @@ class Dashboard::PlansController < DashboardController
         :terms_and_conditions => params["plan"]["terms_and_conditions"],
         :public => true
     }
-    if params["plan"]["discount_trial"]
+    if params["coupon"]
       coupon_options = {
         :coupon_type => params["coupon"]["coupon_type"],
         :discount_amount => params["coupon"]["discount_amount"]
