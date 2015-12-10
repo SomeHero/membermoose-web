@@ -146,7 +146,7 @@ class Account < ActiveRecord::Base
       stripe_payment_processor = self.bull.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
     end
 
-    return nil if !stripe_payment_processor
+    return nil if !stripe_payment_processor || stripe_payment_processor.count == 0
 
     return stripe_payment_processor.first.secret_token
   end
