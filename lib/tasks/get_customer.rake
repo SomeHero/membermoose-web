@@ -22,7 +22,7 @@ task :get_customers => [:environment] do
     puts "Found #{stripe_customers.count} customers"
 
     stripe_customers.each  do |stripe_customer|
-      puts "Found #{stripe_customers.email}"
+      puts "Found #{stripe_customer["email"]}"
       customer_stripe_id = stripe_customer["id"]
 
       calf = Account.find_by_stripe_customer_id(customer_stripe_id)
