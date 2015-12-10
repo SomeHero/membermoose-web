@@ -3,6 +3,20 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 $selected-plan-border-color: #55acee;
 
+.btn-circle {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 36px;
+  line-height: 1.24;
+  border-radius: 30px;
+}
+#create-plan {
+  position: absolute;
+  top: 65px;
+  right: 160px;
+}
 .plan {
   background-color: white;
   min-height: 240px;

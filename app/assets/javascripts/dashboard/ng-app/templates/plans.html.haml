@@ -5,33 +5,12 @@
       PLANS
     %h6
       Your recurring subsciption plans your members subscribe to.
+    %button#create-plan.btn.btn-default.btn-circle{"ui-sref"=>"dashboard.plans.create"}
+      %i.fa.fa-plus
 %div{:style=>"margin: 40px 0px;"}
   .container-fluid
     .row{:style=>"margin-bottom: 20px;"}
-      .col-md-3
-        .plan.thumbnail{"ui-sref"=>"dashboard.plans.create", :style=>"position: relative;"}
-          .plan-image
-            .overlay
-              .view-project{:style=>"height: 100px; line-height: 100px; margin-top: 10px;"}
-                %i.fa.fa-plus{:style=>"font-size: 72px; line-height: 100px;"}
-          .plan-info
-            %h2.plan-name{:style=>"margin-top: 0px;"}
-              Create Plan
-      .col-md-3{"ng-repeat"=>"plan in plans_first_row"}
-        .plan.thumbnail{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
-          .plan-image{:style=>"height:70px;"}
-            .overlay
-              %div.view-project
-                %a{"ng-href"=>"/plans/{{plan.id}}"}
-          .plan-info
-            %h2.plan-name
-              {{plan.name}}
-            %h3.plan-amount
-              {{plan.amount | currency }}/{{ plan.billingCycle }}
-            %h6.subscriber-count
-              {{plan.subscriberCount}} members
-    .row{"ng-repeat"=>"row in rows", :style=>"margin-bottom: 20px;"}
-      .col-md-3{"ng-repeat"=>"plan in row"}
+      .col-md-4{"ng-repeat"=>"plan in plans"}
         .plan.thumbnail{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
           .plan-image{:style=>"height:70px;"}
             .overlay

@@ -23,7 +23,7 @@
       $scope.row_plans = []
       $scope.edit_panel_open = false
 
-      $scope.plans_per_row = 4
+      $scope.plans_per_row = 3
       $scope.billing_cycles = [
         'day',
         'week',
@@ -67,8 +67,6 @@
         $scope.plans = result.data
         $scope.totalItems = result.originalData.total_items
         $scope.isLoading = false
-
-        sortPlans()
 
     $scope.editPlan = (plan) ->
       $scope.edit_panel_open = true
@@ -155,8 +153,7 @@
     $scope.closeEditBar = () ->
       $scope.edit_panel_open = false
 
-      $scope.plans_per_row = 4
-      sortPlans()
+      $scope.plans_per_row = 3
 
     $scope.setSelectedPlan = (plan) ->
       if(plan == $scope.plan)
