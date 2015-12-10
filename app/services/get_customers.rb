@@ -1,6 +1,8 @@
 class GetCustomers
   def self.call(options={}, stripe_secret_key)
 
+    puts "Getting Customers using Stripe Secret Key #{stripe_secret_key}"
+
     all_customers = []
     begin
       Stripe.api_key =  stripe_secret_key
@@ -19,6 +21,8 @@ class GetCustomers
         end
       end
     rescue Stripe::StripeError => e
+      return false, "Stripe Error:#{e.message}"
+    rescue => e
       return false, e.message
     end
 
