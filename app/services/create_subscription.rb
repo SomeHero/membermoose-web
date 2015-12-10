@@ -12,6 +12,12 @@ class CreateSubscription
 
     card = account.cards.where(:external_id => stripe_card_id).first
 
+    stripe_coupon_id = nil
+
+    if plan.subscription_discount_coupon
+      stripe_coupon_id = plan.subscription_discount_coupon.coupon.external_id
+    end
+
     begin
       Stripe.api_key =  stripe_secret_key
 
@@ -21,6 +27,7 @@ class CreateSubscription
           source: token,
           email: account.user.email,
           plan: plan.stripe_id,
+          coupon: stripe_coupon_id,
         )
         account.stripe_customer_id = customer.id
         account.save!
@@ -50,7 +57,8 @@ class CreateSubscription
         customer = Stripe::Customer.retrieve(account.stripe_customer_id)
         stripe_card =customer.sources.create({:source => token})
         stripe_sub = customer.subscriptions.create(
-          plan: plan.stripe_id
+          plan: plan.stripe_id,
+          coupon: stripe_coupon_id,
         )
 
         subscription = Subscription.new(

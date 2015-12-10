@@ -28,6 +28,8 @@
               {{plan.name}}
             %h3.plan-amount
               {{plan.amount | currency }}/{{ plan.billingCycle }}
+            %h6.subscriber-count
+              {{plan.subscriberCount}} members
     .row{"ng-repeat"=>"row in rows", :style=>"margin-bottom: 20px;"}
       .col-md-3{"ng-repeat"=>"plan in row"}
         .plan.thumbnail{"ng-click"=>"editPlan(plan)", "ng-class"=>"setSelectedPlan(plan)"}
@@ -40,6 +42,8 @@
               {{plan.name}}
             %h3.plan-amount
               {{plan.amount | currency }}/{{ plan.billingCycle }}
+            %h6.subscriber-count
+              {{plan.subscriberCount}} members
 .edit-bar.animate-show{"ng-show"=>"edit_panel_open"}
   .edit-controls
     %ul.list-inline.pull-right{:style=>"list-style-type: none;"}

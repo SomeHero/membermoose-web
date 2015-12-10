@@ -43,6 +43,32 @@ module UserNotification
 
         result = ElasticEmailApi.send_email(user.email, subject, template_name, from_address, from_name, merge_fields)
 
+      when UserNotification::Notification::BULL_HOLD_SUBSCRIPTION
+        user = params_hash[:user]
+
+        template_name = params_hash[:template_name] || "Bull Hold Subscription"
+        #subject = ""
+        from_address = params_hash[:from_address] || Settings.default_from
+        from_name = params_hash[:from_name]|| Settings.default_from_name
+        subject = params_hash[:subject] ||  "A Subscription was put on Hold"
+
+        merge_fields = params_hash[:merge_fields]
+
+        result = ElasticEmailApi.send_email(user.email, subject, template_name, from_address, from_name, merge_fields)
+
+      when UserNotification::Notification::CALF_HOLD_SUBSCRIPTION
+        user = params_hash[:user]
+
+        template_name = params_hash[:template_name] || "Calf Hold Subscription"
+        #subject = ""
+        from_address = params_hash[:from_address] || Settings.default_from
+        from_name = params_hash[:from_name]|| Settings.default_from_name
+        subject = params_hash[:subject] ||  "Your Subscription was put on Hold"
+
+        merge_fields = params_hash[:merge_fields]
+
+        result = ElasticEmailApi.send_email(user.email, subject, template_name, from_address, from_name, merge_fields)
+
       when UserNotification::Notification::USER_WELCOME
         user = params_hash[:user]
 

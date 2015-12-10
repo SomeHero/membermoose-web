@@ -5,6 +5,9 @@
   %li{"ng-show"=>"selected_subscription.status == 'subscribed'"}
     %a{"ui-sref"=>"dashboard.subscriptions.unsubscribe({subscription: {{selected_subscription}}})"}
       Cancel Subscription
-  %li
-    %a
-      Credit Subscription
+  %li{"ng-show"=>"selected_subscription.status == 'subscribed'"}
+    %a{"ui-sref"=>"dashboard.subscriptions.hold({subscription: {{selected_subscription}}})"}
+      Hold Subscription
+  %li{"ng-show"=>"selected_subscription.status == 'hold'"}
+    %a{"ui-sref"=>"dashboard.subscriptions.unhold({subscription: {{selected_subscription}}})"}
+      Un-Hold Subscription
