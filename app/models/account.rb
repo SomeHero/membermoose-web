@@ -138,7 +138,7 @@ class Account < ActiveRecord::Base
   end
 
   def stripe_secret_key
-    if self.bull
+    if self.role == Account.roles[:bull]
       stripe_payment_processor = PaymentProcessor.where(:name => "Stripe").first
       stripe_payment_processor = self.account_payment_processors.where(:payment_processor => stripe_payment_processor).active
     else

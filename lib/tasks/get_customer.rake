@@ -4,6 +4,8 @@ task :get_customers => [:environment] do
   puts "Found #{accounts.count} accounts"
 
   accounts.each do |account|
+    puts "Found #{account.company_name}"
+
     next if !account.stripe_secret_key
 
     results = GetCustomers.call({}, account.stripe_secret_key)
