@@ -3,8 +3,7 @@ task :fix_payment_data=> [:environment] do
   accounts = Account.where(:role => Account.roles[:bull])
   puts "Found #{accounts.count} account"
 
-  account = Account.find(233)
-  #accounts.each do |account|
+  accounts.each do |account|
     puts "Found #{account.plans.count} Plans"
     account.plans.each do |plan|
       puts "Starting account #{account.company_name}"
@@ -147,5 +146,5 @@ task :fix_payment_data=> [:environment] do
         end
       end
     end
-  #end
+  end
 end
