@@ -9,6 +9,7 @@ class Dashboard::Users::PasswordsController < Devise::PasswordsController
 
    def update
        super do |resource|
+         puts resource
          session["account_id"] = resource.account.id
        end
    end
