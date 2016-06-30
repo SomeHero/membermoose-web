@@ -1,4 +1,7 @@
 class Dashboard::Users::PasswordsController < Devise::PasswordsController
+  def after_database_authentication
+    puts self
+  end
    def create
      super
    end
@@ -9,8 +12,9 @@ class Dashboard::Users::PasswordsController < Devise::PasswordsController
 
    def update
        super do |resource|
-         puts resource
-         session["account_id"] = resource.account.id
+         account = resource.accounts[0]
+
+         session["account_id"] = account.id if(account)
        end
    end
    def edit
