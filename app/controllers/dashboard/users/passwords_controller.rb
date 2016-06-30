@@ -1,8 +1,6 @@
 class Dashboard::Users::PasswordsController < Devise::PasswordsController
    def create
-     super do |resource|
-       session["account_id"] = resource.account.id
-     end
+     super
    end
 
    def new
@@ -10,7 +8,9 @@ class Dashboard::Users::PasswordsController < Devise::PasswordsController
    end
 
    def update
-       super
+       super do |resource|
+         session["account_id"] = resource.account.id
+       end
    end
    def edit
        super
