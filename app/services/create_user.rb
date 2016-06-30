@@ -15,7 +15,7 @@ class CreateUser
     #password = SecureRandom.hex(32)
 
     if !user
-      user = User.create!({
+      user = User.create({
         email: email_address,
         password: password,
         password_confirmation: password,
@@ -24,7 +24,7 @@ class CreateUser
       })
     end
 
-    account = Account.create!({
+    account = Account.create({
       :user => user,
       :first_name => first_name,
       :last_name => last_name,
