@@ -7,7 +7,12 @@ class Dashboard::Users::RegistrationsController < Devise::RegistrationsControlle
   end
 
   def create
-    # add custom create logic here
+    bull = Account.where("LOWER(subdomain) = ?", request.subdomain).first
+
+    if(!bull)
+      bull = Account.find_by_id(1)
+    end
+
     @account = Account.new({
       :user => User.new({
         :email => params["user"]["email"],
@@ -16,7 +21,8 @@ class Dashboard::Users::RegistrationsController < Devise::RegistrationsControlle
       :first_name => params["first_name"],
       :last_name => params["last_name"],
       :company_name => params["company_name"],
-      :role => Account.roles[:bull]
+      :role => Account.roles[:bull],
+      :bull => bull
     })
 
     if @account.save

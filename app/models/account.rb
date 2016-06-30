@@ -86,6 +86,7 @@ class Account < ActiveRecord::Base
   end
 
   def as_json(options={})
+
     protocol = "http://"
     domain_suffix = "mmoose-ng.localhost:3000"
 
