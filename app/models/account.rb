@@ -14,8 +14,10 @@ class Account < ActiveRecord::Base
 
   accepts_nested_attributes_for :user, :update_only => true
 
-  validates :user, :presence => true
   validates :bull, :presence => true
+  validates :first_name, :presence => true
+  validates :last_name, :company_name, :presence => true
+
   validates_attachment :logo, content_type: { content_type: /\Aimage\/.*\Z/ }
 
   DISALLOWED_SUBDOMAINS = %w(admin www app signup sign-up sign_up administration membermoose-ng)

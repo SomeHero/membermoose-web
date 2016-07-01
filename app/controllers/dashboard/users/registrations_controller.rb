@@ -12,32 +12,34 @@ class Dashboard::Users::RegistrationsController < Devise::RegistrationsControlle
     if(!bull)
       bull = Account.find_by_id(1)
     end
-    build_resource(sign_up_params)
 
-    email_address = params["user"]["email"]
-    password = params["user"]["password"]
-    first_name = params["first_name"]
-    last_name = params["last_name"]
-    email = params["company_name"]
-
-    @account, raw_token = CreateUser.call(first_name, last_name, email_address, password, bull)
+    resource = build_resource(sign_up_params)
+    resource.account = resource.build_account(sign_up_params["account"])
+    resource.account.bull = bull
 
     begin
-      @account.save
+      resource.save
     rescue => e
-      @account.errors[:base] << e.message
+      resource.errors[:base] << e.message
     end
 
-    if @account.save
-      sign_in @account.user
+    if resource.errors.count == 0
+      sign_in resource
 
       redirect_to dashboard_upload_logo_index_url
     else
-      respond_with @account.user
+      respond_with(resource, location: new_user_registration_path)
     end
   end
 
   def update
     super
   end
+
+  private
+
+  def sign_up_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :account => [:first_name, :last_name, :company_name])
+  end
+
 end

@@ -7,7 +7,10 @@ class User < ActiveRecord::Base
 
   has_many :accounts
   attr_accessor :account
+  has_one :account
+  accepts_nested_attributes_for :account
   #accepts_nested_attributes_for :account, :update_only => true
+  #validates_associated :account
 
   def as_json(options={})
   {

@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  devise_scope :user do
+    post "/users/sign_up" => "dashboard/users/registrations#create", as: "new_user_registration" 
+  end
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks",
         :registrations => "dashboard/users/registrations",
         :sessions => "dashboard/users/sessions",
