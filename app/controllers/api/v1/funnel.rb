@@ -24,6 +24,7 @@ module API
             last_name = name_parts[1]
           else
             first_name = params["personal_name"]
+            last_name = ""
           end
 
           account = Account.create!({
