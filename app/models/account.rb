@@ -16,7 +16,6 @@ class Account < ActiveRecord::Base
 
   validates :bull, :presence => true
   validates :first_name, :presence => true
-  validates :last_name, :company_name, :presence => true
 
   validates_attachment :logo, content_type: { content_type: /\Aimage\/.*\Z/ }
 
